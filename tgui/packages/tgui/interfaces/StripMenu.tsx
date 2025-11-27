@@ -392,7 +392,7 @@ export const StripMenu = (props) => {
                               position: 'absolute',
                               bottom: 0,
                               right: 0,
-                              'z-index': 2,
+                              zIndex: 2,
                             }}
                           >
                             <Icon name={alternateAction.icon} />

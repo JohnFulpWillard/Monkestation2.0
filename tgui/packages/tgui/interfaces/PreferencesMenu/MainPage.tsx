@@ -166,7 +166,7 @@ const ChoicedSelection = (props: {
                   style={{
                     'border-bottom': '1px solid #888',
                     'font-weight': 'bold',
-                    'font-size': '14px',
+                    fontSize: '14px',
                     'text-align': 'center',
                   }}
                 >
@@ -265,7 +265,7 @@ const ChoicedSelection = (props: {
                       style={{
                         'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
                         'font-weight': 'bold',
-                        'font-size': '14px',
+                        fontSize: '14px',
                         'text-align': 'center',
                       }}
                     >

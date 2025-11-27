@@ -64,7 +64,7 @@ export const JobEntry: Inferno.SFC<{
         color: job.unavailable_reason
           ? '#616161' // Dark grey font
           : Color.fromHex(department.color).darken(90).toString(),
-        'font-size': '1.1rem',
+        fontSize: '1.1rem',
         cursor: job.unavailable_reason ? 'initial' : 'pointer',
       }}
       tooltip={
@@ -153,7 +153,7 @@ export const JobSelection = (props) => {
                         {departmentName}
                         <span
                           style={{
-                            'font-size': '1rem',
+                            fontSize: '1rem',
                             'white-space': 'nowrap',
                             position: 'absolute',
                             right: '1em',

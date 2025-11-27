@@ -80,7 +80,7 @@ export const ElevatorPanel = (props) => {
                     <Button
                       style={{
                         'font-weight': 'bold',
-                        'font-size': '14px',
+                        fontSize: '14px',
                       }}
                       fluid
                       ellipsis
@@ -195,7 +195,7 @@ const FloorPanel = (props) => {
           textColor="white"
           style={{
             'font-family': 'Monospace',
-            'font-size': '50px',
+            fontSize: '50px',
             'font-weight': 'bold',
           }}
         >

@@ -319,7 +319,7 @@ export const DesignBrowser = <T extends Design = Design>(
             {!!busy && (
               <Dimmer
                 style={{
-                  'font-size': '2em',
+                  fontSize: '2em',
                   'text-align': 'center',
                 }}
               >

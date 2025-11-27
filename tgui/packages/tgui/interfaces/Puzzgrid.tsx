@@ -110,7 +110,7 @@ export const Puzzgrid = (props) => {
             color="red"
             style={{
               'text-shadow': '1px 1px 1px #222',
-              'font-size': '30px',
+              fontSize: '30px',
               position: 'absolute',
               top: 0,
               left: '10px',
@@ -127,8 +127,8 @@ export const Puzzgrid = (props) => {
             style={{
               'text-shadow': '1px 1px 1px #222',
               'text-align': 'right',
-              'font-size': '15px',
-              'pointer-events': 'none',
+              fontSize: '15px',
+              pointerEvents: 'none',
               position: 'absolute',
               top: 0,
               right: '10px',

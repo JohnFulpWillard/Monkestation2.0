@@ -62,7 +62,7 @@ export const MixtapeSpawner = (props) => {
                     Character: {selected_cassette.creator_name}
                   </Stack.Item>
                   <Stack.Item>
-                    <span style={{ 'text-decoration': 'underline' }}>
+                    <span style={{ textDecoration: 'underline' }}>
                       Side 1:
                     </span>
                   </Stack.Item>
@@ -70,7 +70,7 @@ export const MixtapeSpawner = (props) => {
                     <Stack.Item key={songs}>{songs}</Stack.Item>
                   ))}
                   <Stack.Item>
-                    <span style={{ 'text-decoration': 'underline' }}>
+                    <span style={{ textDecoration: 'underline' }}>
                       Side 2:
                     </span>
                   </Stack.Item>

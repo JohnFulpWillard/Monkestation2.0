@@ -4,12 +4,25 @@
  * @license MIT
  */
 
-import { shallowDiffers } from 'common/react';
 import { Component, createRef } from 'react';
-import { Button } from 'tgui/components';
+import { Button } from 'tgui-core/components';
+import { shallowDiffers } from 'tgui-core/react';
+
 import { chatRenderer } from './renderer';
 
-export class ChatPanel extends Component {
+type Props = {
+  fontSize?: string;
+  lineHeight: string;
+};
+
+type State = {
+  scrollTracking: boolean;
+};
+
+export class ChatPanel extends Component<Props, State> {
+  ref: React.RefObject<HTMLDivElement | null>;
+  handleScrollTrackingChange: (value: boolean) => void;
+
   constructor(props) {
     super(props);
     this.ref = createRef();
@@ -26,15 +39,15 @@ export class ChatPanel extends Component {
     chatRenderer.mount(this.ref.current);
     chatRenderer.events.on(
       'scrollTrackingChanged',
-      this.handleScrollTrackingChange
+      this.handleScrollTrackingChange,
     );
-    this.componentDidUpdate();
+    this.componentDidUpdate(null);
   }
 
   componentWillUnmount() {
     chatRenderer.events.off(
       'scrollTrackingChanged',
-      this.handleScrollTrackingChange
+      this.handleScrollTrackingChange,
     );
   }
 
@@ -63,7 +76,8 @@ export class ChatPanel extends Component {
           <Button
             className="Chat__scrollButton"
             icon="arrow-down"
-            onClick={() => chatRenderer.scrollToBottom()}>
+            onClick={() => chatRenderer.scrollToBottom()}
+          >
             Scroll to bottom
           </Button>
         )}

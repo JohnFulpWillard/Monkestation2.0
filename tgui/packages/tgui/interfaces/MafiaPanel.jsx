@@ -154,8 +154,8 @@ const MafiaRole = (props) => {
         <Box
           style={{
             'font-family': 'Consolas, monospace',
-            'font-size': '14px',
-            'line-height': 1.5,
+            fontSize: '14px',
+            lineHeight: 1.5,
             'font-weight': 'bold',
           }}
         >

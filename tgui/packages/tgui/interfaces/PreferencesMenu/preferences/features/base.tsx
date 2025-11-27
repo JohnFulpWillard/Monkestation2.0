@@ -286,7 +286,7 @@ export const FeatureIconnedDropdownInput = (
               />
             </Stack.Item>
 
-            <Stack.Item grow style={{ 'line-height': '32px' }}>
+            <Stack.Item grow style={{ lineHeight: '32px' }}>
               {element}
             </Stack.Item>
           </Stack>
@@ -477,7 +477,7 @@ export const StandardizedPalette = (props: {
       <Flex.Item
         shrink
         style={{
-          'border-radius': '0.16em',
+          borderRadius: '0.16em',
           'max-width': maxWidth,
           'padding-bottom': '-5px',
         }}
@@ -556,7 +556,7 @@ export const StandardizedPalette = (props: {
                   tooltip="Choose Custom"
                   tooltipPosition="bottom"
                   height="20px"
-                  style={{ 'border-radius': '0' }}
+                  style={{ borderRadius: '0' }}
                   icon="plus"
                   color="good"
                   onClick={() => {

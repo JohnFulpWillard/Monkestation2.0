@@ -144,13 +144,13 @@ const styleMapperByPropName = {
   height: mapUnitPropTo('height', unit),
   minHeight: mapUnitPropTo('min-height', unit),
   maxHeight: mapUnitPropTo('max-height', unit),
-  fontSize: mapUnitPropTo('font-size', unit),
+  fontSize: mapUnitPropTo(fontSize, unit),
   fontFamily: mapRawPropTo('font-family'),
   lineHeight: (style, value) => {
     if (typeof value === 'number') {
-      style['line-height'] = value;
+      style['lineHeight'] = value;
     } else if (typeof value === 'string') {
-      style['line-height'] = unit(value);
+      style['lineHeight'] = unit(value);
     }
   },
   opacity: mapRawPropTo('opacity'),

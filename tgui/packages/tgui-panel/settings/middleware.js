@@ -23,8 +23,8 @@ let setStatFontTimer;
 let statTabsTimer;
 
 const setGlobalFontSize = (fontSize, statFontSize, statLinked) => {
-  document.documentElement.style.setProperty('font-size', fontSize + 'px');
-  document.body.style.setProperty('font-size', fontSize + 'px');
+  document.documentElement.style.setProperty(fontSize, fontSize + 'px');
+  document.body.style.setProperty(fontSize, fontSize + 'px');
 
   // Used solution from theme.ts
   clearInterval(setStatFontTimer);

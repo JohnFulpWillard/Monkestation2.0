@@ -28,7 +28,7 @@ const PartiallyUnderlined = (props: PartiallyUnderlinedProps) => {
   return (
     <>
       {start}
-      <span style={{ 'text-decoration': 'underline' }}>{underlined}</span>
+      <span style={{ textDecoration: 'underline' }}>{underlined}</span>
       {end}
     </>
   );

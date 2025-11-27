@@ -252,7 +252,7 @@ export const Stamp = (props): Inferno.HTMLAttributes<HTMLDivElement> => {
     top: y + yOffset + 'px',
     transform: 'rotate(' + rotation + 'deg)',
     opacity: opacity || 1.0,
-    'z-index': activeStamp ? Z_INDEX_STAMP_PREVIEW : Z_INDEX_STAMP,
+    zIndex: activeStamp ? Z_INDEX_STAMP_PREVIEW : Z_INDEX_STAMP,
   };
 
   return (

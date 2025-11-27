@@ -274,7 +274,7 @@ export class ObjectiveMenu extends Component<
             left={`${objectiveX - 180}px`}
             top={`${objectiveY}px`}
             style={{
-              'pointer-events': 'none',
+              pointerEvents: 'none',
             }}
           >
             {ObjectiveFunction(draggingObjective, false)}
@@ -528,7 +528,7 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
                     inline
                     className={dangerLevel.gradient}
                     style={{
-                      'border-radius': '0',
+                      borderRadius: '0',
                       border: '2px solid rgba(0, 0, 0, 0.5)',
                       'border-left': 'none',
                       'border-right': 'none',

@@ -150,7 +150,7 @@ export const TraitorObjectiveDebug = (props) => {
           backgroundColor="green"
           height="5px"
           style={{
-            'z-index': 5,
+            zIndex: 5,
           }}
         />
         <Box
@@ -158,7 +158,7 @@ export const TraitorObjectiveDebug = (props) => {
           top={0}
           left={1}
           style={{
-            'z-index': 5,
+            zIndex: 5,
           }}
         >
           {/* Time in minutes of this threshold */}

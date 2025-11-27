@@ -130,7 +130,7 @@ export const Machining = (props, context) => {
       {busy ? (
         <Dimmer
           style={{
-            'font-size': '2em',
+            fontSize: '2em',
             'text-align': 'center',
           }}
         >

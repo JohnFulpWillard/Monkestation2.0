@@ -615,7 +615,7 @@ const PodStatusPage = (props) => {
                           'margin-left': j !== 0 ? '1px' : '0px',
                           'margin-right':
                             j !== list.list.length - 1 ? '1px' : '0px',
-                          'border-radius': '5px',
+                          borderRadius: '5px',
                         }}
                       />
                     )}
@@ -1020,7 +1020,7 @@ const StylePage = (props) => {
           style={{
             'vertical-align': 'middle',
             'margin-right': '5px',
-            'border-radius': '20px',
+            borderRadius: '20px',
           }}
           selected={data.styleChoice - 1 === i}
           onClick={() => act('setStyle', { style: i })}
@@ -1029,7 +1029,7 @@ const StylePage = (props) => {
             className={classes(['supplypods64x64', 'pod_asset' + (i + 1)])}
             style={{
               transform: 'rotate(45deg) translate(-25%,-10%)',
-              'pointer-events': 'none',
+              pointerEvents: 'none',
             }}
           />
         </Button>

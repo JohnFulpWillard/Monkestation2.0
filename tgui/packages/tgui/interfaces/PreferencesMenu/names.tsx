@@ -177,7 +177,7 @@ export const NameInput = (props: {
           <Icon
             style={{
               color: 'rgba(255, 255, 255, 0.5)',
-              'font-size': '17px',
+              fontSize: '17px',
             }}
             name="edit"
           />
