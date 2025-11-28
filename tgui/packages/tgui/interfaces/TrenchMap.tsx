@@ -149,7 +149,7 @@ const HotspotRender = (_props) => {
                 : 'rgba(255, 0, 0, 0.8)'
             }`,
             marginLeft: `-${hotspot.radius * 2}px`,
-            'margin-bottom': `-${hotspot.radius * 2}px`,
+            marginBottom: `-${hotspot.radius * 2}px`,
             position: 'absolute',
           }}
         />
@@ -179,7 +179,7 @@ const YouAreHere = (_props) => {
           height: `${RADIUS * 4 + 2}px`,
           background: 'rgb(0, 136, 0)',
           marginLeft: `-${RADIUS * 2}px`,
-          'margin-bottom': `-${RADIUS * 2}px`,
+          marginBottom: `-${RADIUS * 2}px`,
           position: 'absolute',
         }}
       />

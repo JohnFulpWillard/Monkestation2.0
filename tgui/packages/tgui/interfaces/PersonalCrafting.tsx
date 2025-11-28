@@ -602,7 +602,7 @@ const MaterialContent = (props) => {
           'text-transform': 'capitalize',
           overflow: 'hidden',
           'text-overflow': 'ellipsis',
-          'white-space': 'nowrap',
+          whiteSpace: 'nowrap',
         }}
       >
         {name}

@@ -41,12 +41,12 @@ type Data = {
   notices: LobbyNoticesType;
 };
 
-export const JobEntry: Inferno.SFC<{
+export const JobEntry = (data: {
   jobName: string;
   job: Job;
   department: Department;
   onClick: () => void;
-}> = (data) => {
+}) => {
   const jobName = data.jobName;
   const job = data.job;
   const department = data.department;
@@ -89,7 +89,7 @@ export const JobEntry: Inferno.SFC<{
         {job.command ? <b>{jobName}</b> : jobName}
         <span
           style={{
-            'white-space': 'nowrap',
+            whiteSpace: 'nowrap',
             position: 'absolute',
             right: '0.5em',
           }}
@@ -114,12 +114,7 @@ export const JobSelection = (props) => {
   return (
     <Window
       width={1012}
-      height={data.shuttle_status ? 690 : 666 /* Hahahahahaha */}
-      onComponentDidMount={() => {
-        // Send a heartbeat back to DM to let it know the window is alive and well
-        act('ui_mounted_with_no_bluescreen');
-      }}
-    >
+      height={data.shuttle_status ? 690 : 666 /* Hahahahahaha */}>
       <Window.Content scrollable>
         <LobbyNotices notices={data.notices} />
         <StyleableSection
@@ -139,7 +134,7 @@ export const JobSelection = (props) => {
               />
             </>
           }
-          titleStyle={{ 'min-height': '3.4em' }}
+          titleStyle={{ minHeight: '3.4em' }}
         >
           <Box wrap="wrap" style={{ columns: '20em' }}>
             {Object.entries(departments).map((departmentEntry) => {
@@ -154,7 +149,7 @@ export const JobSelection = (props) => {
                         <span
                           style={{
                             fontSize: '1rem',
-                            'white-space': 'nowrap',
+                            whiteSpace: 'nowrap',
                             position: 'absolute',
                             right: '1em',
                             color: Color.fromHex(entry.color)
@@ -170,8 +165,8 @@ export const JobSelection = (props) => {
                     }
                     style={{
                       backgroundColor: entry.color,
-                      'margin-bottom': '1em',
-                      'break-inside': 'avoid-column',
+                      marginBottom: '1em',
+                      breakInside: 'avoid-column',
                     }}
                     titleStyle={{
                       'border-bottom-color': Color.fromHex(entry.color)

@@ -79,7 +79,7 @@ export class ServerPreferencesFetcher extends Component<
           textAlign="left"
           fontSize="12px"
           textColor="white"
-          style={{ 'white-space': 'pre-wrap' }}
+          style={{ whiteSpace: 'pre-wrap' }}
         >
           Error Details:{'\n'}
           {typeof lastError === 'object' &&

@@ -388,7 +388,7 @@ const Authorization = (props, context) => {
   const emagged = data.emagged;
 
   return (
-    <Section width="420px" style={{ 'white-space': 'pre-wrap' }}>
+    <Section width="420px" style={{ whiteSpace: 'pre-wrap' }}>
       <b>
         {'User: '}
         <span

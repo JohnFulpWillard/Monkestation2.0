@@ -36,7 +36,7 @@ const PuzzgridButton: Inferno.SFC<{
 
         textAlign: 'center',
         verticalAlign: 'middle',
-        'white-space': 'normal',
+        whiteSpace: 'normal',
       }}
       {...props}
     >
