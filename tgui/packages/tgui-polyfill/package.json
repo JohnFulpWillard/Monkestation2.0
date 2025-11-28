@@ -11,6 +11,8 @@
 		"unfetch": "^5.0.0"
 	},
 	"devDependencies": {
+		"@types/react": "^19.1.5",
+		"@types/react-dom": "^19.1.5",
 		"terser": "^5.39.0"
 	}
 }
