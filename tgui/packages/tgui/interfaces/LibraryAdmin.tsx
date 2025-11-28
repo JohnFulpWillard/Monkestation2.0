@@ -1,4 +1,5 @@
-import { map, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { capitalize } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';

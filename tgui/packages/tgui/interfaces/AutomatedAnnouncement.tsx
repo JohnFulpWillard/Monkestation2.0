@@ -1,10 +1,9 @@
 import { BooleanLike } from 'tgui-core/react';
-import { multiline } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import { Button, Input, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
-const TOOLTIP_TEXT = multiline`
+const TOOLTIP_TEXT = `
   %PERSON will be replaced with their name.
   %RANK with their job.
 `;

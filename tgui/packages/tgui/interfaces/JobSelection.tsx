@@ -8,8 +8,7 @@ import {
   NoticeBox,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { Color } from 'common/color';
-import { Inferno } from 'react';
+import { Color } from 'tgui-core/color';
 import { JOB2ICON } from './common/JobToIcon';
 import { toMerged } from 'es-toolkit';
 import { BooleanLike } from 'tgui-core/react';
@@ -41,22 +40,22 @@ type Data = {
   notices: LobbyNoticesType;
 };
 
-export const JobEntry: Inferno.SFC<{
+type JobEntryProps = {
   jobName: string;
   job: Job;
   department: Department;
   onClick: () => void;
-}> = (data) => {
-  const jobName = data.jobName;
-  const job = data.job;
-  const department = data.department;
+};
+
+function JobEntry(props: JobEntryProps) {
+  const { jobName, job, department, onClick } = props;
   const jobIcon = JOB2ICON[jobName] || null;
   return (
     <Button
       fluid
       style={{
         // Try not to think too hard about this one.
-        'background-color': job.unavailable_reason
+        backgroundColor: job.unavailable_reason
           ? '#949494' // Grey background
           : job.prioritized
             ? '#16fc0f' // Bright green background
@@ -64,14 +63,14 @@ export const JobEntry: Inferno.SFC<{
         color: job.unavailable_reason
           ? '#616161' // Dark grey font
           : Color.fromHex(department.color).darken(90).toString(),
-        'font-size': '1.1rem',
+        fontSize: '1.1rem',
         cursor: job.unavailable_reason ? 'initial' : 'pointer',
       }}
       tooltip={
         job.unavailable_reason ||
         (job.prioritized ? (
           <>
-            <p style={{ 'margin-top': '0px' }}>
+            <p style={{ marginTop: '0px' }}>
               <b>The HoP wants more people in this job!</b>
             </p>
             {job.description}
@@ -84,19 +83,17 @@ export const JobEntry: Inferno.SFC<{
         !job.unavailable_reason && data.onClick();
       }}
     >
-      <>
         {jobIcon && <Icon name={jobIcon} />}
         {job.command ? <b>{jobName}</b> : jobName}
         <span
           style={{
-            'white-space': 'nowrap',
+            whiteSpace: 'nowrap',
             position: 'absolute',
             right: '0.5em',
           }}
         >
           {job.used_slots} / {job.open_slots}
         </span>
-      </>
     </Button>
   );
 };

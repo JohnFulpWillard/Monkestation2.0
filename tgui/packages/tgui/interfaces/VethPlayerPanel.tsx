@@ -5,10 +5,8 @@ import {
   Section,
   Table,
   TextArea,
-  Grid,
   Stack,
 } from 'tgui-core/components';
-import { BoxProps } from '../components/Box';
 import { Window } from '../layouts';
 
 type PlayerData = {
@@ -20,6 +18,13 @@ type PlayerData = {
   last_ip?: string;
   ref: string;
 };
+
+type BoxProps = React.ComponentProps<typeof Box>;
+
+type Props = Partial<{
+  theme: string;
+}> &
+  BoxProps;
 
 const TextOrNA = (props: { text?: string } & BoxProps) => {
   const { text, ...rest } = props;
@@ -156,8 +161,8 @@ const PlayerRow = (props: { player: PlayerData }) => {
 const AdminHelpers = () => {
   return (
     <Section>
-      <Grid>
-        <Grid.Column>
+      <Stack>
+        <Stack.Item>
           <Button
             fluid
             content="Check Players"
@@ -168,8 +173,8 @@ const AdminHelpers = () => {
             content="Game Panel"
             onClick={() => handleAction('gamePanel')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             fluid
             content="Old PP"
@@ -185,8 +190,8 @@ const AdminHelpers = () => {
             content="Combo HUD"
             onClick={() => handleAction('comboHUD')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             fluid
             content="Fax Panel"
@@ -202,8 +207,8 @@ const AdminHelpers = () => {
             content="Generate Code"
             onClick={() => handleAction('generateCode')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             fluid
             content="View Opfors"
@@ -219,8 +224,8 @@ const AdminHelpers = () => {
             content="Toggle Admin AI Interact"
             onClick={() => handleAction('adminaiinteract')}
           />
-        </Grid.Column>
-      </Grid>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

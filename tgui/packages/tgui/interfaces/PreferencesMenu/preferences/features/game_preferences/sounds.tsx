@@ -1,4 +1,3 @@
-import { multiline } from 'tgui-core/string';
 import {
   CheckboxInput,
   FeatureChoiced,
@@ -71,7 +70,7 @@ export const sound_ship_ambience: FeatureToggle = {
 export const sound_achievement: FeatureChoiced = {
   name: 'Achievement unlock sound',
   category: 'SOUND',
-  description: multiline`
+  description: `
     The sound that's played when unlocking an achievement.
     If disabled, no sound will be played.
   `,

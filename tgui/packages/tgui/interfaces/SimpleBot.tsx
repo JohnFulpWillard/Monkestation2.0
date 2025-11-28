@@ -1,4 +1,4 @@
-import { capitalizeAll, multiline } from 'tgui-core/string';
+import { capitalizeAll } from 'tgui-core/string';
 import { useBackend } from 'tgui/backend';
 import {
   Button,
@@ -265,7 +265,7 @@ const MedbotSync = (props) => {
 
   return (
     <Tooltip
-      content={multiline`Synchronize surgical data with research network.
+      content={`Synchronize surgical data with research network.
        Improves Tending Efficiency.`}
     >
       <Icon

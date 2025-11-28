@@ -15,7 +15,6 @@ import { Window } from '../layouts';
 // NTSLTextArea component start
 // This is literally just TextArea but without ENTER updating anything, for NTSL
 import { KEY_ESCAPE, KEY_TAB } from 'tgui-core/keycodes';
-import { toInputValue } from '../components/Input';
 
 class NTSLTextArea extends TextArea {
   constructor(props) {
@@ -32,10 +31,10 @@ class NTSLTextArea extends TextArea {
         }
         this.setEditing(false);
         if (this.props.selfClear) {
-          e.target.value = '';
+          e.target.setState('');
         } else {
-          e.target.value = toInputValue(this.props.value);
-          e.target.blur();
+          e.target.setState(this.props.value);
+          e.target.blur(e.target.value);
         }
         return;
       }

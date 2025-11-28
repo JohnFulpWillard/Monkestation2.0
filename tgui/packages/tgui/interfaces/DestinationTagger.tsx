@@ -1,5 +1,6 @@
 import { flow } from 'tgui-core/fp';
-import { map, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { Stack, Section, Button } from 'tgui-core/components';

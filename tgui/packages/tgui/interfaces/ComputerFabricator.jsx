@@ -1,4 +1,3 @@
-import { multiline } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import { Box, Button, Grid, Section, Table, Tooltip } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -92,7 +91,7 @@ const CfStep2 = (props) => {
         <Table.Row>
           <Table.Cell bold position="relative">
             <Tooltip
-              content={multiline`
+              content={`
                 Stores file on your device. Advanced drives can store more
                 files, but use more power, shortening battery life.
               `}

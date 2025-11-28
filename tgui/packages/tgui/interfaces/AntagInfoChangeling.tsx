@@ -1,5 +1,4 @@
 import { BooleanLike } from 'tgui-core/react';
-import { multiline } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import {
   Button,
@@ -229,7 +228,7 @@ const MemoriesSection = (props) => {
         <Button
           icon="info"
           tooltipPosition="left"
-          tooltip={multiline`
+          tooltip={`
             Absorbing targets allows
             you to collect their memories. They should
             help you impersonate your target!

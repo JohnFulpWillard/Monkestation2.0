@@ -1,5 +1,4 @@
 import { BooleanLike } from 'tgui-core/react';
-import { multiline } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Button, Dropdown, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -69,7 +68,7 @@ export const SparringContract = (props) => {
                     </Stack.Item>
                     <Stack.Item>
                       <Button
-                        tooltip={multiline`
+                        tooltip={`
                         The Chaplain's Deity wishes for honorable fighting.
                         As such, it uses contracts. Signing your name will
                         set the terms for the battle. Then, the person you
@@ -195,7 +194,7 @@ export const SparringContract = (props) => {
                     FIGHT!
                   </Button>
                   <Button
-                    tooltip={multiline`
+                    tooltip={`
                       If you've already signed but you want to renegotiate
                       the terms, you can clear out the signatures with
                       this button.

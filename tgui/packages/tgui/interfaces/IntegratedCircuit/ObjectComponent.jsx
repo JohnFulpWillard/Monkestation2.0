@@ -1,6 +1,6 @@
 import { Box, Stack, Button } from 'tgui-core/components';
 import { Component } from 'react';
-import { shallowDiffers } from '../../../common/react';
+import { shallowDiffers } from 'tgui-core/react';
 import { ABSOLUTE_Y_OFFSET, noop } from './constants';
 import { Port } from './Port';
 

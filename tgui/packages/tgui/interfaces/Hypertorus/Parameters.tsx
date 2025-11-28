@@ -1,6 +1,6 @@
 import { Flex, LabeledControls, RoundGauge, Section } from 'tgui-core/components';
 
-import { formatSiUnit } from 'tgui/format';
+import { formatSiUnit } from 'tgui-core/format';
 import { toFixed } from 'tgui-core/math';
 import { useBackend } from 'tgui/backend';
 

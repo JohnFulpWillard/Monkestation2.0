@@ -1,8 +1,7 @@
 /* Monkestation edit :Revolution is currently disabled besides admin intervention
 import { Antagonist, Category } from '../base';
-import { multiline } from 'tgui-core/string';
 
-export const REVOLUTIONARY_MECHANICAL_DESCRIPTION = multiline`
+export const REVOLUTIONARY_MECHANICAL_DESCRIPTION = `
       Armed with a flash, convert as many people to the revolution as you can.
       Kill or exile all heads of staff on the station.
    `;

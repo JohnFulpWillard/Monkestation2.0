@@ -1,4 +1,5 @@
-import { map, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { toFixed } from 'tgui-core/math';
 import { pureComponentHooks } from 'tgui-core/react';

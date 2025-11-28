@@ -16,7 +16,7 @@ type ExosuitDesign = Design & {
 type ExosuitFabricatorData = FabricatorData & {
   processing: BooleanLike;
   authorization: BooleanLike;
-  alert_level: Number;
+  alert_level: number;
   combat_parts_allowed: BooleanLike;
   emagged: BooleanLike;
   silicon_user: BooleanLike;
@@ -388,13 +388,12 @@ const Authorization = (props, context) => {
   const emagged = data.emagged;
 
   return (
-    <Section width="420px" style={{ 'white-space': 'pre-wrap' }}>
+    <Section width="420px" style={{ whiteSpace: 'pre-wrap' }}>
       <b>
         {'User: '}
-        <span
-          style={!combat_parts_allowed ? 'color:#ff0000' : 'color:#00ff00'}
-          font-style:bold
-        >
+        <Box
+          color={!combat_parts_allowed ? 'bad' : 'good'}
+          bold>
           {!combat_parts_allowed
             ? 'Unauthorized'
             : !emagged
@@ -402,7 +401,7 @@ const Authorization = (props, context) => {
               : garbleText(
                   'ALERT: ROOTKIT_DEV_OVERRIDE RUNNING IN LIVE ENVIROMENT',
                 )}
-        </span>
+        </Box>
         <Tooltip
           content={
             'Designs marked in red are classified as combat-level designs. Gain access from a Command member or an elevated station threat level to print them. Blue alert loosens restrictions on non-lethal weapons.'

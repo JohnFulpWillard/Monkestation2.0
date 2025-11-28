@@ -3,7 +3,6 @@ import { Item } from './Uplink/GenericUplink';
 import { BlockQuote, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { MalfAiModules } from './common/MalfAiModules';
 import { BooleanLike } from 'tgui-core/react';
-import { multiline } from 'tgui-core/string';
 import { Window } from '../layouts';
 import {
   ObjectivePrintout,
@@ -85,7 +84,7 @@ const FlavorSection = (props) => {
           mr={-0.8}
           mt={-0.5}
           icon="hammer"
-          tooltip={multiline`
+          tooltip={`
             This is a gameplay suggestion for bored ais.
             You don't have to follow it, unless you want some
             ideas for how to spend the round.`}

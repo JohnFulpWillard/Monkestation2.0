@@ -1,13 +1,12 @@
 /* Monkestation edit :Revolution is currently disabled besides admin intervention
 import { Antagonist, Category } from '../base';
-import { multiline } from 'tgui-core/string';
 import { REVOLUTIONARY_MECHANICAL_DESCRIPTION } from './headrevolutionary';
 
 const Provocateur: Antagonist = {
   key: 'provocateur',
   name: 'Provocateur',
   description: [
-    multiline`
+    `
       A form of head revolutionary that can activate when joining an ongoing
       shift.
     `,

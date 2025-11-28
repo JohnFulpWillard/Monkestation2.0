@@ -1,5 +1,5 @@
-import { Color } from 'common/color';
-import { multiline, decodeHtmlEntities } from 'tgui-core/string';
+import { Color } from 'tgui-core/color';
+import { decodeHtmlEntities } from 'tgui-core/string';
 import { Component, createRef, RefObject } from 'react';
 import { useBackend } from '../backend';
 import { Tooltip, Icon, Box, Button, Flex } from 'tgui-core/components';
@@ -265,12 +265,12 @@ export const Canvas = (props) => {
             <Flex.Item>
               <Tooltip
                 content={
-                  multiline`
+                  `
                   You can Right-Click the canvas to change the color of
                   the painting tool to that of the clicked pixel.
                 ` +
                   (data.editable
-                    ? multiline`
+                    ? `
                   \n You can also select a color from the
                   palette at the bottom of the UI,
                   or input a new one with Right-Click.

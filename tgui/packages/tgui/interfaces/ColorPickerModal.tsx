@@ -27,7 +27,7 @@ import {
   hsvaToRgba,
   rgbaToHsva,
   validHex,
-} from 'common/color';
+} from 'tgui-core/color';
 import { Interaction, Interactive } from 'tgui-core/components/Interactive';
 import { classes } from 'tgui-core/react';
 import { Component, FocusEvent, FormEvent, ReactNode } from 'react';

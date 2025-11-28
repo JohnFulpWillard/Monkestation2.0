@@ -1,6 +1,5 @@
 import { map } from 'es-toolkit';
-import { toFixed } from 'tgui-core/math';
-import { numberOfDecimalDigits } from '../../common/math';
+import { toFixed, numberOfDecimalDigits } from 'tgui-core/math';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,

@@ -105,7 +105,7 @@ export const ChemReactionChamber = (props) => {
                       <Button
                         color="transparent"
                         icon="question"
-                        tooltip={multiline`
+                        tooltip={`
                         In chemistry, pH is a scale used to specify
                         the acidity or basicity of an aqueous solution.
                         Acidic solutions are measured to have lower

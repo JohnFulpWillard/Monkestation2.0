@@ -2,7 +2,6 @@ import { filter, sortBy } from 'es-toolkit';
 import { flow } from 'tgui-core/fp';
 import { toFixed } from 'tgui-core/math';
 import { BooleanLike } from 'tgui-core/react';
-import { multiline } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import {
   Button,
@@ -125,7 +124,7 @@ export const BluespaceVendor = (props) => {
                   color="transparent"
                   icon="info"
                   tooltipPosition="bottom-start"
-                  tooltip={multiline`
+                  tooltip={`
                   Quick guide for machine use: Prepare a tank to create a
                   new one in the machine, pick how much you want it filled,
                   and finally press start on the gas of your choice!

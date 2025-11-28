@@ -1,7 +1,6 @@
 import { Antagonist, Category } from '../base';
-import { multiline } from 'tgui-core/string';
 
-export const DARKSPAWN_MECHANICAL_DESCRIPTION = multiline`
+export const DARKSPAWN_MECHANICAL_DESCRIPTION = `
       Finish what you and your fellow kin started eons ago.
       Ascend to godhood alongside others by harvesting the sparks of the infirm.
       The sigils hunger, and you must respond.
@@ -11,7 +10,7 @@ const Darkspawn: Antagonist = {
   key: 'darkspawn',
   name: 'Darkspawn',
   description: [
-    multiline`
+    `
       It’s hard to recall what you once were. Star cycles passed again and again as you slumbered in the Void.
       Eventually, the emptiness touched something.
       You fabricated a shoddy disguise from your first victim, and now countless minds tug at your attention.

@@ -12,7 +12,6 @@ import {
   Section,
   Table,
 } from 'tgui-core/components';
-import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 
 type PlayerLike = {
@@ -107,7 +106,7 @@ export const DeathmatchLobby = (props) => {
                       />
                     </Table.Cell>
                     <Table.Cell collapsing>
-                      <ButtonCheckbox
+                      <Button.Checkbox
                         disabled={player !== data.self}
                         checked={data.players[player].ready}
                         onClick={() => act('ready')}
