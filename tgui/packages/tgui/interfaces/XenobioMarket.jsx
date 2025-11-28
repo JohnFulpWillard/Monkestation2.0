@@ -76,9 +76,6 @@ const SlimeMarket = (_) => {
                           'xenobio_market32x32',
                           slime_price.icon,
                         ])}
-                        style={{
-                          'image-rendering': 'pixelated',
-                        }}
                       />
                     </Stack.Item>
                     <Stack.Item mt="10px">
@@ -108,7 +105,6 @@ const RequestViewer = (_) => {
               <Box
                 style={{
                   transform: 'scale(2)',
-                  'image-rendering': 'pixelated',
                 }}
                 className={classes(['xenobio_market32x32', request.icon])}
               />
@@ -142,7 +138,6 @@ const StoreViewer = (_) => {
               <Box
                 style={{
                   transform: 'scale(2)',
-                  'image-rendering': 'pixelated',
                 }}
                 className={classes(['xenobio_market32x32', item.icon_state])}
               />

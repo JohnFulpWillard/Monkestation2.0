@@ -460,8 +460,6 @@ const KnowledgePreview = (props) => {
                 style={{
                   background:
                     'radial-gradient(circle, rgb(114, 100, 255) 0%, rgb(33, 0, 127) 100%);',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                  'image-rendering': 'pixelated',
                 }}
               />
             </Stack.Item>

@@ -591,7 +591,6 @@ const MaterialContent = (props) => {
             mode ? 'cooking32x32' : 'crafting32x32',
             'a' + atom_id,
           ])}
-          style={{ 'image-rendering': 'pixelated' }}
         />
       </Stack.Item>
       <Stack.Item
@@ -698,7 +697,6 @@ const RecipeContentCompact = ({ item, craftable, busy, mode }) => {
               mode ? 'cooking32x32' : 'crafting32x32',
               'a' + item.result,
             ])}
-            style={{ 'image-rendering': 'pixelated' }}
           />
         </Stack.Item>
         <Stack.Item grow>
@@ -949,7 +947,6 @@ const RecipeContent = ({ item, craftable, busy, mode, diet }) => {
               height={'32px'}
               style={{
                 transform: 'scale(2)',
-                'image-rendering': 'pixelated',
               }}
               m={'16px'}
               className={classes([
@@ -1096,7 +1093,6 @@ const AtomContent = ({ atom_id, amount }) => {
           mode ? 'cooking32x32' : 'crafting32x32',
           'a' + atom_id,
         ])}
-        style={{ 'image-rendering': 'pixelated' }}
       />
       <Box inline verticalAlign="middle">
         {name}
@@ -1115,7 +1111,6 @@ const ToolContent = ({ tool }) => {
         my={-1}
         mr={0.5}
         className={classes(['crafting32x32', tool])}
-        style={{ 'image-rendering': 'pixelated' }}
       />
       <Box inline verticalAlign="middle">
         {tool}
