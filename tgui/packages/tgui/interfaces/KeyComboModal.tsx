@@ -1,4 +1,4 @@
-import { KEY, isEscape } from 'common/keys';
+import { KEY, isEscape } from 'tgui-core/keys';
 import { useBackend, useLocalState } from '../backend';
 import { Autofocus, Box, Button, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';

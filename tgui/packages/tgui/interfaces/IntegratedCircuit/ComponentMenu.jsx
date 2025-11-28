@@ -1,7 +1,7 @@
 import { Section, Button, Dropdown, Stack, Input } from 'tgui-core/components';
 import { Component } from 'react';
 import { shallowDiffers } from 'tgui-core/react';
-import { fetchRetry } from '../../http';
+import { fetchRetry } from 'tgui-core/http';
 import { resolveAsset } from '../../assets';
 import { DisplayComponent } from './DisplayComponent';
 import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';

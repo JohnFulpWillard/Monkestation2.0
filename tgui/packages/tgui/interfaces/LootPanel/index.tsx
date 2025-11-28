@@ -6,7 +6,7 @@ import { clamp } from 'tgui-core/math';
 import { Stack, Section, Button, Input } from 'tgui-core/components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
-import { isEscape } from 'common/keys';
+import { isEscape } from 'tgui-core/keys';
 import { RawContents } from './RawContents';
 
 type Data = {
