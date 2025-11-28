@@ -1,6 +1,6 @@
 import { classes } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Grid, NumberInput, Table } from 'tgui-core/components';
+import { Box, Button, Stack, NumberInput, Table } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const getNumberColor = (number) => {
@@ -241,8 +241,8 @@ export const RouletteBetTable = (props) => {
                 })
               }
             />
-            <Grid>
-              <Grid.Column>
+            <Stack>
+              <Stack.Item>
                 <Button
                   fluid
                   content="Bet custom amount..."
@@ -252,8 +252,8 @@ export const RouletteBetTable = (props) => {
                     })
                   }
                 />
-              </Grid.Column>
-              <Grid.Column size={0.1}>
+              </Stack.Item>
+              <Stack.Item size={0.1}>
                 <NumberInput
                   value={customBet}
                   minValue={0}
@@ -263,7 +263,7 @@ export const RouletteBetTable = (props) => {
                   width="40px"
                   onChange={(e, value) => setCustomBet(value)}
                 />
-              </Grid.Column>
+              </Stack.Item>
             </Grid>
           </Box>
         </Table.Cell>

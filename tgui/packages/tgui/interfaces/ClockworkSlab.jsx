@@ -7,7 +7,7 @@ import {
   Section,
   Table,
   Divider,
-  Grid,
+  Stack,
   ProgressBar,
   Collapsible,
 } from 'tgui-core/components';
@@ -297,12 +297,12 @@ const ClockworkOverviewStat = (props) => {
   const { title, iconName, amount, maxAmount, unit, overrideText } = props;
   return (
     <Box height="22px" fontSize="16px">
-      <Grid>
-        <Grid.Column>
+      <Stack>
+        <Stack.Item>
           <Icon name={iconName} rotation={0} spin={0} />
-        </Grid.Column>
-        <Grid.Column size="2">{title}</Grid.Column>
-        <Grid.Column size="8">
+        </Stack.Item>
+        <Stack.Item size="2">{title}</Stack.Item>
+        <Stack.Item size="8">
           <ProgressBar
             value={amount}
             minValue={0}
@@ -315,7 +315,7 @@ const ClockworkOverviewStat = (props) => {
           >
             {overrideText ? overrideText : amount + ' ' + unit}
           </ProgressBar>
-        </Grid.Column>
+        </Stack.Item>
       </Grid>
     </Box>
   );

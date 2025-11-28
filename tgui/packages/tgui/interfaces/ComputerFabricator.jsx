@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, Section, Table, Tooltip } from 'tgui-core/components';
+import { Box, Button, Stack, Section, Table, Tooltip } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const ComputerFabricator = (props) => {
@@ -38,8 +38,8 @@ const CfStep1 = (props) => {
         Choose your Device
       </Box>
       <Box mt={3}>
-        <Grid width="100%">
-          <Grid.Column>
+        <Stack width="100%">
+          <Stack.Item>
             <Button
               fluid
               icon="laptop"
@@ -53,8 +53,8 @@ const CfStep1 = (props) => {
                 })
               }
             />
-          </Grid.Column>
-          <Grid.Column>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               fluid
               icon="tablet-alt"
@@ -68,7 +68,7 @@ const CfStep1 = (props) => {
                 })
               }
             />
-          </Grid.Column>
+          </Stack.Item>
         </Grid>
       </Box>
     </Section>

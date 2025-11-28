@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Collapsible,
-  Grid,
+  Stack,
   LabeledList,
   NoticeBox,
   NumberInput,
@@ -84,8 +84,8 @@ export const NaniteChamberControlContent = (props) => {
               />
             }
           >
-            <Grid>
-              <Grid.Column>
+            <Stack>
+              <Stack.Item>
                 <LabeledList>
                   <LabeledList.Item label="Nanite Volume">
                     {nanite_volume}
@@ -94,8 +94,8 @@ export const NaniteChamberControlContent = (props) => {
                     {regen_rate}
                   </LabeledList.Item>
                 </LabeledList>
-              </Grid.Column>
-              <Grid.Column>
+              </Stack.Item>
+              <Stack.Item>
                 <LabeledList>
                   <LabeledList.Item label="Safety Threshold">
                     <NumberInput
@@ -126,7 +126,7 @@ export const NaniteChamberControlContent = (props) => {
                     />
                   </LabeledList.Item>
                 </LabeledList>
-              </Grid.Column>
+              </Stack.Item>
             </Grid>
           </Section>
           <Section title="Programs" level={2}>
@@ -136,10 +136,10 @@ export const NaniteChamberControlContent = (props) => {
               return (
                 <Collapsible key={program.name} title={program.name}>
                   <Section>
-                    <Grid>
-                      <Grid.Column>{program.desc}</Grid.Column>
+                    <Stack>
+                      <Stack.Item>{program.desc}</Stack.Item>
                       {scan_level >= 2 && (
-                        <Grid.Column size={0.6}>
+                        <Stack.Item size={0.6}>
                           <LabeledList>
                             <LabeledList.Item label="Activation Status">
                               <Box color={program.activated ? 'good' : 'bad'}>
@@ -150,13 +150,13 @@ export const NaniteChamberControlContent = (props) => {
                               {program.use_rate}/s
                             </LabeledList.Item>
                           </LabeledList>
-                        </Grid.Column>
+                        </Stack.Item>
                       )}
                     </Grid>
                     {scan_level >= 2 && (
-                      <Grid>
+                      <Stack>
                         {!!program.can_trigger && (
-                          <Grid.Column>
+                          <Stack.Item>
                             <Section title="Triggers" level={2}>
                               <LabeledList>
                                 <LabeledList.Item label="Trigger Cost">
@@ -177,12 +177,12 @@ export const NaniteChamberControlContent = (props) => {
                                 )}
                               </LabeledList>
                             </Section>
-                          </Grid.Column>
+                          </Stack.Item>
                         )}
                         {!!(
                           program.timer_restart || program.timer_shutdown
                         ) && (
-                          <Grid.Column>
+                          <Stack.Item>
                             <Section>
                               <LabeledList>
                                 {/* I mean, bruh, this indentation level
@@ -199,7 +199,7 @@ export const NaniteChamberControlContent = (props) => {
                                 )}
                               </LabeledList>
                             </Section>
-                          </Grid.Column>
+                          </Stack.Item>
                         )}
                       </Grid>
                     )}
@@ -218,8 +218,8 @@ export const NaniteChamberControlContent = (props) => {
                       </Section>
                     )}
                     {scan_level >= 4 && (
-                      <Grid>
-                        <Grid.Column>
+                      <Stack>
+                        <Stack.Item>
                           <Section title="Codes" level={2}>
                             <LabeledList>
                               {!!program.activation_code && (
@@ -245,15 +245,15 @@ export const NaniteChamberControlContent = (props) => {
                                 )}
                             </LabeledList>
                           </Section>
-                        </Grid.Column>
+                        </Stack.Item>
                         {program.has_rules && (
-                          <Grid.Column>
+                          <Stack.Item>
                             <Section title="Rules" level={2}>
                               {rules.map((rule) => (
                                 <Box key={rule.display}>{rule.display}</Box>
                               ))}
                             </Section>
-                          </Grid.Column>
+                          </Stack.Item>
                         )}
                       </Grid>
                     )}

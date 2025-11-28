@@ -1,7 +1,7 @@
 import { classes } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Grid, Icon } from 'tgui-core/components';
+import { Box, Button, Flex, Stack, Icon } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 // This ui is so many manual overrides and !important tags
@@ -17,9 +17,9 @@ export const NukeKeypad = (props) => {
   ];
   return (
     <Box width="185px">
-      <Grid width="1px">
+      <Stack width="1px">
         {keypadKeys.map((keyColumn) => (
-          <Grid.Column key={keyColumn[0]}>
+          <Stack.Item key={keyColumn[0]}>
             {keyColumn.map((key) => (
               <Button
                 fluid
@@ -39,7 +39,7 @@ export const NukeKeypad = (props) => {
                 onClick={() => act('keypad', { digit: key })}
               />
             ))}
-          </Grid.Column>
+          </Stack.Item>
         ))}
       </Grid>
     </Box>

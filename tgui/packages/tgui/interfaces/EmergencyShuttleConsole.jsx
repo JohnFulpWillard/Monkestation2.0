@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, Section } from 'tgui-core/components';
+import { Box, Button, Stack, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const EmergencyShuttleConsole = (props) => {
@@ -40,8 +40,8 @@ export const EmergencyShuttleConsole = (props) => {
               />
             }
           >
-            <Grid>
-              <Grid.Column>
+            <Stack>
+              <Stack.Item>
                 <Button
                   fluid
                   icon="exclamation-triangle"
@@ -50,8 +50,8 @@ export const EmergencyShuttleConsole = (props) => {
                   disabled={!enabled}
                   onClick={() => act('authorize')}
                 />
-              </Grid.Column>
-              <Grid.Column>
+              </Stack.Item>
+              <Stack.Item>
                 <Button
                   fluid
                   icon="minus"
@@ -59,7 +59,7 @@ export const EmergencyShuttleConsole = (props) => {
                   disabled={!enabled}
                   onClick={() => act('repeal')}
                 />
-              </Grid.Column>
+              </Stack.Item>
             </Grid>
             <Section
               title="Authorizations"

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack, Grid } from 'tgui-core/components';
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { EditableText } from './common/EditableText';
 import { Window } from '../layouts';
 
@@ -32,8 +32,8 @@ export const ArmoryAuthorizationComputer = (props) => {
               of Security, Warden, or Captain. Alternatively, 3 Security
               Officers can provide authorization.
             </Box>
-            <Grid>
-              <Grid.Column>
+            <Stack>
+              <Stack.Item>
                 <Button
                   fluid
                   icon="exclamation-triangle"
@@ -42,8 +42,8 @@ export const ArmoryAuthorizationComputer = (props) => {
                   disabled={is_authorized || authorizations_remaining === 0}
                   onClick={() => act('authorize')}
                 />
-              </Grid.Column>
-              <Grid.Column>
+              </Stack.Item>
+              <Stack.Item>
                 <Button
                   fluid
                   icon="minus"
@@ -51,7 +51,7 @@ export const ArmoryAuthorizationComputer = (props) => {
                   content="REPEAL"
                   onClick={() => act('repeal')}
                 />
-              </Grid.Column>
+              </Stack.Item>
             </Grid>
             <Section
               title="Authorizations"
@@ -112,8 +112,8 @@ export const ArmoryAuthorizationComputer = (props) => {
                 </Stack.Item>
               </Stack>
             </Section>
-            <Grid>
-              <Grid.Column>
+            <Stack>
+              <Stack.Item>
                 <Button
                   fluid
                   color="good"
@@ -121,8 +121,8 @@ export const ArmoryAuthorizationComputer = (props) => {
                   disabled={!is_authorized}
                   content="OPEN"
                 />
-              </Grid.Column>
-              <Grid.Column>
+              </Stack.Item>
+              <Stack.Item>
                 <Button
                   fluid
                   color="bad"
@@ -130,7 +130,7 @@ export const ArmoryAuthorizationComputer = (props) => {
                   disabled={!is_authorized}
                   content="CLOSE"
                 />
-              </Grid.Column>
+              </Stack.Item>
             </Grid>
           </Section>
         </Section>
