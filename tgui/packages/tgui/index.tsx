@@ -37,7 +37,7 @@ import './styles/themes/generic.scss';
 import { configureStore } from './store';
 
 import { captureExternalLinks } from './links';
-import { createRenderer } from './renderer';
+import { createRenderer } from 'tgui/renderer';
 import { perf } from 'common/perf';
 import { setupGlobalEvents } from './events';
 import { setupHotKeys } from './hotkeys';
