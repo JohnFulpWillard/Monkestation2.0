@@ -1,4 +1,5 @@
-import { filter, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { BooleanLike, classes } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';

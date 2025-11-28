@@ -1,4 +1,5 @@
-import { filter, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { HEALTH, THREAT } from './constants';
 import type { AntagGroup, Antagonist, Observable } from './types';

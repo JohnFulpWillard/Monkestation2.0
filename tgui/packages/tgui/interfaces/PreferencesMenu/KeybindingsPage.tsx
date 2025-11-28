@@ -8,7 +8,7 @@ import {
   TrackOutsideClicks,
 } from 'tgui-core/components';
 import { resolveAsset } from '../../assets';
-import { PreferencesMenuData } from './data';
+import type { PreferencesMenuData } from './data';
 import { useBackend } from '../../backend';
 import { range, sortBy } from 'es-toolkit';
 import { KeyEvent } from 'tgui-core/events';

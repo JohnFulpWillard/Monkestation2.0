@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { classes } from 'tgui-core/react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useSharedState } from '../../backend';
 import { Stack, Section, Icon, Dimmer } from 'tgui-core/components';
 import { Design, MaterialMap } from './Types';

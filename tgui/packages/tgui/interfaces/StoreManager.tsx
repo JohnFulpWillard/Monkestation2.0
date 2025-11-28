@@ -9,7 +9,7 @@ import {
   Table,
   Icon,
 } from 'tgui-core/components';
-import { PreferencesMenuData } from './PreferencesMenu/data';
+import type { PreferencesMenuData } from './PreferencesMenu/data';
 import { Window } from '../layouts';
 import { classes } from 'tgui-core/react';
 

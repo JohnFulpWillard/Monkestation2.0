@@ -1,4 +1,4 @@
-import { map } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,

@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Button } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { PreferencesMenuData } from './data';
+import type { PreferencesMenuData } from './data';
 
 export const PageButton = <P extends unknown>(props: {
   currentPage: P;

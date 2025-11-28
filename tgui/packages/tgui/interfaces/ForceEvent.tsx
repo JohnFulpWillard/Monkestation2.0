@@ -1,4 +1,4 @@
-import { paginate } from 'es-toolkit';
+import paginate from "es-toolkit/compat"
 import { BooleanLike } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../backend';
 import { Stack, Button, Icon, Input, Section, Tabs } from 'tgui-core/components';

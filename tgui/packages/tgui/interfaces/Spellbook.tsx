@@ -13,7 +13,7 @@ import {
   Stack,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 enum SpellCategory {
   Offensive = 'Offensive',

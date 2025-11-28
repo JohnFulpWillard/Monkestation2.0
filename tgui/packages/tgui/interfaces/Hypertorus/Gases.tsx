@@ -8,7 +8,8 @@ import {
 } from 'tgui-core/components';
 import { HelpDummy, HoverHelp } from './helpers';
 import { HypertorusFuel, HypertorusGas } from '.';
-import { filter, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { getGasColor, getGasLabel } from 'tgui/constants';
 
 import { flow } from 'tgui-core/fp';

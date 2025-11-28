@@ -1,8 +1,9 @@
-import { binaryInsertWith, sortBy } from 'es-toolkit';
-import { ReactNode } from 'react';
+import { sortBy } from 'es-toolkit';
+import { binaryInsertWith } from 'common/collections';
+import type { ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Flex, Tooltip } from 'tgui-core/components';
-import { PreferencesMenuData } from './data';
+import type { PreferencesMenuData } from './data';
 import features from './preferences/features';
 import { FeatureValueInput } from './preferences/features/base';
 import { TabbedMenu } from './TabbedMenu';

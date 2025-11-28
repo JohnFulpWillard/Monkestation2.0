@@ -1,4 +1,4 @@
-import { binaryInsertWith } from 'es-toolkit';
+import { binaryInsertWith } from 'common/collections';
 import { classes } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../../backend';
 import {
@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 import { Antagonist, Category } from './antagonists/base';
-import { PreferencesMenuData } from './data';
+import type { PreferencesMenuData } from './data';
 
 const requireAntag = require.context(
   './antagonists/antagonists',

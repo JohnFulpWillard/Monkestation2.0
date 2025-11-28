@@ -31,7 +31,7 @@ import {
 import { filterMap, sortBy } from 'es-toolkit';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'tgui-core/string';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const CLOTHING_CELL_SIZE = 64;
 const CLOTHING_SIDEBAR_ROWS = 10;

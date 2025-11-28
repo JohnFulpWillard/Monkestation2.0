@@ -1,5 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
-import { filter, sortBy, map, reduce } from 'es-toolkit';
+import { sortBy, reduce } from 'es-toolkit';
+import { filter, map } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { createSearch } from 'tgui-core/string';
 import { Window } from '../layouts';

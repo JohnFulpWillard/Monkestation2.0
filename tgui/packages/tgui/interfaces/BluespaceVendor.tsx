@@ -1,5 +1,5 @@
-import { filter, sortBy } from 'es-toolkit';
-import { flow } from 'tgui-core/fp';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { toFixed } from 'tgui-core/math';
 import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';

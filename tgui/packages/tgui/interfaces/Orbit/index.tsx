@@ -1,4 +1,5 @@
-import { filter, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { capitalizeFirst } from 'tgui-core/string';
 import { useBackend, useLocalState } from 'tgui/backend';

@@ -1,4 +1,5 @@
-import { binaryInsertWith, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { binaryInsertWith } from 'common/collections';
 import { useLocalState } from '../../backend';
 import {
   Box,

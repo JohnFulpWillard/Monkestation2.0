@@ -1,4 +1,4 @@
-import { map } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { toFixed, numberOfDecimalDigits } from 'tgui-core/math';
 import { useBackend, useLocalState } from '../backend';
 import {

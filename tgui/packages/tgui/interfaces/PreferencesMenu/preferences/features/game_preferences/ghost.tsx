@@ -6,12 +6,12 @@ import {
   FeatureToggle,
   FeatureValueProps,
 } from '../base';
-import { Box, Dropdown, Flex } from 'tgui-core/react';
+import { Box, Dropdown, Flex } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
-import { ReactNode } from 'react';
-import { binaryInsertWith } from 'es-toolkit';
+import type { ReactNode } from 'react';
+import { binaryInsertWith } from 'common/collections';
 import { useBackend } from '../../../../../backend';
-import { PreferencesMenuData } from '../../../data';
+import type { PreferencesMenuData } from '../../../data';
 
 export const ghost_accs: FeatureChoiced = {
   name: 'Ghost accessories',

@@ -1,7 +1,8 @@
 import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { paginate, range } from 'es-toolkit';
+import { range } from 'es-toolkit';
+import paginate from "es-toolkit/compat"
 
 type Entry = {
   name: string;

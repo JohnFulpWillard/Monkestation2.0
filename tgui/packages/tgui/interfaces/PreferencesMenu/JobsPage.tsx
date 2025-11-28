@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { classes } from 'tgui-core/react';
-import { ReactNode, Inferno } from 'react';
+import type { ReactNode, Inferno } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Stack, Tooltip } from 'tgui-core/components';
 import {

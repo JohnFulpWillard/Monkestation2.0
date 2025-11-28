@@ -1,5 +1,5 @@
 import { BooleanLike } from 'tgui-core/react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { useBackend, useLocalState, useSharedState } from '../../backend';
 import {

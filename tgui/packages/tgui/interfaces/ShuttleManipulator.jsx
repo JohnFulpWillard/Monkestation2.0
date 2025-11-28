@@ -1,4 +1,4 @@
-import { map } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';

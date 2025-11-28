@@ -1,4 +1,5 @@
-import { filter, uniqBy } from 'es-toolkit';
+import { uniqBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { useBackend } from '../../backend';
 import {

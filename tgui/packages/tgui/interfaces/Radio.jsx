@@ -1,4 +1,4 @@
-import { map } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { toFixed } from 'tgui-core/math';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from 'tgui-core/components';

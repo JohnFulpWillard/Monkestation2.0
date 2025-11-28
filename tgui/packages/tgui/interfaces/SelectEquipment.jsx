@@ -1,4 +1,5 @@
-import { filter, map, sortBy, uniq } from 'es-toolkit';
+import { sortBy, uniq } from 'es-toolkit';
+import { filter, map } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { createSearch } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';

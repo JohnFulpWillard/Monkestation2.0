@@ -12,7 +12,8 @@ import {
   Tabs,
 } from 'tgui-core/components';
 import { flow } from 'tgui-core/fp';
-import { filter, sortBy } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetDownloader = (props) => {

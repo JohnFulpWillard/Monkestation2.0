@@ -1,7 +1,7 @@
 import { exhaustiveCheck } from 'tgui-core/exhaustive';
 import { useBackend, useLocalState } from '../../backend';
 import { Button, Stack } from 'tgui-core/components';
-import { PreferencesMenuData } from './data';
+import type { PreferencesMenuData } from './data';
 import { PageButton } from './PageButton';
 import { AntagsPage } from './AntagsPage';
 import { JobsPage } from './JobsPage';

@@ -7,7 +7,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { VNodeFlags } from 'inferno-vnode-flags';
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
 import {
   Box,
