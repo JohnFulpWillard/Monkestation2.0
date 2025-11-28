@@ -57,7 +57,7 @@ const ThermometerIcon = (props) => {
           borderRadius: '12px',
           borderBottom: 'none',
           'border-index': '0',
-          'box-shadow': '4px 4px #000000',
+          boxShadow: '4px 4px #000000',
         }}
       >
         <Box
@@ -90,7 +90,7 @@ const ThermometerIcon = (props) => {
           borderRadius: '35px',
           'border-index': '1',
           borderBottom: '0.1',
-          'box-shadow': '4px 4px #000000',
+          boxShadow: '4px 4px #000000',
           zIndex: '0',
         }}
       >

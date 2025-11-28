@@ -1,6 +1,6 @@
 import { sortBy, sortStrings } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
-import { ComponentType, createComponentVNode, InfernoNode } from 'inferno';
+import { ComponentType, createElement, ReactNode } from 'react';
 import { VNodeFlags } from 'inferno-vnode-flags';
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
 import {
@@ -17,7 +17,7 @@ import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 
-export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
+export const sortChoices = sortBy<[string, ReactNode]>(([name]) => name);
 
 export type Feature<
   TReceiving,
@@ -76,7 +76,7 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
                 ? props.value
                 : `#${props.value}`,
               border: '2px solid white',
-              'box-sizing': 'content-box',
+              boxSizing: 'content-box',
               height: '11px',
               width: '11px',
               ...(props.shrink
@@ -134,7 +134,7 @@ export const CheckboxInputInverse = (
 
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
-  choices: Record<T, InfernoNode>,
+  choices: Record<T, ReactNode>,
   dropdownProps?: Record<T, unknown>,
 ): FeatureValue<T> => {
   return (props: FeatureValueProps<T>) => {
@@ -172,7 +172,7 @@ const capitalizeFirstLetter = (text: string) =>
 export const StandardizedDropdown = (props: {
   choices: string[];
   disabled?: boolean;
-  displayNames: Record<string, InfernoNode>;
+  displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
   buttons?: boolean;
@@ -271,7 +271,7 @@ export const FeatureIconnedDropdownInput = (
 
   const displayNames = Object.fromEntries(
     Object.entries(textNames).map(([choice, textName]) => {
-      let element: InfernoNode = textName;
+      let element: ReactNode = textName;
 
       if (icons && icons[choice]) {
         const icon = icons[choice];
@@ -312,7 +312,7 @@ export const FeatureIconnedDropdownInput = (
 export const StandardizedChoiceButtons = (props: {
   choices: string[];
   disabled?: boolean;
-  displayNames: Record<string, InfernoNode>;
+  displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
 }) => {
@@ -387,19 +387,15 @@ export const FeatureValueInput = (props: {
   return (
     <ServerPreferencesFetcher
       render={(serverData) => {
-        return createComponentVNode(
-          VNodeFlags.ComponentUnknown,
-          feature.component,
-          {
-            act: props.act,
-            featureId: props.featureId,
-            serverData: serverData && serverData[props.featureId],
-            shrink: props.shrink,
+        return createElement(feature.component, {
+          act: props.act,
+          featureId: props.featureId,
+          serverData: serverData?.[props.featureId] as any,
+          shrink: props.shrink,
 
-            handleSetValue: changeValue,
-            value: predictedValue,
-          },
-        );
+          handleSetValue: changeValue,
+          value: predictedValue,
+        });
       }}
     />
   );
@@ -435,7 +431,7 @@ export const StandardizedPalette = (props: {
   choices: string[];
   choices_to_hex?: Record<string, string>;
   disabled?: boolean;
-  displayNames: Record<string, InfernoNode>;
+  displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
   hex_values?: boolean;
@@ -473,19 +469,19 @@ export const StandardizedPalette = (props: {
     ? props.value && safeHex(props.value)
     : props.value;
   return (
-    <Flex style={{ 'align-items': 'baseline', 'max-width': maxWidth }}>
+    <Flex style={{ alignItems: 'baseline', maxWidth: maxWidth }}>
       <Flex.Item
         shrink
         style={{
           borderRadius: '0.16em',
-          'max-width': maxWidth,
+          maxWidth: maxWidth,
           'padding-bottom': '-5px',
         }}
         className="section-background"
         backgroundColor={backgroundColor}
         p={0.5}
       >
-        <Flex style={{ 'flex-wrap': 'wrap', 'max-width': maxWidth }}>
+        <Flex style={{ 'flex-wrap': 'wrap', maxWidth: maxWidth }}>
           {choices.map((choice) => (
             <Flex.Item key={choice} ml={0}>
               <Tooltip

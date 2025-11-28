@@ -16,10 +16,6 @@ export const OutfitEditor = (props) => {
           opacity={0.5}
           py={3}
           src={`data:image/jpeg;base64,${dummy64}`}
-          style={{
-            '-ms-interpolation-mode': 'nearest-neighbor',
-            'image-rendering': 'pixelated',
-          }}
         />
         <Section
           fill
@@ -30,7 +26,7 @@ export const OutfitEditor = (props) => {
                 style={{
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
-                  'text-overflow': 'ellipsis',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 <Button
@@ -145,10 +141,6 @@ const OutfitSlot = (props) => {
               as="img"
               src={`data:image/jpeg;base64,${currItem?.sprite}`}
               title={currItem?.desc}
-              style={{
-                '-ms-interpolation-mode': 'nearest-neighbor',
-                'image-rendering': 'pixelated',
-              }}
             />
             <Icon
               position="absolute"
@@ -165,7 +157,7 @@ const OutfitSlot = (props) => {
         style={{
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          'text-overflow': 'ellipsis',
+          textOverflow: 'ellipsis',
         }}
         title={currItem?.path}
       >

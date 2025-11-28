@@ -306,7 +306,7 @@ const GenderButton = (props: {
         placement: 'right-end',
       }}
       popperContent={
-        genderMenuOpen && (
+        genderMenuOpen ? (
           <Stack backgroundColor="white" ml={0.5} p={0.3}>
             {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
               return (
@@ -326,6 +326,8 @@ const GenderButton = (props: {
               );
             })}
           </Stack>
+        ) : (
+          <> </>
         )
       }
     >
@@ -397,7 +399,7 @@ const MainFeature = (props: {
         placement: 'bottom-start',
       }}
       popperContent={
-        isOpen && (
+        isOpen ? (
           <TrackOutsideClicks onOutsideClick={handleCloseInternal}>
             <ChoicedSelection
               name={catalog.name}
@@ -411,6 +413,8 @@ const MainFeature = (props: {
               setSearchText={setSearchText}
             />
           </TrackOutsideClicks>
+        ) : (
+          <> </>
         )
       }
     >
@@ -663,7 +667,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
             )}
 
             <Stack height={`${CLOTHING_SIDEBAR_ROWS * CLOTHING_CELL_SIZE}px`}>
-              <Stack.Item fill>
+              <Stack.Item>
                 <Stack vertical fill>
                   <Stack.Item>
                     <CharacterControls
@@ -709,7 +713,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item fill width={`${CLOTHING_CELL_SIZE * 2 + 15}px`}>
+              <Stack.Item width={`${CLOTHING_CELL_SIZE * 2 + 15}px`}>
                 <Stack height="100%" vertical wrap>
                   {mainFeatures.map(([clothingKey, clothing]) => {
                     const catalog =

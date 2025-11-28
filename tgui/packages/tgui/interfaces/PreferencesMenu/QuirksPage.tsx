@@ -1,4 +1,3 @@
-import type { Inferno } from 'inferno';
 import { Box, Icon, Stack, Tooltip } from '../../components';
 import { PreferencesMenuData, Quirk } from './data';
 import { useBackend } from '../../backend';
@@ -43,8 +42,8 @@ const QuirkList = (props: {
               <Stack.Item
                 align="center"
                 style={{
-                  'min-width': '15%',
-                  'max-width': '15%',
+                  minWidth: '15%',
+                  maxWidth: '15%',
                   textAlign: 'center',
                 }}
               >
@@ -53,19 +52,18 @@ const QuirkList = (props: {
 
               <Stack.Item
                 align="stretch"
+                ml={0}
                 style={{
-                  'border-right': '1px solid black',
-                  marginLeft: 0,
+                  borderRight: '1px solid black',
                 }}
               />
 
               <Stack.Item
                 grow
+                ml={0}
                 style={{
-                  marginLeft: 0,
-
                   // Fixes an IE bug for text overflowing in Flex boxes
-                  'min-width': '0%',
+                  minWidth: '0%',
                 }}
               >
                 <Stack vertical fill>
@@ -95,8 +93,8 @@ const QuirkList = (props: {
                   <Stack.Item
                     grow
                     basis="content"
+                    mt={0}
                     style={{
-                      marginTop: 0,
                       padding: '3px',
                     }}
                   >
@@ -122,7 +120,7 @@ const QuirkList = (props: {
   );
 };
 
-const StatDisplay: Inferno.StatelessComponent<{}> = (props) => {
+const StatDisplay = (props) => {
   return (
     <Box
       backgroundColor="#eee"

@@ -243,7 +243,7 @@ export const NameInput = (props: {
                     style={{
                       position: 'relative',
                       left: '1px',
-                      'min-width': '0px',
+                      minWidth: '0px',
                     }}
                   />
                 </Button>

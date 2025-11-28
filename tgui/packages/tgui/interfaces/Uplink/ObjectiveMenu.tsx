@@ -465,7 +465,7 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
                     style={{
                       border: '2px solid rgba(0, 0, 0, 0.5)',
                       'border-left': 'none',
-                      'border-right': 'none',
+                      borderRight: 'none',
                       borderBottom: objectiveFinished ? 'none' : undefined,
                     }}
                     className={dangerLevel.gradient}
@@ -531,7 +531,7 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
                       borderRadius: '0',
                       border: '2px solid rgba(0, 0, 0, 0.5)',
                       'border-left': 'none',
-                      'border-right': 'none',
+                      borderRight: 'none',
                     }}
                     position="relative"
                     width="100%"

@@ -1,5 +1,4 @@
-import { Component } from 'inferno';
-import type { InfernoNode } from 'inferno';
+import { Component, ReactNode } from 'react';
 import { loadedMappings, resolveAsset } from '../../assets';
 import { fetchRetry } from '../../http';
 import { ServerData } from './data';
@@ -11,7 +10,7 @@ let lastError: any = null;
 
 export class ServerPreferencesFetcher extends Component<
   {
-    render: (serverData: ServerData | undefined) => InfernoNode;
+    render: (serverData: ServerData | undefined) => ReactNode;
   },
   {
     serverData?: ServerData;
@@ -54,7 +53,7 @@ export class ServerPreferencesFetcher extends Component<
       this.state.serverData !== null &&
       this.state.errored === false &&
       lastError === null ? (
-      this.props.render(this.state.serverData)
+      this.props?.render?.(this.state.serverData)
     ) : lastError !== null ? (
       <Dimmer
         textColor="red"

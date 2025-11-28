@@ -206,7 +206,7 @@ const CurrentlySelectedDisplay = (props) => {
           style={{
             overflow: 'hidden',
             whiteSpace: 'nowrap',
-            'text-overflow': 'ellipsis',
+            textOverflow: 'ellipsis',
           }}
         >
           {entry?.name}

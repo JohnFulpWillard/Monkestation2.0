@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
-import { InfernoNode, Inferno } from 'inferno';
+import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Stack, Tooltip } from '../../components';
 import {
@@ -113,10 +113,10 @@ const PriorityButtons = (props: {
   return (
     <Stack
       style={{
-        'align-items': 'center',
+        alignItems: 'center',
         height: '100%',
-        'justify-content': 'flex-end',
-        'padding-left': '0.3em',
+        justifyContent: 'flex-end',
+        paddingLeft: '0.3em',
       }}
     >
       {isOverflow ? (
@@ -191,7 +191,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
     ? data.job_alt_titles[name]
     : name;
 
-  let rightSide: InfernoNode;
+  let rightSide: ReactNode;
 
   if (experienceNeeded) {
     const { experience_type, required_playtime } = experienceNeeded;
@@ -231,12 +231,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   }
 
   return (
-    <Box
-      className={className}
-      style={{
-        marginTop: 0,
-      }}
-    >
+    <Stack.Item className={className} height="100%" mt={0}>
       <Stack>
         <Tooltip content={job.description} position="right">
           <Stack.Item
@@ -244,7 +239,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
             className="job-name"
             width="70%"
             style={{
-              'padding-left': '0.3em',
+              paddingLeft: '0.3em',
             }}
           >
             {' '}
@@ -271,7 +266,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   );
 };
 
-const Department: Inferno.SFC<{ department: string }> = (props) => {
+const Department = (props: { department: string } & PropsWithChildren) => {
   const { children, department: name } = props;
   const className = `PreferencesMenu__Jobs__departments--${name}`;
 

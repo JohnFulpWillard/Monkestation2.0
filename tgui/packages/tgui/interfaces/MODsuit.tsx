@@ -121,9 +121,7 @@ export const MODsuit = (props) => {
       width={800}
       height={640}
       theme={ui_theme}
-      title="MOD Interface Panel"
-      resizable
-    >
+      title="MOD Interface Panel">
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
       </Window.Content>
@@ -461,7 +459,7 @@ const HardwareSection = (props) => {
   const { control, helmet, chestplate, gauntlets, boots } = data;
   const { ai_name, core_name } = data.suit_status;
   return (
-    <Section title="Hardware" style={{ 'text-transform': 'capitalize' }}>
+    <Section title="Hardware" style={{ textTransform: 'capitalize' }}>
       <LabeledList>
         <LabeledList.Item label="AI Assistant">
           {ai_name || 'No AI Detected'}
@@ -609,8 +607,8 @@ const UserStatusSection = (props) => {
           <LabeledList.Item label="Fingerprints">
             <Box
               style={{
-                'word-break': 'break-all',
-                'word-wrap': 'break-word',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
               }}
             >
               {active ? dna_unique_identity : '???'}
@@ -621,8 +619,8 @@ const UserStatusSection = (props) => {
           <LabeledList.Item label="Enzymes">
             <Box
               style={{
-                'word-break': 'break-all',
-                'word-wrap': 'break-word',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
               }}
             >
               {active ? dna_unique_enzymes : '???'}

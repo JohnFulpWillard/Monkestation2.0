@@ -46,11 +46,14 @@ export const PaintingAdminPanel = (props) => {
               src={resolveAsset(`paintings_${chosenPainting.md5}`)}
               height="96px"
               width="96px"
+              style={{
+                verticalAlign: 'middle',
+              }}
             />
             <LabeledList>
               <LabeledList.Item label="md5" content={chosenPainting.md5} />
               <LabeledList.Item label="title">
-                <Box inline style={{ 'word-break': 'break-all' }}>
+                <Box inline style={{ wordBreak: 'break-all' }}>
                   {decodeHtmlEntities(chosenPainting.title)}
                 </Box>
                 <Button
@@ -147,7 +150,7 @@ export const PaintingAdminPanel = (props) => {
             </Table.Row>
             {paintings.map((painting) => (
               <Table.Row key={painting.ref} className="candystripe">
-                <Table.Cell style={{ 'word-break': 'break-all' }}>
+                <Table.Cell style={{ wordBreak: 'break-all' }}>
                   {decodeHtmlEntities(painting.title)}
                 </Table.Cell>
                 <Table.Cell>{painting.creator_ckey}</Table.Cell>
@@ -156,6 +159,9 @@ export const PaintingAdminPanel = (props) => {
                     src={resolveAsset(`paintings_${painting.md5}`)}
                     height="36px"
                     width="36px"
+                    style={{
+                      verticalAlign: 'middle',
+                    }}
                   />
                 </Table.Cell>
                 <Table.Cell>

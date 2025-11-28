@@ -46,10 +46,6 @@ export const NtosEmojipedia = (props) => {
               as="img"
               m={0}
               title={emoji.name}
-              style={{
-                '-ms-interpolation-mode': 'nearest-neighbor',
-                'image-rendering': 'pixelated',
-              }}
               onClick={() => {
                 new Promise((resolve, _) => {
                   const input = document.createElement('input');

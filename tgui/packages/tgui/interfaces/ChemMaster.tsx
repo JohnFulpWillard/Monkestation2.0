@@ -434,7 +434,7 @@ const AnalysisResults = (props) => {
         <LabeledList.Item label="Purity">
           <Box
             style={{
-              'text-transform': 'capitalize',
+              textTransform: 'capitalize',
             }}
             color={purityLevel}
           >
@@ -470,7 +470,7 @@ const GroupTitle = ({ title }) => {
       </Stack.Item>
       <Stack.Item
         style={{
-          'text-transform': 'capitalize',
+          textTransform: 'capitalize',
         }}
         color={'gray'}
       >

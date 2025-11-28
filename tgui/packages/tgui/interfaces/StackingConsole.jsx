@@ -47,7 +47,7 @@ export const StackingConsoleContent = (props) => {
               />
             }
           >
-            <Box style={{ 'text-transform': 'capitalize' }}>
+            <Box style={{ textTransform: 'capitalize' }}>
               {input_direction}
             </Box>
           </LabeledList.Item>
@@ -65,7 +65,7 @@ export const StackingConsoleContent = (props) => {
               />
             }
           >
-            <Box style={{ 'text-transform': 'capitalize' }}>
+            <Box style={{ textTransform: 'capitalize' }}>
               {output_direction}
             </Box>
           </LabeledList.Item>

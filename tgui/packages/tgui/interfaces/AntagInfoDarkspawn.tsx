@@ -508,9 +508,9 @@ const ClassSelection = (props) => {
       height="100%"
       width="100%"
       style={{
-        'align-items': 'center',
+        alignItems: 'center',
         height: '100%',
-        'justify-content': 'center',
+        justifyContent: 'center',
       }}
     >
       {classData.map((darkspawnclass) => (

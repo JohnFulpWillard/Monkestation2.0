@@ -256,7 +256,7 @@ const Queue = (props: QueueProps) => {
         </Stack.Item>
         <Stack.Item
           grow
-          style={{ 'overflow-y': 'auto', 'overflow-x': 'hidden' }}
+          style={{ overflowY: 'auto', overflowX: 'hidden' }}
         >
           <Section fill>
             <QueueList
