@@ -5,8 +5,7 @@
  */
 
 import { clamp } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;
@@ -54,7 +53,7 @@ export class DraggableControl extends Component {
       if (editing) {
         return;
       }
-      document.body.style[pointerEvents] = 'none';
+      document.body.style['pointer-events'] = 'none';
       this.ref = e.target;
       this.setState({
         dragging: false,
@@ -97,13 +96,13 @@ export class DraggableControl extends Component {
           state.internalValue = clamp(
             state.internalValue + (offset * step) / stepPixelSize,
             minValue - step,
-            maxValue + step,
+            maxValue + step
           );
           // Clamp the final value
           state.value = clamp(
             state.internalValue - (state.internalValue % step) + stepOffset,
             minValue,
-            maxValue,
+            maxValue
           );
           state.origin = getScalarScreenOffset(e, dragMatrix);
         } else if (Math.abs(offset) > 4) {
@@ -116,7 +115,7 @@ export class DraggableControl extends Component {
     this.handleDragEnd = (e) => {
       const { onChange, onDrag } = this.props;
       const { dragging, value, internalValue } = this.state;
-      document.body.style[pointerEvents] = 'auto';
+      document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
       this.setState({
@@ -197,7 +196,7 @@ export class DraggableControl extends Component {
           display: !editing ? 'none' : undefined,
           height: height,
           lineHeight: lineHeight,
-          fontSize: fontSize,
+          fontsize: fontSize,
         }}
         onBlur={(e) => {
           if (!editing) {
@@ -276,7 +275,6 @@ export class DraggableControl extends Component {
   }
 }
 
-DraggableControl.defaultHooks = pureComponentHooks;
 DraggableControl.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,

@@ -11,11 +11,10 @@ import { Dimmer } from './Dimmer';
 export const Modal = (props) => {
   const { className, children, ...rest } = props;
   return (
-    <Dimmer className="Modal__dimmer">
+    <Dimmer>
       <div
         className={classes(['Modal', className, computeBoxClassName(rest)])}
-        {...computeBoxProps(rest)}
-      >
+        {...computeBoxProps(rest)}>
         {children}
       </div>
     </Dimmer>

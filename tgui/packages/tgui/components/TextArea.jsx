@@ -6,7 +6,7 @@
  */
 
 import { classes } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Box } from './Box';
 import { toInputValue } from './Input';
 import { KEY_ENTER, KEY_ESCAPE, KEY_TAB } from 'common/keycodes';
@@ -183,9 +183,9 @@ export class TextArea extends Component {
       scrollbar,
       noborder,
       displayedValue,
-      resize,
       ...boxProps
     } = this.props;
+
     // Box props
     const { className, fluid, nowrap, ...rest } = boxProps;
     const { scrolledAmount } = this.state;
@@ -197,13 +197,7 @@ export class TextArea extends Component {
           noborder && 'TextArea--noborder',
           className,
         ])}
-        {...rest}
-        style={{
-          ...rest.style,
-          'min-height': resize && rest.height ? rest.height : '',
-          height: resize && rest.height ? 'max-content' : rest.height,
-        }}
-      >
+        {...rest}>
         {!!displayedValue && (
           <Box position="absolute" width="100%" height="100%" overflow="hidden">
             <div
@@ -213,8 +207,7 @@ export class TextArea extends Component {
               ])}
               style={{
                 transform: `translateY(-${scrolledAmount}px)`,
-              }}
-            >
+              }}>
               {displayedValue}
             </div>
           </Box>
@@ -237,11 +230,6 @@ export class TextArea extends Component {
           maxLength={maxLength}
           style={{
             color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
-            resize: resize,
-            position: resize !== 'none' && 'relative',
-            'min-height':
-              resize !== 'none' ? rest?.height || 'inherit' : 'inherit',
-            height: resize !== 'none' ? 'max-content' : 'inherit',
           }}
         />
       </Box>

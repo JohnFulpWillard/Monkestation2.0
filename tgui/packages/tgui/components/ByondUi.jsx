@@ -6,7 +6,7 @@
 
 import { shallowDiffers } from 'common/react';
 import { debounce } from 'common/timer';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { createLogger } from '../logging';
 import { computeBoxProps } from './Box';
 
@@ -15,7 +15,7 @@ const logger = createLogger('ByondUi');
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
 
-const createByondUiElement = (elementId, phonehome = true) => {
+const createByondUiElement = (elementId) => {
   // Reserve an index in the stack
   const index = byondUiStack.length;
   byondUiStack.push(null);
@@ -26,13 +26,11 @@ const createByondUiElement = (elementId, phonehome = true) => {
   return {
     render: (params) => {
       logger.log(`rendering '${id}'`);
-      if (phonehome) Byond.sendMessage('renderByondUi', { renderByondUi: id });
       byondUiStack[index] = id;
       Byond.winset(id, params);
     },
     unmount: () => {
       logger.log(`unmounting '${id}'`);
-      if (phonehome) Byond.sendMessage('unmountByondUi', { renderByondUi: id });
       byondUiStack[index] = null;
       Byond.winset(id, {
         parent: '',
@@ -78,10 +76,7 @@ export class ByondUi extends Component {
   constructor(props) {
     super(props);
     this.containerRef = createRef();
-    this.byondUiElement = createByondUiElement(
-      props.params?.id,
-      props.phonehome,
-    );
+    this.byondUiElement = createByondUiElement(props.params?.id);
     this.handleResize = debounce(() => {
       this.forceUpdate();
     }, 100);
@@ -97,20 +92,12 @@ export class ByondUi extends Component {
   }
 
   componentDidMount() {
-    // IE8: It probably works, but fuck you anyway.
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     window.addEventListener('resize', this.handleResize);
     this.componentDidUpdate();
     this.handleResize();
   }
 
   componentDidUpdate() {
-    // IE8: It probably works, but fuck you anyway.
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
     logger.debug('bounding box', box);
@@ -123,10 +110,6 @@ export class ByondUi extends Component {
   }
 
   componentWillUnmount() {
-    // IE8: It probably works, but fuck you anyway.
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     window.removeEventListener('resize', this.handleResize);
     this.byondUiElement.unmount();
   }
@@ -136,7 +119,7 @@ export class ByondUi extends Component {
     return (
       <div ref={this.containerRef} {...computeBoxProps(rest)}>
         {/* Filler */}
-        <div style={{ 'min-height': '22px' }} />
+        <div style={{ minHeight: '22px' }} />
       </div>
     );
   }
