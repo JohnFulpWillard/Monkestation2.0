@@ -80,7 +80,7 @@ export const NtosArcade = (props) => {
                   <img src={resolveAsset(data.BossID)} />
                 </Section>
               </Stack.Item>
-            </Grid>
+            </Stack>
             <Box my={1} mx={4} />
             <Button
               icon="fist-raised"

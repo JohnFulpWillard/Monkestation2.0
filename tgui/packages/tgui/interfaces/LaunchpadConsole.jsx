@@ -121,7 +121,7 @@ const LaunchpadButtonPad = (props) => {
           }
         />
       </Stack.Item>
-    </Grid>
+    </Stack>
   );
 };
 
@@ -204,7 +204,7 @@ export const LaunchpadControl = (props) => {
             </Box>
           </Section>
         </Stack.Item>
-      </Grid>
+      </Stack>
       <Stack>
         <Stack.Item>
           <Button
@@ -224,7 +224,7 @@ export const LaunchpadControl = (props) => {
             onClick={() => act('pull')}
           />
         </Stack.Item>
-      </Grid>
+      </Stack>
     </Section>
   );
 };

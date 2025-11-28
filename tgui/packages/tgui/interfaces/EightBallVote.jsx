@@ -48,7 +48,7 @@ const EightBallVoteQuestion = (props) => {
             </Box>
           </Stack.Item>
         ))}
-      </Grid>
+      </Stack>
     </Section>
   );
 };

@@ -316,7 +316,7 @@ const ClockworkOverviewStat = (props) => {
             {overrideText ? overrideText : amount + ' ' + unit}
           </ProgressBar>
         </Stack.Item>
-      </Grid>
+      </Stack>
     </Box>
   );
 };

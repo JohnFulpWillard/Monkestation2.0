@@ -41,7 +41,7 @@ export const NukeKeypad = (props) => {
             ))}
           </Stack.Item>
         ))}
-      </Grid>
+      </Stack>
     </Box>
   );
 };

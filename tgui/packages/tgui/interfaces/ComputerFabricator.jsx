@@ -69,7 +69,7 @@ const CfStep1 = (props) => {
               }
             />
           </Stack.Item>
-        </Grid>
+        </Stack>
       </Box>
     </Section>
   );

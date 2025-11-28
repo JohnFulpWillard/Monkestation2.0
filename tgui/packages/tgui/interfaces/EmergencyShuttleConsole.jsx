@@ -60,7 +60,7 @@ export const EmergencyShuttleConsole = (props) => {
                   onClick={() => act('repeal')}
                 />
               </Stack.Item>
-            </Grid>
+            </Stack>
             <Section
               title="Authorizations"
               level={3}

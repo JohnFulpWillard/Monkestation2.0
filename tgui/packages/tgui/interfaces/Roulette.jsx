@@ -264,7 +264,7 @@ export const RouletteBetTable = (props) => {
                   onChange={(e, value) => setCustomBet(value)}
                 />
               </Stack.Item>
-            </Grid>
+            </Stack>
           </Box>
         </Table.Cell>
       </Table.Row>

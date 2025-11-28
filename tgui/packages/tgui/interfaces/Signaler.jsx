@@ -55,7 +55,7 @@ export const SignalerContent = (props) => {
             }
           />
         </Stack.Item>
-      </Grid>
+      </Stack>
       <Stack mt={0.6}>
         <Stack.Item size={1.4} color="label">
           Code:
@@ -88,7 +88,7 @@ export const SignalerContent = (props) => {
             }
           />
         </Stack.Item>
-      </Grid>
+      </Stack>
       <Stack mt={0.8}>
         <Stack.Item>
           <Button
@@ -101,7 +101,7 @@ export const SignalerContent = (props) => {
             onClick={() => act('signal')}
           />
         </Stack.Item>
-      </Grid>
+      </Stack>
     </Section>
   );
 };

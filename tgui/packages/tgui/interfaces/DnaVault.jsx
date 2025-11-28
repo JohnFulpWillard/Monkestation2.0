@@ -77,7 +77,7 @@ export const DnaVault = (props) => {
                   }
                 />
               </Stack.Item>
-            </Grid>
+            </Stack>
           </Section>
         )}
       </Window.Content>

@@ -52,7 +52,7 @@ export const ArmoryAuthorizationComputer = (props) => {
                   onClick={() => act('repeal')}
                 />
               </Stack.Item>
-            </Grid>
+            </Stack>
             <Section
               title="Authorizations"
               level={3}
@@ -131,7 +131,7 @@ export const ArmoryAuthorizationComputer = (props) => {
                   content="CLOSE"
                 />
               </Stack.Item>
-            </Grid>
+            </Stack>
           </Section>
         </Section>
       </Window.Content>

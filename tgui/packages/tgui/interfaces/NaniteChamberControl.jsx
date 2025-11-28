@@ -127,7 +127,7 @@ export const NaniteChamberControlContent = (props) => {
                   </LabeledList.Item>
                 </LabeledList>
               </Stack.Item>
-            </Grid>
+            </Stack>
           </Section>
           <Section title="Programs" level={2}>
             {mob_programs.map((program) => {
@@ -152,7 +152,7 @@ export const NaniteChamberControlContent = (props) => {
                           </LabeledList>
                         </Stack.Item>
                       )}
-                    </Grid>
+                    </Stack>
                     {scan_level >= 2 && (
                       <Stack>
                         {!!program.can_trigger && (
@@ -201,7 +201,7 @@ export const NaniteChamberControlContent = (props) => {
                             </Section>
                           </Stack.Item>
                         )}
-                      </Grid>
+                      </Stack>
                     )}
                     {scan_level >= 3 && !!program.has_extra_settings && (
                       <Section title="Extra Settings" level={2}>
@@ -255,7 +255,7 @@ export const NaniteChamberControlContent = (props) => {
                             </Section>
                           </Stack.Item>
                         )}
-                      </Grid>
+                      </Stack>
                     )}
                   </Section>
                 </Collapsible>

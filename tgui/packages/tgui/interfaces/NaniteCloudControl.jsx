@@ -282,7 +282,7 @@ export const NaniteProgrammerContent = (props) => {
               )}
             </LabeledList>
           </Stack.Item>
-        </Grid>
+        </Stack>
       </Section>
       <Section
         title="Settings"
@@ -305,7 +305,7 @@ export const NaniteProgrammerContent = (props) => {
           <Stack.Item>
             <NaniteDelays />
           </Stack.Item>
-        </Grid>
+        </Stack>
         {!!has_extra_settings && (
           <Section title="Special" level={3}>
             <LabeledList>
@@ -376,7 +376,7 @@ export const NaniteInfoBox = (props) => {
             )}
           </LabeledList>
         </Stack.Item>
-      </Grid>
+      </Stack>
       <Stack>
         <Stack.Item>
           <Section title="Codes" level={3} mr={1}>
@@ -418,7 +418,7 @@ export const NaniteInfoBox = (props) => {
             </LabeledList>
           </Section>
         </Stack.Item>
-      </Grid>
+      </Stack>
       <Section title="Extra Settings" level={3}>
         <LabeledList>
           {extra_settings.map((setting) => {
