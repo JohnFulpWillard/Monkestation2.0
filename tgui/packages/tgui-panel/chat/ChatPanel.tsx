@@ -5,8 +5,8 @@
  */
 
 import { Component, createRef } from 'react';
-import { Button } from 'tgui-core/components';
-import { shallowDiffers } from 'tgui-core/react';
+import { Button } from 'tgui/components';
+import { shallowDiffers } from 'common/react';
 
 import { chatRenderer } from './renderer';
 

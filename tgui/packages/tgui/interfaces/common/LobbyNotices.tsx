@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { Box, NoticeBox } from '../../components';
 
 export type LobbyNoticesType = (

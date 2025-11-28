@@ -1,5 +1,5 @@
 import { BooleanLike } from 'common/react';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 
 import { useBackend, useLocalState, useSharedState } from '../../backend';
 import {
@@ -16,7 +16,7 @@ import {
 } from '../../components';
 
 type GenericUplinkProps = {
-  currency?: string | InfernoNode;
+  currency?: string | ReactNode;
   categories: string[];
   items: Item[];
   handleBuy: (item: Item) => void;
@@ -137,8 +137,8 @@ export type Item = {
   icon: string;
   icon_state: string;
   category: string;
-  cost: InfernoNode | string;
-  desc: InfernoNode | string;
+  cost: ReactNode | string;
+  desc: ReactNode | string;
   disabled: BooleanLike;
   is_locked: BooleanLike;
 };

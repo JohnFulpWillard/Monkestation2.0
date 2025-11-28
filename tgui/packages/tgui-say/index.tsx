@@ -1,11 +1,19 @@
 import './styles/main.scss';
-import { render } from 'react-dom';
-
+import { createRenderer } from 'tgui/renderer';
 import { TguiSay } from './TguiSay';
 
-document.onreadystatechange = function () {
-  if (document.readyState !== 'complete') return;
+const renderApp = createRenderer(() => {
+  return <TguiSay />;
+});
 
-  const root = document.getElementById('react-root');
-  render(<TguiSay />, root);
+const setupApp = () => {
+  // Delay setup
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupApp);
+    return;
+  }
+
+  renderApp();
 };
+
+setupApp();

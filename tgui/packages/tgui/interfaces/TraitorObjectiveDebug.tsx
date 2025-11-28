@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, LabeledList, Stack, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { getDangerLevel } from './Uplink/calculateDangerLevel';
-import type { InfernoNode } from 'inferno';
+import type { ReactNode } from 'react';
 
 type Objective = {
   name: string;
@@ -130,7 +130,7 @@ const sortingOptions: SortingOption[] = [
 export const TraitorObjectiveDebug = (props) => {
   const { data, act } = useBackend<ObjectiveData>();
   const { objective_data, player_data, current_progression } = data;
-  const lines: InfernoNode[] = [];
+  const lines: ReactNode[] = [];
   lines.sort();
   for (let i = 10; i < 100; i += 10) {
     lines.push(

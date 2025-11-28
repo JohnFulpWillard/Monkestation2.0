@@ -4496,7 +4496,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.1.1, csstype@npm:^3.1.2":
+"csstype@npm:^3.1.1":
   version: 3.1.2
   resolution: "csstype@npm:3.1.2"
   checksum: 10c0/32c038af259897c807ac738d9eab16b3d86747c72b09d5c740978e06f067f9b7b1737e1b75e407c7ab1fe1543dc95f20e202b4786aeb1b8d3bdf5d5ce655e6c6
@@ -6509,101 +6509,6 @@ __metadata:
   version: 1.0.4
   resolution: "infer-owner@npm:1.0.4"
   checksum: 10c0/a7b241e3149c26e37474e3435779487f42f36883711f198c45794703c7556bc38af224088bd4d1a221a45b8208ae2c2bcf86200383621434d0c099304481c5b9
-  languageName: node
-  linkType: hard
-
-"inferno-clone-vnode@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-clone-vnode@npm:8.2.3"
-  dependencies:
-    inferno: "npm:8.2.3"
-  checksum: 10c0/1cd8ee70d384775c67538b35436ec6ac9a0f0f0d6b0200d6b727affc1fbab808a19402ae0d6541523bff2c427d318c904a5375d90524d74fd2381f95ba44d407
-  languageName: node
-  linkType: hard
-
-"inferno-compat@npm:^8.2.1":
-  version: 8.2.3
-  resolution: "inferno-compat@npm:8.2.3"
-  dependencies:
-    inferno: "npm:8.2.3"
-    inferno-clone-vnode: "npm:8.2.3"
-    inferno-create-class: "npm:8.2.3"
-    inferno-create-element: "npm:8.2.3"
-    inferno-extras: "npm:8.2.3"
-    inferno-hydrate: "npm:8.2.3"
-  checksum: 10c0/54d49f42ecdbffd55c0d465192dc4c193edd9d1718a9d176bcc030b2a54a8e1225c345e5328384bc18cda7d1475bae4c73546dd977372aba6c7bd84f66c6b75a
-  languageName: node
-  linkType: hard
-
-"inferno-create-class@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-create-class@npm:8.2.3"
-  dependencies:
-    inferno: "npm:8.2.3"
-  checksum: 10c0/62b1f695fd4cf3dbda27c88058b6be4d8eb95b25fb3c3de7c1787377a6bfcaa7813abb7797ea941573ce28afc0a74b3b7c960b70cd57d5a0dec32126b12b77cf
-  languageName: node
-  linkType: hard
-
-"inferno-create-element@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-create-element@npm:8.2.3"
-  dependencies:
-    inferno: "npm:8.2.3"
-  checksum: 10c0/c24c13b1d0b06d74faf8bfde830c71b76682ba6c7241e67678747cf9217a1129619ba84b1dd119b04053edec545d1202b056cc9b09681af69451bd3ec780e2a2
-  languageName: node
-  linkType: hard
-
-"inferno-extras@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-extras@npm:8.2.3"
-  dependencies:
-    inferno: "npm:8.2.3"
-  checksum: 10c0/d08356367bcf6307b981bb7fabe6733c600921d109bf70d17b843820919f308465545d44a2a53713abaa57c2da05f808d46fa6ca70aa23948ce2a333cfa54e46
-  languageName: node
-  linkType: hard
-
-"inferno-hydrate@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-hydrate@npm:8.2.3"
-  dependencies:
-    inferno: "npm:8.2.3"
-  checksum: 10c0/99bf673f3af622788f84856ae96d9c25ba3d063b5b56611bd5beae7240684ba9d2e725a22ce12a8af3b749cc65610a614afa8991da8f094e6ab065c790c61fe1
-  languageName: node
-  linkType: hard
-
-"inferno-vnode-flags@npm:8.2.2":
-  version: 8.2.2
-  resolution: "inferno-vnode-flags@npm:8.2.2"
-  checksum: 10c0/707dd0245ae2c79e394f22a6f58d2e8c01d16325ab350bcaf54e6778a6be4aaa7d0d6346ac2da2d01a75497a628cf4deac1a89b2a797fac844a76a90e3b3be92
-  languageName: node
-  linkType: hard
-
-"inferno-vnode-flags@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-vnode-flags@npm:8.2.3"
-  checksum: 10c0/abd057e86df3c9afe9f954a5288bb78c8cae29d04f5e5b77ed4cfa000d3dcbceae3637da14ab85e8b90c85dcfc4e4181cf5953bed9bbe22634eda0bf89c3c8a9
-  languageName: node
-  linkType: hard
-
-"inferno@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno@npm:8.2.3"
-  dependencies:
-    csstype: "npm:^3.1.2"
-    inferno-vnode-flags: "npm:8.2.3"
-    opencollective-postinstall: "npm:^2.0.3"
-  checksum: 10c0/6a4d9e8766df2fa7472523977db37d4c935e034d6d769a205c4a1b6bede277dba0f8d61562a28cecb0a9d070e34426841fc9d4b58cb3cd94a0f874ddee64be27
-  languageName: node
-  linkType: hard
-
-"inferno@npm:^8.2.1":
-  version: 8.2.2
-  resolution: "inferno@npm:8.2.2"
-  dependencies:
-    csstype: "npm:^3.1.2"
-    inferno-vnode-flags: "npm:8.2.2"
-    opencollective-postinstall: "npm:^2.0.3"
-  checksum: 10c0/727245c5723c63f5c7a9b3b4f8298b89f18f25fd464563a3f094573bd909acf28cc2006d9ff17997d39083dcd02279c65f4ee3c4d5aadbd25da7a529f07b7a1c
   languageName: node
   linkType: hard
 
@@ -8685,15 +8590,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"opencollective-postinstall@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "opencollective-postinstall@npm:2.0.3"
-  bin:
-    opencollective-postinstall: index.js
-  checksum: 10c0/8a0104a218bc1afaae943f0af378461eeb2836f9848bad872bbd067ec5d1d9791636f307454ab77d0746f10341366f295384656a340ebdb87a2585058e8567e5
-  languageName: node
-  linkType: hard
-
 "opener@npm:^1.5.2":
   version: 1.5.2
   resolution: "opener@npm:1.5.2"
@@ -9240,6 +9136,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^19.1.0":
+  version: 19.2.0
+  resolution: "react-dom@npm:19.2.0"
+  dependencies:
+    scheduler: "npm:^0.27.0"
+  peerDependencies:
+    react: ^19.2.0
+  checksum: 10c0/fa2cae05248d01288e91523b590ce4e7635b1e13f1344e225f850d722a8da037bf0782f63b1c1d46353334e0c696909b82e582f8cad607948fde6f7646cc18d9
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -9260,6 +9167,13 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
+  languageName: node
+  linkType: hard
+
+"react@npm:^19.1.0":
+  version: 19.2.0
+  resolution: "react@npm:19.2.0"
+  checksum: 10c0/1b6d64eacb9324725bfe1e7860cb7a6b8a34bc89a482920765ebff5c10578eb487e6b46b2f0df263bd27a25edbdae2c45e5ea5d81ae61404301c1a7192c38330
   languageName: node
   linkType: hard
 
@@ -9714,6 +9628,13 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.27.0":
+  version: 0.27.0
+  resolution: "scheduler@npm:0.27.0"
+  checksum: 10c0/4f03048cb05a3c8fddc45813052251eca00688f413a3cee236d984a161da28db28ba71bd11e7a3dd02f7af84ab28d39fb311431d3b3772fed557945beb00c452
   languageName: node
   linkType: hard
 
@@ -10674,7 +10595,8 @@ __metadata:
     "@types/node": "npm:^14.x"
     common: "workspace:*"
     dompurify: "npm:^2.4.4"
-    inferno: "npm:^8.2.1"
+    react: "npm:^19.1.0"
+    react-dom: "npm:^19.1.0"
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
@@ -10743,8 +10665,6 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-unused-imports: "npm:^1.1.5"
     file-loader: "npm:^6.2.0"
-    inferno: "npm:^8.2.1"
-    inferno-compat: "npm:^8.2.1"
     jest: "npm:^29.7.0"
     jest-circus: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"

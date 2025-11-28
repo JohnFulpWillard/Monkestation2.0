@@ -262,7 +262,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
           {rightSide}
         </Stack.Item>
       </Stack>
-    </Box>
+    </Stack.Item>
   );
 };
 

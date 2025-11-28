@@ -391,9 +391,9 @@ const Authorization = (props, context) => {
     <Section width="420px" style={{ whiteSpace: 'pre-wrap' }}>
       <b>
         {'User: '}
-        <span
-          style={!combat_parts_allowed ? 'color:#ff0000' : 'color:#00ff00'}
-          font-style:bold
+        <Box
+          bold
+          color={!combat_parts_allowed ? 'bad' : 'good'}
         >
           {!combat_parts_allowed
             ? 'Unauthorized'
@@ -402,7 +402,7 @@ const Authorization = (props, context) => {
               : garbleText(
                   'ALERT: ROOTKIT_DEV_OVERRIDE RUNNING IN LIVE ENVIROMENT',
                 )}
-        </span>
+        </Box>
         <Tooltip
           content={
             'Designs marked in red are classified as combat-level designs. Gain access from a Command member or an elevated station threat level to print them. Blue alert loosens restrictions on non-lethal weapons.'

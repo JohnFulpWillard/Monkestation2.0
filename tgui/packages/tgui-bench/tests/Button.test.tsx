@@ -1,6 +1,6 @@
 import { Button } from 'tgui/components';
 import { createRenderer } from 'tgui/renderer';
-import type { InfernoNode } from 'inferno';
+import type { ReactNode } from 'react';
 
 const render = createRenderer();
 
@@ -15,7 +15,7 @@ export const SingleButtonWithCallback = () => {
 };
 
 export const ListOfButtons = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = <Button key={i}>Hello world! {i}</Button>;
     nodes.push(node);
@@ -24,7 +24,7 @@ export const ListOfButtons = () => {
 };
 
 export const ListOfButtonsWithCallback = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = (
       <Button key={i} onClick={() => undefined}>
@@ -37,7 +37,7 @@ export const ListOfButtonsWithCallback = () => {
 };
 
 export const ListOfButtonsWithIcons = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = (
       <Button key={i} icon={'arrow-left'}>
@@ -50,7 +50,7 @@ export const ListOfButtonsWithIcons = () => {
 };
 
 export const ListOfButtonsWithTooltips = () => {
-  const nodes: InfernoNode[] = [];
+  const nodes: ReactNode[] = [];
   for (let i = 0; i < 100; i++) {
     const node = (
       <Button key={i} tooltip={'Hello world!'}>

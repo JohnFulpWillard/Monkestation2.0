@@ -18,24 +18,34 @@
  * ```
  */
 export enum KEY {
+  A = 'a',
   Alt = 'Alt',
   Backspace = 'Backspace',
   Control = 'Control',
+  D = 'd',
   Delete = 'Delete',
   Down = 'ArrowDown',
+  E = 'e',
   End = 'End',
   Enter = 'Enter',
+  Esc = 'Esc',
   Escape = 'Escape',
   Home = 'Home',
   Insert = 'Insert',
   Left = 'ArrowLeft',
+  Minus = '-',
+  N = 'n',
   PageDown = 'PageDown',
   PageUp = 'PageUp',
+  Plus = '+',
   Right = 'ArrowRight',
+  S = 's',
   Shift = 'Shift',
   Space = ' ',
   Tab = 'Tab',
   Up = 'ArrowUp',
+  W = 'w',
+  Z = 'z',
 }
 
 /**

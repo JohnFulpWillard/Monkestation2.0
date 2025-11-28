@@ -9,7 +9,6 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { Color } from 'common/color';
-import { Inferno } from 'inferno';
 import { JOB2ICON } from './common/JobToIcon';
 import { deepMerge } from 'common/collections';
 import { BooleanLike } from 'common/react';
