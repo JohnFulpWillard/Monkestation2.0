@@ -1,8 +1,7 @@
-import { Box, Button, LabeledList, Section } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { Box, Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
+import { Window } from '../layouts';
 
 const DISEASE_THEASHOLD_LIST = [
   'Positive',
@@ -12,6 +11,49 @@ const DISEASE_THEASHOLD_LIST = [
   'Harmful',
   'Dangerous',
   'BIOHAZARD',
+];
+
+const TARGET_SPECIES_LIST = [
+  {
+    name: 'Human',
+    value: 'human',
+  },
+  {
+    name: 'Lizardperson',
+    value: 'lizard',
+  },
+  {
+    name: 'Flyperson',
+    value: 'fly',
+  },
+  {
+    name: 'Felinid',
+    value: 'felinid',
+  },
+  {
+    name: 'Plasmaman',
+    value: 'plasma',
+  },
+  {
+    name: 'Mothperson',
+    value: 'moth',
+  },
+  {
+    name: 'Oozeling',
+    value: 'ooze',
+  },
+  {
+    name: 'Podperson',
+    value: 'pod',
+  },
+  {
+    name: 'Golem',
+    value: 'golem',
+  },
+  {
+    name: 'Zombie',
+    value: 'zombie',
+  },
 ];
 
 const TARGET_NUTRITION_LIST = [
@@ -68,6 +110,10 @@ const SCANNER_GATE_ROUTES = {
     title: 'Scanner Mode: Nutrition',
     component: () => ScannerGateNutrition,
   },
+  Nanites: {
+    title: 'Scanner Mode: Nanites',
+    component: () => ScannerGateNanites,
+  },
 };
 
 const ScannerGateControl = (props) => {
@@ -94,7 +140,7 @@ const ScannerGateControl = (props) => {
 };
 
 const ScannerGateOff = (props) => {
-  const { act, data } = useBackend();
+  const { act } = useBackend();
   return (
     <>
       <Box mb={2}>Select a scanning mode below.</Box>
@@ -122,6 +168,10 @@ const ScannerGateOff = (props) => {
         <Button
           content="Nutrition"
           onClick={() => act('set_mode', { new_mode: 'Nutrition' })}
+        />
+        <Button
+          content="Nanites"
+          onClick={() => act('set_mode', { new_mode: 'Nanites' })}
         />
       </Box>
     </>
@@ -200,32 +250,30 @@ const ScannerGateDisease = (props) => {
 
 const ScannerGateSpecies = (props) => {
   const { act, data } = useBackend();
-  const { reverse, target_species_id, available_species, target_zombie } = data;
-  const species = available_species.find((species) => {
-    return species.specie_id === target_species_id;
+  const { reverse, target_species } = data;
+  const species = TARGET_SPECIES_LIST.find((species) => {
+    return species.value === target_species;
   });
   return (
     <>
       <Box mb={2}>
         Trigger if the person scanned is {reverse ? 'not' : ''} of the{' '}
-        {species.specie_name} species.
-        {target_zombie
-          ? ' All zombie types will be detected, including dormant zombies.'
-          : null}
+        {species.name} species.
+        {target_species === 'zombie' &&
+          ' All zombie types will be detected, including dormant zombies.'}
       </Box>
       <Box mb={2}>
-        {available_species.map((species) => (
+        {TARGET_SPECIES_LIST.map((species) => (
           <Button.Checkbox
-            key={species.specie_id}
-            checked={species.specie_id === target_species_id}
+            key={species.value}
+            checked={species.value === target_species}
+            content={species.name}
             onClick={() =>
               act('set_target_species', {
-                new_species_id: species.specie_id,
+                new_species: species.value,
               })
             }
-          >
-            {species.specie_name}
-          </Button.Checkbox>
+          />
         ))}
       </Box>
       <ScannerGateMode />
@@ -258,6 +306,38 @@ const ScannerGateNutrition = (props) => {
             }
           />
         ))}
+      </Box>
+      <ScannerGateMode />
+    </>
+  );
+};
+
+const ScannerGateNanites = (props) => {
+  const { act, data } = useBackend();
+  const { reverse, nanite_cloud } = data;
+  return (
+    <>
+      <Box mb={2}>
+        Trigger if the person scanned {reverse ? 'does not have' : 'has'} nanite
+        cloud {nanite_cloud}.
+      </Box>
+      <Box mb={2}>
+        <LabeledList>
+          <LabeledList.Item label="Cloud ID">
+            <NumberInput
+              value={nanite_cloud}
+              width="65px"
+              minValue={1}
+              maxValue={100}
+              stepPixelSize={2}
+              onChange={(e, value) =>
+                act('set_nanite_cloud', {
+                  new_cloud: value,
+                })
+              }
+            />
+          </LabeledList.Item>
+        </LabeledList>
       </Box>
       <ScannerGateMode />
     </>

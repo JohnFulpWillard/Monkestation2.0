@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import { BooleanLike } from 'tgui-core/react';
+import { multiline } from 'tgui-core/string';
+import { useBackend, useSharedState } from '../backend';
 import {
   Button,
   Dimmer,
   Dropdown,
-  NoticeBox,
   Section,
   Stack,
+  NoticeBox,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import {
-  type Objective,
   ObjectivePrintout,
+  Objective,
   ReplaceObjectivesButton,
 } from './common/Objectives';
 
@@ -86,10 +85,10 @@ export const AntagInfoChangeling = (props) => {
           </Stack.Item>
           <Stack.Item grow={3}>
             <Stack fill>
-              <Stack.Item grow>
+              <Stack.Item grow basis={0}>
                 <MemoriesSection />
               </Stack.Item>
-              <Stack.Item grow>
+              <Stack.Item grow basis={0}>
                 <VictimPatternsSection />
               </Stack.Item>
             </Stack>
@@ -120,8 +119,12 @@ const HivemindSection = (props) => {
             you. Changelings grow in power greatly by absorbing their kind, and
             getting absorbed by another Changeling will leave you as a{' '}
             <span style={fallenstyle}>Fallen Changeling</span>. There is no
-            greater humiliation.
+            greater humiliation.{'\n'}
           </NoticeBox>
+          Additionally changeling rules can be found under{' '}
+          <a href="https://wiki.monkestation.com/#specific-stuff-for-antagonists">
+            Antagonist Guidance.
+          </a>
         </Stack.Item>
       </Stack>
     </Section>
@@ -155,13 +158,14 @@ const IntroductionSection = (props) => {
   );
 };
 
-const AbilitiesSection = () => {
+const AbilitiesSection = (props) => {
+  const { data } = useBackend<Info>();
   return (
     <Section fill title="Abilities">
       <Stack fill>
-        <Stack.Item grow>
+        <Stack.Item basis={0} grow>
           <Stack fill vertical>
-            <Stack.Item textColor="label" grow>
+            <Stack.Item basis={0} textColor="label" grow>
               Your
               <span style={absorbstyle}>&ensp;Absorb DNA</span> ability allows
               you to steal the DNA and memories of a victim. The
@@ -170,7 +174,7 @@ const AbilitiesSection = () => {
               grant you their memories or speech patterns.
             </Stack.Item>
             <Stack.Divider />
-            <Stack.Item textColor="label" grow>
+            <Stack.Item basis={0} textColor="label" grow>
               Your
               <span style={revivestyle}>&ensp;Reviving Stasis</span> ability
               allows you to revive. It means nothing short of a complete body
@@ -180,9 +184,9 @@ const AbilitiesSection = () => {
           </Stack>
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item grow>
+        <Stack.Item basis={0} grow>
           <Stack fill vertical>
-            <Stack.Item textColor="label" grow>
+            <Stack.Item basis={0} textColor="label" grow>
               Your
               <span style={transformstyle}>&ensp;Transform</span> ability allows
               you to change into the form of those you have collected DNA from,
@@ -190,7 +194,7 @@ const AbilitiesSection = () => {
               the clothing they were wearing for every slot you have open.
             </Stack.Item>
             <Stack.Divider />
-            <Stack.Item textColor="label" grow>
+            <Stack.Item basis={0} textColor="label" grow>
               The
               <span style={storestyle}>&ensp;Cellular Emporium</span> is where
               you purchase more abilities beyond your starting kit. You have 10
@@ -207,7 +211,8 @@ const AbilitiesSection = () => {
 const MemoriesSection = (props) => {
   const { data } = useBackend<Info>();
   const { memories } = data;
-  const [selectedMemory, setSelectedMemory] = useState(
+  const [selectedMemory, setSelectedMemory] = useSharedState(
+    'memory',
     (!!memories && memories[0]) || null,
   );
   const memoryMap = {};
@@ -215,7 +220,6 @@ const MemoriesSection = (props) => {
     const memory = memories[index];
     memoryMap[memory.name] = memory;
   }
-
   return (
     <Section
       fill
@@ -225,7 +229,7 @@ const MemoriesSection = (props) => {
         <Button
           icon="info"
           tooltipPosition="left"
-          tooltip={`
+          tooltip={multiline`
             Absorbing targets allows
             you to collect their memories. They should
             help you impersonate your target!

@@ -1,17 +1,10 @@
 import { sortBy } from 'es-toolkit';
-import type { ReactNode } from 'react';
-import {
-  Dimmer,
-  Icon,
-  Section,
-  Stack,
-  VirtualList,
-} from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
-
+import { ReactNode } from 'react';
 import { useSharedState } from '../../backend';
-import { SearchBar } from '../common/SearchBar';
-import type { Design, MaterialMap } from './Types';
+import { Stack, Section, Icon, Dimmer } from 'tgui-core/components';
+import { Design, MaterialMap } from './Types';
+import { SearchBar } from './SearchBar';
 
 /**
  * A function that does nothing.
@@ -214,7 +207,10 @@ export const DesignBrowser = <T extends Design = Design>(
             <Stack.Item>
               <Section title="Categories" fitted />
             </Stack.Item>
-            <Stack.Item grow style={{ overflowY: 'auto', overflowX: 'hidden' }}>
+            <Stack.Item
+              grow
+              style={{ 'overflow-y': 'auto', 'overflow-x': 'hidden' }}
+            >
               <Section fill>
                 <div className="FabricatorTabs">
                   <div
@@ -235,9 +231,9 @@ export const DesignBrowser = <T extends Design = Design>(
                     </div>
                   </div>
 
-                  {sortBy(Object.values(root.subcategories), [
-                    (category: Category) => category.title,
-                  ]).map((category) => (
+                  {sortBy((category: Category) => category.title)(
+                    Object.values(root.subcategories),
+                  ).map((category) => (
                     <DesignBrowserTab
                       key={category.title}
                       category={category}
@@ -268,45 +264,45 @@ export const DesignBrowser = <T extends Design = Design>(
             <Stack.Item>
               <Section>
                 <SearchBar
-                  expensive
-                  query={searchText}
-                  onSearch={setSearchText}
-                  placeholder={'Search all designs...'}
+                  searchText={searchText}
+                  onSearchTextChanged={setSearchText}
+                  hint={'Search all designs...'}
                 />
               </Section>
             </Stack.Item>
-            <Stack.Item grow style={{ overflowY: 'auto', overflowX: 'hidden' }}>
+            <Stack.Item
+              grow
+              style={{ 'overflow-y': 'auto', 'overflow-x': 'hidden' }}
+            >
               <Section fill>
                 {searchText.length > 0 ? (
-                  <VirtualList>
-                    {sortBy(Object.values(root.descendants), [
-                      (design: T) => design.name,
-                    ])
-                      .filter((design) =>
-                        design.name
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase()),
-                      )
-                      .map((design) =>
-                        buildRecipeElement(
-                          design,
-                          availableMaterials || {},
-                          onPrintDesign || NOOP,
-                        ),
-                      )}
-                  </VirtualList>
+                  sortBy((design: T) => design.name)(
+                    Object.values(root.descendants),
+                  )
+                    .filter((design) =>
+                      design.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()),
+                    )
+                    .map((design) =>
+                      buildRecipeElement(
+                        design,
+                        availableMaterials || {},
+                        onPrintDesign || NOOP,
+                      ),
+                    )
                 ) : selectedCategory === ALL_CATEGORY ? (
-                  <VirtualList>
-                    {sortBy(Object.values(root.descendants), [
-                      (design: T) => design.name,
-                    ]).map((design) =>
+                  <>
+                    {sortBy((design: T) => design.name)(
+                      Object.values(root.descendants),
+                    ).map((design) =>
                       buildRecipeElement(
                         design,
                         availableMaterials || {},
                         onPrintDesign || NOOP,
                       ),
                     )}
-                  </VirtualList>
+                  </>
                 ) : (
                   root.subcategories[selectedCategory] && (
                     <CategoryView
@@ -323,8 +319,8 @@ export const DesignBrowser = <T extends Design = Design>(
             {!!busy && (
               <Dimmer
                 style={{
-                  fontSize: '2em',
-                  textAlign: 'center',
+                  'font-size': '2em',
+                  'text-align': 'center',
                 }}
               >
                 <Icon name="cog" spin />
@@ -387,9 +383,9 @@ const DesignBrowserTab = <T extends Design = Design>(
         Object.entries(category.subcategories).length > 0 &&
         selectedCategory === category.title && (
           <div className="FabricatorTabs">
-            {sortBy(Object.values(category.subcategories), [
-              (category: Category) => category.title,
-            ]).map((subcategory) => (
+            {sortBy((category: Category) => category.title)(
+              Object.values(category.subcategories),
+            ).map((subcategory) => (
               <DesignBrowserTab
                 key={subcategory.title}
                 category={subcategory}
@@ -468,8 +464,8 @@ const CategoryView = <T extends Design = Design>(
   depth ??= 0;
 
   const body = (
-    <VirtualList>
-      {sortBy(category.children, [(design: T) => design.name]).map((design) =>
+    <>
+      {sortBy((design: T) => design.name)(category.children).map((design) =>
         buildRecipeElement(
           design,
           availableMaterials || {},
@@ -488,7 +484,7 @@ const CategoryView = <T extends Design = Design>(
             key={category.title}
           />
         ))}
-    </VirtualList>
+    </>
   );
 
   if (depth === 0 || category.children.length === 0) {
@@ -498,9 +494,8 @@ const CategoryView = <T extends Design = Design>(
   return (
     <Section
       title={category.title}
-      key={category.anchorKey}
-      container_id={category.anchorKey}
-      buttons={categoryButtons?.(category)}
+      id={category.anchorKey}
+      buttons={categoryButtons && categoryButtons(category)}
     >
       {body}
     </Section>

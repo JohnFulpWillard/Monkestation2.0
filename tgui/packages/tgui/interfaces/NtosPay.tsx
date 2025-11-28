@@ -1,19 +1,17 @@
-import { useState } from 'react';
+import { NtosWindow } from '../layouts';
+import { useBackend } from '../backend';
 import {
+  Stack,
+  Section,
   Box,
   Button,
-  Divider,
   Input,
-  NoticeBox,
-  RestrictedInput,
-  Section,
-  Stack,
   Table,
   Tooltip,
+  NoticeBox,
+  Divider,
+  RestrictedInput,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
-import { NtosWindow } from '../layouts';
 
 type Data = {
   name: string;
@@ -27,6 +25,7 @@ type Transactions = {
   adjusted_money: number;
   reason: string;
 };
+let name_to_token, money_to_send, token;
 
 export const NtosPay = (props) => {
   return (
@@ -88,15 +87,10 @@ const TransferSection = (props) => {
   const { act, data } = useBackend<Data>();
   const { money, wanted_token } = data;
 
-  const [token, setToken] = useState('');
-  const [moneyToSend, setMoneyToSend] = useState(1);
-  const [nameToToken, setNameToToken] = useState('');
-  const [moneyToSendIsValid, setMoneyToSendIsValid] = useState(true);
-
   return (
     <Stack>
       <Stack.Item>
-        <Section title="Transfer Money">
+        <Section vertical title="Transfer Money">
           <Box>
             <Tooltip
               content="Enter the pay token of the account you want to transfer credits to."
@@ -105,7 +99,7 @@ const TransferSection = (props) => {
               <Input
                 placeholder="Pay Token"
                 width="190px"
-                onChange={setToken}
+                onChange={(e, value) => (token = value)}
               />
             </Tooltip>
           </Box>
@@ -117,22 +111,19 @@ const TransferSection = (props) => {
               width="83px"
               minValue={1}
               maxValue={money}
-              onChange={setMoneyToSend}
-              onValidationChange={setMoneyToSendIsValid}
-              value={moneyToSend}
+              onChange={(_, value) => (money_to_send = value)}
+              value={1}
             />
           </Tooltip>
           <Button
-            disabled={!moneyToSendIsValid}
+            content="Send credits"
             onClick={() =>
               act('Transaction', {
                 token: token,
-                amount: moneyToSend,
+                amount: money_to_send,
               })
             }
-          >
-            Send credits
-          </Button>
+          />
         </Section>
       </Stack.Item>
       <Stack.Item>
@@ -141,17 +132,16 @@ const TransferSection = (props) => {
             <Input
               placeholder="Full name of account."
               width="190px"
-              onChange={setNameToToken}
+              onChange={(e, value) => (name_to_token = value)}
             />
             <Button
+              content="Get it"
               onClick={() =>
                 act('GetPayToken', {
-                  wanted_name: nameToToken,
+                  wanted_name: name_to_token,
                 })
               }
-            >
-              Get it
-            </Button>
+            />
           </Box>
           <Divider hidden />
           <Box nowrap>{wanted_token}</Box>
@@ -170,9 +160,9 @@ const TransactionHistory = (props) => {
     <Section fill title="Transaction History">
       <Section fill scrollable title={<TableHeaders />}>
         <Table>
-          {transaction_list.map((log, index) => (
+          {transaction_list.map((log) => (
             <Table.Row
-              key={index}
+              key={log}
               className="candystripe"
               color={log.adjusted_money < 1 ? 'red' : 'green'}
             >

@@ -1,5 +1,6 @@
-import { uniqBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
+import { filter, uniqBy } from 'es-toolkit';
+import { flow } from 'tgui-core/fp';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -8,8 +9,6 @@ import {
   LabeledList,
   Stack,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
 import {
   CHROMOSOME_NEVER,
   CHROMOSOME_NONE,
@@ -37,27 +36,33 @@ const ChromosomeInfo = (props) => {
     if (disabled) {
       return <Box color="label">No chromosome applied.</Box>;
     }
+    // MONKESTATION TODO(react): Remove the use of <Stack.Item> here when we attempt to port react
+    // See https://github.com/Monkestation/Monkestation2.0/pull/5731#issuecomment-2699010893 for info
     return (
       <>
-        <Dropdown
-          width="240px"
-          options={mutation.ValidStoredChromos}
-          disabled={mutation.ValidStoredChromos.length === 0}
-          selected={
-            mutation.ValidStoredChromos.length === 0
-              ? 'No Suitable Chromosomes'
-              : 'Select a chromosome'
-          }
-          onSelected={(e) =>
-            act('apply_chromo', {
-              chromo: e,
-              mutref: mutation.ByondRef,
-            })
-          }
-        />
-        <Box color="label" mt={1}>
-          Compatible with: {mutation.ValidChromos}
-        </Box>
+        <Stack.Item>
+          <Dropdown
+            width="240px"
+            options={mutation.ValidStoredChromos}
+            disabled={mutation.ValidStoredChromos.length === 0}
+            selected={
+              mutation.ValidStoredChromos.length === 0
+                ? 'No Suitable Chromosomes'
+                : 'Select a chromosome'
+            }
+            onSelected={(e) =>
+              act('apply_chromo', {
+                chromo: e,
+                mutref: mutation.ByondRef,
+              })
+            }
+          />
+        </Stack.Item>
+        <Stack.Item>
+          <Box color="label" mt={1}>
+            Compatible with: {mutation.ValidChromos}
+          </Box>
+        </Stack.Item>
       </>
     );
   }
@@ -122,10 +127,10 @@ export const MutationInfo = (props) => {
     isSameMutation(x, mutation),
   );
   const savedToDisk = diskMutations.find((x) => isSameMutation(x, mutation));
-  const combinedMutations = filter(
-    uniqBy([...diskMutations, ...mutationStorage], (mutation) => mutation.Name),
-    (x) => x.Name !== mutation.Name,
-  );
+  const combinedMutations = flow([
+    uniqBy((mutation) => mutation.Name),
+    filter((x) => x.Name !== mutation.Name),
+  ])([...diskMutations, ...mutationStorage]);
   return (
     <>
       <LabeledList>

@@ -1,12 +1,6 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -22,7 +16,7 @@ export const AtmosPump = (props) => {
   const { on, max_rate, max_pressure, rate, pressure } = data;
 
   return (
-    <Window width={335} height={115}>
+    <Window width={345} height={115}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -39,11 +33,11 @@ export const AtmosPump = (props) => {
                 <NumberInput
                   animated
                   value={rate}
-                  step={1}
                   width="63px"
                   unit="L/s"
                   minValue={0}
                   maxValue={max_rate}
+                  step={1}
                   onChange={(value) =>
                     act('rate', {
                       rate: value,

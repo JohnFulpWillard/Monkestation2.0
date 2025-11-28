@@ -1,15 +1,7 @@
-import {
-  Button,
-  Icon,
-  Image,
-  NoticeBox,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
-
+import { BooleanLike, classes } from 'tgui-core/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
+import { Box, Button, Icon, NoticeBox, Section, Stack } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 type Data = {
@@ -51,9 +43,10 @@ export const NtosRadarContent = (props) => {
       </Stack.Item>
       <Stack.Item
         style={{
-          backgroundImage: `url("${resolveAsset('ntosradarbackground.png')}")`,
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          'background-image':
+            'url("' + resolveAsset('ntosradarbackground.png') + '")',
+          'background-position': 'center',
+          'background-repeat': 'no-repeat',
           top: '20px',
         }}
         position="relative"
@@ -132,7 +125,8 @@ const TargetDisplay = (props) => {
     );
   }
   return target.userot ? (
-    <Image
+    <Box
+      as="img"
       src={resolveAsset(target.arrowstyle)}
       position="absolute"
       top="20px"
@@ -147,8 +141,8 @@ const TargetDisplay = (props) => {
       position="absolute"
       size={2}
       color={target.color}
-      top={`${target.locy * 10 + 19}px`}
-      left={`${target.locx * 10 + 16}px`}
+      top={target.locy * 10 + 19 + 'px'}
+      left={target.locx * 10 + 16 + 'px'}
     />
   );
 };

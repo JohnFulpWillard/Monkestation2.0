@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Button,
   Divider,
@@ -8,10 +7,10 @@ import {
   Stack,
   Tabs,
 } from 'tgui-core/components';
-import { createSearch } from 'tgui-core/string';
+import { useBackend, useLocalState } from '../backend';
 
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { createSearch } from 'tgui-core/string';
 
 type Data = {
   netsuit: string;
@@ -33,8 +32,11 @@ type Outfit = {
 export const NetpodOutfits = (props) => {
   const { act, data } = useBackend<Data>();
   const { netsuit, collections = [] } = data;
-  const [selectedType, setSelectedType] = useState(collections[0]);
-  const [search, setSearch] = useState('');
+  const [selectedType, setSelectedType] = useLocalState<Collection>(
+    'selectedType',
+    collections[0],
+  );
+  const [search, setSearch] = useLocalState<string>('outfitSearch', '');
 
   const searchFn = createSearch(search, (outfit: Outfit) => outfit.name);
 
@@ -57,7 +59,7 @@ export const NetpodOutfits = (props) => {
               buttons={
                 <Input
                   autoFocus
-                  onChange={setSearch}
+                  onInput={(event, value) => setSearch(value)}
                   placeholder="Search"
                   value={search}
                 />

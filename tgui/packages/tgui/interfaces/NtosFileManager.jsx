@@ -1,6 +1,5 @@
-import { Button, Section, Table } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
+import { Button, Section, Table } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 export const NtosFileManager = (props) => {
@@ -71,8 +70,10 @@ const FileTable = (props) => {
             {!file.undeletable ? (
               <Button.Input
                 fluid
-                value={file.name}
-                onCommit={(value) => onRename(file.name, value)}
+                content={file.name}
+                currentValue={file.name}
+                tooltip="Rename"
+                onCommit={(e, value) => onRename(file.name, value)}
               />
             ) : (
               file.name

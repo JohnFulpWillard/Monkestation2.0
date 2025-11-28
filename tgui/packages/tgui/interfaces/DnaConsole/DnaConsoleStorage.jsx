@@ -1,15 +1,16 @@
 import { uniqBy } from 'es-toolkit';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
   Collapsible,
+  Stack,
   LabeledList,
   Section,
-  Stack,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
+import { GeneticMakeupInfo } from './GeneticMakeupInfo';
+import { MutationInfo } from './MutationInfo';
 import {
   STORAGE_CONS_SUBMODE_CHROMOSOMES,
   STORAGE_CONS_SUBMODE_MUTATIONS,
@@ -19,8 +20,6 @@ import {
   STORAGE_MODE_CONSOLE,
   STORAGE_MODE_DISK,
 } from './constants';
-import { GeneticMakeupInfo } from './GeneticMakeupInfo';
-import { MutationInfo } from './MutationInfo';
 
 export const DnaConsoleStorage = (props) => {
   const { data, act } = useBackend();
@@ -107,9 +106,9 @@ const DnaConsoleAdvancedInjectors = (props) => {
       <Box mt={2}>
         <Button.Input
           minWidth="200px"
-          buttonText="Create new injector"
+          content="Create new injector"
           disabled={advInjectors.length >= maxAdvInjectors}
-          onCommit={(value) =>
+          onCommit={(e, value) =>
             act('new_adv_inj', {
               name: value,
             })
@@ -211,7 +210,7 @@ const StorageButtons = (props) => {
 const StorageChromosomes = (props) => {
   const { data, act } = useBackend();
   const chromos = data.chromoStorage ?? [];
-  const uniqueChromos = uniqBy(chromos, (chromo) => chromo.Name);
+  const uniqueChromos = uniqBy((chromo) => chromo.Name)(chromos);
   const chromoName = data.view.storageChromoName;
   const chromo = chromos.find((chromo) => chromo.Name === chromoName);
 

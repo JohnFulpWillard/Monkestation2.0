@@ -1,8 +1,6 @@
 import { Fragment } from 'react';
-import { Button, Section, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
-import type { CssColor } from '../constants';
+import { Button, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -13,7 +11,7 @@ type Data = {
 type Props = {
   title: string;
   list: string[];
-  buttonColor: CssColor;
+  buttonColor: string;
 };
 
 export const ChemFilterPane = (props: Props) => {

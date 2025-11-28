@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { toFixed } from 'tgui-core/math';
+import { useBackend, useLocalState } from '../backend';
 import {
   Button,
   Flex,
@@ -8,9 +9,6 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const TAB2NAME = [
@@ -301,13 +299,13 @@ const FunTab = (props) => {
             />
           </Stack.Item>
           <Stack.Item>
-            <Button
-              icon="plus"
-              lineHeight={lineHeightNormal}
+            <NoticeBox
+              mb={0.0}
               width={buttonWidthNormal}
-              content="Mass Heal everyone"
-              onClick={() => act('mass_heal')}
-            />
+              height={lineHeightNormal}
+            >
+              Your admin button here, coder!
+            </NoticeBox>
           </Stack.Item>
         </Stack>
       </Stack.Item>
@@ -354,13 +352,13 @@ const FunTab = (props) => {
             />
           </Stack.Item>
           <Stack.Item>
-            <Button
-              icon="robot"
-              lineHeight={lineHeightNormal}
+            <NoticeBox
+              mb={0.0}
               width={buttonWidthNormal}
-              content="Triple AI mode"
-              onClick={() => act('tripleAI')}
-            />
+              height={lineHeightNormal}
+            >
+              Your admin button here, coder!
+            </NoticeBox>
           </Stack.Item>
           <Stack.Item>
             <Button
@@ -425,13 +423,13 @@ const FunTab = (props) => {
             />
           </Stack.Item>
           <Stack.Item>
-            <Button
-              icon="house"
-              lineHeight={lineHeightNormal}
+            <NoticeBox
+              mb={-0.5}
               width={buttonWidthNormal}
-              content="Send Shuttle Back"
-              onClick={() => act('send_shuttle_back')}
-            />
+              height={lineHeightNormal}
+            >
+              Your admin button here, coder!
+            </NoticeBox>
           </Stack.Item>
         </Stack>
       </Stack.Item>
@@ -456,13 +454,13 @@ const FunTab = (props) => {
             />
           </Stack.Item>
           <Stack.Item>
-            <Button
-              icon="dollar-sign"
-              lineHeight={lineHeightNormal}
+            <NoticeBox
+              mb={-0.5}
               width={buttonWidthNormal}
-              content="Dpt Order Cooldown"
-              onClick={() => act('department_cooldown_override')}
-            />
+              height={lineHeightNormal}
+            >
+              Your admin button here, coder!
+            </NoticeBox>
           </Stack.Item>
         </Stack>
       </Stack.Item>
@@ -576,7 +574,7 @@ const FunForYouTab = (props) => {
       </Stack.Item>
       <Stack.Item>
         <Stack>
-          <Stack.Item>
+          <Stack.Item grow>
             <NoticeBox danger width={19.6} mb={0}>
               <Button
                 color="red"
@@ -587,7 +585,7 @@ const FunForYouTab = (props) => {
               />
             </NoticeBox>
           </Stack.Item>
-          <Stack.Item>
+          <Stack.Item grow>
             <NoticeBox info width={19.6} mb={0}>
               <Button
                 color="blue"
@@ -600,32 +598,6 @@ const FunForYouTab = (props) => {
           </Stack.Item>
         </Stack>
       </Stack.Item>
-      <Stack.Item>
-        <Stack fill>
-          <Stack.Item>
-            <NoticeBox danger width={19.6} mb={0}>
-              <Button
-                color="red"
-                icon="comment-slash"
-                fluid
-                content="Tower of Babel"
-                onClick={() => act('towerOfBabel')}
-              />
-            </NoticeBox>
-          </Stack.Item>
-          <Stack.Item>
-            <NoticeBox info width={19.6} mb={0}>
-              <Button
-                color="blue"
-                icon="comment"
-                fluid
-                content="Undo Tower of Babel"
-                onClick={() => act('cureTowerOfBabel')}
-              />
-            </NoticeBox>
-          </Stack.Item>
-        </Stack>
-      </Stack.Item>
     </Stack>
   );
 };
@@ -633,9 +605,8 @@ const FunForYouTab = (props) => {
 export const Secrets = (props) => {
   const { act, data } = useBackend();
   const { is_debugger, is_funmin } = data;
-  const [tabIndex, setTabIndex] = useState(2);
+  const [tabIndex, setTabIndex] = useLocalState('tab-index', 2);
   const TabComponent = TAB2NAME[tabIndex - 1].component();
-
   return (
     <Window title="Secrets Panel" width={500} height={488} theme="admin">
       <Window.Content>
@@ -719,7 +690,7 @@ export const Secrets = (props) => {
                           average: [100 * 0.25, 100 * 0.75],
                           bad: [100 * 0.75, 100],
                         }}
-                        format={(value) => `${toFixed(value)}%`}
+                        format={(value) => toFixed(value) + '%'}
                       />
                     </LabeledControls.Item>
                   </LabeledControls>

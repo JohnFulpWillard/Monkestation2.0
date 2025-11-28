@@ -1,4 +1,4 @@
-import type { Dispatch } from 'react';
+import { useBackend } from '../../backend';
 import {
   Button,
   Icon,
@@ -7,20 +7,18 @@ import {
   Table,
   Tooltip,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';
-import { SortType, type SubsystemData } from './types';
+import { SortType, SubsystemData } from './types';
 
 type Props = {
   max: number;
-  setSelected: Dispatch<SubsystemData>;
+  setSelected: (newValue: SubsystemData) => void;
   showBars: boolean;
   sortType: SortType;
   subsystem: SubsystemData;
 };
 
-export function SubsystemRow(props: Props) {
+export const SubsystemRow = (props: Props) => {
   const { act } = useBackend();
   const { max, setSelected, showBars, sortType, subsystem } = props;
   const { can_fire, doesnt_fire, initialized, name, ref } = subsystem;
@@ -49,13 +47,13 @@ export function SubsystemRow(props: Props) {
   let rangeDisplay = {};
   if (showBars) {
     if (sortType === SortType.Cost) {
-      valueDisplay = `${value.toFixed(2)}ms`;
+      valueDisplay = value.toFixed(2) + 'ms';
       rangeDisplay = {
         average: [75, 124.99],
         bad: [125, Infinity],
       };
     } else {
-      valueDisplay = `${value.toFixed(2)}%`;
+      valueDisplay = value.toFixed(2) + '%';
       rangeDisplay = {
         average: [10, 24.99],
         bad: [25, Infinity],
@@ -104,4 +102,4 @@ export function SubsystemRow(props: Props) {
       </Table.Cell>
     </Table.Row>
   );
-}
+};

@@ -1,10 +1,11 @@
-import { type Antagonist, Category } from '../base';
+import { Antagonist, Category } from '../base';
+import { multiline } from 'tgui-core/string';
 
 const Xenomorph: Antagonist = {
   key: 'xenomorph',
   name: 'Xenomorph',
   description: [
-    `
+    multiline`
       Become the extraterrestrial xenomorph. Start as a larva, and progress
       your way up the caste, including even the Queen!
     `,

@@ -1,18 +1,17 @@
 import hljs from 'highlight.js/lib/core';
-import type { Dispatch, SetStateAction } from 'react';
 import { Box, Button, Modal, Section } from 'tgui-core/components';
-
 import { sanitizeText } from '../../sanitize';
-import type { LuaEditorModal } from './types';
+import { LuaEditorModal } from './types';
 
 type ChunkViewModalProps = {
-  setModal: Dispatch<SetStateAction<LuaEditorModal>>;
+  setModal: (modal: LuaEditorModal) => void;
   viewedChunk: string;
-  setViewedChunk: Dispatch<SetStateAction<string | undefined>>;
+  setViewedChunk: (chunk: string | undefined) => void;
 };
 
 export const ChunkViewModal = (props: ChunkViewModalProps) => {
   const { setModal, viewedChunk, setViewedChunk } = props;
+
   return (
     <Modal position="absolute" width="50%" height="80%" top="10%" left="25%">
       <Section

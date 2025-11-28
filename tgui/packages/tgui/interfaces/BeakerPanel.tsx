@@ -1,318 +1,371 @@
-import { useState } from 'react';
+import { useBackend, useLocalState } from '../backend';
 import {
+  Box,
   Button,
   Dropdown,
+  Flex,
+  Input,
+  LabeledList,
   NumberInput,
   Section,
   Stack,
 } from 'tgui-core/components';
-import { capitalizeFirst } from 'tgui-core/string';
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-type typePath = string;
-
-type Reagent = {
-  id: typePath;
-  text: string;
+type BeakerPanelData = {
+  containers: {
+    id: string;
+    name: string;
+    volume: number;
+  }[];
+  reagents: {
+    id: string;
+    name: string;
+    dangerous: string;
+  }[];
+  chemstring: string;
 };
 
-type ContainerType = {
-  id: typePath;
-  text: string;
-  volume: number;
-};
+export const BeakerPanel = (props) => {
+  const { act, data } = useBackend<BeakerPanelData>();
+  const { reagents, containers, chemstring } = data;
 
-type Data = {
-  reagents: Reagent[];
-  containers: ContainerType[];
-};
+  const [selectedContainersType, setContainersType] = useLocalState(
+    'beakerPanel_beakersType',
+    {},
+  );
 
-type Container = {
-  type: typePath;
-  reagents: Record<typePath, number>;
-};
-
-function makeContainerState(default_type: ContainerType) {
-  return useState<Container>({
-    type: default_type.id,
-    reagents: {},
-  });
-}
-
-function removeContainerReagent(
-  container: Container,
-  setContainer: (container: Container) => void,
-  reagent: typePath,
-) {
-  const newReagents = { ...container.reagents };
-  delete newReagents[reagent];
-  setContainer({ ...container, reagents: newReagents });
-}
-
-function setContainerReagentVolume(
-  container: Container,
-  setContainer: (container: Container) => void,
-  reagent: typePath,
-  volume: number = 10,
-) {
-  const newReagents = { ...container.reagents };
-  newReagents[reagent] = volume;
-  setContainer({ ...container, reagents: newReagents });
-}
-
-function containerToSpawnInfo(container: Container) {
-  return {
-    container: container.type,
-    reagents: container.reagents,
+  const handleContainerTypeChange = (index: number, data) => {
+    const newMap = {
+      ...selectedContainersType,
+      [index]: data,
+    };
+    setContainersType(newMap);
   };
-}
 
-function readableContainerType(container_type: ContainerType) {
-  return capitalizeFirst(`${container_type.text} (${container_type.volume}u)`);
-}
-
-function readableReagentType(reagent: Reagent) {
-  return capitalizeFirst(reagent.text);
-}
-
-function grenadeCheck(containers: Container[]) {
-  return containers.every((container) => container.type.includes('beaker'));
-}
-
-type ContainerProps = {
-  container: Container;
-  number: number;
-  updateContainer: (container: Container) => void;
-  reagents: Reagent[];
-  containers: ContainerType[];
-};
-
-const ContainerSection = (props: ContainerProps) => {
-  const { container, number, updateContainer, reagents, containers } = props;
-  const { act } = useBackend<Data>();
-
-  const [setAddingReagent, setSetAddingReagent] = useState<string>(
-    reagents[0].id,
+  const [reagentsMap, setReagentsMap] = useLocalState(
+    'beakerPanel_reagents',
+    {},
   );
-  const [setAddingReagentVolume, setSetAddingReagentVolume] =
-    useState<number>(50);
 
-  return (
-    <Section
-      fill
-      title={`Container ${number}`}
-      buttons={
-        <Button
-          icon="cog"
-          onClick={() =>
-            act('spawn', { spawn_info: containerToSpawnInfo(container) })
-          }
-        >
-          Spawn
-        </Button>
-      }
-    >
-      <Stack fill vertical>
+  const [searchTerms, setSearchTerms] = useLocalState(
+    'beakerPanel_searchTerms',
+    {},
+  );
+
+  const [grenadeData, setGrenadeData] = useLocalState(
+    'beakerPanel_grenadedata',
+    { grenadeType: 'Normal', grenadeTimer: 1 },
+  );
+
+  const [selectedReagents, setSelectedReagents] = useLocalState(
+    'beakerPanel_selectedReagents',
+    {},
+  );
+
+  const handleSearchChange = (containerNum: number, searchTerm: string) => {
+    const newSearchTerms = {
+      ...searchTerms,
+      [containerNum]: searchTerm,
+    };
+    setSearchTerms(newSearchTerms);
+  };
+
+  const handleReagentSelect = (containerNum: number, reagent) => {
+    const newSelectedReagents = {
+      ...selectedReagents,
+      [containerNum]: reagent,
+    };
+    setSelectedReagents(newSelectedReagents);
+  };
+
+  const addReagentToContainer = (containerNum: number, volume: number) => {
+    const selectedReagent = selectedReagents[containerNum];
+    if (!selectedReagent) return;
+
+    const currentReagents = reagentsMap[containerNum] || [];
+    const newReagents = [
+      ...currentReagents,
+      {
+        id: selectedReagent.id,
+        amount: volume,
+      },
+    ];
+
+    const newReagentsMap = {
+      ...reagentsMap,
+      [containerNum]: newReagents,
+    };
+    setReagentsMap(newReagentsMap);
+
+    const newSelectedReagents = {
+      ...selectedReagents,
+      [containerNum]: null,
+    };
+    setSelectedReagents(newSelectedReagents);
+  };
+
+  const removeReagentfromContainer = (
+    containerNum: number,
+    reagent: number,
+  ) => {
+    const currentReagents = reagentsMap[containerNum] || [];
+    const newReagents = currentReagents.filter((_, i) => i !== reagent);
+    if (!newReagents) return;
+    reagentsMap[containerNum] = newReagents;
+    setReagentsMap(reagentsMap);
+  };
+
+  const updateReagentVolume = (
+    containerNum: number,
+    reagent: number,
+    volume: number,
+  ) => {
+    const currentReagents = reagentsMap[containerNum];
+    if (!currentReagents) {
+      return;
+    } else {
+      const newReagentsMap = { ...reagentsMap };
+      currentReagents[reagent].amount = volume;
+      newReagentsMap[containerNum] = currentReagents;
+      setReagentsMap(newReagentsMap);
+    }
+  };
+
+  const spawnGrenade = () => {
+    const grenadepayload = grenadeData || [];
+    const containerspayload = selectedContainersType || [];
+    const reagentspayload = reagentsMap || [];
+    act('spawngrenade', {
+      grenadedata: JSON.stringify(grenadepayload),
+      containers: JSON.stringify(containerspayload),
+      reagents: JSON.stringify(reagentspayload),
+    });
+  };
+
+  const spawnContainer = (containerNum) => {
+    const containerpayload = selectedContainersType[containerNum] || [];
+    const reagentspayload = reagentsMap[containerNum] || [];
+    act('spawncontainer', {
+      container: JSON.stringify(containerpayload),
+      reagents: JSON.stringify(reagentspayload),
+    });
+  };
+
+  const renderContainerSection = (containerNum: number) => {
+    const safeReagentSearch = searchTerms[containerNum] || '';
+    const filteredReagents = reagents.filter(
+      (reagent) =>
+        reagent.name &&
+        typeof reagent.name === 'string' &&
+        typeof safeReagentSearch === 'string' &&
+        reagent.name.toLowerCase().includes(safeReagentSearch.toLowerCase()),
+    );
+
+    const safeContainerReagents = Array.isArray(reagentsMap[containerNum])
+      ? reagentsMap[containerNum]
+      : [];
+
+    return (
+      <Section title={`Container ${containerNum}`}>
         <Stack.Item>
-          <Dropdown
-            fluid
-            options={containers.map((container) => ({
-              displayText: readableContainerType(container),
-              value: container.id,
-            }))}
-            placeholder="Select Container Type"
-            selected={container.type}
-            displayText={readableContainerType(
-              containers.find((c) => c.id === container.type)!,
-            )}
-            onSelected={(value) => {
-              updateContainer({ ...container, type: value });
-            }}
-          />
-        </Stack.Item>
-        {Object.keys(container.reagents).map((reagent) => (
-          <Stack.Item key={reagent}>
-            <Stack>
-              <Stack.Item grow>
-                <Button disabled fluid>
-                  {reagents.find((r) => r.id === reagent)?.text}
-                </Button>
-              </Stack.Item>
-              <Stack.Item>
-                <NumberInput
-                  fluid
-                  step={1}
-                  minValue={0}
-                  maxValue={1000}
-                  unit="u"
-                  value={container.reagents[reagent]}
-                  onChange={(value) => {
-                    setContainerReagentVolume(
-                      container,
-                      updateContainer,
-                      reagent,
-                      value,
-                    );
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="red"
-                  icon="minus"
-                  onClick={() => {
-                    removeContainerReagent(container, updateContainer, reagent);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        ))}
-        <Stack.Item>
-          <Stack>
-            <Stack.Item grow>
+          <LabeledList>
+            <LabeledList.Item label="Container Type">
               <Dropdown
-                fluid
-                options={reagents.map((reagent) => ({
-                  displayText: readableReagentType(reagent),
-                  value: reagent.id,
+                width="300px"
+                options={containers.map((container) => ({
+                  displayText: (
+                    <>
+                      {`Path: ${container.id}`}
+                      <br />
+                      {`Container Name: ${container.name} Volume: ${container.volume}`}
+                    </>
+                  ),
+                  value: container.id,
                 }))}
-                placeholder="Add Reagent"
-                selected={setAddingReagent}
-                displayText={readableReagentType(
-                  reagents.find((r) => r.id === setAddingReagent)!,
-                )}
+                selected={selectedContainersType[containerNum]?.id}
                 onSelected={(value) => {
-                  setSetAddingReagent(value);
-                }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <NumberInput
-                fluid
-                step={1}
-                minValue={0}
-                maxValue={1000}
-                unit="u"
-                value={setAddingReagentVolume}
-                onChange={(value) => {
-                  setSetAddingReagentVolume(value);
-                }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                color="green"
-                icon="plus"
-                onClick={() => {
-                  setContainerReagentVolume(
-                    container,
-                    updateContainer,
-                    setAddingReagent,
-                    setAddingReagentVolume,
+                  const selectedContainer = containers.find(
+                    (container) => container.id === value,
                   );
+                  handleContainerTypeChange(containerNum, selectedContainer);
                 }}
               />
-            </Stack.Item>
-          </Stack>
+              Container Selected:{' '}
+              {selectedContainersType[containerNum]?.name || 'None'}
+              <br />
+              Volume:{' '}
+              {selectedContainersType[containerNum]?.volume
+                ? `${selectedContainersType[containerNum].volume}u`
+                : 'None'}
+            </LabeledList.Item>
+          </LabeledList>
+          <Button icon="cog" onClick={() => spawnContainer(containerNum)}>
+            Spawn Container
+          </Button>
+          <Button icon="cog" onClick={() => null}>
+            Import
+          </Button>
+          <Button icon="cog" onClick={() => null}>
+            Export
+          </Button>
         </Stack.Item>
-      </Stack>
-    </Section>
-  );
-};
 
-export const BeakerPanel = () => {
-  const { act, data } = useBackend<Data>();
-  const { reagents, containers } = data;
-
-  const [container_one, setContainerOne] = makeContainerState(containers[0]);
-  const [container_two, setContainerTwo] = makeContainerState(containers[0]);
-  const [grenadeTimer, setGrenadeTimer] = useState<number>(5.0);
-
-  const reagentsSorted = reagents.sort((a, b) => (a.text < b.text ? -1 : 1));
-  const containersSorted = containers.sort((a, b) =>
-    readableContainerType(a) < readableContainerType(b) ? -1 : 1,
-  );
-
-  return (
-    <Window
-      title="Spawn a Reagent Container"
-      width={750}
-      height={400}
-      theme="admin"
-    >
-      <Window.Content>
-        <Stack vertical fill>
-          <Stack.Item>
-            <Section>
-              <Stack>
-                <Stack.Item>
+        <Stack.Item>
+          <Box bold>Reagents:</Box>
+          {safeContainerReagents.map((reagent, index: number) => {
+            const currentreagentData = reagents.find(
+              (r) => r.id === reagent.id,
+            );
+            return (
+              <Flex key={index} align="center" mb={1}>
+                <Flex.Item grow>
+                  {currentreagentData?.name || 'Unknown Reagent ' + reagent.id}
+                </Flex.Item>
+                <Flex.Item>
+                  <NumberInput
+                    width="80px"
+                    value={reagent.amount}
+                    minValue={0}
+                    step={1}
+                    stepPixelSize={10}
+                    onChange={(value) => {
+                      if (value === 0) {
+                        removeReagentfromContainer(containerNum, index);
+                      } else {
+                        updateReagentVolume(containerNum, index, value);
+                      }
+                    }}
+                  />
+                </Flex.Item>
+                <Flex.Item>
                   <Button
-                    tooltip={
-                      grenadeCheck([container_one, container_two])
-                        ? ''
-                        : 'Both containers must be beakers!'
-                    }
-                    disabled={!grenadeCheck([container_one, container_two])}
+                    icon="trash"
+                    color="bad"
                     onClick={() =>
-                      act('spawngrenade', {
-                        spawn_info: [
-                          containerToSpawnInfo(container_one),
-                          containerToSpawnInfo(container_two),
-                        ],
-                        grenade_info: {
-                          detonation_type: 'normal', // to be implemented
-                          detonation_timer: grenadeTimer,
-                        },
-                      })
+                      removeReagentfromContainer(containerNum, index)
                     }
                   >
+                    Remove
+                  </Button>
+                </Flex.Item>
+              </Flex>
+            );
+          })}
+        </Stack.Item>
+
+        <Stack.Item>
+          <Flex align="center">
+            <Flex.Item grow>
+              <Box
+                p={1}
+                style={{
+                  border: '1px solid #ccc',
+                  minHeight: '25px',
+                  backgroundColor: 1 ? '#2a2a2a' : '#1a1a1a',
+                }}
+              >
+                {selectedReagents[containerNum]?.name || 'No reagent selected'}
+              </Box>
+            </Flex.Item>
+            <Flex.Item>
+              <Button
+                icon="plus"
+                onClick={() => addReagentToContainer(containerNum, 1)}
+                disabled={!selectedReagents[containerNum]}
+              >
+                Add
+              </Button>
+            </Flex.Item>
+          </Flex>
+        </Stack.Item>
+
+        <Stack.Item>
+          <Box bold>Search Reagent:</Box>
+          <Input
+            placeholder="Search reagents..."
+            value={safeReagentSearch}
+            onChange={(e, value) => handleSearchChange(containerNum, value)}
+            mb={1}
+          />
+          <Section fill scrollable height="200px">
+            {filteredReagents.map((reagent, index) => (
+              <Button
+                key={index}
+                fluid
+                mb={1}
+                color={reagent.dangerous === 'TRUE' ? 'bad' : 'default'}
+                onClick={() => handleReagentSelect(containerNum, reagent)}
+                selected={selectedReagents[containerNum]?.id === reagent.id}
+              >
+                {reagent.name}
+                {reagent.dangerous === 'TRUE' && ' (Dangerous)'}
+              </Button>
+            ))}
+          </Section>
+        </Stack.Item>
+      </Section>
+    );
+  };
+
+  return (
+    <Window title="Beaker Panel" width={1100} height={720}>
+      <Window.Content>
+        <Stack vertical scrollable>
+          <Stack.Item>
+            <Section title="Grenade Controls">
+              <Stack>
+                <Stack.Item>
+                  <Button icon="bomb" onClick={spawnGrenade}>
                     Spawn Grenade
                   </Button>
                 </Stack.Item>
-                <Stack.Item grow>
-                  Timer:&nbsp;
-                  <NumberInput
-                    step={0.1}
-                    minValue={1.0}
-                    maxValue={10.0}
-                    unit="seconds"
-                    value={grenadeTimer}
-                    onChange={(value) => {
-                      setGrenadeTimer(value);
-                    }}
-                  />
-                </Stack.Item>
-                <Stack.Item fontSize={0.9} align="center">
-                  <i>
-                    Spawned containers will grow to fit all listed reagents!
-                  </i>
+                <Stack.Item>
+                  <LabeledList>
+                    <LabeledList.Item label="Grenade Type">
+                      <Dropdown
+                        width="150px"
+                        options={['Normal']}
+                        selected={grenadeData.grenadeType}
+                        value={grenadeData.grenadeType}
+                        onSelected={(value) =>
+                          setGrenadeData({
+                            ...grenadeData,
+                            grenadeType: value, // Update grenade type in state
+                          })
+                        }
+                      />
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Timer (seconds)">
+                      <NumberInput
+                        width="75px"
+                        minValue={1}
+                        value={grenadeData.grenadeTimer}
+                        step={1}
+                        onChange={(value) =>
+                          setGrenadeData({
+                            ...grenadeData,
+                            grenadeTimer: value,
+                          })
+                        }
+                      />
+                    </LabeledList.Item>
+                  </LabeledList>
                 </Stack.Item>
               </Stack>
+              <Box mt={1} color="gray">
+                <em>
+                  Note: beakers recommended, other containers may have issues
+                </em>
+              </Box>
             </Section>
           </Stack.Item>
-          <Stack.Item grow>
-            <Stack fill>
-              <Stack.Item grow>
-                <ContainerSection
-                  container={container_one}
-                  number={1}
-                  updateContainer={setContainerOne}
-                  reagents={reagentsSorted}
-                  containers={containersSorted}
-                />
-              </Stack.Item>
-              <Stack.Item grow>
-                <ContainerSection
-                  container={container_two}
-                  number={2}
-                  updateContainer={setContainerTwo}
-                  reagents={reagentsSorted}
-                  containers={containersSorted}
-                />
-              </Stack.Item>
-            </Stack>
+          <Stack.Item>
+            <Flex>
+              <Flex.Item width="48%">{renderContainerSection(1)}</Flex.Item>
+              <Flex.Item width="4%" />
+              <Flex.Item width="48%">{renderContainerSection(2)}</Flex.Item>
+            </Flex>
           </Stack.Item>
         </Stack>
       </Window.Content>

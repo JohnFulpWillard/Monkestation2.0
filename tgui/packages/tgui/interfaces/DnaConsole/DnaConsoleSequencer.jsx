@@ -1,8 +1,8 @@
-import { Box, Button, Image, Section, Stack } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
-
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
+import { MutationInfo } from './MutationInfo';
 import {
   CLEAR_GENE,
   GENE_COLORS,
@@ -12,7 +12,6 @@ import {
   SUBJECT_DEAD,
   SUBJECT_TRANSFORMING,
 } from './constants';
-import { MutationInfo } from './MutationInfo';
 
 const GenomeImage = (props) => {
   const { url, selected, onClick } = props;
@@ -21,12 +20,13 @@ const GenomeImage = (props) => {
     outline = '2px solid #22aa00';
   }
   return (
-    <Image
+    <Box
+      as="img"
       src={url}
       style={{
         width: '64px',
         margin: '2px',
-        marginLeft: '4px',
+        'margin-left': '4px',
         outline,
       }}
       onClick={onClick}
@@ -37,7 +37,7 @@ const GenomeImage = (props) => {
 const GeneCycler = (props) => {
   const { act } = useBackend();
   const { alias, gene, index, disabled, ...rest } = props;
-  const color = (disabled && GENE_COLORS.X) || GENE_COLORS[gene];
+  const color = (disabled && GENE_COLORS['X']) || GENE_COLORS[gene];
   return (
     <Button
       {...rest}
@@ -61,7 +61,7 @@ const GeneCycler = (props) => {
 
         return;
       }}
-      onContextMenu={(e) => {
+      oncontextmenu={(e) => {
         e.preventDefault();
 
         act('pulse_gene', {

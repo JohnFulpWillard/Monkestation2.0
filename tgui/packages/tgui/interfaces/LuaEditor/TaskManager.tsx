@@ -1,12 +1,10 @@
-import type { Dispatch, SetStateAction } from 'react';
-import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../../backend';
-import type { CallInfo, LuaEditorData, LuaEditorModal } from './types';
+import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
+import { CallInfo, LuaEditorData, LuaEditorModal } from './types';
 
 type TaskManagerProps = {
-  setToCall: Dispatch<SetStateAction<CallInfo>>;
-  setModal: Dispatch<SetStateAction<LuaEditorModal>>;
+  setToCall: (newValue: CallInfo | undefined) => void;
+  setModal: (newValue: LuaEditorModal) => void;
 };
 
 export const TaskManager = (props: TaskManagerProps) => {

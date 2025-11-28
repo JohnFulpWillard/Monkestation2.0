@@ -1,3 +1,5 @@
+import { Window } from '../layouts';
+import { useBackend } from '../backend';
 import {
   Button,
   Collapsible,
@@ -7,13 +9,9 @@ import {
   Section,
   Stack,
   Table,
-  Tabs,
   Tooltip,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend, useSharedState } from '../backend';
-import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
 import { LoadingScreen } from './common/LoadingScreen';
 
 type Data =
@@ -28,8 +26,6 @@ type Data =
       ready: BooleanLike;
       retries_left: number;
       scanner_tier: number;
-      broadcasting: BooleanLike;
-      broadcasting_on_cd: BooleanLike;
     }
   | {
       connected: 0;
@@ -52,7 +48,6 @@ type Domain = {
   difficulty: number;
   id: string;
   is_modular: BooleanLike;
-  has_secondary_objectives: BooleanLike;
   name: string;
   reward: number | string;
 };
@@ -74,11 +69,10 @@ enum Difficulty {
   High,
 }
 
-function isConnected(data: Data): data is Data & { connected: 1 } {
-  return data.connected === 1;
-}
+const isConnected = (data: Data): data is Data & { connected: 1 } =>
+  data.connected === 1;
 
-function getColor(difficulty: number) {
+const getColor = (difficulty: number) => {
   switch (difficulty) {
     case Difficulty.Low:
       return 'yellow';
@@ -87,11 +81,11 @@ function getColor(difficulty: number) {
     case Difficulty.High:
       return 'bad';
     default:
-      return 'green';
+      return '';
   }
-}
+};
 
-export function QuantumConsole(props) {
+export const QuantumConsole = (props) => {
   const { data } = useBackend<Data>();
 
   return (
@@ -102,124 +96,55 @@ export function QuantumConsole(props) {
       </Window.Content>
     </Window>
   );
-}
+};
 
-function AccessView(props) {
+const AccessView = (props) => {
   const { act, data } = useBackend<Data>();
-  const [tab, setTab] = useSharedState('tab', 0);
 
   if (!isConnected(data)) {
-    return <NoticeBox danger>No server connected!</NoticeBox>;
+    return <NoticeBox error>No server connected!</NoticeBox>;
   }
 
   const {
     available_domains = [],
-    broadcasting,
-    broadcasting_on_cd,
     generated_domain,
+    ready,
     occupants,
     points,
-    randomized,
-    ready,
   } = data;
 
   const sorted = available_domains.sort((a, b) => a.cost - b.cost);
 
-  const filtered = sorted.filter((domain) => {
-    return domain.difficulty === tab;
-  });
-
-  let selected;
-  if (generated_domain) {
-    selected = randomized
-      ? '???'
-      : sorted.find(({ id }) => id === generated_domain)?.name;
-  } else {
-    selected = 'Nothing loaded';
-  }
+  const selected = sorted.find(({ id }) => id === generated_domain);
 
   return (
     <Stack fill vertical>
       <Stack.Item grow>
         <Section
           buttons={
-            <Stack fill>
-              <Tooltip
-                content="Toggles whether you broadcast your
-                  bitrun to station Entertainment Monitors."
+            <>
+              <Button
+                disabled={
+                  !ready || occupants > 0 || points < 1 || !!generated_domain
+                }
+                icon="random"
+                onClick={() => act('random_domain')}
+                mr={1}
+                tooltip="Get a random domain for more rewards. Weighted towards your current points. Minimum: 1 point."
               >
-                <Button.Checkbox
-                  checked={broadcasting}
-                  disabled={broadcasting_on_cd}
-                  onClick={() => act('broadcast')}
-                >
-                  Broadcast
-                </Button.Checkbox>
-              </Tooltip>
-              <Tooltip
-                content="Get a random domain for more rewards.
-                  Weighted towards your current points. Minimum: 1 point."
-              >
-                <Button
-                  disabled={
-                    !ready || occupants > 0 || points < 1 || !!generated_domain
-                  }
-                  icon="random"
-                  onClick={() => act('random_domain')}
-                  mr={1}
-                >
-                  Randomize
-                </Button>
-              </Tooltip>
+                Randomize
+              </Button>
               <Tooltip content="Accrued points for purchasing domains.">
                 <Icon color="pink" name="star" mr={1} />
                 {points}
               </Tooltip>
-            </Stack>
+            </>
           }
           fill
           scrollable
           title="Virtual Domains"
         >
-          <Tabs fluid>
-            <Tabs.Tab
-              backgroundColor={getColor(Difficulty.None)}
-              textColor="white"
-              selected={tab === 0}
-              onClick={() => setTab(0)}
-              icon="chevron-down"
-            >
-              Peaceful
-            </Tabs.Tab>
-            <Tabs.Tab
-              backgroundColor={getColor(Difficulty.Low)}
-              textColor="black"
-              selected={tab === 1}
-              onClick={() => setTab(1)}
-              icon="chevron-down"
-            >
-              Easy
-            </Tabs.Tab>
-            <Tabs.Tab
-              backgroundColor={getColor(Difficulty.Medium)}
-              textColor="white"
-              selected={tab === 2}
-              onClick={() => setTab(2)}
-              icon="chevron-down"
-            >
-              Medium
-            </Tabs.Tab>
-            <Tabs.Tab
-              backgroundColor={getColor(Difficulty.High)}
-              textColor="white"
-              selected={tab === 3}
-              onClick={() => setTab(3)}
-              icon="chevron-down"
-            >
-              Hard <Icon name="skull" ml={1} />{' '}
-            </Tabs.Tab>
-          </Tabs>
-          {filtered.map((domain) => (
+          {sorted.map((domain) => (
             <DomainEntry key={domain.id} domain={domain} />
           ))}
         </Section>
@@ -231,26 +156,26 @@ function AccessView(props) {
         <Section>
           <Stack fill>
             <Stack.Item grow>
-              <NoticeBox info={!!generated_domain}>{selected}</NoticeBox>
+              <NoticeBox info={!!generated_domain}>
+                {selected?.name ?? 'Nothing loaded'}
+              </NoticeBox>
             </Stack.Item>
             <Stack.Item>
-              <Tooltip content="Begins shutdown. Will notify anyone connected.">
-                <Button.Confirm
-                  disabled={!ready || !generated_domain}
-                  onClick={() => act('stop_domain')}
-                >
-                  Stop Domain
-                </Button.Confirm>
-              </Tooltip>
+              <Button.Confirm
+                content="Stop Domain"
+                disabled={!ready || !generated_domain}
+                onClick={() => act('stop_domain')}
+                tooltip="Begins shutdown. Will notify anyone connected."
+              />
             </Stack.Item>
           </Stack>
         </Section>
       </Stack.Item>
     </Stack>
   );
-}
+};
 
-function DomainEntry(props: DomainEntryProps) {
+const DomainEntry = (props: DomainEntryProps) => {
   const {
     domain: {
       announce_ghosts,
@@ -259,7 +184,6 @@ function DomainEntry(props: DomainEntryProps) {
       difficulty,
       id,
       is_modular,
-      has_secondary_objectives,
       name,
       reward,
     },
@@ -290,22 +214,21 @@ function DomainEntry(props: DomainEntryProps) {
   return (
     <Collapsible
       buttons={
-        <Tooltip content={!!generated_domain && 'Stop current domain first.'}>
-          <Button
-            disabled={!!generated_domain || !ready || occupied || points < cost}
-            icon={buttonIcon}
-            onClick={() => act('set_domain', { id })}
-          >
-            {buttonName}
-          </Button>
-        </Tooltip>
+        <Button
+          disabled={!!generated_domain || !ready || occupied || points < cost}
+          icon={buttonIcon}
+          onClick={() => act('set_domain', { id })}
+          tooltip={!!generated_domain && 'Stop current domain first.'}
+        >
+          {buttonName}
+        </Button>
       }
       color={getColor(difficulty)}
       title={
         <>
           {name}
           {!!is_modular && canView && <Icon name="cubes" ml={1} />}
-          {!!has_secondary_objectives && canView && <Icon name="gem" ml={1} />}
+          {difficulty === Difficulty.High && <Icon name="skull" ml={1} />}
           {!!announce_ghosts && canView && <Icon name="ghost" ml={1} />}
         </>
       }
@@ -314,28 +237,26 @@ function DomainEntry(props: DomainEntryProps) {
         <Stack.Item color="label" grow={4}>
           {desc}
           {!!is_modular && ' (Modular)'}
-          {!!has_secondary_objectives && ' (Secondary Objective Available)'}
           {!!announce_ghosts && ' (Ghost Interaction)'}
         </Stack.Item>
         <Stack.Divider />
         <Stack.Item grow>
           <Table>
             <Table.Row>
-              <Tooltip content="Points cost for deploying domain.">
-                <DisplayDetails amount={cost} color="pink" icon="star" />
-              </Tooltip>
+              <DisplayDetails amount={cost} color="pink" icon="star" />
             </Table.Row>
             <Table.Row>
-              <Tooltip content="Reward for competing domain.">
-                <DisplayDetails amount={reward} color="gold" icon="coins" />
-              </Tooltip>
+              <DisplayDetails amount={difficulty} color="white" icon="skull" />
+            </Table.Row>
+            <Table.Row>
+              <DisplayDetails amount={reward} color="gold" icon="coins" />
             </Table.Row>
           </Table>
         </Stack.Item>
       </Stack>
     </Collapsible>
   );
-}
+};
 
 const AvatarDisplay = (props) => {
   const { act, data } = useBackend<Data>();
@@ -362,11 +283,13 @@ const AvatarDisplay = (props) => {
             </Stack.Item>
           )}
           <Stack.Item>
-            <Tooltip content="Refresh avatar data.">
-              <Button icon="sync" onClick={() => act('refresh')}>
-                Refresh
-              </Button>
-            </Tooltip>
+            <Button
+              icon="sync"
+              onClick={() => act('refresh')}
+              tooltip="Refresh avatar data."
+            >
+              Refresh
+            </Button>
           </Stack.Item>
         </Stack>
       }
@@ -425,7 +348,7 @@ const DisplayDetails = (props: DisplayDetailsProps) => {
   const { amount = 0, color, icon = 'star' } = props;
 
   if (amount === 0) {
-    return <Table.Cell color="label">None</Table.Cell>;
+    return <Table.Cell color="label">No bandwidth</Table.Cell>;
   }
 
   if (typeof amount === 'string') {

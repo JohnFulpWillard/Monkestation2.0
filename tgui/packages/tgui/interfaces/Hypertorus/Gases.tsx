@@ -1,7 +1,3 @@
-import { sortBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
-import { useBackend } from 'tgui/backend';
-import { getGasColor, getGasLabel } from 'tgui/constants';
 import {
   Box,
   Button,
@@ -10,10 +6,14 @@ import {
   ProgressBar,
   Section,
 } from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
-
-import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';
+import { HypertorusFuel, HypertorusGas } from '.';
+import { filter, sortBy } from 'es-toolkit';
+import { getGasColor, getGasLabel } from 'tgui/constants';
+
+import { flow } from 'tgui-core/fp';
+import { toFixed } from 'tgui-core/math';
+import { useBackend } from 'tgui/backend';
 
 type GasListProps = {
   input_max: number;
@@ -68,7 +68,7 @@ const ensure_gases = (gas_array: HypertorusGas[] = [], gasids) => {
     gases_by_id[gas.id] = true;
   });
 
-  for (const gasid of gasids) {
+  for (let gasid of gasids) {
     if (!gases_by_id[gasid]) {
       gas_array.push({ id: gasid, amount: 0 });
     }
@@ -90,10 +90,10 @@ const GasList = (props: GasListProps) => {
   } = props;
   const { start_power, start_cooling } = data;
 
-  const gases: HypertorusGas[] = sortBy(
-    filter(raw_gases, (gas) => gas.amount >= 0.01),
-    [(gas) => -gas.amount],
-  );
+  const gases: HypertorusGas[] = flow([
+    filter((gas: HypertorusGas) => gas.amount >= 0.01),
+    sortBy((gas: HypertorusGas) => -gas.amount),
+  ])(raw_gases);
 
   if (stickyGases) {
     ensure_gases(gases, stickyGases);
@@ -118,13 +118,11 @@ const GasList = (props: GasListProps) => {
         />
         <NumberInput
           animated
-          tickWhileDragging
-          step={1}
           value={parseFloat(data[input_rate])}
           unit="mol/s"
           minValue={input_min}
           maxValue={input_max}
-          onChange={(v) => act(input_rate, { [input_rate]: v })}
+          onDrag={(_, v) => act(input_rate, { [input_rate]: v })}
         />
       </LabeledList.Item>
       {gases.map((gas) => {
@@ -148,7 +146,7 @@ const GasList = (props: GasListProps) => {
               minValue={0}
               maxValue={minimumScale}
             >
-              {`${toFixed(gas.amount, 2)} moles`}
+              {toFixed(gas.amount, 2) + ' moles'}
             </ProgressBar>
           </LabeledList.Item>
         );

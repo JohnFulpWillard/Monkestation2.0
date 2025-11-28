@@ -1,11 +1,12 @@
-import { type Antagonist, Category } from '../base';
+import { Antagonist, Category } from '../base';
+import { multiline } from 'tgui-core/string';
 import { OPERATIVE_MECHANICAL_DESCRIPTION } from './operative';
 
 const OperativeMidround: Antagonist = {
   key: 'operativemidround',
   name: 'Nuclear Assailant',
   description: [
-    `
+    multiline`
       A form of nuclear operative that is offered to ghosts in the middle
       of the shift.
     `,

@@ -1,14 +1,14 @@
-import { useReducer, useState } from 'react';
+import { useLocalState } from '../../backend';
 import { Button, Dropdown, Input, Section, Stack } from 'tgui-core/components';
 import { Window } from '../../layouts';
 import { SORTING_TYPES } from './contants';
-import { FilterAction, type FilterState, filterReducer } from './filters';
+import { FilterAction, filterReducer, FilterState } from './filters';
 import { OverviewSection } from './OverviewSection';
 import { SubsystemDialog } from './SubsystemDialog';
 import { SubsystemViews } from './SubsystemViews';
-import { SortType, type SubsystemData } from './types';
+import { SortType, SubsystemData } from './types';
 
-export function ControllerOverview(props) {
+export const ControllerOverview = (props) => {
   return (
     <Window title="Controller Overview" height={600} width={500}>
       <Window.Content>
@@ -16,10 +16,10 @@ export function ControllerOverview(props) {
       </Window.Content>
     </Window>
   );
-}
+};
 
-export function ControllerContent(props) {
-  const [state, dispatch] = useReducer(filterReducer, {
+export const ControllerContent = (props) => {
+  const [state, setState] = useLocalState<FilterState>('controllerFilter', {
     ascending: true,
     inactive: true,
     query: '',
@@ -27,12 +27,19 @@ export function ControllerContent(props) {
     sortType: SortType.Name,
   });
 
-  const [selected, setSelected] = useState<SubsystemData>();
+  const [selected, setSelected] = useLocalState<SubsystemData | undefined>(
+    'selected',
+    undefined,
+  );
 
   const { label, inDeciseconds } =
     SORTING_TYPES?.[state.sortType] || SORTING_TYPES[0];
 
-  function onSelectionHandler(value: string) {
+  const dispatch = (action: { type: FilterAction; payload: any }) => {
+    setState(filterReducer(state, action));
+  };
+
+  const onSelectionHandler = (value: string) => {
     const updates: Partial<FilterState> = {
       sortType: SORTING_TYPES.findIndex((type) => type.label === value),
     };
@@ -45,7 +52,7 @@ export function ControllerContent(props) {
     updates.smallValues = inDeciseconds;
 
     dispatch({ type: FilterAction.Update, payload: updates });
-  }
+  };
 
   return (
     <Stack fill vertical>
@@ -65,7 +72,7 @@ export function ControllerContent(props) {
               <Stack fill vertical>
                 <Stack.Item height="50%">
                   <Input
-                    onChange={(value) =>
+                    onInput={(e, value) =>
                       dispatch({ type: FilterAction.Query, payload: value })
                     }
                     placeholder="By name"
@@ -148,4 +155,4 @@ export function ControllerContent(props) {
       </Stack.Item>
     </Stack>
   );
-}
+};

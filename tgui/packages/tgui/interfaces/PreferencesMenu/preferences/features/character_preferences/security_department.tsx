@@ -1,5 +1,4 @@
-import type { FeatureChoiced } from '../base';
-import { FeatureDropdownInput } from '../dropdowns';
+import { FeatureChoiced, FeatureDropdownInput } from '../base';
 
 export const prefered_security_department: FeatureChoiced = {
   name: 'Security department',

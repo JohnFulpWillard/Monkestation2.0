@@ -1,14 +1,13 @@
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import {
+  Stack,
+  Section,
+  Input,
   Button,
   Dropdown,
-  Input,
   NoticeBox,
-  Section,
-  Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Port = {
@@ -37,7 +36,7 @@ export const ProcCallMenu = (props) => {
   return (
     <Window width={500} height={400}>
       <Window.Content scrollable>
-        <Stack fill>
+        <Stack grow height="100%">
           <Stack.Item>
             <Section fill title="Options">
               <Stack vertical width="180px">
@@ -45,7 +44,7 @@ export const ProcCallMenu = (props) => {
                 <Stack.Item>
                   <Dropdown
                     width="100%"
-                    selected={expected_output}
+                    displayText={expected_output}
                     options={possible_types}
                     color={expected_output_color}
                     onSelected={(value) =>
@@ -139,7 +138,7 @@ const PortEntry = (props) => {
         </Stack.Item>
         <Stack.Item>
           <Dropdown
-            selected={datatype}
+            displayText={datatype}
             options={datatypeOptions}
             onSelected={onSetType}
             color={color}

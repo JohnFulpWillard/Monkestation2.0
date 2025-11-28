@@ -1,30 +1,29 @@
-import { useState } from 'react';
+import { useBackend, useLocalState } from '../backend';
+import { Item } from './Uplink/GenericUplink';
 import { BlockQuote, Button, Section, Stack, Tabs } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { MalfAiModules } from './common/MalfAiModules';
+import { BooleanLike } from 'tgui-core/react';
+import { multiline } from 'tgui-core/string';
+import { Window } from '../layouts';
 import {
-  type Objective,
   ObjectivePrintout,
+  Objective,
   ReplaceObjectivesButton,
 } from './common/Objectives';
-import type { Item } from './Uplink/GenericUplink';
 
 const allystyle = {
-  fontWeight: 'bold',
   color: 'yellow',
+  'font-weight': 'bold',
 };
 
 const badstyle = {
   color: 'red',
-  fontWeight: 'bold',
+  'font-weight': 'bold',
 };
 
 const goalstyle = {
   color: 'lightgreen',
-  fontWeight: 'bold',
+  'font-weight': 'bold',
 };
 
 type Category = {
@@ -46,7 +45,7 @@ type Data = {
   can_change_objective: BooleanLike;
 };
 
-function IntroductionSection(props) {
+const IntroductionSection = (props) => {
   const { data } = useBackend<Data>();
   const { intro, objectives, can_change_objective } = data;
 
@@ -58,7 +57,7 @@ function IntroductionSection(props) {
           <ObjectivePrintout
             objectives={objectives}
             titleMessage="Your prime objectives"
-            objectivePrefix="&#8805-"
+            objectivePrefix="≥"
             objectiveFollowup={
               <ReplaceObjectivesButton
                 can_change_objective={can_change_objective}
@@ -71,9 +70,9 @@ function IntroductionSection(props) {
       </Stack>
     </Section>
   );
-}
+};
 
-function FlavorSection(props) {
+const FlavorSection = (props) => {
   const { data } = useBackend<Data>();
   const { allies, goal } = data;
 
@@ -86,10 +85,10 @@ function FlavorSection(props) {
           mr={-0.8}
           mt={-0.5}
           icon="hammer"
-          tooltip="
+          tooltip={multiline`
             This is a gameplay suggestion for bored ais.
             You don't have to follow it, unless you want some
-            ideas for how to spend the round."
+            ideas for how to spend the round.`}
           tooltipPosition="bottom-start"
         >
           Policy
@@ -99,7 +98,7 @@ function FlavorSection(props) {
       <Stack vertical fill>
         <Stack.Item grow>
           <Stack fill vertical>
-            <Stack.Item style={{ backgroundColor: 'black' }}>
+            <Stack.Item style={{ 'background-color': 'black' }}>
               <span style={goalstyle}>
                 System Integrity Report:
                 <br />
@@ -107,7 +106,7 @@ function FlavorSection(props) {
               &gt;{goal}
             </Stack.Item>
             <Stack.Divider />
-            <Stack.Item grow style={{ backgroundColor: 'black' }}>
+            <Stack.Item grow style={{ 'background-color': 'black' }}>
               <span style={allystyle}>
                 Morality Core Report:
                 <br />
@@ -115,7 +114,7 @@ function FlavorSection(props) {
               &gt;{allies}
             </Stack.Item>
             <Stack.Divider />
-            <Stack.Item style={{ backgroundColor: 'black' }}>
+            <Stack.Item style={{ 'background-color': 'black' }}>
               <span style={badstyle}>
                 Overall Sentience Coherence Grade: FAILING.
                 <br />
@@ -129,9 +128,9 @@ function FlavorSection(props) {
       </Stack>
     </Section>
   );
-}
+};
 
-function CodewordsSection(props) {
+const CodewordsSection = (props) => {
   const { data } = useBackend<Data>();
   const { has_codewords, phrases, responses } = data;
 
@@ -176,15 +175,18 @@ function CodewordsSection(props) {
       </Stack>
     </Section>
   );
-}
+};
 
 enum Screen {
   Intro,
   Modules,
 }
 
-export function AntagInfoMalf(props) {
-  const [antagInfoTab, setAntagInfoTab] = useState<Screen>(Screen.Intro);
+export const AntagInfoMalf = (props) => {
+  const [antagInfoTab, setAntagInfoTab] = useLocalState<Screen>(
+    'antagInfoTab',
+    Screen.Intro,
+  );
 
   return (
     <Window
@@ -192,7 +194,7 @@ export function AntagInfoMalf(props) {
       height={530}
       theme={antagInfoTab === Screen.Intro ? 'hackerman' : 'malfunction'}
     >
-      <Window.Content style={{ fontFamily: 'Consolas, monospace' }}>
+      <Window.Content style={{ 'font-family': 'Consolas, monospace' }}>
         <Stack vertical fill>
           <Stack.Item>
             <Tabs fluid>
@@ -239,4 +241,4 @@ export function AntagInfoMalf(props) {
       </Window.Content>
     </Window>
   );
-}
+};

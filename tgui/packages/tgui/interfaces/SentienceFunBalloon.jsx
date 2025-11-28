@@ -1,20 +1,19 @@
+import { useBackend } from '../backend';
 import {
   Button,
-  Input,
-  LabeledList,
   NumberInput,
   Section,
   Stack,
+  Input,
+  LabeledList,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const SentienceFunBalloon = (props) => {
   const { act, data } = useBackend();
-  const { group_name, range, antag } = data;
+  const { group_name, range } = data;
   return (
-    <Window title={'Sentience Fun Balloon'} width={400} height={200}>
+    <Window title={'Sentience Fun Balloon'} width={400} height={175}>
       <Window.Content>
         <Stack vertical>
           <Section title="Configure balloon effect:">
@@ -23,7 +22,7 @@ export const SentienceFunBalloon = (props) => {
                 <Input
                   fluid
                   value={group_name}
-                  onBlur={(value) =>
+                  onChange={(e, value) =>
                     act('group_name', {
                       updated_name: value,
                     })
@@ -32,26 +31,16 @@ export const SentienceFunBalloon = (props) => {
               </LabeledList.Item>
               <LabeledList.Item label="Effect range">
                 <NumberInput
-                  tickWhileDragging
                   width="84px"
                   value={range}
                   minValue={1}
                   maxValue={100}
-                  step={1}
                   stepPixelSize={15}
-                  onChange={(value) =>
+                  onDrag={(e, value) =>
                     act('effect_range', {
                       updated_range: value,
                     })
                   }
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Make group into antagonists?">
-                <Button.Checkbox
-                  icon={data.antag ? 'user-secret' : 'times'}
-                  content={data.antag ? 'Yes' : 'No'}
-                  selected={data.antag}
-                  onClick={() => act('select_antag')}
                 />
               </LabeledList.Item>
             </LabeledList>

@@ -1,16 +1,15 @@
+import { useBackend } from '../backend';
 import {
   Box,
-  Button,
-  ByondUi,
-  Flex,
-  Section,
-  Slider,
   Stack,
+  Section,
+  ByondUi,
+  Slider,
+  Flex,
+  Button,
 } from 'tgui-core/components';
-import { capitalize } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { capitalize } from 'tgui-core/string';
 
 const colorToMatrix = (param) => {
   switch (param) {
@@ -58,6 +57,13 @@ const displayText = (param) => {
 export const MODpaint = (props) => {
   const { act, data } = useBackend();
   const { mapRef, currentColor } = data;
+  const [
+    [rr, rg, rb, ra],
+    [gr, gg, gb, ga],
+    [br, bg, bb, ba],
+    [ar, ag, ab, aa],
+    [cr, cg, cb, ca],
+  ] = currentColor;
   const presets = ['red', 'yellow', 'green', 'teal', 'blue', 'purple'];
   const prefixes = ['r', 'g', 'b'];
   return (
@@ -87,8 +93,8 @@ export const MODpaint = (props) => {
                         step={1}
                         stepPixelSize={0.75}
                         format={(value) => `${value}%`}
-                        onChange={(e, value) => {
-                          const retColor = currentColor;
+                        onDrag={(e, value) => {
+                          let retColor = currentColor;
                           retColor[row * 4 + col] = value / 100;
                           act('transition_color', { color: retColor });
                         }}

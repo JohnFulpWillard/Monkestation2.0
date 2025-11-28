@@ -1,15 +1,14 @@
+import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
-  Icon,
   LabeledList,
   NoticeBox,
+  Icon,
   Section,
   Stack,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend, useSharedState } from '../backend';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetMonitor = (props) => {
@@ -22,7 +21,6 @@ export const NtosNetMonitor = (props) => {
     ntnetlogs = [],
     tablets = [],
   } = data;
-
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>
@@ -69,7 +67,6 @@ export const NtosNetMonitor = (props) => {
 const MainPage = (props) => {
   const { ntnetrelays, idsalarm, idsstatus, ntnetlogs = [] } = props;
   const { act, data } = useBackend();
-
   return (
     <Section>
       <NoticeBox>

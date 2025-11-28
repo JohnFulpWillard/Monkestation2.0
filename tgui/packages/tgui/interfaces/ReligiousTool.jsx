@@ -1,3 +1,4 @@
+import { useBackend, useSharedState } from '../backend';
 import {
   BlockQuote,
   Box,
@@ -9,8 +10,6 @@ import {
   Stack,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 const ALIGNMENT2COLOR = {
@@ -23,7 +22,6 @@ export const ReligiousTool = (props) => {
   const { act, data } = useBackend();
   const [tab, setTab] = useSharedState('tab', 1);
   const { sects, alignment, toolname } = data;
-
   return (
     <Window title={toolname} width={560} height={500}>
       <Window.Content scrollable>
@@ -72,11 +70,11 @@ const SectTab = (props) => {
       <Stack fill vertical fontSize="15px" textAlign="center">
         <Stack.Item mt={2} fontSize="32px">
           <Icon name={icon} color={ALIGNMENT2COLOR[alignment]} />
-          {` ${name} `}
+          {' ' + name + ' '}
           <Icon name={icon} color={ALIGNMENT2COLOR[alignment]} />
         </Stack.Item>
         <Stack.Item grow mb={2} color="grey">
-          {`"${quote}"`}
+          {'"' + quote + '"'}
         </Stack.Item>
         <Stack.Item color={favor === 0 ? 'white' : 'green'}>
           {favordesc}
@@ -86,8 +84,8 @@ const SectTab = (props) => {
         </Stack.Item>
         <Stack.Item>
           <Section mx={3} mt={-1} title="Wanted Sacrifices">
-            {(!wanted && `${deity} doesn't want any sacrifices.`) ||
-              `${deity} wishes for ${wanted}.`}
+            {(!wanted && deity + " doesn't want any sacrifices.") ||
+              deity + ' wishes for ' + wanted + '.'}
           </Section>
         </Stack.Item>
       </Stack>
@@ -104,10 +102,8 @@ const SectSelectTab = (props) => {
         {sects.map((sect) => (
           <>
             <Collapsible
-              mb={-1}
-              childStyles={{ paddingTop: '0.5rem' }}
               title={
-                <Stack mt={-3.3} ml={4}>
+                <Stack mt={-3.3} ml={3}>
                   <Stack.Item>
                     <Icon
                       name={sect.icon}
@@ -115,7 +111,7 @@ const SectSelectTab = (props) => {
                     />
                   </Stack.Item>
                   <Stack.Item grow>{sect.name}</Stack.Item>
-                  <Stack.Item italic>{`"${sect.quote}"`}</Stack.Item>
+                  <Stack.Item italic>{'"' + sect.quote + '"'}</Stack.Item>
                 </Stack>
               }
               color="transparent"
@@ -138,7 +134,7 @@ const SectSelectTab = (props) => {
                 </Button>
               </Stack.Item>
             </Collapsible>
-            <Stack.Divider />
+            <Stack.Divider mt={-0.5} mb={0.5} />
           </>
         ))}
       </Stack>

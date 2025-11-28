@@ -1,16 +1,14 @@
-import { useState } from 'react';
+import { createSearch, toTitleCase } from 'tgui-core/string';
+import { useBackend, useLocalState } from '../backend';
 import {
   Button,
-  DmIcon,
-  Flex,
-  Icon,
   Input,
-  Section,
   Stack,
+  Flex,
+  Section,
+  DmIcon,
+  Icon,
 } from 'tgui-core/components';
-import { createSearch, toTitleCase } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Ores = {
@@ -28,11 +26,10 @@ type Data = {
 export const OreContainer = (props) => {
   const { act, data } = useBackend<Data>();
   const { ores = [] } = data;
-  const [searchItem, setSearchItem] = useState('');
+  const [searchItem, setSearchItem] = useLocalState('searchItem', '');
   const search = createSearch(searchItem, (ore: Ores) => ore.name);
   const ores_filtered =
     searchItem.length > 0 ? ores.filter((ore) => search(ore)) : ores;
-
   return (
     <Window title="Ore Container" width={550} height={400}>
       <Window.Content>
@@ -40,14 +37,17 @@ export const OreContainer = (props) => {
           <Stack.Item>
             <Section>
               <Input
-                autoFocus
+                autofocus
                 position="relative"
                 mt={0.5}
                 bottom="5%"
                 height="20px"
+                width="150px"
                 placeholder="Search Ore..."
                 value={searchItem}
-                onChange={setSearchItem}
+                onInput={(e, value) => {
+                  setSearchItem(value);
+                }}
                 fluid
               />
             </Section>
@@ -59,13 +59,7 @@ export const OreContainer = (props) => {
                   <Flex.Item key={ore.id}>
                     <Flex direction="column" m={0.5} textAlign="center">
                       <Flex.Item>
-                        <DmIcon
-                          height="64px"
-                          width="64px"
-                          icon={ore.icon}
-                          icon_state={ore.icon_state}
-                          fallback={<Icon name="spinner" size={2} spin />}
-                        />
+                        <RetrieveIcon ore={ore} />
                       </Flex.Item>
                       <Flex.Item>
                         <Orename ore_name={toTitleCase(ore.name)} />
@@ -91,6 +85,19 @@ export const OreContainer = (props) => {
         </Stack>
       </Window.Content>
     </Window>
+  );
+};
+
+const RetrieveIcon = (props) => {
+  const { ore } = props;
+  return (
+    <DmIcon
+      height="64px"
+      width="64px"
+      icon={ore.icon}
+      icon_state={ore.icon_state}
+      fallback={<Icon name="spinner" size={2} spin />}
+    />
   );
 };
 

@@ -1,21 +1,19 @@
-import { useState } from 'react';
+import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Dropdown,
   LabeledList,
   NumberInput,
+  Dropdown,
   Section,
   Stack,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import {
   AtmosHandbookContent,
   atmosHandbookHooks,
 } from './common/AtmosHandbook';
-import { type Gasmix, GasmixParser } from './common/GasmixParser';
+import { Gasmix, GasmixParser } from './common/GasmixParser';
 
 type Chamber = {
   id: string;
@@ -34,7 +32,7 @@ export const AtmosControlConsole = (props) => {
     control: boolean;
   }>();
   const chambers = data.chambers || [];
-  const [chamberId, setChamberId] = useState(chambers[0]?.id);
+  const [chamberId, setChamberId] = useLocalState('chamberId', chambers[0]?.id);
   const selectedChamber =
     chambers.length === 1
       ? chambers[0]
@@ -108,13 +106,15 @@ export const AtmosControlConsole = (props) => {
                     </LabeledList.Item>
                     <LabeledList.Item label="Input Rate">
                       <NumberInput
-                        step={1}
                         value={Number(selectedChamber.input_info.amount)}
                         unit="L/s"
                         width="63px"
                         minValue={0}
                         maxValue={data.maxInput}
-                        onChange={(value) =>
+                        // This takes an exceptionally long time to update
+                        // due to being an async signal
+                        suppressFlicker={2000}
+                        onChange={(e, value) =>
                           act('adjust_input', {
                             chamber: selectedChamber.id,
                             rate: value,

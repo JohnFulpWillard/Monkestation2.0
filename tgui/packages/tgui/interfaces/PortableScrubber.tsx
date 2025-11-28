@@ -1,10 +1,10 @@
 import { Button, Section } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
 
-import { useBackend } from '../backend';
-import { getGasLabel } from '../constants';
-import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
 import { PortableBasicInfo } from './common/PortableAtmos';
+import { Window } from '../layouts';
+import { getGasLabel } from '../constants';
+import { useBackend } from '../backend';
 
 type Data = {
   filterTypes: Filter[];

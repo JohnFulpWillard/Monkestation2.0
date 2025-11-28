@@ -1,25 +1,17 @@
+import { Section, Button, Dropdown, Stack, Input } from 'tgui-core/components';
 import { Component } from 'react';
-import {
-  Button,
-  Dropdown,
-  Input,
-  NoticeBox,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import { fetchRetry } from 'tgui-core/http';
 import { shallowDiffers } from 'tgui-core/react';
-
+import { fetchRetry } from '../../http';
 import { resolveAsset } from '../../assets';
-import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
 import { DisplayComponent } from './DisplayComponent';
+import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
 
 // Cache response so it's only sent once
 let fetchServerData;
 
 export class ComponentMenu extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       selectedTab: 'All',
       currentLimit: DEFAULT_COMPONENT_MENU_LIMIT,
@@ -73,8 +65,8 @@ export class ComponentMenu extends Component {
     } = this.state;
 
     const tabs = ['All'];
-    const shownComponents = componentData.filter((val) => {
-      const shouldShow = showAll || components.includes(val.type);
+    let shownComponents = componentData.filter((val) => {
+      let shouldShow = showAll || components.includes(val.type);
       if (shouldShow) {
         if (!tabs.includes(val.category)) {
           tabs.push(val.category);
@@ -95,6 +87,7 @@ export class ComponentMenu extends Component {
     // Limit the maximum amount of shown components to prevent a lagspike
     // when you open the menu
     shownComponents.length = currentLimit;
+
     return (
       <Section
         title="Component Menu"
@@ -120,8 +113,7 @@ export class ComponentMenu extends Component {
                   currentLimit: DEFAULT_COMPONENT_MENU_LIMIT,
                 })
               }
-              selected={selectedTab}
-              placeholder="Category"
+              displayText={`Category: ${selectedTab}`}
               color="transparent"
               className="IntegratedCircuit__BlueBorder"
             />
@@ -131,7 +123,7 @@ export class ComponentMenu extends Component {
               placeholder="Search.."
               value={currentSearch}
               fluid
-              onChange={(val) =>
+              onInput={(e, val) =>
                 this.setState({
                   currentSearch: val,
                   selectedTab: 'All',
@@ -142,15 +134,6 @@ export class ComponentMenu extends Component {
           </Stack.Item>
           <Stack.Item>
             <Stack vertical fill>
-              {trueLength === 0 && (
-                <Stack.Item mt={1} fontSize={1}>
-                  <NoticeBox info>
-                    You can hit this integrated circuit onto a component printer
-                    to link it so that you&apos;re able to remotely create and
-                    add components to this circuit.
-                  </NoticeBox>
-                </Stack.Item>
-              )}
               {shownComponents.map((val) => (
                 <Stack.Item
                   key={val.type}

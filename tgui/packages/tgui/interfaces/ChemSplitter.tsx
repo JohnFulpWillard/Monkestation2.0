@@ -1,7 +1,6 @@
-import { LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
-
 import { useBackend } from '../backend';
+import { LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

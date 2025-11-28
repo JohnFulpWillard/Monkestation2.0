@@ -1,10 +1,9 @@
 import { useBackend } from 'tgui/backend';
-import { Window } from 'tgui/layouts';
 import { Box, Button, Icon, NoticeBox, Stack } from 'tgui-core/components';
-
-import { SecurityRecordTabs } from './RecordTabs';
+import { Window } from 'tgui/layouts';
+import { SecurityRecordsData } from './types';
 import { SecurityRecordView } from './RecordView';
-import type { SecurityRecordsData } from './types';
+import { SecurityRecordTabs } from './RecordTabs';
 
 export const SecurityRecords = (props) => {
   const { data } = useBackend<SecurityRecordsData>();

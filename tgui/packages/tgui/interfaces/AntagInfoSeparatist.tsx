@@ -1,8 +1,7 @@
-import { Icon, Section, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
+import { Icon, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { type Objective, ObjectivePrintout } from './common/Objectives';
+import { ObjectivePrintout, Objective } from './common/Objectives';
 
 type Info = {
   objectives: Objective[];

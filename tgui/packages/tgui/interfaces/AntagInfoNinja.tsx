@@ -1,11 +1,10 @@
-import { Icon, Section, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Icon, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 import {
-  type Objective,
   ObjectivePrintout,
+  Objective,
   ReplaceObjectivesButton,
 } from './common/Objectives';
 

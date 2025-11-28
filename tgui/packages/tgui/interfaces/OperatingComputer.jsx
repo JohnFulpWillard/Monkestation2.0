@@ -1,3 +1,4 @@
+import { useBackend, useSharedState } from '../backend';
 import {
   AnimatedNumber,
   Button,
@@ -7,8 +8,6 @@ import {
   Section,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -61,7 +60,6 @@ const PatientStateView = (props) => {
   if (!table) {
     return <NoticeBox>No Table Detected</NoticeBox>;
   }
-
   return (
     <>
       <Section title="Patient State">
@@ -104,24 +102,28 @@ const PatientStateView = (props) => {
           <LabeledList>
             <LabeledList.Item label="Next Step">
               {procedure.next_step}
-            </LabeledList.Item>
-            {procedure.chems_needed && (
-              <LabeledList.Item label="Required Chems">
-                <NoticeBox success={!!procedure.chems_present}>
+              {procedure.chems_needed && (
+                <>
+                  <br />
+                  <br />
+                  <b>Required Chemicals:</b>
+                  <br />
                   {procedure.chems_needed}
-                </NoticeBox>
-              </LabeledList.Item>
-            )}
+                </>
+              )}
+            </LabeledList.Item>
             {procedure.alternative_step && (
               <LabeledList.Item label="Alternative Step">
                 {procedure.alternative_step}
-              </LabeledList.Item>
-            )}
-            {procedure.alt_chems_needed && (
-              <LabeledList.Item label="Required Chems">
-                <NoticeBox success={!!procedure.alt_chems_present}>
-                  {procedure.alt_chems_needed}
-                </NoticeBox>
+                {procedure.alt_chems_needed && (
+                  <>
+                    <br />
+                    <br />
+                    <b>Required Chemicals:</b>
+                    <br />
+                    {procedure.alt_chems_needed}
+                  </>
+                )}
               </LabeledList.Item>
             )}
           </LabeledList>

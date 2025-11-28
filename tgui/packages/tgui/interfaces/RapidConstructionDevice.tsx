@@ -1,17 +1,8 @@
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  LabeledList,
-  Section,
-  Stack,
-  Tabs,
-} from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
-import { capitalizeAll } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike, classes } from 'tgui-core/react';
+import { capitalizeAll } from 'tgui-core/string';
+import { useBackend, useLocalState } from '../backend';
+import { LabeledList, Section, Button, Tabs, Stack, Box } from 'tgui-core/components';
 import { AirLockMainSection } from './AirlockElectronics';
 
 type Data = {
@@ -97,16 +88,19 @@ export const InfoSection = (props) => {
 const DesignSection = (props) => {
   const { act, data } = useBackend<Data>();
   const { categories = [], selected_category, selected_design } = data;
-  const [categoryName, setCategoryName] = useState(selected_category);
+  const [categoryName, setCategoryName] = useLocalState(
+    'categoryName',
+    selected_category,
+  );
   const shownCategory =
     categories.find((category) => category.cat_name === categoryName) ||
     categories[0];
-
   return (
     <Section fill scrollable>
       <Tabs>
         {categories.map((category) => (
           <Tabs.Tab
+            fluid
             key={category.cat_name}
             selected={category.cat_name === shownCategory.cat_name}
             onClick={() => setCategoryName(category.cat_name)}
@@ -119,6 +113,7 @@ const DesignSection = (props) => {
         <Button
           key={i + 1}
           fluid
+          ellipsis
           height="31px"
           color="transparent"
           selected={
@@ -139,11 +134,13 @@ const DesignSection = (props) => {
             className={classes(['rcd-tgui32x32', design.icon])}
             style={{
               transform:
-                design.title === 'full tile window' ||
-                design.title === 'full tile reinforced window' ||
-                design.title === 'catwalk'
+                design.icon === 'window0' ||
+                design.icon === 'rwindow0' ||
+                design.icon === 'catwalk0'
                   ? 'scale(0.7)'
                   : 'scale(1.0)',
+              '-ms-interpolation-mode': 'nearest-neighbor',
+              'image-rendering': 'pixelated',
             }}
           />
           <span>{capitalizeAll(design.title)}</span>

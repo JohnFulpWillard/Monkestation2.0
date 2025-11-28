@@ -1,15 +1,14 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  ProgressBar,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import {
+  Stack,
+  Section,
+  ProgressBar,
+  Button,
+  NumberInput,
+  LabeledList,
+} from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
 type ModularShieldGenData = {
   max_strength: number;
@@ -25,6 +24,7 @@ type ModularShieldGenData = {
 };
 
 export const ModularShieldGen = (props) => {
+  const { topLevel } = props;
   const { act, data } = useBackend<ModularShieldGenData>();
   const {
     max_strength,
@@ -49,6 +49,7 @@ export const ModularShieldGen = (props) => {
               color={recovering ? 'red' : 'white'}
             >
               <ProgressBar
+                title="Shield Strength"
                 value={current_strength}
                 maxValue={max_strength}
                 ranges={{
@@ -62,6 +63,7 @@ export const ModularShieldGen = (props) => {
             </Section>
             <Section title="Regeneration and Radius">
               <ProgressBar
+                title="Regeneration rate"
                 value={current_regeneration}
                 maxValue={max_regeneration}
                 ranges={{
@@ -74,6 +76,7 @@ export const ModularShieldGen = (props) => {
               </ProgressBar>
               <Section>
                 <ProgressBar
+                  title="Shield radius"
                   value={current_radius}
                   maxValue={max_radius}
                   ranges={{
@@ -92,13 +95,12 @@ export const ModularShieldGen = (props) => {
               <LabeledList>
                 <LabeledList.Item label="Set Radius">
                   <NumberInput
-                    disabled={!!active}
+                    disabled={active}
                     fluid
-                    step={1}
                     value={current_radius}
                     minValue={3}
                     maxValue={max_radius}
-                    onChange={(value) =>
+                    onChange={(e, value) =>
                       act('set_radius', {
                         new_radius: value,
                       })
@@ -119,7 +121,7 @@ export const ModularShieldGen = (props) => {
               <LabeledList>
                 <LabeledList.Item label="Toggle Power">
                   <Button
-                    bold
+                    bold={1}
                     disabled={recovering || initiating_field}
                     selected={active}
                     content={active ? 'On' : 'Off'}

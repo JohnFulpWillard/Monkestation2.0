@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Button,
   Icon,
@@ -10,11 +9,11 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend, useLocalState } from '../backend';
 
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
+import { Window } from '../layouts';
 
 type Data = {
   items: string[];
@@ -37,9 +36,12 @@ export const CheckboxInput = (props) => {
     title,
   } = data;
 
-  const [selections, setSelections] = useState<string[]>([]);
+  const [selections, setSelections] = useLocalState<string[]>('selections', []);
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useLocalState<string>(
+    'searchQuery',
+    '',
+  );
   const search = createSearch(searchQuery, (item: string) => item);
   const toDisplay = items.filter(search);
 
@@ -51,17 +53,11 @@ export const CheckboxInput = (props) => {
     setSelections(newSelections);
   };
 
-  const selectionsWithIndexes = (
-    selections: string[],
-    items: string[],
-  ): [string, number][] =>
-    selections.map((selected) => [selected, items.indexOf(selected) + 1]);
-
   return (
     <Window title={title} width={425} height={300}>
       {!!timeout && <Loader value={timeout} />}
       <Window.Content>
-        <Stack fill vertical g={0}>
+        <Stack fill vertical>
           <Stack.Item>
             <NoticeBox info textAlign="center">
               {decodeHtmlEntities(message)}{' '}
@@ -69,7 +65,7 @@ export const CheckboxInput = (props) => {
               {max_checked < 50 && ` (Max: ${max_checked})`}
             </NoticeBox>
           </Stack.Item>
-          <Stack.Item grow>
+          <Stack.Item grow mt={0}>
             <Section fill scrollable>
               <Table>
                 {toDisplay.map((item, index) => (
@@ -92,19 +88,23 @@ export const CheckboxInput = (props) => {
               </Table>
             </Section>
           </Stack.Item>
-          <Stack m={1}>
+          <Stack m={1} mb={0}>
             <Stack.Item>
               <Tooltip content="Search" position="bottom">
                 <Icon name="search" mt={0.5} />
               </Tooltip>
             </Stack.Item>
             <Stack.Item grow>
-              <Input fluid value={searchQuery} onChange={setSearchQuery} />
+              <Input
+                fluid
+                value={searchQuery}
+                onInput={(_, value) => setSearchQuery(value)}
+              />
             </Stack.Item>
           </Stack>
-          <Stack.Item>
+          <Stack.Item mt={0.7}>
             <Section>
-              <InputButtons input={selectionsWithIndexes(selections, items)} />
+              <InputButtons input={selections} />
             </Section>
           </Stack.Item>
         </Stack>

@@ -1,8 +1,6 @@
-import { useState } from 'react';
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend, useLocalState } from '../backend';
 import { Button, NoticeBox, Section, Table, Tabs } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ShuttleConsoleContent } from './ShuttleConsole';
 
@@ -29,14 +27,9 @@ const STATUS_COLOR_KEYS = {
   'All Clear': 'good',
 } as const;
 
-enum TAB {
-  Shuttle = 1,
-  Aux,
-}
-
 export const AuxBaseConsole = (props) => {
   const { data } = useBackend<Data>();
-  const [tab, setTab] = useState(TAB.Shuttle);
+  const [tab, setTab] = useLocalState('tab', 1);
   const { type, blind_drop, turrets = [] } = data;
 
   return (
@@ -49,24 +42,24 @@ export const AuxBaseConsole = (props) => {
           <Tabs.Tab
             icon="list"
             lineHeight="23px"
-            selected={tab === TAB.Shuttle}
-            onClick={() => setTab(TAB.Shuttle)}
+            selected={tab === 1}
+            onClick={() => setTab(1)}
           >
             {type === 'shuttle' ? 'Shuttle Launch' : 'Base Launch'}
           </Tabs.Tab>
           <Tabs.Tab
             icon="list"
             lineHeight="23px"
-            selected={tab === TAB.Aux}
-            onClick={() => setTab(TAB.Aux)}
+            selected={tab === 2}
+            onClick={() => setTab(2)}
           >
             Turrets ({turrets.length})
           </Tabs.Tab>
         </Tabs>
-        {tab === TAB.Shuttle && (
+        {tab === 1 && (
           <ShuttleConsoleContent type={type} blind_drop={blind_drop} />
         )}
-        {tab === TAB.Aux && <AuxBaseConsoleContent />}
+        {tab === 2 && <AuxBaseConsoleContent />}
       </Window.Content>
     </Window>
   );
@@ -78,21 +71,21 @@ export const AuxBaseConsoleContent = (props) => {
 
   return (
     <Section
-      fill
-      scrollable
-      title="Turret Control"
+      title={'Turret Control'}
       buttons={
         !!turrets.length && (
-          <Button icon="power-off" onClick={() => act('turrets_power')}>
-            Toggle Power
-          </Button>
+          <Button
+            icon="power-off"
+            content={'Toggle Power'}
+            onClick={() => act('turrets_power')}
+          />
         )
       }
     >
       {!turrets.length ? (
         <NoticeBox>No connected turrets</NoticeBox>
       ) : (
-        <Table>
+        <Table cellpadding="3" textAlign="center">
           <Table.Row header>
             <Table.Cell>Unit</Table.Cell>
             <Table.Cell>Condition</Table.Cell>
@@ -113,14 +106,13 @@ export const AuxBaseConsoleContent = (props) => {
               <Table.Cell>
                 <Button
                   icon="power-off"
+                  content="Toggle"
                   onClick={() =>
                     act('single_turret_power', {
                       single_turret_power: turret.ref,
                     })
                   }
-                >
-                  Toggle
-                </Button>
+                />
               </Table.Cell>
             </Table.Row>
           ))}

@@ -1,16 +1,14 @@
-import { useBackend } from 'tgui/backend';
-import { Button, Stack } from 'tgui-core/components';
-
-import { RandomizationButton } from '../../components/RandomizationButton';
-import { type PreferencesMenuData, RandomSetting } from '../../types';
+import { useBackend } from '../../../../backend';
+import { Button, Stack } from 'tgui-core/react';
+import { PreferencesMenuData, RandomSetting } from '../../data';
+import { RandomizationButton } from '../../RandomizationButton';
 import { useRandomToggleState } from '../../useRandomToggleState';
-import { CheckboxInput, type Feature, type FeatureToggle } from './base';
+import { CheckboxInput, Feature, FeatureToggle } from './base';
 
 export const random_body: Feature<RandomSetting> = {
   name: 'Random body',
   component: (props) => {
     const [randomToggle, setRandomToggle] = useRandomToggleState();
-    const { act } = useBackend();
 
     return (
       <Stack>
@@ -27,7 +25,7 @@ export const random_body: Feature<RandomSetting> = {
               <Button
                 color="green"
                 onClick={() => {
-                  act('randomize_character');
+                  props.act('randomize_character');
                   setRandomToggle(false);
                 }}
               >
@@ -57,7 +55,7 @@ export const random_hardcore: FeatureToggle = {
 };
 
 export const random_name: Feature<RandomSetting> = {
-  name: 'Random name',
+  name: 'Random Name',
   component: (props) => {
     return (
       <RandomizationButton
@@ -73,7 +71,7 @@ export const random_species: Feature<RandomSetting> = {
   component: (props) => {
     const { act, data } = useBackend<PreferencesMenuData>();
 
-    const species = data.character_preferences.randomization.species;
+    const species = data.character_preferences.randomization['species'];
 
     return (
       <RandomizationButton

@@ -1,8 +1,7 @@
 import { Flex } from 'tgui-core/components';
-import { formatSiUnit } from 'tgui-core/format';
-
+import { Design, MaterialMap } from './Types';
 import { MaterialIcon } from './MaterialIcon';
-import type { Design, MaterialMap } from './Types';
+import { formatSiUnit } from 'tgui-core/format';
 
 export type MaterialCostSequenceProps = {
   /**

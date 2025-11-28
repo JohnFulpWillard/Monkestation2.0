@@ -1,6 +1,5 @@
-import { Button, Dropdown, Input, Section, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
+import { Stack, Section, Input, Button, Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const CircuitModule = (props) => {
@@ -131,7 +130,7 @@ const PortEntry = (props) => {
         </Stack.Item>
         <Stack.Item>
           <Dropdown
-            selected={datatype}
+            displayText={datatype}
             options={datatypeOptions}
             onSelected={onSetType}
           />

@@ -1,13 +1,10 @@
-import {
-  CheckboxInput,
-  CheckboxInputInverse,
-  type FeatureToggle,
-} from '../base';
+import { multiline } from 'tgui-core/string';
+import { FeatureToggle, CheckboxInput, CheckboxInputInverse } from '../base';
 
 export const admin_ignore_cult_ghost: FeatureToggle = {
   name: 'Prevent being summoned as a cult ghost',
   category: 'ADMIN',
-  description: `
+  description: multiline`
     When enabled and observing, prevents Spirit Realm from forcing you
     into a cult ghost.
   `,

@@ -6,9 +6,8 @@ import {
   Stack,
   Tooltip,
 } from 'tgui-core/components';
-
 import { getColor } from './helpers';
-import type { Threshold } from './types';
+import { Threshold } from './types';
 
 /**
  * Similar to the virus info display.
@@ -46,7 +45,7 @@ export const SymptomDisplay = (props) => {
 /** Displays threshold data */
 const Thresholds = (props) => {
   const { thresholds = [] } = props;
-  const convertedThresholds = Object.entries<Threshold>(thresholds);
+  let convertedThresholds = Object.entries<Threshold>(thresholds);
 
   return (
     <Section mt={1} title="Thresholds">
@@ -57,7 +56,7 @@ const Thresholds = (props) => {
           {convertedThresholds.map(([label, descr], index) => {
             return (
               <LabeledList.Item key={index} label={label}>
-                {String(descr)}
+                {descr}
               </LabeledList.Item>
             );
           })}

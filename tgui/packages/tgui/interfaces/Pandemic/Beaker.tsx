@@ -1,3 +1,4 @@
+import { capitalizeFirst } from 'tgui-core/string';
 import { useBackend } from 'tgui/backend';
 import {
   Button,
@@ -7,9 +8,7 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import { capitalizeFirst } from 'tgui-core/string';
-
-import type { Data } from './types';
+import { Data } from './types';
 
 /** Displays loaded container info, if it exists */
 export const BeakerDisplay = (props) => {

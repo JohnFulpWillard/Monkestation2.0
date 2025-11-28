@@ -1,22 +1,20 @@
-import { sortBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
-import { useState } from 'react';
+import { filter, sortBy } from 'es-toolkit';
+import { flow } from 'tgui-core/fp';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {
-  Box,
-  Button,
-  Icon,
-  Input,
-  NoticeBox,
-  Section,
   Stack,
+  Input,
+  Section,
   Tabs,
+  NoticeBox,
+  Box,
+  Icon,
+  Button,
 } from 'tgui-core/components';
-
 import { JOB2ICON } from '../common/JobToIcon';
 import { CRIMESTATUS2COLOR } from './constants';
 import { isRecordMatch } from './helpers';
-import type { SecurityRecord, SecurityRecordsData } from './types';
+import { SecurityRecordsData, SecurityRecord } from './types';
 
 /** Tabs on left, with search bar */
 export const SecurityRecordTabs = (props) => {
@@ -27,12 +25,12 @@ export const SecurityRecordTabs = (props) => {
     ? 'No records found.'
     : 'No match. Refine your search.';
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useLocalState('search', '');
 
-  const sorted = sortBy(
-    filter(records, (record) => isRecordMatch(record, search)),
-    [(record) => record.name],
-  );
+  const sorted: SecurityRecord[] = flow([
+    filter((record: SecurityRecord) => isRecordMatch(record, search)),
+    sortBy((record: SecurityRecord) => record.name),
+  ])(records);
 
   return (
     <Stack fill vertical>
@@ -40,8 +38,7 @@ export const SecurityRecordTabs = (props) => {
         <Input
           fluid
           placeholder="Name/Job/Fingerprints"
-          onChange={setSearch}
-          expensive
+          onInput={(event, value) => setSearch(value)}
         />
       </Stack.Item>
       <Stack.Item grow>
@@ -68,15 +65,6 @@ export const SecurityRecordTabs = (props) => {
               Create
             </Button>
           </Stack.Item>
-          <Stack.Item>
-            <Button.Confirm
-              content="Purge"
-              disabled={!higher_access || !station_z}
-              icon="trash"
-              onClick={() => act('purge_records')}
-              tooltip="Wipe criminal record data."
-            />
-          </Stack.Item>
         </Stack>
       </Stack.Item>
     </Stack>
@@ -92,7 +80,7 @@ const CrewTab = (props: { record: SecurityRecord }) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { assigned_view } = data;
   const { record } = props;
-  const { crew_ref, name, trim, wanted_status } = record;
+  const { crew_ref, name, rank, wanted_status } = record;
 
   /** Chooses a record */
   const selectRecord = (record: SecurityRecord) => {
@@ -118,11 +106,12 @@ const CrewTab = (props: { record: SecurityRecord }) => {
   return (
     <Tabs.Tab
       className="candystripe"
+      label={record.name}
       onClick={() => selectRecord(record)}
       selected={isSelected}
     >
-      <Box bold={isSelected} color={CRIMESTATUS2COLOR[wanted_status]}>
-        <Icon name={JOB2ICON[trim] || 'question'} /> {name}
+      <Box bold={isSelected} color={CRIMESTATUS2COLOR[wanted_status]} wrap>
+        <Icon name={JOB2ICON[rank] || 'question'} /> {name}
       </Box>
     </Tabs.Tab>
   );

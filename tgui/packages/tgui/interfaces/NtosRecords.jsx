@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import { Box, Icon, Input, Section } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Icon, Input, Section } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 export const NtosRecords = (props) => {
   const { act, data } = useBackend();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useLocalState('search', '');
   const { mode, records } = data;
 
   const isMatchingSearchTerms = createSearch(searchTerm);
@@ -20,12 +18,11 @@ export const NtosRecords = (props) => {
         </Section>
         <Section>
           <Input
-            placeholder="Filter results..."
+            placeholder={'Filter results...'}
             value={searchTerm}
             fluid
             textAlign="center"
-            onChange={setSearchTerm}
-            expensive
+            onInput={(e, value) => setSearchTerm(value)}
           />
         </Section>
         {mode === 'security' &&

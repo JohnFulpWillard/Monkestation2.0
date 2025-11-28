@@ -1,5 +1,5 @@
-import { sortBy } from 'es-toolkit';
-import { useState } from 'react';
+import { useBackend, useLocalState } from '../backend';
+import { Window } from '../layouts';
 import {
   BlockQuote,
   Button,
@@ -11,9 +11,7 @@ import {
   Stack,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend, useLocalState } from '../backend';
-import { Window } from '../layouts';
+import { sortBy } from 'es-toolkit';
 
 type Data = {
   records: WarrantRecord[];
@@ -63,7 +61,7 @@ export const WarrantConsole = (props) => {
 const RecordList = (props) => {
   const { act, data } = useBackend<Data>();
   const { records = [] } = data;
-  const sorted = sortBy(records, [(record) => record.crew_name]);
+  const sorted = sortBy((record: WarrantRecord) => record.crew_name)(records);
 
   const [selectedRecord, setSelectedRecord] = useLocalState<
     WarrantRecord | undefined
@@ -116,7 +114,7 @@ const RecordList = (props) => {
 /** Views info on the current selection. */
 const ViewRecord = (props) => {
   const foundRecord = getCurrentRecord();
-  if (!foundRecord) return;
+  if (!foundRecord) return <> </>;
 
   const { citations = [], crew_name } = foundRecord;
 
@@ -136,7 +134,7 @@ const ViewRecord = (props) => {
 /** Handles paying fines */
 const CitationManager = (props) => {
   const foundRecord = getCurrentRecord();
-  if (!foundRecord) return;
+  if (!foundRecord) return <> </>;
 
   const { act } = useBackend<Data>();
   const {
@@ -145,8 +143,7 @@ const CitationManager = (props) => {
 
   const { crew_ref } = foundRecord;
 
-  const [paying, setPaying] = useState(5);
-  const [payingIsValid, setPayingIsValid] = useState(true);
+  const [paying, setPaying] = useLocalState('citationAmount', 5);
 
   return (
     <Collapsible
@@ -177,12 +174,11 @@ const CitationManager = (props) => {
             <RestrictedInput
               maxValue={fine}
               minValue={5}
-              onChange={setPaying}
+              onChange={(event, value) => setPaying(value)}
               value={paying}
-              onValidationChange={setPayingIsValid}
             />
             <Button.Confirm
-              disabled={!payingIsValid}
+              content="Pay"
               onClick={() =>
                 act('pay', {
                   amount: paying,
@@ -190,9 +186,7 @@ const CitationManager = (props) => {
                   fine_ref: fine_ref,
                 })
               }
-            >
-              Pay
-            </Button.Confirm>
+            />
           </LabeledList.Item>
         )}
       </LabeledList>

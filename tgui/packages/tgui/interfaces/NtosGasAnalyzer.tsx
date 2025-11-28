@@ -1,9 +1,8 @@
-import { Button } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Button } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
-import { GasAnalyzerContent, type GasAnalyzerData } from './GasAnalyzer';
+import { GasAnalyzerContent, GasAnalyzerData } from './GasAnalyzer';
 
 type NtosGasAnalyzerData = GasAnalyzerData & {
   atmozphereMode: 'click' | 'env';
@@ -25,7 +24,7 @@ export const NtosGasAnalyzer = (props) => {
             tooltip={
               atmozphereMode === 'click'
                 ? 'Right-click on objects while holding the tablet to scan them. Right-click on the tablet to scan the current location.'
-                : 'The app will update its gas mixture reading automatically.'
+                : "The app will update it's gas mixture reading automatically."
             }
             tooltipPosition="bottom"
           >

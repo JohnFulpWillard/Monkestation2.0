@@ -1,9 +1,15 @@
 import {
+  FeatureChoiced,
+  FeatureChoicedServerData,
   FeatureIconnedDropdownInput,
-  type FeatureWithIcons,
-} from '../dropdowns';
+  FeatureValueProps,
+} from '../base';
 
-export const glasses: FeatureWithIcons<string> = {
+export const glasses: FeatureChoiced = {
   name: 'Glasses',
-  component: FeatureIconnedDropdownInput,
+  component: (
+    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+  ) => {
+    return <FeatureIconnedDropdownInput buttons {...props} />;
+  },
 };

@@ -1,12 +1,6 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -59,13 +53,13 @@ export const ChemAcclimator = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Acceptable Temp. Difference">
               <NumberInput
-                step={1}
                 value={allowed_temperature_difference}
                 unit="K"
                 width="59px"
                 minValue={1}
                 maxValue={target_temperature}
                 stepPixelSize={2}
+                step={5}
                 onChange={(value) => {
                   act('set_allowed_temperature_difference', {
                     temperature: value,

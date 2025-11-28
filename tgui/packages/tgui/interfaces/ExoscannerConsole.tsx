@@ -1,18 +1,17 @@
+import { useBackend } from '../backend';
 import {
   BlockQuote,
   Box,
   Button,
   Icon,
-  LabeledList,
   Modal,
-  NoticeBox,
   Section,
+  LabeledList,
+  NoticeBox,
   Stack,
 } from 'tgui-core/components';
-import { formatTime } from 'tgui-core/format';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { formatTime } from 'tgui-core/format';
 
 type SiteData = {
   name: string;
@@ -224,9 +223,12 @@ export const ExoscannerConsole = (props) => {
                 </Stack.Item>
               </Stack>
               <Section title="Special Scan Condtions">
-                {scan_conditions?.map((condition) => (
-                  <NoticeBox key={condition}>{condition}</NoticeBox>
-                ))}
+                {scan_conditions &&
+                  scan_conditions.map((condition) => (
+                    <NoticeBox key={condition} warning>
+                      {condition}
+                    </NoticeBox>
+                  ))}
               </Section>
             </Section>
           </Stack.Item>

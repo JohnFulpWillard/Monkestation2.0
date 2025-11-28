@@ -1,5 +1,5 @@
-import { countBy } from 'es-toolkit';
-import { useMemo } from 'react';
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import {
   Button,
   Collapsible,
@@ -11,9 +11,6 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const lawtype_to_color = {
@@ -89,12 +86,17 @@ const SyncedBorgDimmer = (props: { master: string }) => {
 };
 
 export const LawPrintout = (props: { cyborg_ref: string; lawset: Law[] }) => {
-  const { act } = useBackend<Law>();
+  const { data, act } = useBackend<Law>();
   const { cyborg_ref, lawset } = props;
 
-  const num_of_each_lawtype = useMemo(() => {
-    return countBy(lawset, (law) => law.lawtype);
-  }, [lawset]);
+  let num_of_each_lawtype = [];
+
+  lawset.forEach((law) => {
+    if (!num_of_each_lawtype[law.lawtype]) {
+      num_of_each_lawtype[law.lawtype] = 0;
+    }
+    num_of_each_lawtype[law.lawtype] += 1;
+  });
 
   return (
     <LabeledList>
@@ -169,7 +171,7 @@ export const LawPrintout = (props: { cyborg_ref: string; lawset: Law[] }) => {
                       <Button
                         icon="arrow-down"
                         color={'green'}
-                        disabled={law.num === num_of_each_lawtype.inherent}
+                        disabled={law.num === num_of_each_lawtype['inherent']}
                         onClick={() =>
                           act('move_law', {
                             ref: cyborg_ref,
@@ -299,7 +301,7 @@ export const Lawpanel = (props) => {
   const { all_silicons } = data;
 
   return (
-    <Window title="Law Panel" theme="admin" width={800} height={600}>
+    <Window title="Law Panel" theme="admin" width="800" height="600">
       <Window.Content>
         <Section
           fill

@@ -1,23 +1,23 @@
-import { Box, Icon, Section, Stack, Tooltip } from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
+import { Material } from './Fabrication/Types';
 import { Window } from '../layouts';
+import { Box, Tooltip, Icon, Stack, Section } from 'tgui-core/components';
+import { Design } from './Fabrication/Types';
+import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
+import { MaterialMap } from './Fabrication/Types';
+import { classes } from 'tgui-core/react';
 import { DesignBrowser } from './Fabrication/DesignBrowser';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
-import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
-import type { Design, Material, MaterialMap } from './Fabrication/Types';
 
-type Data = {
-  debug: BooleanLike;
+type ComponentPrinterData = {
   designs: Record<string, Design>;
   materials: Material[];
   SHEET_MATERIAL_AMOUNT: number;
 };
 
-export function ComponentPrinter(props) {
-  const { act, data } = useBackend<Data>();
-  const { materials = [], designs, SHEET_MATERIAL_AMOUNT, debug } = data;
+export const ComponentPrinter = (props) => {
+  const { act, data } = useBackend<ComponentPrinterData>();
+  const { materials, designs, SHEET_MATERIAL_AMOUNT } = data;
 
   // Reduce the material count array to a map of actually available materials.
   const availableMaterials: MaterialMap = {};
@@ -27,12 +27,7 @@ export function ComponentPrinter(props) {
   }
 
   return (
-    <Window
-      title={`${debug && 'Debug '}Component Printer`}
-      width={670}
-      height={600}
-      theme={debug ? 'admin' : undefined}
-    >
+    <Window title={'Component Printer'} width={670} height={600}>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item grow>
@@ -43,13 +38,19 @@ export function ComponentPrinter(props) {
                 design,
                 availableMaterials,
                 _onPrintDesign,
-              ) => <Recipe design={design} available={availableMaterials} />}
+              ) => (
+                <Recipe
+                  design={design}
+                  available={availableMaterials}
+                  SHEET_MATERIAL_AMOUNT={SHEET_MATERIAL_AMOUNT}
+                />
+              )}
             />
           </Stack.Item>
           <Stack.Item>
             <Section>
               <MaterialAccessBar
-                availableMaterials={materials}
+                availableMaterials={materials ?? []}
                 SHEET_MATERIAL_AMOUNT={SHEET_MATERIAL_AMOUNT}
                 onEjectRequested={(material, amount) =>
                   act('remove_mat', { ref: material.ref, amount })
@@ -61,28 +62,22 @@ export function ComponentPrinter(props) {
       </Window.Content>
     </Window>
   );
-}
-
-type RecipeProps = {
-  available: MaterialMap;
-  design: Design;
 };
 
-function Recipe(props: RecipeProps) {
-  const { available, design } = props;
+type RecipeProps = {
+  design: Design;
+  available: MaterialMap;
+  SHEET_MATERIAL_AMOUNT: number;
+};
 
-  const { act, data } = useBackend<Data>();
-  const { SHEET_MATERIAL_AMOUNT, debug } = data;
+const Recipe = (props: RecipeProps) => {
+  const { act } = useBackend<ComponentPrinterData>();
+  const { design, available, SHEET_MATERIAL_AMOUNT } = props;
 
-  const costs = Object.entries(design.cost);
-
-  const canPrint =
-    debug ||
-    !costs.some(([material, amount]) => {
-      const have = available[material];
-
-      return !have || amount > have;
-    });
+  const canPrint = !Object.entries(design.cost).some(
+    ([material, amount]) =>
+      !available[material] || amount > (available[material] ?? 0),
+  );
 
   return (
     <div className="FabricatorRecipe">
@@ -118,8 +113,8 @@ function Recipe(props: RecipeProps) {
         >
           <div className="FabricatorRecipe__Icon">
             <Box
-              width="32px"
-              height="32px"
+              width={'32px'}
+              height={'32px'}
               className={classes(['design32x32', design.icon])}
             />
           </div>
@@ -128,4 +123,4 @@ function Recipe(props: RecipeProps) {
       </Tooltip>
     </div>
   );
-}
+};

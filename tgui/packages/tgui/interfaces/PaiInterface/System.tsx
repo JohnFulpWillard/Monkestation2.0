@@ -1,9 +1,8 @@
 import { useBackend } from 'tgui/backend';
 import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
+import { PaiData } from './types';
 
-import type { PaiData } from './types';
-
-export function SystemDisplay(props) {
+export const SystemDisplay = (props) => {
   return (
     <Stack fill vertical>
       <Stack.Item grow={3}>
@@ -14,10 +13,10 @@ export function SystemDisplay(props) {
       </Stack.Item>
     </Stack>
   );
-}
+};
 
 /** Renders some ASCII art. Changes to red on emag. */
-function SystemWallpaper(props) {
+const SystemWallpaper = (props) => {
   const { data } = useBackend<PaiData>();
   const { emagged } = data;
 
@@ -57,12 +56,12 @@ function SystemWallpaper(props) {
       </pre>
     </Section>
   );
-}
+};
 
 /** Displays master info.
  * You can check their DNA and change your image here.
  */
-function SystemInfo(props) {
+const SystemInfo = (props) => {
   const { act, data } = useBackend<PaiData>();
   const { screen_image_interface_icon, master_dna, master_name } = data;
 
@@ -94,10 +93,10 @@ function SystemInfo(props) {
         <LabeledList.Item label="Master">
           {master_name || 'None.'}
         </LabeledList.Item>
-        <LabeledList.Item color={master_dna ? 'red' : ''} label="DNA">
+        <LabeledList.Item color={master_dna && 'red'} label="DNA">
           {master_dna || 'None.'}
         </LabeledList.Item>
       </LabeledList>
     </Section>
   );
-}
+};

@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -7,11 +7,9 @@ import {
   LabeledList,
   Stack,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
 import { logger } from '../../logging';
 import { ListMapper } from './ListMapper';
-import type { LuaEditorData, LuaEditorModal } from './types';
+import { LuaEditorData, LuaEditorModal } from './types';
 
 const parsePanic = (name, panic_json) => {
   const panic_info = JSON.parse(panic_json);
@@ -51,8 +49,8 @@ const parsePanic = (name, panic_json) => {
 };
 
 type LogProps = {
-  setViewedChunk: Dispatch<SetStateAction<string | undefined>>;
-  setModal: Dispatch<SetStateAction<LuaEditorModal>>;
+  setViewedChunk: (newValue: string | undefined) => void;
+  setModal: (newValue: LuaEditorModal) => void;
 };
 
 export const Log = (props: LogProps) => {

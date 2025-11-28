@@ -1,13 +1,12 @@
+import { Stack, Box } from 'tgui-core/components';
 import { Component, createRef } from 'react';
-import { Box, Stack } from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
-
-import { noop } from './constants';
 import { DisplayName } from './DisplayName';
+import { classes } from 'tgui-core/react';
+import { noop } from './constants';
 
 export class Port extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.iconRef = createRef();
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -96,6 +95,7 @@ export class Port extends Component {
             onMouseDown={this.handlePortMouseDown}
             onContextMenu={this.handlePortRightClick}
             onMouseUp={this.handlePortMouseUp}
+            textAlign="center"
           >
             <svg
               style={{

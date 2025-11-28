@@ -1,13 +1,12 @@
+import { useBackend } from '../backend';
 import {
-  AnimatedNumber,
-  BlockQuote,
   Button,
-  ProgressBar,
   Section,
   Table,
+  BlockQuote,
+  ProgressBar,
+  AnimatedNumber,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
 
 export const NtosSkillTracker = (props) => {
@@ -70,7 +69,7 @@ export const NtosSkillTracker = (props) => {
                   </Table.Row>
                   {!!skill.reward && (
                     <Table.Row className="candystripe">
-                      <Table.Cell textAlign="center" colSpan={3}>
+                      <Table.Cell textAlign="center" colspan="3">
                         <Button
                           icon="trophy"
                           style={{ margin: '8px' }}

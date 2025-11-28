@@ -1,24 +1,18 @@
-import { Component } from 'react';
 import {
   Box,
+  Stack,
+  Section,
   Button,
+  Input,
   Dropdown,
   Icon,
-  Input,
-  Section,
-  Stack,
 } from 'tgui-core/components';
+import { Component } from 'react';
 import { shallowDiffers } from 'tgui-core/react';
 
-import {
-  VARIABLE_ASSOC_LIST,
-  VARIABLE_LIST,
-  VARIABLE_NOT_A_LIST,
-} from './constants';
-
 export class VariableMenu extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       variable_name: '',
       variable_type: 'any',
@@ -85,7 +79,7 @@ export class VariableMenu extends Component {
                             {val.name}
                           </Box>
                         </Stack.Item>
-                        <Stack.Item>
+                        <Stack.Item minWidth="80px">
                           <Button textAlign="center" fluid color={val.color}>
                             {val.datatype}
                           </Button>
@@ -96,7 +90,7 @@ export class VariableMenu extends Component {
                             onMouseDown={(e) => handleMouseDownSetter(e, val)}
                             color={val.color}
                             disabled={!!val.is_list}
-                            tooltip={`
+                            tooltip={multiline`
                             Drag me onto the circuit's grid
                             to make a setter for this variable`}
                             icon="pen"
@@ -105,7 +99,7 @@ export class VariableMenu extends Component {
                         <Stack.Item>
                           <Button
                             fluid
-                            tooltip={`
+                            tooltip={multiline`
                             Drag me onto the circuit's grid
                             to make a getter for this variable`}
                             color={val.color}
@@ -134,24 +128,9 @@ export class VariableMenu extends Component {
                   <Input
                     placeholder="Name"
                     fluid
-                    onChange={(val) =>
+                    onChange={(e, nameVal) =>
                       this.setState({
-                        variable_name: val,
-                      })
-                    }
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <Dropdown
-                    options={types}
-                    selected={variable_type}
-                    className="IntegratedCircuit__BlueBorder"
-                    color="black"
-                    width="100%"
-                    over
-                    onSelected={(selectedVal) =>
-                      this.setState({
-                        variable_type: selectedVal,
+                        variable_name: nameVal,
                       })
                     }
                   />
@@ -159,54 +138,42 @@ export class VariableMenu extends Component {
                 <Stack.Item>
                   <Stack fill>
                     <Stack.Item grow>
+                      <Dropdown
+                        options={types}
+                        displayText={variable_type}
+                        className="IntegratedCircuit__BlueBorder"
+                        color="black"
+                        width="100%"
+                        over
+                        onSelected={(selectedVal) =>
+                          this.setState({
+                            variable_type: selectedVal,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                    <Stack.Item>
                       <Button
                         height="100%"
                         color="green"
                         onClick={(e) =>
-                          onAddVariable(
-                            variable_name,
-                            variable_type,
-                            VARIABLE_NOT_A_LIST,
-                            e,
-                          )
+                          onAddVariable(variable_name, variable_type, false, e)
                         }
                         fluid
                       >
                         <IconButton icon="plus" />
                       </Button>
                     </Stack.Item>
-                    <Stack.Item grow>
+                    <Stack.Item>
                       <Button
                         height="100%"
                         color="green"
                         onClick={(e) =>
-                          onAddVariable(
-                            variable_name,
-                            variable_type,
-                            VARIABLE_LIST,
-                            e,
-                          )
+                          onAddVariable(variable_name, variable_type, true, e)
                         }
                         fluid
                       >
-                        <IconButton icon="list-ol" />
-                      </Button>
-                    </Stack.Item>
-                    <Stack.Item grow>
-                      <Button
-                        height="100%"
-                        color="green"
-                        onClick={(e) =>
-                          onAddVariable(
-                            variable_name,
-                            variable_type,
-                            VARIABLE_ASSOC_LIST,
-                            e,
-                          )
-                        }
-                        fluid
-                      >
-                        <IconButton icon="table-list" />
+                        <IconButton icon="list" />
                       </Button>
                     </Stack.Item>
                   </Stack>

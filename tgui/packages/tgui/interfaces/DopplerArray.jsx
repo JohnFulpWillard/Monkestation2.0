@@ -1,3 +1,4 @@
+import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
@@ -8,11 +9,10 @@ import {
   Stack,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 export const DopplerArray = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={650} height={320} resizable>
       <Window.Content>
@@ -33,7 +33,7 @@ const DopplerArrayContent = (props) => {
     return record.name === activeRecordName;
   });
   const DopplerArrayFooter = (
-    <Section title={disk ? `${disk} (${storage})` : 'No Disk Inserted'}>
+    <Section title={disk ? disk + ' (' + storage + ')' : 'No Disk Inserted'}>
       <Button
         textAlign="center"
         fluid
@@ -112,7 +112,7 @@ const DopplerArrayContent = (props) => {
                 <LabeledList.Item label="Outer Radius">
                   {activeRecord.factual_outer_radius}
                   {activeRecord.theory_outer_radius &&
-                    ` (Theoretical: ${activeRecord.theory_outer_radius})`}
+                    ' (Theoretical: ' + activeRecord.theory_outer_radius + ')'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Shockwave Radius">
                   {activeRecord.factual_shockwave_radius}

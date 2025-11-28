@@ -1,6 +1,7 @@
-import { type Antagonist, Category } from '../base';
+import { Antagonist, Category } from '../base';
+import { multiline } from 'tgui-core/string';
 
-export const HERETIC_MECHANICAL_DESCRIPTION = `
+export const HERETIC_MECHANICAL_DESCRIPTION = multiline`
       Find hidden influences and sacrifice crew members to gain magical
       powers and ascend as one of several paths.
    `;
@@ -9,9 +10,9 @@ const Heretic: Antagonist = {
   key: 'heretic',
   name: 'Heretic',
   description: [
-    `
+    multiline`
       Forgotten, devoured, gutted. Humanity has forgotten the eldritch forces
-      of decay, but the mansus veil has weakened. We will make them taste fear
+      of decay, but The Mansus' veil has weakened. We will make them taste fear
       again...
     `,
     HERETIC_MECHANICAL_DESCRIPTION,

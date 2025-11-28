@@ -1,7 +1,6 @@
-import { Box, Section } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
+import { Section, Box } from 'tgui-core/components';
 import { sanitizeText } from '../sanitize';
 
 export const NtosPhysScanner = (props) => {
@@ -24,7 +23,7 @@ export const NtosPhysScanner = (props) => {
             <br />
           </Box>
           <Box
-            style={{ whiteSpace: 'pre-line' }}
+            style={{ 'white-space': 'pre-line' }}
             dangerouslySetInnerHTML={textHtml}
           />
         </Section>

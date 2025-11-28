@@ -1,6 +1,5 @@
-import { Box, NoticeBox } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
+import { NoticeBox, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -19,7 +18,7 @@ export const Terminal = (props) => {
         <NoticeBox textAlign="left">{uppertext}</NoticeBox>
         {messages.map((message) => {
           return (
-            <Box
+            <Section
               key={message.key}
               dangerouslySetInnerHTML={{ __html: message }}
             />

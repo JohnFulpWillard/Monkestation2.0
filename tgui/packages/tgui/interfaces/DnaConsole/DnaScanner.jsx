@@ -1,3 +1,4 @@
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -6,13 +7,11 @@ import {
   ProgressBar,
   Section,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
 import {
   SUBJECT_CONCIOUS,
   SUBJECT_DEAD,
-  SUBJECT_HARD_CRIT,
   SUBJECT_SOFT_CRIT,
+  SUBJECT_HARD_CRIT,
   SUBJECT_TRANSFORMING,
   SUBJECT_UNCONSCIOUS,
 } from './constants';

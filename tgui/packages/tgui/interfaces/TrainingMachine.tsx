@@ -1,3 +1,5 @@
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,9 +9,6 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {
@@ -46,7 +45,7 @@ const TrainingControls = (props) => {
           value={movespeed}
           minValue={1}
           maxValue={10}
-          onChange={(_, value) => act('movespeed', { movespeed: value })}
+          onDrag={(_, value) => act('movespeed', { movespeed: value })}
         />
       </LabeledControls.Item>
       <LabeledControls.Item label="Range">
@@ -58,18 +57,23 @@ const TrainingControls = (props) => {
           value={range}
           minValue={1}
           maxValue={7}
-          onChange={(_, value) => act('range', { range: value })}
+          onDrag={(_, value) => act('range', { range: value })}
         />
       </LabeledControls.Item>
       <Stack.Item>
         <Divider vertical />
       </Stack.Item>
-      <Stack.Item>
-        <Button fluid selected={moving} onClick={() => act('toggle')}>
-          <Box bold fontSize="1.4em" lineHeight={3}>
-            {moving ? 'END' : 'BEGIN'}
-          </Box>
-        </Button>
+      <Stack.Item label="Simulation">
+        <Button
+          fluid
+          selected={moving}
+          content={
+            <Box bold fontSize="1.4em" lineHeight={3}>
+              {moving ? 'END' : 'BEGIN'}
+            </Box>
+          }
+          onClick={() => act('toggle')}
+        />
       </Stack.Item>
     </LabeledControls>
   );

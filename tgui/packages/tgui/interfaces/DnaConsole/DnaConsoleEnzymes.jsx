@@ -1,3 +1,4 @@
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -10,10 +11,8 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
-import { PULSE_DURATION_MAX, PULSE_STRENGTH_MAX } from './constants';
 import { GeneticMakeupInfo } from './GeneticMakeupInfo';
+import { PULSE_DURATION_MAX, PULSE_STRENGTH_MAX } from './constants';
 
 const GeneticMakeupBufferInfo = (props) => {
   const { index, makeup } = props;
@@ -279,7 +278,7 @@ const PulseBoard = (props) => {
     }
   }
   return (
-    <Section title={`Unique ${name}`} minHeight="100%" position="relative">
+    <Section title={'Unique ' + name} minHeight="100%" position="relative">
       <Box mx="-1px">{blocks}</Box>
     </Section>
   );
@@ -294,14 +293,12 @@ const PulseSettings = (props) => {
         <LabeledList.Item label="Output level">
           <NumberInput
             animated
-            tickWhileDragging
             width="32px"
-            step={1}
             stepPixelSize={10}
             value={pulseStrength}
             minValue={1}
             maxValue={PULSE_STRENGTH_MAX}
-            onChange={(value) =>
+            onDrag={(e, value) =>
               act('set_pulse_strength', {
                 val: value,
               })
@@ -311,14 +308,12 @@ const PulseSettings = (props) => {
         <LabeledList.Item label="Pulse duration">
           <NumberInput
             animated
-            tickWhileDragging
             width="32px"
-            step={1}
             stepPixelSize={10}
             value={pulseDuration}
             minValue={1}
             maxValue={PULSE_DURATION_MAX}
-            onChange={(value) =>
+            onDrag={(e, value) =>
               act('set_pulse_duration', {
                 val: value,
               })

@@ -1,12 +1,6 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -21,7 +15,7 @@ export const AtmosTempGate = (props) => {
   const { on, temperature, min_temperature, max_temperature } = data;
 
   return (
-    <Window width={335} height={115}>
+    <Window width={345} height={115}>
       <Window.Content>
         <Section>
           <LabeledList>

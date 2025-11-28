@@ -1,14 +1,6 @@
-import {
-  Box,
-  Button,
-  Dimmer,
-  Icon,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-
 import { useBackend } from '../../backend';
-import type { MainData } from './data';
+import { Section, Stack, Button, Box, Icon, Dimmer } from 'tgui-core/components';
+import { MainData } from './data';
 
 export const InternalDamageToDamagedDesc = {
   MECHA_INT_FIRE: 'Internal fire detected',
@@ -31,12 +23,10 @@ export const AlertPane = (props) => {
   const {
     internal_damage,
     internal_damage_keys,
-    servo_rating,
+    manipulator_rating,
     scanmod_rating,
     capacitor_rating,
     can_use_overclock,
-    overclock_safety_available,
-    overclock_safety,
     overclock_mode,
     overclock_temp_percentage,
   } = data;
@@ -45,42 +35,22 @@ export const AlertPane = (props) => {
       title="Status"
       buttons={
         (!!overclock_mode || !!can_use_overclock) && (
-          <>
-            <Button
-              icon="forward"
-              onClick={() => !!can_use_overclock && act('toggle_overclock')}
-              color={
-                overclock_mode &&
-                (overclock_temp_percentage > 1
-                  ? 'bad'
-                  : overclock_temp_percentage > 0.5
-                    ? 'average'
-                    : 'good')
-              }
-            >
-              {overclock_mode
-                ? `Overclocking (${Math.round(
-                    overclock_temp_percentage * 100,
-                  )}%)`
-                : 'Overclock'}
-            </Button>
-            {!!overclock_safety_available && (
-              <Button
-                icon={
-                  overclock_safety
-                    ? 'temperature-arrow-down'
-                    : 'temperature-arrow-up'
-                }
-                onClick={() => act('toggle_overclock_safety')}
-                color={overclock_safety ? 'good' : 'bad'}
-                tooltip={
-                  overclock_safety
-                    ? 'OC safety prevents overheat.'
-                    : 'OC safety disabled.'
-                }
-              />
-            )}
-          </>
+          <Button
+            icon="forward"
+            onClick={() => !!can_use_overclock && act('toggle_overclock')}
+            color={
+              overclock_mode &&
+              (overclock_temp_percentage > 1
+                ? 'bad'
+                : overclock_temp_percentage > 0.5
+                  ? 'average'
+                  : 'good')
+            }
+          >
+            {overclock_mode
+              ? `Overclocking (${Math.round(overclock_temp_percentage * 100)}%)`
+              : 'Overclock'}
+          </Button>
         )
       }
     >

@@ -1,7 +1,6 @@
 import { Button, Section } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { useBackend } from '../backend';
 
 export const InterviewManager = (props) => {
   const { act, data } = useBackend();

@@ -6,15 +6,14 @@ import {
   Modal,
   Stack,
 } from 'tgui-core/components';
-
-import type { SubsystemData } from './types';
+import { SubsystemData } from './types';
 
 type Props = {
   subsystem: SubsystemData;
   onClose: () => void;
 };
 
-export function SubsystemDialog(props: Props) {
+export const SubsystemDialog = (props: Props) => {
   const { subsystem, onClose } = props;
   const {
     cost_ms,
@@ -73,4 +72,4 @@ export function SubsystemDialog(props: Props) {
       </Stack>
     </Modal>
   );
-}
+};

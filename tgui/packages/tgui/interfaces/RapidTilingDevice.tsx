@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import { Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 import { capitalizeAll } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Section, Tabs, Stack } from 'tgui-core/components';
 import { InfoSection } from './RapidConstructionDevice';
+import { Window } from '../layouts';
 
 type Data = {
   selected_icon: string;
@@ -26,6 +24,12 @@ type Design = {
   icon: string;
 };
 
+const ROTATION_MAP = {
+  north: 'rotateZ(-180deg)',
+  west: 'rotateZ(90deg)',
+  east: 'rotateZ(-90deg)',
+} as const;
+
 const TilePreview = (props) => {
   const { data } = useBackend<Data>();
   const { selected_icon, selected_direction } = data;
@@ -39,10 +43,14 @@ const TilePreview = (props) => {
       }}
     >
       <Box
-        className={classes([
-          'rtd32x32',
-          `${selected_icon}${selected_direction ? `${selected_direction}` : 'south'}`,
-        ])}
+        className={classes(['rtd32x32', selected_icon])}
+        style={{
+          transform:
+            'scale(1.5) translate(9.5%, 9.5%) ' +
+            (ROTATION_MAP[selected_direction] || ''),
+          '-ms-interpolation-mode': 'nearest-neighbor',
+          'image-rendering': 'pixelated',
+        }}
       />
     </Section>
   );
@@ -52,7 +60,7 @@ const DirectionSelect = (props) => {
   const { act, data } = useBackend<Data>();
   const { tile_dirs = [], selected_direction } = data;
   return (
-    <Section fill>
+    <Section fill vertical>
       <Stack vertical>
         {tile_dirs.map((dir) => (
           <Stack.Item key={dir}>
@@ -91,16 +99,19 @@ const TileRotateSection = (props) => {
 const TileDesignSection = (props) => {
   const { act, data } = useBackend<Data>();
   const { categories = [], selected_category, selected_recipe } = data;
-  const [categoryName, setCategoryName] = useState(selected_category);
+  const [categoryName, setCategoryName] = useLocalState(
+    'categoryName',
+    selected_category,
+  );
   const shownCategory =
     categories.find((category) => category.category_name === categoryName) ||
     categories[0];
-
   return (
     <Section fill scrollable>
       <Tabs>
         {categories.map((category) => (
           <Tabs.Tab
+            fluid
             key={category.category_name}
             selected={category.category_name === categoryName}
             onClick={() => setCategoryName(category.category_name)}
@@ -113,6 +124,7 @@ const TileDesignSection = (props) => {
         <Button
           key={i + 1}
           fluid
+          ellipsis
           color="transparent"
           selected={
             recipe.name === selected_recipe &&
@@ -132,7 +144,12 @@ const TileDesignSection = (props) => {
             inline
             verticalAlign="middle"
             mr="20px"
-            className={classes(['rtd32x32', `${recipe.icon}south`])}
+            className={classes(['rtd32x32', recipe.icon])}
+            style={{
+              transform: 'scale(1.2) translate(9.5%, 9.5%)',
+              '-ms-interpolation-mode': 'nearest-neighbor',
+              'image-rendering': 'pixelated',
+            }}
           />
           <span>{capitalizeAll(recipe.name)}</span>
         </Button>

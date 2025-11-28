@@ -1,14 +1,7 @@
-import {
-  BlockQuote,
-  Box,
-  Button,
-  Icon,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-
+import { multiline } from 'tgui-core/string';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
+import { BlockQuote, Box, Button, Icon, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const ApprenticeContract = (props) => {
@@ -28,7 +21,7 @@ export const ApprenticeContract = (props) => {
               fluffName="Apprentice of Destruction"
               schoolTitle="destruction"
               assetName="destruction.png"
-              blurb={`
+              blurb={multiline`
                 Your apprentice is skilled in offensive magic.
                 They know Magic Missile and Fireball.
               `}
@@ -38,7 +31,7 @@ export const ApprenticeContract = (props) => {
               fluffName="Student of Translocation"
               schoolTitle="bluespace"
               assetName="bluespace.png"
-              blurb={`
+              blurb={multiline`
               Your apprentice is able to defy physics, melting through
               solid objects and travelling great distances in the
               blink of an eye. They know Teleport and Ethereal Jaunt.
@@ -49,7 +42,7 @@ export const ApprenticeContract = (props) => {
               fluffName="Neophyte of Restoration"
               schoolTitle="healing"
               assetName="healing.png"
-              blurb={`
+              blurb={multiline`
               Your apprentice is training to cast spells that will
               aid your survival. They know Forcewall and Charge and
               come with a Staff of Healing.
@@ -60,7 +53,7 @@ export const ApprenticeContract = (props) => {
               fluffName="Robeless Pupil"
               schoolTitle="robeless"
               assetName="robeless.png"
-              blurb={`
+              blurb={multiline`
               Your apprentice is training to cast spells without
               their robes. They know Knock and Mindswap.
               `}
@@ -84,8 +77,8 @@ const ApprenticeSelection = (props) => {
               <img
                 src={resolveAsset(assetName)}
                 style={{
-                  borderStyle: 'solid',
-                  borderColor: '#7e90a7',
+                  'border-style': 'solid',
+                  'border-color': '#7e90a7',
                 }}
               />
             </Stack.Item>

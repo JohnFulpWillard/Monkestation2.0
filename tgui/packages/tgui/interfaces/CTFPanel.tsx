@@ -1,7 +1,6 @@
-import { Box, Button, Flex, Section, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from '../../common/react';
 import { useBackend } from '../backend';
+import { Box, Button, Section, Flex, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type CTFPanelData =
@@ -50,7 +49,7 @@ export const CTFPanel = (props) => {
                   <Button
                     content="Jump"
                     fontSize="18px"
-                    fluid
+                    fluid={1}
                     color={team.color.toLowerCase()}
                     onClick={() =>
                       act('jump', {
@@ -62,7 +61,7 @@ export const CTFPanel = (props) => {
                   <Button
                     content="Join"
                     fontSize="18px"
-                    fluid
+                    fluid={1}
                     color={team.color.toLowerCase()}
                     onClick={() =>
                       act('join', {

@@ -1,13 +1,12 @@
-import { Button, LabeledList } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AccessConfig, type Region } from './common/AccessConfig';
+import { LabeledList, Button } from 'tgui-core/components';
+import { AccessConfig } from './common/AccessConfig';
+import { BooleanLike } from 'tgui-core/react';
 
 type Data = {
   oneAccess: BooleanLike;
-  regions: Region[];
+  regions: string[];
   accesses: string[];
 };
 
@@ -28,8 +27,8 @@ export const CircuitAccessChecker = (props) => {
           </LabeledList.Item>
         </LabeledList>
         <AccessConfig
-          accesses={regions}
-          selectedList={accesses}
+          accesses={regions || []}
+          selectedList={accesses || []}
           accessMod={(ref) =>
             act('set', {
               access: ref,

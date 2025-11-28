@@ -1,4 +1,4 @@
-import { createDropdownInput, type Feature } from '../base';
+import { createDropdownInput, Feature } from '../base';
 
 export const pixel_size: Feature<number> = {
   name: 'Pixel Scaling',

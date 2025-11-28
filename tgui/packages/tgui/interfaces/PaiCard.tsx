@@ -1,3 +1,6 @@
+import { decodeHtmlEntities } from 'tgui-core/string';
+import { BooleanLike } from '../../common/react';
+import { useBackend } from '../backend';
 import {
   BlockQuote,
   Box,
@@ -7,17 +10,11 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-import { decodeHtmlEntities } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {
   candidates: ReadonlyArray<Candidate>;
   pai: Pai;
-  range_max: number;
-  range_min: number;
 };
 
 type Candidate = Readonly<{
@@ -36,8 +33,6 @@ type Pai = {
   name: string;
   transmit: BooleanLike;
   receive: BooleanLike;
-  leashed: BooleanLike;
-  range: number;
 };
 
 export const PaiCard = (props) => {
@@ -152,20 +147,7 @@ const CandidateDisplay = (props: { candidate: Candidate; index: number }) => {
 const PaiOptions = (props) => {
   const { act, data } = useBackend<Data>();
   const {
-    range_max,
-    range_min,
-    pai: {
-      can_holo,
-      dna,
-      emagged,
-      laws,
-      master,
-      name,
-      transmit,
-      receive,
-      leashed,
-      range,
-    },
+    pai: { can_holo, dna, emagged, laws, master, name, transmit, receive },
   } = data;
   const suppliedLaws = laws[0] ? decodeHtmlEntities(laws[0]) : 'None';
 
@@ -195,34 +177,6 @@ const PaiOptions = (props) => {
           >
             Toggle
           </Button>
-        </LabeledList.Item>
-        <LabeledList.Item label="Leash">
-          <Button
-            icon={leashed ? 'toggle-on' : 'toggle-off'}
-            onClick={() => act('toggle_leash')}
-            selected={leashed}
-          >
-            {leashed ? 'Unleash' : 'Leash'}
-          </Button>
-        </LabeledList.Item>
-        <LabeledList.Item label="Holoform Range">
-            <Stack>
-              <Stack.Item>
-                <Button
-                  icon="fa-circle-minus"
-                  onClick={() => act('decrease_range')}
-                  disabled={range === range_min}
-                />
-              </Stack.Item>
-              <Stack.Item mt={0.5}>{range}</Stack.Item>
-              <Stack.Item>
-                <Button
-                  icon="fa-circle-plus"
-                  onClick={() => act('increase_range')}
-                  disabled={range === range_max}
-                />
-              </Stack.Item>
-            </Stack>
         </LabeledList.Item>
         <LabeledList.Item label="Transmit">
           <Button
@@ -263,7 +217,7 @@ const PaiOptions = (props) => {
           mt={1}
           onClick={() => act('reset_software')}
         >
-          Reset Software
+          Malicious Software Detected
         </Button>
       )}
     </Section>

@@ -1,7 +1,6 @@
-import { Button, NoticeBox, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../../backend';
-import { RequestPriority, type RequestsData } from './types';
+import { Button, NoticeBox, Stack } from 'tgui-core/components';
+import { RequestsData, RequestPriority } from './types';
 
 export const RequestsConsoleHeader = (props) => {
   const { act, data } = useBackend<RequestsData>();
@@ -22,7 +21,7 @@ const EmergencyBox = (props) => {
     <>
       {!!emergency && (
         <NoticeBox danger>
-          {emergency} called! RETA may open doors in area to them.
+          {emergency} has been dispatched to this location
         </NoticeBox>
       )}
       {!emergency && (
@@ -82,7 +81,7 @@ const MessageNoticeBox = (props) => {
   const { data } = useBackend<RequestsData>();
   const { new_message_priority } = data;
   return (
-    <NoticeBox>
+    <NoticeBox warning>
       {'You have new unread '}
       {new_message_priority === RequestPriority.HIGH && 'PRIORITY '}
       {new_message_priority === RequestPriority.EXTREME && 'EXTREME PRIORITY '}

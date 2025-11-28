@@ -1,17 +1,8 @@
-import { filter, map } from 'es-toolkit/compat';
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Divider,
-  Dropdown,
-  Stack,
-  Tabs,
-} from 'tgui-core/components';
+import { filterMap } from 'es-toolkit';
 import { exhaustiveCheck } from 'tgui-core/exhaustive';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Divider, Dropdown, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type CurrentStationTrait = {
@@ -41,7 +32,10 @@ const FutureStationTraitsPage = (props) => {
   const { act, data } = useBackend<StationTraitsData>();
   const { future_station_traits } = data;
 
-  const [selectedTrait, setSelectedTrait] = useState<string>('');
+  const [selectedTrait, setSelectedTrait] = useLocalState<string | null>(
+    'selectedFutureTrait',
+    null,
+  );
 
   const traitsByName = Object.fromEntries(
     data.valid_station_traits.map((trait) => {
@@ -57,9 +51,9 @@ const FutureStationTraitsPage = (props) => {
       <Stack fill>
         <Stack.Item grow>
           <Dropdown
+            displayText={!selectedTrait && 'Select trait to add...'}
             onSelected={setSelectedTrait}
             options={traitNames}
-            placeholder="Select trait to add..."
             selected={selectedTrait}
             width="100%"
           />
@@ -117,9 +111,15 @@ const FutureStationTraitsPage = (props) => {
                       icon="times"
                       onClick={() => {
                         act('setup_future_traits', {
-                          station_traits: filter(
-                            map(future_station_traits, (t) => t.path),
-                            (p) => p !== trait.path,
+                          station_traits: filterMap(
+                            future_station_traits,
+                            (otherTrait) => {
+                              if (otherTrait.path === trait.path) {
+                                return undefined;
+                              } else {
+                                return otherTrait.path;
+                              }
+                            },
                           ),
                         });
                       }}
@@ -209,7 +209,10 @@ const ViewStationTraitsPage = (props) => {
 };
 
 export const StationTraitsPanel = (props) => {
-  const [currentTab, setCurrentTab] = useState(Tab.ViewStationTraits);
+  const [currentTab, setCurrentTab] = useLocalState(
+    'station_traits_tab',
+    Tab.ViewStationTraits,
+  );
 
   let currentPage;
 

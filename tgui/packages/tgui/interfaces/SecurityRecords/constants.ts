@@ -1,9 +1,9 @@
 export const CRIMESTATUS2COLOR = {
   Arrest: 'bad',
-  Discharged: 'blue',
+  Discharged: 'good',
   Incarcerated: 'average',
-  Parole: 'good',
-  Suspected: 'teal',
+  Parole: 'blue',
+  Suspected: 'purple',
 } as const;
 
 export const CRIMESTATUS2DESC = {

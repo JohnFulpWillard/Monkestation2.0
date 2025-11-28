@@ -1,21 +1,19 @@
-import { sortBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
-import { useState } from 'react';
+import { filter, sortBy } from 'es-toolkit';
+import { flow } from 'tgui-core/fp';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {
-  Box,
-  Button,
-  Icon,
-  Input,
-  NoticeBox,
-  Section,
   Stack,
+  Input,
+  Section,
   Tabs,
+  NoticeBox,
+  Box,
+  Icon,
+  Button,
 } from 'tgui-core/components';
-
 import { JOB2ICON } from '../common/JobToIcon';
 import { isRecordMatch } from '../SecurityRecords/helpers';
-import type { MedicalRecord, MedicalRecordData } from './types';
+import { MedicalRecord, MedicalRecordData } from './types';
 
 /** Displays all found records. */
 export const MedicalRecordTabs = (props) => {
@@ -26,21 +24,20 @@ export const MedicalRecordTabs = (props) => {
     ? 'No records found.'
     : 'No match. Refine your search.';
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useLocalState('search', '');
 
-  const sorted: MedicalRecord[] = sortBy(
-    filter(records, (record) => isRecordMatch(record, search)),
-    [(record) => record.name?.toLowerCase()],
-  );
+  const sorted: MedicalRecord[] = flow([
+    filter((record: MedicalRecord) => isRecordMatch(record, search)),
+    sortBy((record: MedicalRecord) => record.name?.toLowerCase()),
+  ])(records);
 
   return (
     <Stack fill vertical>
       <Stack.Item>
         <Input
           fluid
-          onChange={setSearch}
+          onInput={(_, value) => setSearch(value)}
           placeholder="Name/Job/DNA"
-          expensive
         />
       </Stack.Item>
       <Stack.Item grow>
@@ -67,15 +64,6 @@ export const MedicalRecordTabs = (props) => {
               Create
             </Button>
           </Stack.Item>
-          <Stack.Item>
-            <Button.Confirm
-              content="Purge"
-              icon="trash"
-              disabled={!station_z}
-              onClick={() => act('purge_records')}
-              tooltip="Wipe all record data."
-            />
-          </Stack.Item>
         </Stack>
       </Stack.Item>
     </Stack>
@@ -91,7 +79,7 @@ const CrewTab = (props: { record: MedicalRecord }) => {
   const { act, data } = useBackend<MedicalRecordData>();
   const { assigned_view } = data;
   const { record } = props;
-  const { crew_ref, name, trim } = record;
+  const { crew_ref, name, rank } = record;
 
   /** Sets the record to preview */
   const selectRecord = (record: MedicalRecord) => {
@@ -119,11 +107,12 @@ const CrewTab = (props: { record: MedicalRecord }) => {
   return (
     <Tabs.Tab
       className="candystripe"
+      label={name}
       onClick={() => selectRecord(record)}
       selected={selectedRecord?.crew_ref === crew_ref}
     >
-      <Box>
-        <Icon name={JOB2ICON[trim] || 'question'} /> {name}
+      <Box wrap>
+        <Icon name={JOB2ICON[rank] || 'question'} /> {name}
       </Box>
     </Tabs.Tab>
   );

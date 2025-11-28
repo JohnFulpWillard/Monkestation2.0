@@ -1,20 +1,19 @@
-import {
-  Box,
-  Button,
-  Dimmer,
-  Icon,
-  Section,
-  Stack,
-  Tooltip,
-} from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
+import {
+  Stack,
+  Section,
+  Icon,
+  Dimmer,
+  Box,
+  Tooltip,
+  Button,
+} from 'tgui-core/components';
 import { Window } from '../layouts';
-import { DesignBrowser } from './Fabrication/DesignBrowser';
-import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
-import type { Design, FabricatorData, MaterialMap } from './Fabrication/Types';
+import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
+import { FabricatorData, Design, MaterialMap } from './Fabrication/Types';
+import { classes } from 'tgui-core/react';
+import { DesignBrowser } from './Fabrication/DesignBrowser';
 
 export const Fabricator = (props) => {
   const { act, data } = useBackend<FabricatorData>();
@@ -58,7 +57,7 @@ export const Fabricator = (props) => {
           </Stack.Item>
         </Stack>
         {!!onHold && (
-          <Dimmer style={{ fontSize: '2em', textAlign: 'center' }}>
+          <Dimmer style={{ 'font-size': '2em', 'text-align': 'center' }}>
             Mineral access is on hold, please contact the quartermaster.
           </Dimmer>
         )}
@@ -133,15 +132,18 @@ const CustomPrint = (props: CustomPrintProps) => {
       ])}
     >
       <Button.Input
-        buttonText={`[Max: ${maxMult}]`}
-        color="transparent"
-        onCommit={(value) =>
+        content={`[Max: ${maxMult}]`}
+        color={'transparent'}
+        maxValue={maxMult}
+        onCommit={(_e, value: string) =>
           act('build', {
             ref: design.id,
             amount: value,
           })
         }
-      />
+      >
+        [Max: {maxMult}]
+      </Button.Input>
     </div>
   );
 };

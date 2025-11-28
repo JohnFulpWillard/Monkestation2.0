@@ -1,79 +1,83 @@
-import { useState } from 'react';
-import { useBackend } from 'tgui/backend';
+import { useBackend, useLocalState } from 'tgui/backend';
 import { Button, NoticeBox, Section, Stack } from 'tgui-core/components';
-
 import { DOOR_JACK, HOST_SCAN, PHOTO_MODE, SOFTWARE_DESC } from './constants';
-import type { PaiData } from './types';
+import { PaiData } from './types';
 
 /**
  * Renders two sections: A section of buttons and
  * another section that displays the selected installed
  * software info.
  */
-export function InstalledDisplay(props) {
-  const { data } = useBackend<PaiData>();
-  const { installed = [] } = data;
-
-  const [currentSelection, setCurrentSelection] = useState('');
-
-  const title = !currentSelection ? 'Select a Program' : currentSelection;
-
+export const InstalledDisplay = (props) => {
   return (
     <Stack fill vertical>
       <Stack.Item grow>
-        <Section fill scrollable title={title}>
-          {currentSelection && (
-            <Stack fill vertical>
-              <Stack.Item>{SOFTWARE_DESC[currentSelection]}</Stack.Item>
-              <Stack.Item grow>
-                <SoftwareButtons currentSelection={currentSelection} />
-              </Stack.Item>
-            </Stack>
-          )}
-        </Section>
+        <InstalledSoftware />
       </Stack.Item>
       <Stack.Item grow={2}>
-        <Section fill scrollable title="Installed Software">
-          {!installed.length ? (
-            <NoticeBox>Nothing installed!</NoticeBox>
-          ) : (
-            installed.map((software, index) => {
-              return (
-                <Button
-                  key={index}
-                  onClick={() => setCurrentSelection(software)}
-                >
-                  {software}
-                </Button>
-              );
-            })
-          )}
-        </Section>
+        <InstalledInfo />
       </Stack.Item>
     </Stack>
   );
-}
+};
 
-type SoftwareButtonsProps = {
-  currentSelection: string;
+/** Iterates over installed software to render buttons. */
+const InstalledSoftware = (props) => {
+  const { data } = useBackend<PaiData>();
+  const { installed = [] } = data;
+  const [currentSelection, setCurrentSelection] = useLocalState('software', '');
+
+  return (
+    <Section fill scrollable title="Installed Software">
+      {!installed.length ? (
+        <NoticeBox>Nothing installed!</NoticeBox>
+      ) : (
+        installed.map((software, index) => {
+          return (
+            <Button key={index} onClick={() => setCurrentSelection(software)}>
+              {software}
+            </Button>
+          );
+        })
+      )}
+    </Section>
+  );
+};
+
+/** Software info for buttons clicked. */
+const InstalledInfo = (props) => {
+  const [currentSelection] = useLocalState('software', '');
+  const title = !currentSelection ? 'Select a Program' : currentSelection;
+
+  return (
+    <Section fill scrollable title={title}>
+      {currentSelection && (
+        <Stack fill vertical>
+          <Stack.Item>{SOFTWARE_DESC[currentSelection]}</Stack.Item>
+          <Stack.Item grow>
+            <SoftwareButtons />
+          </Stack.Item>
+        </Stack>
+      )}
+    </Section>
+  );
 };
 
 /**
  * Once a software is selected, generates custom buttons or a default
  * power toggle.
  */
-function SoftwareButtons(props: SoftwareButtonsProps) {
-  const { currentSelection } = props;
-
+const SoftwareButtons = (props) => {
   const { act, data } = useBackend<PaiData>();
   const { door_jack, languages, master_name } = data;
+  const [currentSelection] = useLocalState('software', '');
 
   switch (currentSelection) {
     case 'Door Jack':
       return (
         <>
           <Button
-            disabled={!!door_jack}
+            disabled={door_jack}
             icon="plug"
             onClick={() => act(currentSelection, { mode: DOOR_JACK.Cable })}
             tooltip="Drops a cable. Insert into a compatible airlock."
@@ -165,4 +169,4 @@ function SoftwareButtons(props: SoftwareButtonsProps) {
         </Button>
       );
   }
-}
+};

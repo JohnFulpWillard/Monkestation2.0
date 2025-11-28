@@ -1,3 +1,4 @@
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,8 +9,6 @@ import {
   Modal,
   Section,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const ShuttleConsole = (props) => {

@@ -1,13 +1,6 @@
-import {
-  Box,
-  Button,
-  LabeledList,
-  NoticeBox,
-  Section,
-} from 'tgui-core/components';
 import { decodeHtmlEntities } from 'tgui-core/string';
-
 import { useBackend } from '../backend';
+import { Box, Button, NoticeBox, Section, LabeledList } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const RemoteRobotControl = (props) => {
@@ -34,7 +27,7 @@ export const RemoteRobotControlContent = (props) => {
     return (
       <Section
         key={robot.ref}
-        title={`${robot.name} (${robot.model})`}
+        title={robot.name + ' (' + robot.model + ')'}
         buttons={
           <>
             <Button

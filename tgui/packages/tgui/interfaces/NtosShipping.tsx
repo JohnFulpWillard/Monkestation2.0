@@ -1,7 +1,6 @@
-import { Box, Button, LabeledList, Section } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 type Data = {

@@ -1,9 +1,8 @@
-import { sortBy } from 'es-toolkit';
-import { map } from 'es-toolkit/compat';
-import { Button, Section, Stack } from 'tgui-core/components';
-
+import { flow } from 'tgui-core/fp';
+import { map, sortBy } from 'es-toolkit';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Stack, Section, Button } from 'tgui-core/components';
 
 type DestinationTaggerData = {
   locations: string[];
@@ -25,17 +24,13 @@ type DestinationInfo = {
  * @returns The alphetically sorted list of destinations.
  */
 const sortDestinations = (locations: string[]): DestinationInfo[] => {
-  return sortBy(
-    map(
-      locations,
-      (name, index) =>
-        ({
-          name: name.toUpperCase(),
-          sorting_id: index + 1,
-        }) as DestinationInfo,
-    ),
-    [(dest) => dest.name],
-  );
+  return flow([
+    map<string, DestinationInfo>((name, index) => ({
+      name: name.toUpperCase(),
+      sorting_id: index + 1,
+    })),
+    sortBy<DestinationInfo>((dest) => dest.name),
+  ])(locations);
 };
 
 export const DestinationTagger = (props) => {

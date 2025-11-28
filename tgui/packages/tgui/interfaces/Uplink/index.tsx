@@ -1,4 +1,8 @@
-import { Component } from 'react';
+import { BooleanLike } from 'tgui-core/react';
+import { Component, Fragment } from 'react';
+
+import { resolveAsset } from '../../assets';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -10,17 +14,15 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 import { fetchRetry } from 'tgui-core/http';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { resolveAsset } from '../../assets';
-import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import {
   calculateDangerLevel,
   calculateProgression,
   dangerLevelsTooltip,
 } from './calculateDangerLevel';
-import { GenericUplink, type Item } from './GenericUplink';
+import { ContractorItem, ContractorMenu } from './ContractorMenu';
+import { GenericUplink, Item } from './GenericUplink';
+import { Objective, ObjectiveMenu } from './ObjectiveMenu';
 import { PrimaryObjectiveMenu } from './PrimaryObjectiveMenu';
 
 type UplinkItem = {
@@ -38,17 +40,18 @@ type UplinkItem = {
   restricted_roles: string;
   restricted_species: string;
   progression_minimum: number;
-  population_minimum: number;
   cost_override_string: string;
   lock_other_purchases: BooleanLike;
+  lock_secondary_objectives: BooleanLike;
   ref?: string;
 };
 
 type UplinkData = {
   telecrystals: number;
   progression_points: number;
-  joined_population?: number;
   lockable: BooleanLike;
+  current_expected_progression: number;
+  progression_scaling_deviance: number;
   current_progression_scaling: number;
   uplink_flag: number;
   assigned_role: string;
@@ -62,13 +65,23 @@ type UplinkData = {
     [key: string]: number;
   };
 
+  has_objectives: BooleanLike;
   has_progression: BooleanLike;
   primary_objectives: {
     [key: number]: string;
   };
+  completed_final_objective: string;
+  potential_objectives: Objective[];
+  active_objectives: Objective[];
+  maximum_active_objectives: number;
+  maximum_potential_objectives: number;
   purchased_items: number;
   shop_locked: BooleanLike;
   can_renegotiate: BooleanLike;
+  locked_entries: string[];
+  is_contractor: BooleanLike;
+  contractor_items: ContractorItem[];
+  contractor_rep: number;
 };
 
 type UplinkState = {
@@ -93,7 +106,7 @@ type ItemExtraData = Item & {
 // Cache response so it's only sent once
 let fetchServerData: Promise<ServerData> | undefined;
 
-export class Uplink extends Component<any, UplinkState> {
+export class Uplink extends Component<{}, UplinkState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -146,8 +159,10 @@ export class Uplink extends Component<any, UplinkState> {
       ) {
         return false;
       }
-      if (value.purchasable_from & uplinkFlag) {
-        return true;
+      {
+        if (value.purchasable_from & uplinkFlag) {
+          return true;
+        }
       }
       return false;
     });
@@ -173,10 +188,17 @@ export class Uplink extends Component<any, UplinkState> {
     const {
       telecrystals,
       progression_points,
-      joined_population,
       primary_objectives,
       can_renegotiate,
+      completed_final_objective,
+      active_objectives,
+      potential_objectives,
+      has_objectives,
       has_progression,
+      maximum_active_objectives,
+      maximum_potential_objectives,
+      current_expected_progression,
+      progression_scaling_deviance,
       current_progression_scaling,
       extra_purchasable,
       extra_purchasable_stock,
@@ -184,6 +206,10 @@ export class Uplink extends Component<any, UplinkState> {
       lockable,
       purchased_items,
       shop_locked,
+      locked_entries,
+      is_contractor,
+      contractor_items,
+      contractor_rep,
     } = data;
     const { allItems, allCategories, currentTab } = this.state as UplinkState;
     const itemsToAdd = [...allItems];
@@ -197,10 +223,6 @@ export class Uplink extends Component<any, UplinkState> {
     }
     for (let i = 0; i < itemsToAdd.length; i++) {
       const item = itemsToAdd[i];
-      const hasEnoughProgression =
-        progression_points >= item.progression_minimum;
-      const hasEnoughPop =
-        !joined_population || joined_population >= item.population_minimum;
 
       let stock: number | null = current_stock[item.stock_key];
       if (item.ref) {
@@ -210,6 +232,7 @@ export class Uplink extends Component<any, UplinkState> {
         stock = null;
       }
       const canBuy = telecrystals >= item.cost && (stock === null || stock > 0);
+      const locked = locked_entries.includes(item.id);
       items.push({
         id: item.id,
         name: item.name,
@@ -224,6 +247,14 @@ export class Uplink extends Component<any, UplinkState> {
                 Taking this item will lock you from further purchasing from the
                 marketplace. Additionally, if you have already purchased an
                 item, you will not be able to purchase this.
+              </NoticeBox>
+            )) ||
+              null}
+            {(item.lock_secondary_objectives && (
+              <NoticeBox mt={1}>
+                Taking this item will lock you from completing any secondary
+                objectives. Additionally, if you have already completed any
+                secondary objectives, you will not be able to purchase this.
               </NoticeBox>
             )) ||
               null}
@@ -244,16 +275,11 @@ export class Uplink extends Component<any, UplinkState> {
             )}
           </Box>
         ),
-        population_tooltip:
-          'This item is not cleared for operations performed against stations crewed by fewer than ' +
-          item.population_minimum +
-          ' people.',
-        insufficient_population: !hasEnoughPop,
         disabled:
           !canBuy ||
-          !hasEnoughPop ||
-          (has_progression && !hasEnoughProgression) ||
-          (item.lock_other_purchases && purchased_items > 0),
+          (item.lock_other_purchases && purchased_items > 0) ||
+          locked,
+        is_locked: locked,
         extraData: {
           ref: item.ref,
           icon: item.icon,
@@ -261,9 +287,19 @@ export class Uplink extends Component<any, UplinkState> {
         },
       });
     }
-
+    // Get the difference between the current progression and
+    // expected progression
+    let progressionPercentage =
+      current_expected_progression - progression_points;
+    // Clamp it down between 0 and 2
+    progressionPercentage = Math.min(
+      Math.max(progressionPercentage / progression_scaling_deviance, -1),
+      1,
+    );
+    // Round it and convert it into a percentage
+    progressionPercentage = Math.round(progressionPercentage * 1000) / 10;
     return (
-      <Window width={700} height={600} theme="syndicate">
+      <Window width={is_contractor ? 725 : 700} height={600} theme="syndicate">
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item>
@@ -276,7 +312,11 @@ export class Uplink extends Component<any, UplinkState> {
                           <Box>
                             <Box>
                               <Box>Your current level of threat.</Box> Threat
-                              determines what items you can purchase.&nbsp;
+                              determines
+                              {has_objectives
+                                ? ' the severity of secondary objectives you get and '
+                                : ' '}
+                              what items you can purchase.&nbsp;
                               <Box mt={0.5}>
                                 {/* A minute in deciseconds */}
                                 Threat passively increases by{' '}
@@ -287,6 +327,29 @@ export class Uplink extends Component<any, UplinkState> {
                                 </Box>
                                 &nbsp;every minute
                               </Box>
+                              {Math.abs(progressionPercentage) > 0 && (
+                                <Box mt={0.5}>
+                                  Because your threat level is
+                                  {progressionPercentage < 0
+                                    ? ' ahead '
+                                    : ' behind '}
+                                  of where it should be, you are getting
+                                  <Box
+                                    as="span"
+                                    color={
+                                      progressionPercentage < 0
+                                        ? 'red'
+                                        : 'green'
+                                    }
+                                    ml={1}
+                                    mr={1}
+                                  >
+                                    {progressionPercentage}%
+                                  </Box>
+                                  {progressionPercentage < 0 ? 'less' : 'more'}{' '}
+                                  threat every minute
+                                </Box>
+                              )}
                               {dangerLevelsTooltip}
                             </Box>
                           </Box>
@@ -296,15 +359,15 @@ export class Uplink extends Component<any, UplinkState> {
                       </Tooltip>
                     </Stack.Item>
                   )}
-                  {!!primary_objectives && (
+                  {!!(primary_objectives || has_objectives) && (
                     <Stack.Item grow={1}>
                       <Tabs fluid>
                         {primary_objectives && (
                           <Tabs.Tab
                             style={{
                               overflow: 'hidden',
-                              whiteSpace: 'nowrap',
-                              textOverflow: 'ellipsis',
+                              'white-space': 'nowrap',
+                              'text-overflow': 'ellipsis',
                             }}
                             icon="star"
                             selected={currentTab === 0}
@@ -313,15 +376,43 @@ export class Uplink extends Component<any, UplinkState> {
                             Primary Objectives
                           </Tabs.Tab>
                         )}
+                        {!!has_objectives && (
+                          <Tabs.Tab
+                            style={{
+                              overflow: 'hidden',
+                              'white-space': 'nowrap',
+                              'text-overflow': 'ellipsis',
+                            }}
+                            icon="star-half-stroke"
+                            selected={currentTab === 1}
+                            onClick={() => this.setState({ currentTab: 1 })}
+                          >
+                            Secondary Objectives
+                          </Tabs.Tab>
+                        )}
+                        {!!is_contractor && (
+                          <Tabs.Tab
+                            style={{
+                              overflow: 'hidden',
+                              'white-space': 'nowrap',
+                              'text-overflow': 'ellipsis',
+                            }}
+                            icon="dollar-sign"
+                            selected={currentTab === 2}
+                            onClick={() => this.setState({ currentTab: 2 })}
+                          >
+                            Contractor Market
+                          </Tabs.Tab>
+                        )}
                         <Tabs.Tab
                           style={{
                             overflow: 'hidden',
-                            whiteSpace: 'nowrap',
-                            textOverflow: 'ellipsis',
+                            'white-space': 'nowrap',
+                            'text-overflow': 'ellipsis',
                           }}
                           icon="store"
-                          selected={currentTab === 2}
-                          onClick={() => this.setState({ currentTab: 2 })}
+                          selected={currentTab === 3 || !has_objectives}
+                          onClick={() => this.setState({ currentTab: 3 })}
                         >
                           Market
                         </Tabs.Tab>
@@ -350,38 +441,79 @@ export class Uplink extends Component<any, UplinkState> {
               {(currentTab === 0 && primary_objectives && (
                 <PrimaryObjectiveMenu
                   primary_objectives={primary_objectives}
+                  final_objective={completed_final_objective}
                   can_renegotiate={can_renegotiate}
                 />
-              )) || (
-                <>
-                  <GenericUplink
-                    currency={`${telecrystals} TC`}
-                    categories={allCategories}
-                    items={items}
-                    handleBuy={(item: ItemExtraData) => {
-                      if (!item.extraData?.ref) {
-                        act('buy', { path: item.id });
-                      } else {
-                        act('buy', { ref: item.extraData.ref });
-                      }
-                    }}
+              )) ||
+                (currentTab === 1 && has_objectives && (
+                  <ObjectiveMenu
+                    activeObjectives={active_objectives}
+                    potentialObjectives={potential_objectives}
+                    maximumActiveObjectives={maximum_active_objectives}
+                    maximumPotentialObjectives={maximum_potential_objectives}
+                    handleObjectiveAction={(objective, action) =>
+                      act('objective_act', {
+                        check: objective.original_progression,
+                        objective_action: action,
+                        index: objective.id,
+                      })
+                    }
+                    handleStartObjective={(objective) =>
+                      act('start_objective', {
+                        check: objective.original_progression,
+                        index: objective.id,
+                      })
+                    }
+                    handleObjectiveAbort={(objective) =>
+                      act('objective_abort', {
+                        check: objective.original_progression,
+                        index: objective.id,
+                      })
+                    }
+                    handleObjectiveCompleted={(objective) =>
+                      act('finish_objective', {
+                        check: objective.original_progression,
+                        index: objective.id,
+                      })
+                    }
+                    handleRequestObjectives={() => act('regenerate_objectives')}
                   />
-                  {(shop_locked && !data.debug && (
-                    <Dimmer>
-                      <Box
-                        color="red"
-                        fontFamily={'Bahnschrift'}
-                        fontSize={3}
-                        align={'top'}
-                        as="span"
-                      >
-                        SHOP LOCKED
-                      </Box>
-                    </Dimmer>
-                  )) ||
-                    null}
-                </>
-              )}
+                )) ||
+                (currentTab === 2 && is_contractor && (
+                  <ContractorMenu
+                    items={contractor_items}
+                    rep={contractor_rep}
+                  />
+                )) || (
+                  <>
+                    <GenericUplink
+                      currency={`${telecrystals} TC`}
+                      categories={allCategories}
+                      items={items}
+                      handleBuy={(item: ItemExtraData) => {
+                        if (!item.extraData?.ref) {
+                          act('buy', { path: item.id });
+                        } else {
+                          act('buy', { ref: item.extraData.ref });
+                        }
+                      }}
+                    />
+                    {(shop_locked && !data.debug && (
+                      <Dimmer>
+                        <Box
+                          color="red"
+                          fontFamily={'Bahnschrift'}
+                          fontSize={3}
+                          align={'top'}
+                          as="span"
+                        >
+                          SHOP LOCKED
+                        </Box>
+                      </Dimmer>
+                    )) ||
+                      null}
+                  </>
+                )}
             </Stack.Item>
           </Stack>
         </Window.Content>

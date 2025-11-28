@@ -1,28 +1,24 @@
-import { useBackend } from 'tgui/backend';
-import { Window } from 'tgui/layouts';
-import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
 import { capitalizeAll } from 'tgui-core/string';
+import { useBackend } from 'tgui/backend';
+import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
+import { Window } from 'tgui/layouts';
 
-type Data = {
-  spawners: Spawner[];
+type SpawnersMenuContext = {
+  spawners: spawner[];
 };
 
-type Spawner = {
+type spawner = {
   name: string;
   amount_left: number;
-  infinite: BooleanLike;
-} & Partial<{
-  desc: string;
-  you_are_text: string;
-  flavor_text: string;
-  important_text: string;
-}>;
+  desc?: string;
+  you_are_text?: string;
+  flavor_text?: string;
+  important_text?: string;
+};
 
 export const SpawnersMenu = (props) => {
-  const { act, data } = useBackend<Data>();
-  const { spawners = [] } = data;
-
+  const { act, data } = useBackend<SpawnersMenuContext>();
+  const spawners = data.spawners || [];
   return (
     <Window title="Spawners Menu" width={700} height={525}>
       <Window.Content scrollable>
@@ -35,15 +31,9 @@ export const SpawnersMenu = (props) => {
                 title={capitalizeAll(spawner.name)}
                 buttons={
                   <Stack>
-                    {spawner.infinite ? (
-                      <Stack.Item fontSize="14px" color="green">
-                        Infinite
-                      </Stack.Item>
-                    ) : (
-                      <Stack.Item fontSize="14px" color="green">
-                        {spawner.amount_left} left
-                      </Stack.Item>
-                    )}
+                    <Stack.Item fontSize="14px" color="green">
+                      {spawner.amount_left} left
+                    </Stack.Item>
                     <Stack.Item>
                       <Button
                         content="Jump"

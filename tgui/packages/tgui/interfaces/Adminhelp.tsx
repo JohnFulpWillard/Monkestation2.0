@@ -1,15 +1,6 @@
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Input,
-  NoticeBox,
-  Stack,
-  TextArea,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend, useLocalState } from '../backend';
+import { TextArea, Stack, Button, NoticeBox, Input, Box } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type AdminhelpData = {
@@ -27,16 +18,22 @@ export const Adminhelp = (props) => {
     bannedFromUrgentAhelp,
     urgentAhelpPromptMessage,
   } = data;
-  const [requestForAdmin, setRequestForAdmin] = useState(false);
-  const [currentlyInputting, setCurrentlyInputting] = useState(false);
-  const [ahelpMessage, setAhelpMessage] = useState('');
+  const [requestForAdmin, setRequestForAdmin] = useLocalState(
+    'request_for_admin',
+    false,
+  );
+  const [currentlyInputting, setCurrentlyInputting] = useLocalState(
+    'confirm_request',
+    false,
+  );
+  const [ahelpMessage, setAhelpMessage] = useLocalState('ahelp_message', '');
 
   const confirmationText = 'alert admins';
   return (
     <Window title="Create Adminhelp" theme="admin" height={300} width={500}>
       <Window.Content
         style={{
-          backgroundImage: 'none',
+          'background-image': 'none',
         }}
       >
         <Stack vertical fill>
@@ -44,23 +41,23 @@ export const Adminhelp = (props) => {
             <TextArea
               autoFocus
               height="100%"
-              fluid
+              value={ahelpMessage}
               placeholder="Admin help"
-              onChange={setAhelpMessage}
+              onChange={(e, value) => setAhelpMessage(value)}
             />
           </Stack.Item>
           {urgentAhelpEnabled && adminCount <= 0 && (
             <Stack.Item>
               <NoticeBox info>
                 {urgentAhelpPromptMessage}
-                {currentlyInputting ? (
+                {(currentlyInputting && (
                   <Box
                     mt={1}
                     width="100%"
                     fontFamily="arial"
                     backgroundColor="grey"
                     style={{
-                      fontStyle: 'normal',
+                      'font-style': 'normal',
                     }}
                   >
                     Input &apos;{confirmationText}&apos; to proceed.
@@ -68,17 +65,18 @@ export const Adminhelp = (props) => {
                       placeholder="Confirmation Prompt"
                       autoFocus
                       fluid
-                      onChange={(value) => {
+                      onChange={(e, value) => {
                         if (value === confirmationText) {
                           setRequestForAdmin(true);
-                          setCurrentlyInputting(false);
                         }
+                        setCurrentlyInputting(false);
                       }}
                     />
                   </Box>
-                ) : (
+                )) || (
                   <Button
                     mt={1}
+                    content="Alert admins?"
                     onClick={() => {
                       if (requestForAdmin) {
                         setRequestForAdmin(false);
@@ -92,13 +90,11 @@ export const Adminhelp = (props) => {
                     tooltip={
                       bannedFromUrgentAhelp
                         ? 'You are banned from using urgent ahelps.'
-                        : undefined
+                        : null
                     }
                     fluid
                     textAlign="center"
-                  >
-                    Alert admins?
-                  </Button>
+                  />
                 )}
               </NoticeBox>
             </Stack.Item>
@@ -107,6 +103,7 @@ export const Adminhelp = (props) => {
             <Button
               color="good"
               fluid
+              content="Submit"
               textAlign="center"
               onClick={() =>
                 act('ahelp', {
@@ -114,9 +111,7 @@ export const Adminhelp = (props) => {
                   message: ahelpMessage,
                 })
               }
-            >
-              Submit
-            </Button>
+            />
           </Stack.Item>
         </Stack>
       </Window.Content>

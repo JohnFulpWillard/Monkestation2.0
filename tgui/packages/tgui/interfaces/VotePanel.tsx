@@ -1,18 +1,17 @@
+import { BooleanLike } from 'tgui-core/react';
 import {
   Box,
-  Button,
-  Collapsible,
-  Dimmer,
   Icon,
-  LabeledList,
-  NoticeBox,
-  Section,
   Stack,
+  Button,
+  Dimmer,
+  Section,
+  NoticeBox,
+  LabeledList,
+  Collapsible,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { useBackend } from '../backend';
 
 enum VoteConfig {
   None = -1,
@@ -30,6 +29,7 @@ type Vote = {
 type Option = {
   name: string;
   votes: number;
+  desc: string;
 };
 
 type ActiveVote = {
@@ -39,11 +39,11 @@ type ActiveVote = {
   displayStatistics: boolean;
   choices: Option[];
   countMethod: number;
+  canVote?: BooleanLike;
 };
 
 type UserData = {
   ckey: string;
-  isGhost: BooleanLike;
   isLowerAdmin: BooleanLike;
   isUpperAdmin: BooleanLike;
   singleSelection: string | null;
@@ -82,31 +82,19 @@ export const VotePanel = (props) => {
   }
 
   return (
-    <Window title={windowTitle} width={400} height={500}>
+    <Window resizable title={windowTitle} width={400} height={500}>
       <Window.Content>
         <Stack fill vertical>
           <Section
             title="Create Vote"
             buttons={
               !!user.isLowerAdmin && (
-                <Stack>
-                  <Stack.Item>
-                    <Button
-                      icon="refresh"
-                      content="Reset Cooldown"
-                      disabled={LastVoteTime + VoteCD <= 0}
-                      onClick={() => act('resetCooldown')}
-                    />
-                  </Stack.Item>
-                  <Stack.Item>
-                    <Button
-                      icon="skull"
-                      content="Toggle dead vote"
-                      disabled={!user.isUpperAdmin}
-                      onClick={() => act('toggleDeadVote')}
-                    />
-                  </Stack.Item>
-                </Stack>
+                <Button
+                  icon="refresh"
+                  content="Reset Cooldown"
+                  disabled={LastVoteTime + VoteCD <= 0}
+                  onClick={() => act('resetCooldown')}
+                />
               )
             }
           >
@@ -255,11 +243,10 @@ const ChoicesPanel = (props) => {
                   textAlign="right"
                   buttons={
                     <Button
-                      tooltip={
-                        user.isGhost && 'Ghost voting was disabled by an admin.'
-                      }
+                      tooltip={choice.desc}
                       disabled={
-                        user.singleSelection === choice.name || user.isGhost
+                        !currentVote.canVote ||
+                        user.singleSelection === choice.name
                       }
                       onClick={() => {
                         act('voteSingle', { voteOption: choice.name });
@@ -272,14 +259,14 @@ const ChoicesPanel = (props) => {
                   {user.singleSelection &&
                     choice.name === user.singleSelection && (
                       <Icon
-                        align="right"
+                        alignSelf="right"
                         mr={2}
                         color="green"
                         name="vote-yea"
                       />
                     )}
                   {currentVote.displayStatistics
-                    ? `${choice.votes} Votes`
+                    ? choice.votes + ' Votes'
                     : null}
                 </LabeledList.Item>
                 <LabeledList.Divider />
@@ -301,10 +288,8 @@ const ChoicesPanel = (props) => {
                   textAlign="right"
                   buttons={
                     <Button
-                      tooltip={
-                        user.isGhost && 'Ghost voting was disabled by an admin.'
-                      }
-                      disabled={user.isGhost}
+                      tooltip={choice.desc}
+                      disabled={!currentVote.canVote}
                       onClick={() => {
                         act('voteMulti', { voteOption: choice.name });
                       }}
@@ -315,7 +300,12 @@ const ChoicesPanel = (props) => {
                 >
                   {user.multiSelection &&
                   user.multiSelection[user.ckey.concat(choice.name)] === 1 ? (
-                    <Icon align="right" mr={2} color="blue" name="vote-yea" />
+                    <Icon
+                      alignSelf="right"
+                      mr={2}
+                      color="blue"
+                      name="vote-yea"
+                    />
                   ) : null}
                   {choice.votes} Votes
                 </LabeledList.Item>

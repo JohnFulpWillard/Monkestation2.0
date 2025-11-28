@@ -1,23 +1,20 @@
-import { useState } from 'react';
+import { useBackend, useLocalState } from '../backend';
 import {
-  Button,
-  Divider,
-  Flex,
-  Input,
-  LabeledList,
-  NoticeBox,
   Section,
   Stack,
+  Input,
+  Button,
   Table,
+  LabeledList,
+  Flex,
+  Divider,
+  NoticeBox,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const PacketInfo = (props) => {
   const { act, data } = useBackend();
   const { packet } = props;
-
   return (
     <Stack.Item>
       <Flex justify="space-between">
@@ -33,7 +30,7 @@ const PacketInfo = (props) => {
       <LabeledList>
         <LabeledList.Item label="Data Type">{packet.type}</LabeledList.Item>
         <LabeledList.Item label="Source">
-          {packet.source + (packet.job ? ` (${packet.job})` : '')}
+          {packet.source + (packet.job ? ' (' + packet.job + ')' : '')}
         </LabeledList.Item>
         <LabeledList.Item label="Class">{packet.race}</LabeledList.Item>
         <LabeledList.Item label="Contents">{packet.message}</LabeledList.Item>
@@ -65,8 +62,8 @@ const ServerScreen = (props) => {
             <LabeledList.Item label="Server">{server.name}</LabeledList.Item>
             <LabeledList.Item label="Total Recorded Traffic">
               {server.traffic >= 1024
-                ? `${server.traffic / 1024} TB`
-                : `${server.traffic} GB`}
+                ? server.traffic / 1024 + ' TB'
+                : server.traffic + ' GB'}
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -87,7 +84,7 @@ const ServerScreen = (props) => {
 const MainScreen = (props) => {
   const { act, data } = useBackend();
   const { servers, network } = data;
-  const [networkId, setNetworkId] = useState(network);
+  const [networkId, setNetworkId] = useLocalState('networkId', network);
 
   return (
     <Stack fill vertical>
@@ -95,9 +92,8 @@ const MainScreen = (props) => {
         <Section>
           <Input
             value={networkId}
-            onChange={setNetworkId}
+            onInput={(e, value) => setNetworkId(value)}
             placeholder="Network ID"
-            onEnter={() => act('scan_network', { network_id: networkId })}
           />
           <Button
             content="Scan"

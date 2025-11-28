@@ -1,19 +1,34 @@
-import { Button, NumberInput, Section } from 'tgui-core/components';
-
+import { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { Window } from '../layouts';
-import { type Beaker, BeakerDisplay } from './common/BeakerDisplay';
 
 type Data = {
   amount: number;
-  temp: number;
   purity: number;
-  beaker: Beaker;
+  beakerCurrentVolume: number;
+  beakerMaxVolume: number;
+  isBeakerLoaded: BooleanLike;
+  beakerContents: { name: string; volume: number }[];
 };
 
 export const ChemDebugSynthesizer = (props) => {
   const { act, data } = useBackend<Data>();
-  const { amount, temp, purity, beaker } = data;
+  const {
+    amount,
+    purity,
+    beakerCurrentVolume,
+    beakerMaxVolume,
+    isBeakerLoaded,
+    beakerContents = [],
+  } = data;
 
   return (
     <Window width={390} height={330}>
@@ -21,30 +36,22 @@ export const ChemDebugSynthesizer = (props) => {
         <Section
           title="Recipient"
           buttons={
-            beaker ? (
+            isBeakerLoaded ? (
               <>
+                <Button
+                  icon="eject"
+                  content="Eject"
+                  onClick={() => act('ejectBeaker')}
+                />
                 <NumberInput
                   value={amount}
                   unit="u"
                   minValue={1}
-                  maxValue={beaker.maxVolume}
+                  maxValue={beakerMaxVolume}
                   step={1}
                   stepPixelSize={2}
                   onChange={(value) =>
                     act('amount', {
-                      amount: value,
-                    })
-                  }
-                />
-                <NumberInput
-                  value={temp}
-                  unit="K"
-                  minValue={0}
-                  maxValue={1000}
-                  step={1}
-                  stepPixelSize={2}
-                  onChange={(value) =>
-                    act('temp', {
                       amount: value,
                     })
                   }
@@ -77,7 +84,27 @@ export const ChemDebugSynthesizer = (props) => {
             )
           }
         >
-          <BeakerDisplay beaker={beaker} showpH />
+          {isBeakerLoaded ? (
+            <>
+              <Box>
+                <AnimatedNumber value={beakerCurrentVolume} />
+                {' / ' + beakerMaxVolume + ' u'}
+              </Box>
+              {beakerContents.length > 0 ? (
+                <LabeledList>
+                  {beakerContents.map((chem) => (
+                    <LabeledList.Item key={chem.name} label={chem.name}>
+                      {chem.volume} u
+                    </LabeledList.Item>
+                  ))}
+                </LabeledList>
+              ) : (
+                <Box color="bad">Recipient Empty</Box>
+              )}
+            </>
+          ) : (
+            <Box color="average">No Recipient</Box>
+          )}
         </Section>
       </Window.Content>
     </Window>

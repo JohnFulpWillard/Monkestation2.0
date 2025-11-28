@@ -1,18 +1,18 @@
-import { type Dispatch, useEffect, useState } from 'react';
+import { useBackend, useLocalState } from '../../backend';
 import { Button, Section, Stack, Table } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';
-import type { FilterState } from './filters';
+import { FilterState } from './filters';
 import { SubsystemRow } from './SubsystemRow';
-import type { ControllerData, SubsystemData } from './types';
+import { ControllerData, SubsystemData } from './types';
 
 type Props = {
   filterOpts: FilterState;
-  setSelected: Dispatch<SubsystemData | undefined>;
+  setSelected: (newSelected: SubsystemData | undefined) => void;
 };
 
-export function SubsystemViews(props: Props) {
+let lastInDeciseconds: boolean | undefined;
+
+export const SubsystemViews = (props: Props) => {
   const { data } = useBackend<ControllerData>();
   const { subsystems } = data;
 
@@ -20,7 +20,7 @@ export function SubsystemViews(props: Props) {
   const { ascending, inactive, query, smallValues, sortType } = filterOpts;
   const { propName, inDeciseconds } = SORTING_TYPES[sortType];
 
-  const [bars, setBars] = useState(inDeciseconds);
+  const [bars, setBars] = useLocalState('bars', inDeciseconds);
 
   const sorted = subsystems
     .filter((subsystem) => {
@@ -54,7 +54,7 @@ export function SubsystemViews(props: Props) {
   let currentMax = 0;
   if (inDeciseconds) {
     for (let i = 0; i < sorted.length; i++) {
-      const value = sorted[i][propName];
+      let value = sorted[i][propName];
       if (typeof value !== 'number') {
         continue;
       }
@@ -66,13 +66,14 @@ export function SubsystemViews(props: Props) {
   }
 
   // Toggles default bar view for valid cases
-  useEffect(() => {
+  if (inDeciseconds !== lastInDeciseconds) {
+    lastInDeciseconds = inDeciseconds;
     if (inDeciseconds && !bars) {
       setBars(true);
     } else if (!inDeciseconds && bars) {
       setBars(false);
     }
-  }, [inDeciseconds]);
+  }
 
   return (
     <Section
@@ -111,4 +112,4 @@ export function SubsystemViews(props: Props) {
       </Table>
     </Section>
   );
-}
+};

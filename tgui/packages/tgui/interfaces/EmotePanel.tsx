@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import { Box, Button, Flex, Icon, Section } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-import { capitalizeFirst } from 'tgui-core/string';
-
-import { useBackend } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { SearchBar } from './common/SearchBar';
+import { Button, Section, Flex, Icon, Box } from 'tgui-core/components';
+import { BooleanLike } from '../../common/react';
+import { SearchBar } from './Fabrication/SearchBar';
+import { capitalizeFirst } from 'tgui-core/string';
 
 type Emote = {
   key: string;
@@ -25,23 +23,47 @@ export const EmotePanelContent = (props) => {
   const { act, data } = useBackend<EmotePanelData>();
   const { emotes } = data;
 
-  const [filterVisible, toggleVisualFilter] = useState(false);
+  const [filterVisible, toggleVisualFilter] = useLocalState<boolean>(
+    'filterVisible',
+    false,
+  );
 
-  const [filterAudible, toggleAudibleFilter] = useState(false);
+  const [filterAudible, toggleAudibleFilter] = useLocalState<boolean>(
+    'filterAudible',
+    false,
+  );
 
-  const [filterSound, toggleSoundFilter] = useState(false);
+  const [filterSound, toggleSoundFilter] = useLocalState<boolean>(
+    'filterSound',
+    false,
+  );
 
-  const [filterHands, toggleHandsFilter] = useState(false);
+  const [filterHands, toggleHandsFilter] = useLocalState<boolean>(
+    'filterHands',
+    false,
+  );
 
-  const [filterUseParams, toggleUseParamsFilter] = useState(false);
+  const [filterUseParams, toggleUseParamsFilter] = useLocalState<boolean>(
+    'filterUseParams',
+    false,
+  );
 
-  const [useParams, toggleUseParams] = useState(false);
+  const [useParams, toggleUseParams] = useLocalState<boolean>(
+    'useParams',
+    false,
+  );
 
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useLocalState<string>('search_text', '');
 
-  const [showNames, toggleShowNames] = useState(true);
+  const [showNames, toggleShowNames] = useLocalState<boolean>(
+    'showNames',
+    true,
+  );
 
-  const [showIcons, toggleShowIcons] = useState(false);
+  const [showIcons, toggleShowIcons] = useLocalState<boolean>(
+    'showIcons',
+    false,
+  );
 
   return (
     <Section>
@@ -98,9 +120,9 @@ export const EmotePanelContent = (props) => {
         }
       >
         <SearchBar
-          query={searchText}
-          onSearch={setSearchText}
-          placeholder="Search all emotes..."
+          searchText={searchText}
+          onSearchTextChanged={setSearchText}
+          hint={'Search all emotes...'}
         />
       </Section>
       <Section
@@ -160,7 +182,9 @@ export const EmotePanelContent = (props) => {
                   width={showIcons ? 16 : 8}
                   key={emote.name}
                   tooltip={
-                    showIcons ? undefined : (
+                    showIcons ? (
+                      ''
+                    ) : (
                       <EmoteIcons
                         visible={emote.visible}
                         audible={emote.audible}

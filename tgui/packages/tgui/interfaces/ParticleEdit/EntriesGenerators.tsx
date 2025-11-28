@@ -1,29 +1,27 @@
-import { useContext } from 'react';
+/* eslint-disable react/jsx-no-undef */
+import { useBackend, useLocalState } from '../../backend';
 import {
   Button,
-  ColorBox,
-  Input,
   LabeledList,
   NumberInput,
+  ColorBox,
+  Input,
   Stack,
 } from 'tgui-core/components';
-
-import { useBackend } from '../../backend';
-import { ParticleContext } from '.';
 import {
-  type EntryGeneratorNumbersListProps,
-  type FloatGeneratorColorProps,
-  type FloatGeneratorProps,
+  EntryGeneratorNumbersListProps,
+  FloatGeneratorColorProps,
+  FloatGeneratorProps,
+  ParticleUIData,
   P_DATA_GENERATOR,
-  type ParticleUIData,
   RandToNumber,
 } from './data';
-import { GeneratorListEntry } from './Generators';
 import { isStringArray } from './helpers';
+import { GeneratorListEntry } from './Generators';
 
 export const FloatGenerator = (props: FloatGeneratorProps) => {
-  const { act } = useBackend<ParticleUIData>();
-  const { setDesc } = useContext(ParticleContext);
+  const { act, data } = useBackend<ParticleUIData>();
+  const [desc, setdesc] = useLocalState('desc', '');
   const { name, var_name, float } = props;
   return (
     <LabeledList.Item label={name}>
@@ -31,7 +29,7 @@ export const FloatGenerator = (props: FloatGeneratorProps) => {
         <Stack.Item>
           <Button
             icon={'question'}
-            onClick={() => setDesc(var_name)}
+            onClick={() => setdesc(var_name)}
             tooltip={'View details'}
           />
         </Stack.Item>
@@ -44,7 +42,7 @@ export const FloatGenerator = (props: FloatGeneratorProps) => {
                 var: var_name,
                 var_mod: !Array.isArray(float) ? P_DATA_GENERATOR : null,
                 new_value: !Array.isArray(float)
-                  ? ['num', 0, 1, RandToNumber.UNIFORM_RAND]
+                  ? ['num', 0, 1, RandToNumber['UNIFORM_RAND']]
                   : 0,
               })
             }
@@ -54,12 +52,8 @@ export const FloatGenerator = (props: FloatGeneratorProps) => {
           <Stack.Item>
             <NumberInput
               animated
-              tickWhileDragging
-              minValue={-Infinity}
-              maxValue={Infinity}
-              step={1}
-              value={float || 0}
-              onChange={(value) =>
+              value={float}
+              onDrag={(e, value) =>
                 act('edit', {
                   var: var_name,
                   new_value: value,
@@ -76,8 +70,8 @@ export const FloatGenerator = (props: FloatGeneratorProps) => {
 };
 
 export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
-  const { act } = useBackend<ParticleUIData>();
-  const { setDesc } = useContext(ParticleContext);
+  const { act, data } = useBackend<ParticleUIData>();
+  const [desc, setdesc] = useLocalState('desc', '');
   const { name, var_name, float } = props;
   return (
     <LabeledList.Item label={name}>
@@ -85,7 +79,7 @@ export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
         <Stack.Item>
           <Button
             icon={'question'}
-            onClick={() => setDesc(var_name)}
+            onClick={() => setdesc(var_name)}
             tooltip={'View details'}
           />
         </Stack.Item>
@@ -98,7 +92,7 @@ export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
                 var: var_name,
                 var_mod: !Array.isArray(float) ? P_DATA_GENERATOR : null,
                 new_value: !Array.isArray(float)
-                  ? ['num', 0, 1, RandToNumber.UNIFORM_RAND]
+                  ? ['num', 0, 1, RandToNumber['UNIFORM_RAND']]
                   : '#FFFFFF',
               })
             }
@@ -112,8 +106,9 @@ export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
         {!Array.isArray(float) ? (
           <Stack.Item>
             <Input
-              value={float?.toString()}
-              onBlur={(value) =>
+              animated
+              value={float}
+              onChange={(e, value) =>
                 act('edit', {
                   var: var_name,
                   new_value: value,
@@ -132,8 +127,8 @@ export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
 export const EntryGeneratorNumbersList = (
   props: EntryGeneratorNumbersListProps,
 ) => {
-  const { act } = useBackend<ParticleUIData>();
-  const { setDesc } = useContext(ParticleContext);
+  const { act, data } = useBackend<ParticleUIData>();
+  const [desc, setdesc] = useLocalState('desc', '');
   const { name, var_name, allow_z, input } = props;
   return (
     <LabeledList.Item label={name}>
@@ -141,7 +136,7 @@ export const EntryGeneratorNumbersList = (
         <Stack.Item>
           <Button
             icon={'question'}
-            onClick={() => setDesc(var_name)}
+            onClick={() => setdesc(var_name)}
             tooltip={'View details'}
           />
         </Stack.Item>
@@ -154,7 +149,12 @@ export const EntryGeneratorNumbersList = (
                 var: var_name,
                 var_mod: !isStringArray(input) ? P_DATA_GENERATOR : null,
                 new_value: !isStringArray(input)
-                  ? ['sphere', [0, 0, 0], [1, 1, 1], RandToNumber.UNIFORM_RAND]
+                  ? [
+                      'sphere',
+                      [0, 0, 0],
+                      [1, 1, 1],
+                      RandToNumber['UNIFORM_RAND'],
+                    ]
                   : [1, 1, 1],
               })
             }
@@ -178,12 +178,8 @@ export const EntryGeneratorNumbersList = (
           <Stack.Item>
             <NumberInput
               animated
-              tickWhileDragging
-              minValue={-Infinity}
-              maxValue={Infinity}
-              step={1}
-              value={input || 0}
-              onChange={(value) =>
+              value={input}
+              onDrag={(e, value) =>
                 act('edit', {
                   var: var_name,
                   new_value: value,
@@ -201,12 +197,8 @@ export const EntryGeneratorNumbersList = (
           <Stack.Item>
             <NumberInput
               animated
-              tickWhileDragging
-              minValue={-Infinity}
-              maxValue={Infinity}
-              step={1}
               value={input[0]}
-              onChange={(value) =>
+              onDrag={(e, value) =>
                 act('edit', {
                   var: var_name,
                   new_value: [value, input![1], input![2]],
@@ -215,12 +207,8 @@ export const EntryGeneratorNumbersList = (
             />
             <NumberInput
               animated
-              tickWhileDragging
-              minValue={-Infinity}
-              maxValue={Infinity}
-              step={1}
               value={input[1]}
-              onChange={(value) =>
+              onDrag={(e, value) =>
                 act('edit', {
                   var: var_name,
                   new_value: [input![0], value, input![2]],
@@ -230,12 +218,8 @@ export const EntryGeneratorNumbersList = (
             {allow_z ? (
               <NumberInput
                 animated
-                tickWhileDragging
-                minValue={-Infinity}
-                maxValue={Infinity}
-                step={1}
                 value={input[2]}
-                onChange={(value) =>
+                onDrag={(e, value) =>
                   act('edit', {
                     var: var_name,
                     new_value: [input![0], input![1], value],

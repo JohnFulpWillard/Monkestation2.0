@@ -1,8 +1,8 @@
-import { useBackend } from 'tgui/backend';
 import { Box, Flex, Icon, Section, Stack, Tooltip } from 'tgui-core/components';
+import { HypertorusFuel } from '.';
 
-import type { HypertorusFuel } from '.';
 import { to_exponential_if_big } from './helpers';
+import { useBackend } from 'tgui/backend';
 
 type Data = {
   base_max_temperature: number;
@@ -36,7 +36,7 @@ const height = 200;
 
 const VerticalBar = (props) => {
   const { color, value, progressHeight } = props;
-  const y = height - progressHeight;
+  let y = height - progressHeight;
 
   return (
     <div className="hypertorus-temperatures__vertical-bar">
@@ -53,7 +53,7 @@ const BarLabel = (props) => {
       <Box align="center">{label}</Box>
       {value > 0 ? (
         <>
-          <Box align="center">{`${to_exponential_if_big(value)} K`}</Box>
+          <Box align="center">{to_exponential_if_big(value) + ' K'}</Box>
           <Box align="center">
             {delta === 0
               ? '-'
@@ -65,7 +65,12 @@ const BarLabel = (props) => {
           <Box align="center" color="red">
             Empty
           </Box>
-          <Box className="hypertorus__unselectable">&nbsp;</Box>
+          <Box
+            class="hypertorus__unselectable"
+            {...(Byond.IS_LTE_IE8 ? { style: { unselectable: true } } : {})}
+          >
+            &nbsp;
+          </Box>
         </>
       )}
     </>
@@ -158,13 +163,13 @@ export const HypertorusTemperatures = (props) => {
             name={icon}
           />
         )}
-        {`${to_exponential_if_big(value)} K`}
+        {to_exponential_if_big(value) + ' K'}
       </Box>
     );
     return (
       (!!value || force) && (
         <Box
-          className="hypertorus-temperatures__y-axis-tick-anchor"
+          class="hypertorus-temperatures__y-axis-tick-anchor"
           top={`${height - y}px`}
         >
           <Box className="hypertorus-temperatures__y-axis-tick" />

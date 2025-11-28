@@ -1,3 +1,5 @@
+import { toFixed } from 'tgui-core/math';
+import { useBackend } from '../backend';
 import {
   Button,
   LabeledControls,
@@ -6,14 +8,11 @@ import {
   Section,
 } from 'tgui-core/components';
 import { formatSiUnit } from 'tgui-core/format';
-import { toFixed } from 'tgui-core/math';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const formatPressure = (value) => {
   if (value < 10000) {
-    return `${toFixed(value)} kPa`;
+    return toFixed(value) + ' kPa';
   }
   return formatSiUnit(value * 1000, 1, 'Pa');
 };
@@ -65,10 +64,9 @@ export const Tank = (props) => {
                 value={parseFloat(data.releasePressure)}
                 width="65px"
                 unit="kPa"
-                step={1}
                 minValue={data.minReleasePressure}
                 maxValue={data.maxReleasePressure}
-                onChange={(value) =>
+                onChange={(e, value) =>
                   act('pressure', {
                     pressure: value,
                   })

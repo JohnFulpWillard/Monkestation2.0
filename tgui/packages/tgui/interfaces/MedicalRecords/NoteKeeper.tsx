@@ -1,3 +1,4 @@
+import { multiline } from 'tgui-core/string';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {
   BlockQuote,
@@ -10,14 +11,13 @@ import {
   TextArea,
   Tooltip,
 } from 'tgui-core/components';
-
 import { getMedicalRecord } from './helpers';
-import type { MedicalNote, MedicalRecordData } from './types';
+import { MedicalNote, MedicalRecordData } from './types';
 
 /** Small section for adding notes. Passes a ref and note to Byond. */
 export const NoteKeeper = (props) => {
   const foundRecord = getMedicalRecord();
-  if (!foundRecord) return;
+  if (!foundRecord) return <> </>;
 
   const { act } = useBackend<MedicalRecordData>();
   const { crew_ref } = foundRecord;
@@ -28,7 +28,7 @@ export const NoteKeeper = (props) => {
 
   const [writing, setWriting] = useLocalState('note', false);
 
-  const addNote = (value: string) => {
+  const addNote = (event, value: string) => {
     act('add_note', {
       crew_ref: crew_ref,
       content: value,
@@ -49,7 +49,6 @@ export const NoteKeeper = (props) => {
     <Section buttons={<NoteTabs />} fill scrollable title="Notes">
       {writing && (
         <TextArea
-          fluid
           height="100%"
           maxLength={1024}
           onEnter={addNote}
@@ -73,7 +72,7 @@ export const NoteKeeper = (props) => {
           <Box color="label" mb={1} mt={1}>
             Content:
           </Box>
-          <BlockQuote>{selectedNote.content}</BlockQuote>
+          <BlockQuote wrap>{selectedNote.content}</BlockQuote>
         </>
       )}
     </Section>
@@ -83,7 +82,7 @@ export const NoteKeeper = (props) => {
 /** Displays the notes with an add tab next to. */
 const NoteTabs = (props) => {
   const foundRecord = getMedicalRecord();
-  if (!foundRecord) return;
+  if (!foundRecord) return <> </>;
   const { notes } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<
@@ -111,6 +110,7 @@ const NoteTabs = (props) => {
       {notes.map((note, index) => (
         <Tabs.Tab
           key={index}
+          label={index + 1}
           onClick={() => setNote(note)}
           selected={selectedNote?.note_ref === note.note_ref}
         >
@@ -118,7 +118,7 @@ const NoteTabs = (props) => {
         </Tabs.Tab>
       ))}
       <Tooltip
-        content={`Add a new note. Press enter or escape to exit view.`}
+        content={multiline`Add a new note. Press enter or escape to exit view.`}
         position="bottom"
       >
         <Tabs.Tab onClick={composeNew} selected={writing}>

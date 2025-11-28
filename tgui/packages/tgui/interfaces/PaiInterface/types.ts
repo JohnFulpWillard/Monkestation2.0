@@ -1,7 +1,7 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 export type PaiData = {
-  available: Record<string, number>;
+  available: ReadonlyArray<{ name: string; value: number }>;
   directives: string;
   door_jack: string | null;
   emagged: BooleanLike;

@@ -1,8 +1,6 @@
-import React, {
-  type ComponentProps,
-  type Dispatch,
-  type SetStateAction,
-} from 'react';
+import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -11,12 +9,11 @@ import {
   Section,
   Tooltip,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../../backend';
+import { BoxProps } from 'tgui-core/components/Box';
 import { logger } from '../../logging';
-import type { CallInfo, LuaEditorModal, Variant, VariantList } from './types';
-import type { ListElement, ListPath } from './types';
+import { CallInfo, LuaEditorModal, Variant, VariantList } from './types';
+import { ListElement, ListPath } from './types';
+import { isValidElement } from 'inferno-compat';
 
 const mapListVariantsInner = (value: any, variant: Variant) => {
   if (Array.isArray(variant)) {
@@ -97,7 +94,7 @@ const mapListVariants = (list: any[], variants: VariantList) => {
   });
 };
 
-type ListMapperProps = ComponentProps<typeof Box> & {
+type ListMapperProps = BoxProps & {
   list: ListElement[];
 } & Partial<{
     variants: VariantList;
@@ -108,8 +105,8 @@ type ListMapperProps = ComponentProps<typeof Box> & {
     collapsible: BooleanLike;
     callType: 'callFunction' | 'resumeTask';
     path: ListPath;
-    setToCall: Dispatch<SetStateAction<CallInfo>>;
-    setModal: Dispatch<SetStateAction<LuaEditorModal>>;
+    setToCall: (newValue: CallInfo | undefined) => void;
+    setModal: (newValue: LuaEditorModal) => void;
   }>;
 
 export const ListMapper = (props: ListMapperProps) => {
@@ -153,7 +150,7 @@ export const ListMapper = (props: ListMapperProps) => {
           {...overrideProps}
         />
       );
-    } else if (React.isValidElement<any>(thing)) {
+    } else if (isValidElement(thing)) {
       switch (thing.key) {
         case 'ref':
           return (
@@ -196,9 +193,9 @@ export const ListMapper = (props: ListMapperProps) => {
   const ListMapperInner = (element: ListElement, i: number) => {
     const { key, value } = element;
     const basePath: ListPath = path ? path : [];
-    const keyPath: ListPath = [...basePath, { index: i + 1, type: 'key' }];
-    const valuePath: ListPath = [...basePath, { index: i + 1, type: 'value' }];
-    const entryPath: ListPath = [...basePath, { index: i + 1, type: 'entry' }];
+    let keyPath: ListPath = [...basePath, { index: i + 1, type: 'key' }];
+    let valuePath: ListPath = [...basePath, { index: i + 1, type: 'value' }];
+    let entryPath: ListPath = [...basePath, { index: i + 1, type: 'entry' }];
 
     if (key === null && skipNulls) {
       return;
@@ -208,7 +205,7 @@ export const ListMapper = (props: ListMapperProps) => {
      * Finding a function only accessible as a table's key is too awkward to
      * deal with for now
      */
-    const keyNode = ThingNode(key, keyPath, false);
+    let keyNode = ThingNode(key, keyPath, false);
 
     /*
      * Likewise, since table, thread, and userdata equality is tested by
@@ -218,8 +215,8 @@ export const ListMapper = (props: ListMapperProps) => {
     const uniquelyIndexable =
       typeof key === 'string' ||
       typeof key === 'number' ||
-      (React.isValidElement(key) && key.key === 'ref');
-    const valueNode = ThingNode(
+      (isValidElement(key) && key.key === 'ref');
+    let valueNode = ThingNode(
       value,
       typeof key === 'number' ? keyPath : valuePath,
       uniquelyIndexable,
@@ -264,7 +261,7 @@ export const ListMapper = (props: ListMapperProps) => {
 
   const inner = (
     <>
-      {list?.map(ListMapperInner)}
+      {list && list.map(ListMapperInner)}
       {editable && (
         <Button
           icon="plus"

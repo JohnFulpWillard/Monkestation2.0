@@ -1,36 +1,36 @@
-import { Button, Input, LabeledList, Section } from 'tgui-core/components';
-
+import { multiline } from 'tgui-core/string';
 import { useBackend } from '../backend';
+import { Button, Input, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
-const TOOLTIP_NAME = `
+const TOOLTIP_NAME = multiline`
   Enter a new name for this unit. Set to blank to reset to default,
-  which means unit will be able to choose its own name.
+  which means unit will be able to choose it's own name.
 `;
 
-const TOOLTIP_LOCOMOTION = `
+const TOOLTIP_LOCOMOTION = multiline`
   If restricted, unit will be
   under lockdown until released.
 `;
 
-const TOOLTIP_PANEL = `
+const TOOLTIP_PANEL = multiline`
   If unlocked, unit's cover panel will be
   accessible even without proper authorization.
 `;
 
-const TOOLTIP_AISYNC = `
+const TOOLTIP_AISYNC = multiline`
   If closed, this unit will
   not be paired with any AI.
 `;
 
-const TOOLTIP_AI = `
+const TOOLTIP_AI = multiline`
   Controls who will be the
   master AI of this unit.
 `;
 
-const TOOLTIP_LAWSYNC = `
+const TOOLTIP_LAWSYNC = multiline`
   If closed, this unit will not synchronize
-  its laws with its master AI.
+  it's laws with it's master AI.
 `;
 
 export const CyborgBootDebug = (props) => {
@@ -54,7 +54,7 @@ export const CyborgBootDebug = (props) => {
               <Input
                 fluid
                 value={designation || 'Default Cyborg'}
-                onBlur={(value) =>
+                onChange={(e, value) =>
                   act('rename', {
                     new_name: value,
                   })

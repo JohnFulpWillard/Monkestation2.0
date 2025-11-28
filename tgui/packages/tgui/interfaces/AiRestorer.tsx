@@ -1,3 +1,5 @@
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,9 +8,6 @@ import {
   ProgressBar,
   Section,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {

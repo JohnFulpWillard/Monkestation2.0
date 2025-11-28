@@ -1,20 +1,19 @@
-import { sortBy } from 'es-toolkit';
-import { map } from 'es-toolkit/compat';
-import { Box, Button, Flex, Section, Table } from 'tgui-core/components';
-
+import { map, sortBy } from 'es-toolkit';
+import { flow } from 'tgui-core/fp';
 import { useBackend } from '../backend';
+import { Box, Button, Flex, Section, Table } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AtmosControlPanel = (props) => {
   const { act, data } = useBackend();
-  const groups = sortBy(
-    map(data.excited_groups, (group, i) => ({
+  const groups = flow([
+    map((group, i) => ({
       ...group,
       // Generate a unique id
       id: group.area + i,
     })),
-    [(group) => group.id],
-  );
+    sortBy((group) => group.id),
+  ])(data.excited_groups);
   return (
     <Window title="SSAir Control Panel" width={900} height={500}>
       <Section m={1}>

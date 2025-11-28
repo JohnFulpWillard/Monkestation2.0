@@ -1,13 +1,12 @@
-import { Section } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { GasmixParser } from './common/GasmixParser';
+import type { Gasmix } from './common/GasmixParser';
 import {
   AtmosHandbookContent,
   atmosHandbookHooks,
 } from './common/AtmosHandbook';
-import type { Gasmix } from './common/GasmixParser';
-import { GasmixParser } from './common/GasmixParser';
+import { Window } from '../layouts';
+import { Section } from 'tgui-core/components';
 
 export type GasAnalyzerData = {
   gasmixes: Gasmix[];

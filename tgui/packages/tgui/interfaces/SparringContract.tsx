@@ -1,14 +1,7 @@
-import { useState } from 'react';
-import {
-  BlockQuote,
-  Button,
-  Dropdown,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
+import { BooleanLike } from 'tgui-core/react';
+import { multiline } from 'tgui-core/string';
+import { useBackend, useLocalState } from '../backend';
+import { BlockQuote, Button, Dropdown, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const weaponlist = [
@@ -59,10 +52,9 @@ export const SparringContract = (props) => {
     no_chaplains,
     stakes_holy_match,
   } = data;
-  const [weapon, setWeapon] = useState(set_weapon);
-  const [area, setArea] = useState(set_area);
-  const [stakes, setStakes] = useState(set_stakes);
-
+  const [weapon, setWeapon] = useLocalState('weapon', set_weapon);
+  const [area, setArea] = useLocalState('area', set_area);
+  const [stakes, setStakes] = useLocalState('stakes', set_stakes);
   return (
     <Window width={420} height={380}>
       <Window.Content>
@@ -77,7 +69,7 @@ export const SparringContract = (props) => {
                     </Stack.Item>
                     <Stack.Item>
                       <Button
-                        tooltip={`
+                        tooltip={multiline`
                         The Chaplain's Deity wishes for honorable fighting.
                         As such, it uses contracts. Signing your name will
                         set the terms for the battle. Then, the person you
@@ -150,7 +142,7 @@ export const SparringContract = (props) => {
               </Stack>
             </Stack.Item>
             <Stack.Item grow>
-              <Stack textAlign="center">
+              <Stack grow textAlign="center">
                 <Stack.Item fontSize={left_sign !== 'none' && '14px'} grow>
                   {(left_sign === 'none' && (
                     <Button
@@ -203,7 +195,7 @@ export const SparringContract = (props) => {
                     FIGHT!
                   </Button>
                   <Button
-                    tooltip={`
+                    tooltip={multiline`
                       If you've already signed but you want to renegotiate
                       the terms, you can clear out the signatures with
                       this button.
@@ -218,7 +210,7 @@ export const SparringContract = (props) => {
                   <Button
                     tooltip={
                       (in_area &&
-                        `Both participants are present in the ${area}.`) ||
+                        'Both participants are present in the ' + area + '.') ||
                       'Both participants need to be in the arena!'
                     }
                     color={(in_area && 'green') || 'red'}

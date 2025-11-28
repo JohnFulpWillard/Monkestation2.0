@@ -1,14 +1,14 @@
+import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
+  Dropdown,
   LabeledList,
   ProgressBar,
   Section,
   Stack,
   Tabs,
 } from 'tgui-core/components';
-
-import { useBackend, useSharedState } from '../backend';
 import { NtosWindow } from '../layouts';
 
 const getMuleByRef = (mules, ref) => {
@@ -19,7 +19,6 @@ export const NtosRoboControl = (props) => {
   const { act, data } = useBackend();
   const [tab_main, setTab_main] = useSharedState('tab_main', 1);
   const { bots, drones, id_owner, droneaccess, dronepingtypes } = data;
-
   return (
     <NtosWindow width={550} height={550}>
       <NtosWindow.Content scrollable>
@@ -71,22 +70,19 @@ export const NtosRoboControl = (props) => {
               <Button
                 icon="address-card"
                 tooltip="Grant/Remove Drone access to interact with machines and wires that would otherwise be deemed dangerous."
+                content={
+                  droneaccess ? 'Grant Drone Access' : 'Revoke Drone Access'
+                }
                 color={droneaccess ? 'good' : 'bad'}
                 onClick={() => act('changedroneaccess')}
-              >
-                {droneaccess ? 'Grant Drone Access' : 'Revoke Drone Access'}
-              </Button>
-              <Box my={1}>Drone Pings</Box>
-              {dronepingtypes.map((ping_type) => (
-                <Button
-                  key={ping_type}
-                  icon="bullhorn"
-                  tooltip="Issue a drone ping."
-                  onClick={() => act('ping_drones', { ping_type })}
-                >
-                  {ping_type}
-                </Button>
-              ))}
+              />
+              <Dropdown
+                tooltip="Drone pings"
+                width="100%"
+                displayText={'Drone pings'}
+                options={dronepingtypes}
+                onSelected={(value) => act('ping_drones', { ping_type: value })}
+              />
             </Section>
             {drones?.map((drone) => (
               <DroneInfo key={drone.drone_ref} drone={drone} />
@@ -156,9 +152,8 @@ export const RobotInfo = (props) => {
             <LabeledList.Item label="Status">{robot.mode}</LabeledList.Item>
             {mule && (
               <>
-                <LabeledList.Item label="Bot ID">{mule.id}</LabeledList.Item>
                 <LabeledList.Item label="Loaded Cargo">
-                  {mule.load || 'N/A'}
+                  {data.load || 'N/A'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Home">{mule.home}</LabeledList.Item>
                 <LabeledList.Item label="Destination">

@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 export type MedicalRecordData = {
   assigned_view: string;
@@ -26,7 +26,6 @@ export type MedicalRecord = {
   quirk_notes: string;
   rank: string;
   species: string;
-  trim: string;
 };
 
 export type MedicalNote = {

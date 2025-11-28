@@ -1,7 +1,6 @@
-import { Button, Image, NoticeBox, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
+import { Button, Box, NoticeBox, Stack } from 'tgui-core/components';
 
 export const NtosCamera = (props) => {
   return (
@@ -36,7 +35,7 @@ export const NtosCameraContent = (props) => {
         />
       </Stack.Item>
       <Stack.Item>
-        <Image src={photo} />
+        <Box as="img" src={photo} />
       </Stack.Item>
     </Stack>
   );

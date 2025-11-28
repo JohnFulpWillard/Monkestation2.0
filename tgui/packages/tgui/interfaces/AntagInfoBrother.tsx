@@ -1,8 +1,7 @@
-import { Section, Stack } from 'tgui-core/components';
-
 import { useBackend } from '../backend';
+import { Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { type Objective, ObjectivePrintout } from './common/Objectives';
+import { ObjectivePrintout, Objective } from './common/Objectives';
 
 type Info = {
   antag_name: string;

@@ -1,9 +1,9 @@
-import { BlockQuote, Button, Section, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
+import { multiline } from 'tgui-core/string';
+import { BlockQuote, Button, Dimmer, Section, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 import { Window } from '../layouts';
-import { type Objective, ObjectivePrintout } from './common/Objectives';
+import { ObjectivePrintout, Objective } from './common/Objectives';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -30,10 +30,11 @@ type Info = {
   intro: string;
   code: string;
   failsafe_code: string;
+  replacement_code: string;
+  replacement_frequency: string;
   has_uplink: BooleanLike;
   uplink_intro: string;
   uplink_unlock_info: string;
-  given_uplink: BooleanLike;
   objectives: Objective[];
 };
 
@@ -63,7 +64,7 @@ const EmployerSection = (props) => {
       buttons={
         <Button
           icon="hammer"
-          tooltip={`
+          tooltip={multiline`
             This is a gameplay suggestion for bored traitors.
             You don't have to follow it, unless you want some
             ideas for how to spend the round.`}
@@ -84,7 +85,7 @@ const EmployerSection = (props) => {
               <BlockQuote>{allies}</BlockQuote>
             </Stack.Item>
             <Stack.Divider />
-            <Stack.Item mb={1}>
+            <Stack.Item>
               <span style={goalstyle}>
                 Employer thoughts:
                 <br />
@@ -100,12 +101,37 @@ const EmployerSection = (props) => {
 
 const UplinkSection = (props) => {
   const { data } = useBackend<Info>();
-  const { has_uplink, uplink_intro, uplink_unlock_info, code, failsafe_code } =
-    data;
+  const {
+    has_uplink,
+    uplink_intro,
+    uplink_unlock_info,
+    code,
+    failsafe_code,
+    replacement_code,
+    replacement_frequency,
+  } = data;
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
       <Stack fill>
-        {
+        {(!has_uplink && (
+          <Dimmer>
+            <Stack.Item fontSize="16px">
+              <Section textAlign="Center">
+                Your uplink is missing or destroyed. <br />
+                Craft a Syndicate Uplink Beacon and then speak
+                <br />
+                <span style={goalstyle}>
+                  <b>{replacement_code}</b>
+                </span>{' '}
+                on frequency{' '}
+                <span style={goalstyle}>
+                  <b>{replacement_frequency}</b>
+                </span>{' '}
+                after synchronizing with the beacon.
+              </Section>
+            </Stack.Item>
+          </Dimmer>
+        )) || (
           <>
             <Stack.Item bold>
               {uplink_intro}
@@ -117,20 +143,33 @@ const UplinkSection = (props) => {
               )}
             </Stack.Item>
             <Stack.Divider />
-            <Stack.Item align="center">
+            <Stack.Item mt="1%">
               <BlockQuote>{uplink_unlock_info}</BlockQuote>
             </Stack.Item>
           </>
-        }
+        )}
       </Stack>
       <br />
-      {
+      {(has_uplink && (
+        <Section textAlign="Center">
+          If you lose your uplink, you can craft a Syndicate Uplink Beacon and
+          then speak{' '}
+          <span style={goalstyle}>
+            <b>{replacement_code}</b>
+          </span>{' '}
+          on radio frequency{' '}
+          <span style={goalstyle}>
+            <b>{replacement_frequency}</b>
+          </span>{' '}
+          after synchronizing with the beacon.
+        </Section>
+      )) || (
         <Section>
           {' '}
           <br />
           <br />
         </Section>
-      }
+      )}
     </Section>
   );
 };
@@ -183,7 +222,7 @@ const CodewordsSection = (props) => {
 
 export const AntagInfoTraitor = (props) => {
   const { data } = useBackend<Info>();
-  const { theme, given_uplink } = data;
+  const { theme } = data;
   return (
     <Window width={620} height={580} theme={theme}>
       <Window.Content>
@@ -198,11 +237,9 @@ export const AntagInfoTraitor = (props) => {
               </Stack.Item>
             </Stack>
           </Stack.Item>
-          {!!given_uplink && (
-            <Stack.Item>
-              <UplinkSection />
-            </Stack.Item>
-          )}
+          <Stack.Item>
+            <UplinkSection />
+          </Stack.Item>
           <Stack.Item>
             <CodewordsSection />
           </Stack.Item>

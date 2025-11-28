@@ -1,5 +1,6 @@
-import { sortBy } from 'es-toolkit';
-import { map } from 'es-toolkit/compat';
+import { map, sortBy } from 'es-toolkit';
+import { flow } from 'tgui-core/fp';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,10 +11,8 @@ import {
   Stack,
   Table,
 } from 'tgui-core/components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { PageSelect } from './LibraryConsole/components/PageSelect';
+import { PageSelect } from './LibraryConsole';
 
 export const LibraryVisitor = (props) => {
   return (
@@ -71,14 +70,14 @@ const SearchAndDisplay = (props) => {
     author,
     params_changed,
   } = data;
-  const records = sortBy(
-    map(data.pages, (record, i) => ({
+  const records = flow([
+    map((record, i) => ({
       ...record,
       // Generate a unique id
       key: i,
     })),
-    [(record) => record.key],
-  );
+    sortBy((record) => record.key),
+  ])(data.pages);
   return (
     <Section>
       <Stack justify="space-between">
@@ -90,7 +89,7 @@ const SearchAndDisplay = (props) => {
                 placeholder={book_id === null ? 'ID' : book_id}
                 mt={0.5}
                 width="70px"
-                onBlur={(value) =>
+                onChange={(e, value) =>
                   act('set_search_id', {
                     id: value,
                   })
@@ -113,7 +112,7 @@ const SearchAndDisplay = (props) => {
                 value={title}
                 placeholder={title || 'Title'}
                 mt={0.5}
-                onBlur={(value) =>
+                onChange={(e, value) =>
                   act('set_search_title', {
                     title: value,
                   })
@@ -125,7 +124,7 @@ const SearchAndDisplay = (props) => {
                 value={author}
                 placeholder={author || 'Author'}
                 mt={0.5}
-                onBlur={(value) =>
+                onChange={(e, value) =>
                   act('set_search_author', {
                     author: value,
                   })

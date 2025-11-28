@@ -1,3 +1,4 @@
+import { capitalizeFirst, decodeHtmlEntities } from 'tgui-core/string';
 import { useBackend } from 'tgui/backend';
 import {
   Box,
@@ -7,10 +8,8 @@ import {
   Stack,
   Tooltip,
 } from 'tgui-core/components';
-import { capitalizeFirst, decodeHtmlEntities } from 'tgui-core/string';
-
 import { getColor } from './helpers';
-import type { Data } from './types';
+import { Data } from './types';
 
 /**
  * Displays info about the virus. Child elements display
@@ -50,7 +49,7 @@ const Info = (props) => {
           <Input
             placeholder="Input a name"
             value={name === 'Unknown' ? '' : name}
-            onBlur={(value) =>
+            onChange={(_, value) =>
               act('rename_disease', {
                 index: index,
                 name: value,

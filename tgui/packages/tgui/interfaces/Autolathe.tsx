@@ -1,23 +1,22 @@
-import {
-  Box,
-  Button,
-  Collapsible,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Stack,
-  Tooltip,
-} from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
-import { capitalize } from 'tgui-core/string';
-
 import { useBackend } from '../backend';
+import {
+  LabeledList,
+  Section,
+  ProgressBar,
+  Collapsible,
+  Stack,
+  Icon,
+  Box,
+  Tooltip,
+  Button,
+} from 'tgui-core/components';
 import { Window } from '../layouts';
+import { capitalize } from 'tgui-core/string';
+import { Design, MaterialMap } from './Fabrication/Types';
 import { DesignBrowser } from './Fabrication/DesignBrowser';
+import { BooleanLike, classes } from 'tgui-core/react';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
-import type { Design, MaterialMap } from './Fabrication/Types';
-import type { Material } from './Fabrication/Types';
+import { Material } from './Fabrication/Types';
 
 type AutolatheDesign = Design & {
   customMaterials: BooleanLike;
@@ -189,18 +188,18 @@ const AutolatheRecipe = (props: AutolatheRecipeProps) => {
 
   let maxmult = 0;
   if (design.customMaterials) {
-    const largest_mat =
+    const smallest_mat =
       Object.entries(availableMaterials).reduce(
         (accumulator: number, [material, amount]) => {
-          return Math.max(accumulator, amount);
+          return Math.min(accumulator, amount);
         },
-        0,
+        Infinity,
       ) || 0;
 
-    if (largest_mat > 0) {
+    if (smallest_mat > 0) {
       maxmult = Object.entries(design.cost).reduce(
         (accumulator: number, [material, required]) => {
-          return Math.min(accumulator, largest_mat / required);
+          return Math.min(accumulator, smallest_mat / required);
         },
         Infinity,
       );
@@ -287,9 +286,10 @@ const AutolatheRecipe = (props: AutolatheRecipeProps) => {
         ])}
       >
         <Button.Input
-          color="transparent"
-          buttonText={`[Max: ${maxmult}]`}
-          onCommit={(value) =>
+          content={`[Max: ${maxmult}]`}
+          color={'transparent'}
+          maxValue={maxmult}
+          onCommit={(_e, value: string) =>
             act('make', {
               id: design.id,
               multiplier: value,

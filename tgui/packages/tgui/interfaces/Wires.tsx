@@ -1,3 +1,5 @@
+import { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,9 +8,6 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {
@@ -19,7 +18,6 @@ type Data = {
 
 type Wire = {
   color: string;
-  shownColor: string;
   cut: BooleanLike;
   attached: BooleanLike;
   wire: string;
@@ -72,9 +70,9 @@ const WireMap = (props) => {
         <LabeledList.Item
           key={wire.color}
           className="candystripe"
-          label={wire.shownColor}
-          labelColor={wire.shownColor.replace(' ', '')}
-          color={wire.shownColor.replace(' ', '')}
+          label={wire.color}
+          labelColor={wire.color}
+          color={wire.color}
           buttons={
             <>
               <Button
