@@ -466,7 +466,7 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
                       border: '2px solid rgba(0, 0, 0, 0.5)',
                       'border-left': 'none',
                       'border-right': 'none',
-                      'border-bottom': objectiveFinished ? 'none' : undefined,
+                      borderBottom: objectiveFinished ? 'none' : undefined,
                     }}
                     className={dangerLevel.gradient}
                     py={0.5}

@@ -61,7 +61,7 @@ export const GenericUplink = (props: GenericUplinkProps) => {
                     overflow: 'hidden',
                     'white-space': 'nowrap',
                     'text-overflow': 'ellipsis',
-                    'text-align': 'center',
+                    textAlign: 'center',
                   }}
                   onClick={() => act('buy_raw_tc')}
                 >

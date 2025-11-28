@@ -612,7 +612,7 @@ const PodStatusPage = (props) => {
                         }
                         style={{
                           verticalAlign: 'middle',
-                          'margin-left': j !== 0 ? '1px' : '0px',
+                          marginLeft: j !== 0 ? '1px' : '0px',
                           marginRight:
                             j !== list.list.length - 1 ? '1px' : '0px',
                           borderRadius: '5px',

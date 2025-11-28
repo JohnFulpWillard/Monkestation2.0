@@ -194,7 +194,7 @@ const CrewTable = () => {
       }
     >
       <Table>
-        <Table.Row>
+        <Table.Row className="candystripe">
           <Table.Cell bold>Name</Table.Cell>
           <Table.Cell bold collapsing />
           <Table.Cell bold collapsing textAlign="center">

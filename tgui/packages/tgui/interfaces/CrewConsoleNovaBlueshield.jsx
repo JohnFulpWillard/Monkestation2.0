@@ -58,7 +58,7 @@ const CrewTable = (props) => {
   const sensors = sortBy((s) => s.ijob)(data.sensors ?? []);
   return (
     <Table cellpadding="3">
-      <Table.Row>
+      <Table.Row className="candystripe">
         <Table.Cell bold colspan="2">
           Name
         </Table.Cell>

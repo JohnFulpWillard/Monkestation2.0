@@ -16,7 +16,7 @@ import { resolveAsset } from '../assets';
 import { formatTime } from '../format';
 import { capitalize } from 'common/string';
 import nt_logo from '../assets/bg-nanotrasen.svg';
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 
 type ExplorationEventData = {
   name: string;
@@ -738,7 +738,8 @@ const EventScreen = (props: { drone: DroneData; event: FullEventData }) => {
         <Stack.Item>
           <Stack fill>
             <Stack.Item>
-              <img
+              <Box
+                as="img"
                 src={resolveAsset(event.image)}
                 height="125px"
                 width="250px"
@@ -807,7 +808,7 @@ export const AdventureScreen = (props: {
         </Stack.Item>
         <Stack.Divider />
         <Stack.Item>
-          <img src={imgSource} height="100px" width="200px" />
+          <Box as="img" src={imgSource} height="100px" width="200px" />
           <Stack vertical>
             <Stack.Divider />
             <Stack.Item grow />

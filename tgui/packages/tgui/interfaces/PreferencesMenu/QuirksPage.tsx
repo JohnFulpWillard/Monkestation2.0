@@ -45,7 +45,7 @@ const QuirkList = (props: {
                 style={{
                   'min-width': '15%',
                   'max-width': '15%',
-                  'text-align': 'center',
+                  textAlign: 'center',
                 }}
               >
                 <Icon color="#333" fontSize={3} name={quirk.icon} />
@@ -55,14 +55,14 @@ const QuirkList = (props: {
                 align="stretch"
                 style={{
                   'border-right': '1px solid black',
-                  'margin-left': 0,
+                  marginLeft: 0,
                 }}
               />
 
               <Stack.Item
                 grow
                 style={{
-                  'margin-left': 0,
+                  marginLeft: 0,
 
                   // Fixes an IE bug for text overflowing in Flex boxes
                   'min-width': '0%',
@@ -72,7 +72,7 @@ const QuirkList = (props: {
                   <Stack.Item
                     className={`${className}--${getValueClass(quirk.value)}`}
                     style={{
-                      'border-bottom': '1px solid black',
+                      borderBottom: '1px solid black',
                       padding: '2px',
                     }}
                   >

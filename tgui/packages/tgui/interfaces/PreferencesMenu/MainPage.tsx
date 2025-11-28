@@ -164,10 +164,10 @@ const ChoicedSelection = (props: {
               <Stack.Item grow>
                 <Box
                   style={{
-                    'border-bottom': '1px solid #888',
+                    borderBottom: '1px solid #888',
                     fontWeight: 'bold',
                     fontSize: '14px',
-                    'text-align': 'center',
+                    textAlign: 'center',
                   }}
                 >
                   Select {props.name}
@@ -263,10 +263,10 @@ const ChoicedSelection = (props: {
                     <Box
                       pb={0.25}
                       style={{
-                        'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
                         fontWeight: 'bold',
                         fontSize: '14px',
-                        'text-align': 'center',
+                        textAlign: 'center',
                       }}
                     >
                       Select {features[feature].name}

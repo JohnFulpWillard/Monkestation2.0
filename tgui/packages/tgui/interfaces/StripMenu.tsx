@@ -28,7 +28,7 @@ const CornerText = (props: {
       style={{
         position: 'relative',
         left: align === 'left' ? '2px' : '-2px',
-        'text-align': align,
+        textAlign: align,
         textShadow: '1px 1px 1px #555',
       }}
     >
@@ -322,7 +322,7 @@ export const StripMenu = (props) => {
                         ml={0}
                         mt={1.3}
                         style={{
-                          'text-align': 'center',
+                          textAlign: 'center',
                           height: '100%',
                           width: '100%',
                         }}

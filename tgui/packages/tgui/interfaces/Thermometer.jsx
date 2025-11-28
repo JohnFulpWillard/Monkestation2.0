@@ -55,7 +55,7 @@ const ThermometerIcon = (props) => {
           backgroundColor: '#595959',
           border: '4px solid #363636',
           borderRadius: '12px',
-          'border-bottom': 'none',
+          borderBottom: 'none',
           'border-index': '0',
           'box-shadow': '4px 4px #000000',
         }}
@@ -72,7 +72,7 @@ const ThermometerIcon = (props) => {
             height: `${(temperature / maxTemperature) * 100}%`,
             backgroundColor: '#bd2020',
             borderRadius: '8px',
-            'border-bottom': 'none',
+            borderBottom: 'none',
             zIndex: '1',
           }}
         />
@@ -82,14 +82,14 @@ const ThermometerIcon = (props) => {
           position: 'relative',
           width: '56px',
           lineHeight: '48px',
-          'text-align': 'center',
+          textAlign: 'center',
           margin: '-8px auto 0 auto',
           backgroundColor: '#bd2020',
           border: '4px solid #363636',
           'border-spacing': '5px',
           borderRadius: '35px',
           'border-index': '1',
-          'border-bottom': '0.1',
+          borderBottom: '0.1',
           'box-shadow': '4px 4px #000000',
           zIndex: '0',
         }}
