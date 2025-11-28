@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { useBackend } from '../backend';
 import { Box, Stack } from '../components';
 import { Window } from '../layouts';
@@ -56,7 +56,7 @@ const ThermometerIcon = (props) => {
           border: '4px solid #363636',
           borderRadius: '12px',
           borderBottom: 'none',
-          'border-index': '0',
+          borderIndex: '0',
           boxShadow: '4px 4px #000000',
         }}
       >
@@ -86,9 +86,9 @@ const ThermometerIcon = (props) => {
           margin: '-8px auto 0 auto',
           backgroundColor: '#bd2020',
           border: '4px solid #363636',
-          'border-spacing': '5px',
+          borderSpacing: '5px',
           borderRadius: '35px',
-          'border-index': '1',
+          borderIndex: '1',
           borderBottom: '0.1',
           boxShadow: '4px 4px #000000',
           zIndex: '0',

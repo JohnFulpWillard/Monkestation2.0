@@ -99,10 +99,6 @@ export const SelectEquipment = (props) => {
                     m={0}
                     src={`data:image/jpeg;base64,${icon64}`}
                     height="100%"
-                    style={{
-                      '-ms-interpolation-mode': 'nearest-neighbor',
-                      'image-rendering': 'pixelated',
-                    }}
                   />
                 </Section>
               </Stack.Item>

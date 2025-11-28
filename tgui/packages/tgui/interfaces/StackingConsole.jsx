@@ -47,9 +47,7 @@ export const StackingConsoleContent = (props) => {
               />
             }
           >
-            <Box style={{ textTransform: 'capitalize' }}>
-              {input_direction}
-            </Box>
+            <Box style={{ textTransform: 'capitalize' }}>{input_direction}</Box>
           </LabeledList.Item>
           <LabeledList.Item
             label="Output"

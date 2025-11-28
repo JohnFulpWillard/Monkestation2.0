@@ -1,5 +1,5 @@
 import { BooleanLike, classes } from 'common/react';
-import { Component } from 'inferno';
+import { Component, ReactNode } from 'react';
 
 import {
   Box,
@@ -18,7 +18,6 @@ import {
   Rank,
 } from './calculateDangerLevel';
 import { ObjectiveState } from './constants';
-import type { InfernoNode } from 'inferno';
 
 export type Objective = {
   id: number;
@@ -353,7 +352,7 @@ type ObjectiveElementProps = {
   telecrystalReward: number;
   progressionReward: number;
   contractorRep?: number;
-  uiButtons?: InfernoNode;
+  uiButtons?: ReactNode;
   objectiveState?: ObjectiveState;
   originalProgression: number;
   telecrystalPenalty: number;
