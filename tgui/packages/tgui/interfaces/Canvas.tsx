@@ -1,6 +1,6 @@
 import { Color } from 'common/color';
 import { multiline, decodeHtmlEntities } from 'common/string';
-import { Component, createRef, RefObject } from 'inferno';
+import { Component, createRef, RefObject } from 'react';
 import { useBackend } from '../backend';
 import { Tooltip, Icon, Box, Button, Flex } from '../components';
 import { Window } from '../layouts';
@@ -202,11 +202,11 @@ class PaintCanvas extends Component<PaintCanvasProps> {
         width={width}
         height={height}
         {...rest}
-        onMouseDown={this.handleStartDrawing}
-        onMouseMove={this.handleDrawing}
-        onMouseUp={this.handleEndDrawing}
-        onMouseOut={this.handleEndDrawing}
-        onContextMenu={this.handleDropper}
+        onMouseDown={this.handleStartDrawing as any}
+        onMouseMove={this.handleDrawing as any}
+        onMouseUp={this.handleEndDrawing as any}
+        onMouseOut={this.handleEndDrawing as any}
+        onContextMenu={this.handleDropper as any}
       >
         Canvas failed to render.
       </canvas>
@@ -323,18 +323,16 @@ export const Canvas = (props) => {
                     style={{
                       width: '24px',
                       height: '24px',
-                      'border-style': 'solid',
-                      'border-color': element.is_selected
-                        ? 'lightblue'
-                        : 'black',
-                      'border-width': '2px',
+                      borderStyle: 'solid',
+                      borderColor: element.is_selected ? 'lightblue' : 'black',
+                      borderWidth: '2px',
                     }}
                     onClick={() =>
                       act('select_color', {
                         selected_color: element.color,
                       })
                     }
-                    oncontextmenu={(e) => {
+                    onContextMenu={(e) => {
                       e.preventDefault();
                       act('change_palette', {
                         color_index: index + 1,
@@ -361,7 +359,7 @@ export const Canvas = (props) => {
                 textColor="black"
                 textAlign="left"
                 backgroundColor="white"
-                style={{ 'border-style': 'inset' }}
+                style={{ borderStyle: 'inset' }}
               >
                 <Box mb={1} fontSize="18px" bold>
                   {decodeHtmlEntities(data.name)}

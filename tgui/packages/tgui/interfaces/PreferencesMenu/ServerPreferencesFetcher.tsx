@@ -18,8 +18,8 @@ export class ServerPreferencesFetcher extends Component<
     errored: boolean;
   }
 > {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       serverData: undefined,
       errored: false,

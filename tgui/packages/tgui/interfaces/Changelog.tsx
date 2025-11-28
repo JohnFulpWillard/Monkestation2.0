@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Component, Fragment } from 'inferno';
+import { Component, Fragment } from 'react';
 import {
   Box,
   Button,
@@ -259,8 +259,8 @@ export class Changelog extends Component {
   };
   dateChoices: string[];
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       data: 'Loading changelog data...',
       selectedDate: '',
