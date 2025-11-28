@@ -512,7 +512,7 @@ export const StandardizedPalette = (props: {
                   <Box
                     className="ColorSelectBox--inner"
                     style={{
-                      'background-color': hex_values
+                      backgroundColor: hex_values
                         ? choice
                         : choices_to_hex[choice],
                     }}
@@ -543,7 +543,7 @@ export const StandardizedPalette = (props: {
                       <Box
                         className="ColorSelectBox--inner"
                         style={{
-                          'background-color': `${safeValue}`,
+                          backgroundColor: `${safeValue}`,
                         }}
                       />
                     </Box>

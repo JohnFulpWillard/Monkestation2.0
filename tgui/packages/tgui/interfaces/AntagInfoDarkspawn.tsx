@@ -72,7 +72,7 @@ export const AntagInfoDarkspawn = (props) => {
     <Window width={750} height={650}>
       <Window.Content
         style={{
-          'background-image': 'none',
+          backgroundImage: 'none',
           background:
             'radial-gradient(circle, rgba(9,9,24,1) 54%, rgba(10,10,31,1) 60%, rgba(21,11,46,1) 80%, rgba(24,14,47,1) 100%);',
         }}

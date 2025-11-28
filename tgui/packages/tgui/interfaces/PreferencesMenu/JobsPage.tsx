@@ -234,7 +234,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
     <Box
       className={className}
       style={{
-        'margin-top': 0,
+        marginTop: 0,
       }}
     >
       <Stack>

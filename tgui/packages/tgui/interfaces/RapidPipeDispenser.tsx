@@ -329,7 +329,7 @@ const PipeTypeSection = (props) => {
               />
             </Table.Cell>
             <Table.Cell />
-            <Table.Cell style={{ 'vertical-align': 'middle' }}>
+            <Table.Cell style={{ verticalAlign: 'middle' }}>
               {recipe.pipe_name}
             </Table.Cell>
           </Table.Row>

@@ -510,7 +510,7 @@ export class IntegratedCircuit extends Component {
       >
         <Window.Content
           style={{
-            'background-image': 'none',
+            backgroundImage: 'none',
           }}
         >
           <InfinitePlane
@@ -573,7 +573,7 @@ export class IntegratedCircuit extends Component {
               width="50%"
               style={{
                 borderRadius: '0px 32px 0px 0px',
-                'background-color': 'rgba(0, 0, 0, 0.3)',
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
                 '-ms-user-select': 'none',
               }}
               unselectable="on"
@@ -610,7 +610,7 @@ export class IntegratedCircuit extends Component {
               height="100%"
               width="300px"
               style={{
-                'background-color': 'rgba(0, 0, 0, 0.3)',
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
                 '-ms-user-select': 'none',
               }}
               unselectable="on"

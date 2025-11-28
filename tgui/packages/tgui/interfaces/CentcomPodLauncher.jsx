@@ -611,7 +611,7 @@ const PodStatusPage = (props) => {
                             : act(effect.act)
                         }
                         style={{
-                          'vertical-align': 'middle',
+                          verticalAlign: 'middle',
                           'margin-left': j !== 0 ? '1px' : '0px',
                           'margin-right':
                             j !== list.list.length - 1 ? '1px' : '0px',
@@ -1018,7 +1018,7 @@ const StylePage = (props) => {
           }
           tooltip={page.title}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             'margin-right': '5px',
             borderRadius: '20px',
           }}

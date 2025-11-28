@@ -26,7 +26,7 @@ export class Thermometer extends Component {
           justify="space-around"
           backgroundColor="#242322"
           style={{
-            'background-image':
+            backgroundImage:
               "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACAQMAAABIeJ9nAAAABlBMVEVya3UjIyN3S/1dAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAMSURBVAjXY2hgcAAAAcQAwUlFKkkAAAAASUVORK5CYII=')",
           }}
         >
@@ -52,7 +52,7 @@ const ThermometerIcon = (props) => {
           width: '22px',
           height: '340px',
           margin: '0 auto',
-          'background-color': '#595959',
+          backgroundColor: '#595959',
           border: '4px solid #363636',
           borderRadius: '12px',
           'border-bottom': 'none',
@@ -70,7 +70,7 @@ const ThermometerIcon = (props) => {
             transition: 'height 2s ease-out',
             // Temp in %
             height: `${(temperature / maxTemperature) * 100}%`,
-            'background-color': '#bd2020',
+            backgroundColor: '#bd2020',
             borderRadius: '8px',
             'border-bottom': 'none',
             zIndex: '1',
@@ -84,7 +84,7 @@ const ThermometerIcon = (props) => {
           lineHeight: '48px',
           'text-align': 'center',
           margin: '-8px auto 0 auto',
-          'background-color': '#bd2020',
+          backgroundColor: '#bd2020',
           border: '4px solid #363636',
           'border-spacing': '5px',
           borderRadius: '35px',

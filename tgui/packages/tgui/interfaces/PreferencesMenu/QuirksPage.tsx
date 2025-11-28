@@ -96,7 +96,7 @@ const QuirkList = (props: {
                     grow
                     basis="content"
                     style={{
-                      'margin-top': 0,
+                      marginTop: 0,
                       padding: '3px',
                     }}
                   >

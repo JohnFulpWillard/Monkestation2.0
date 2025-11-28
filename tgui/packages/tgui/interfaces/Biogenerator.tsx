@@ -136,7 +136,7 @@ const Controls = () => {
             <Box
               lineHeight={1.9}
               style={{
-                'text-shadow': '1px 1px 0 black',
+                textShadow: '1px 1px 0 black',
               }}
             >
               {`${parseFloat(biomass.toFixed(2))} units`}
@@ -168,7 +168,7 @@ const Controls = () => {
               <Box
                 lineHeight={1.9}
                 style={{
-                  'text-shadow': '1px 1px 0 black',
+                  textShadow: '1px 1px 0 black',
                 }}
               >
                 {`${beakerCurrentVolume} of ${beakerMaxVolume} units`}
@@ -221,7 +221,7 @@ const Item = (props: Props) => {
         <span
           className={classes(['design32x32', id])}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
           }}
         />{' '}
         <b>{name}</b>

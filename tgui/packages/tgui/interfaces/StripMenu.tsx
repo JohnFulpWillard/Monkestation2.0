@@ -29,7 +29,7 @@ const CornerText = (props: {
         position: 'relative',
         left: align === 'left' ? '2px' : '-2px',
         'text-align': align,
-        'text-shadow': '1px 1px 1px #555',
+        textShadow: '1px 1px 1px #555',
       }}
     >
       {children}
@@ -304,7 +304,7 @@ export const StripMenu = (props) => {
                         style={{
                           '-ms-interpolation-mode': 'nearest-neighbor',
                           'image-rendering': 'pixelated',
-                          'vertical-align': 'middle',
+                          verticalAlign: 'middle',
                         }}
                       />
                     );

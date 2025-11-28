@@ -117,7 +117,7 @@ export const TicketPanel = (props) => {
           <Section title={data.initiator_key_name + ': ' + data.name}>
             <span
               class="Section__titleText"
-              style={{ 'font-weight': 'normal' }}
+              style={{ fontWeight: 'normal' }}
             >
               Assigned Admin: <b>{data.admin || 'Unassigned'}</b>
               <br />

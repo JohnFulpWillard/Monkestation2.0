@@ -165,7 +165,7 @@ const ChoicedSelection = (props: {
                 <Box
                   style={{
                     'border-bottom': '1px solid #888',
-                    'font-weight': 'bold',
+                    fontWeight: 'bold',
                     fontSize: '14px',
                     'text-align': 'center',
                   }}
@@ -264,7 +264,7 @@ const ChoicedSelection = (props: {
                       pb={0.25}
                       style={{
                         'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
-                        'font-weight': 'bold',
+                        fontWeight: 'bold',
                         fontSize: '14px',
                         'text-align': 'center',
                       }}

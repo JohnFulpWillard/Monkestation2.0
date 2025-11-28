@@ -56,7 +56,7 @@ export const JobEntry: Inferno.SFC<{
       fluid
       style={{
         // Try not to think too hard about this one.
-        'background-color': job.unavailable_reason
+        backgroundColor: job.unavailable_reason
           ? '#949494' // Grey background
           : job.prioritized
             ? '#16fc0f' // Bright green background
@@ -71,7 +71,7 @@ export const JobEntry: Inferno.SFC<{
         job.unavailable_reason ||
         (job.prioritized ? (
           <>
-            <p style={{ 'margin-top': '0px' }}>
+            <p style={{ marginTop: '0px' }}>
               <b>The HoP wants more people in this job!</b>
             </p>
             {job.description}
@@ -169,7 +169,7 @@ export const JobSelection = (props) => {
                       </>
                     }
                     style={{
-                      'background-color': entry.color,
+                      backgroundColor: entry.color,
                       'margin-bottom': '1em',
                       'break-inside': 'avoid-column',
                     }}
