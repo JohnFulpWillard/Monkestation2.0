@@ -70,6 +70,9 @@ for (const filename of fs.readdirSync(artifactsDirectory)) {
       screenshotName,
     );
     if (!fs.existsSync(fullPathCompareScreenshot)) {
+      console.error(
+        `${fullPathCompareScreenshot} is missing an existing screenshot to compare against`,
+      );
       fail(screenshotName, fullPathScreenshotName);
       continue;
     }

@@ -1,25 +1,20 @@
+import { Box, Button, Icon, Section, Stack } from 'tgui-core/components';
+import { Tooltip } from 'tgui-core/components';
+import { type BooleanLike, classes } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
-import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
-import { FabricatorData, MaterialMap, Design } from './Fabrication/Types';
 import { DesignBrowser } from './Fabrication/DesignBrowser';
+import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
-import { Tooltip } from '../components';
-import { BooleanLike, classes } from 'common/react';
+import type { Design, FabricatorData, MaterialMap } from './Fabrication/Types';
 
 type ExosuitDesign = Design & {
   constructionTime: number;
-  craftable: BooleanLike;
 };
 
 type ExosuitFabricatorData = FabricatorData & {
   processing: BooleanLike;
-  authorization: BooleanLike;
-  alert_level: Number;
-  combat_parts_allowed: BooleanLike;
-  emagged: BooleanLike;
-  silicon_user: BooleanLike;
   designs: Record<string, ExosuitDesign>;
 };
 
@@ -46,10 +41,7 @@ export const ExosuitFabricator = (props) => {
                   buildRecipeElement={(design, availableMaterials) => (
                     <Recipe
                       available={availableMaterials}
-                      design={{
-                        ...design,
-                        craftable: (design as any).craftable ?? true, // fallback if missing
-                      }}
+                      design={design}
                       SHEET_MATERIAL_AMOUNT={SHEET_MATERIAL_AMOUNT}
                     />
                   )}
@@ -81,7 +73,6 @@ export const ExosuitFabricator = (props) => {
             </Stack>
           </Stack.Item>
           <Stack.Item width="420px">
-            <Authorization width="420" />
             <Queue
               availableMaterials={availableMaterials}
               SHEET_MATERIAL_AMOUNT={SHEET_MATERIAL_AMOUNT}
@@ -94,7 +85,7 @@ export const ExosuitFabricator = (props) => {
 };
 
 type RecipeProps = {
-  design: ExosuitDesign;
+  design: Design;
   available: MaterialMap;
   SHEET_MATERIAL_AMOUNT: number;
 };
@@ -109,10 +100,7 @@ const Recipe = (props: RecipeProps) => {
   );
 
   return (
-    <Box
-      className="FabricatorRecipe"
-      backgroundColor={design.craftable ? undefined : 'rgba(255, 0, 0, 0.15)'}
-    >
+    <div className="FabricatorRecipe">
       <Tooltip content={design.desc} position="right">
         <div
           className={classes([
@@ -182,7 +170,7 @@ const Recipe = (props: RecipeProps) => {
           <Icon name="play" />
         </div>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 
@@ -254,10 +242,7 @@ const Queue = (props: QueueProps) => {
             />
           </Section>
         </Stack.Item>
-        <Stack.Item
-          grow
-          style={{ overflowY: 'auto', overflowX: 'hidden' }}
-        >
+        <Stack.Item grow style={{ overflowY: 'auto', overflowX: 'hidden' }}>
           <Section fill>
             <QueueList
               availableMaterials={availableMaterials}
@@ -345,14 +330,11 @@ const QueueList = (props: QueueListProps) => {
                   <Box
                     width={'32px'}
                     height={'32px'}
-                    className={classes([
-                      'design32x32',
-                      entry.design && entry.design.icon,
-                    ])}
+                    className={classes(['design32x32', entry.design?.icon])}
                   />
                 </div>
                 <div className="FabricatorRecipe__Label">
-                  {entry.design && entry.design.name}
+                  {entry.design?.name}
                 </div>
               </div>
             </Tooltip>
@@ -378,69 +360,4 @@ const QueueList = (props: QueueListProps) => {
         ))}
     </>
   );
-};
-
-const Authorization = (props, context) => {
-  const { data } = useBackend<ExosuitFabricatorData>();
-  const auth_override = data.authorization;
-  const alert_level = data.alert_level;
-  const combat_parts_allowed = data.combat_parts_allowed;
-  const emagged = data.emagged;
-
-  return (
-    <Section width="420px" style={{ whiteSpace: 'pre-wrap' }}>
-      <b>
-        {'User: '}
-        <Box
-          bold
-          color={!combat_parts_allowed ? 'bad' : 'good'}
-        >
-          {!combat_parts_allowed
-            ? 'Unauthorized'
-            : !emagged
-              ? 'Authorized'
-              : garbleText(
-                  'ALERT: ROOTKIT_DEV_OVERRIDE RUNNING IN LIVE ENVIROMENT',
-                )}
-        </Box>
-        <Tooltip
-          content={
-            'Designs marked in red are classified as combat-level designs. Gain access from a Command member or an elevated station threat level to print them. Blue alert loosens restrictions on non-lethal weapons.'
-          }
-          position="right"
-        >
-          <Icon name="question-circle" />
-        </Tooltip>
-      </b>
-      <br />
-      Combat-level designs are{' '}
-      {combat_parts_allowed ? 'available' : 'unavailable'}.
-      <br />
-      {auth_override
-        ? 'Authorization overriden by a command-level card.\n'
-        : ''}
-      {alert_level === 0
-        ? ''
-        : alert_level >= 4
-          ? 'Credible threat to the station in effect!\n'
-          : 'Increased threat alert is in effect for the station!\n'}
-    </Section>
-  );
-};
-
-const garbleText = (text) => {
-  return text
-    .split('')
-    .map((char) => {
-      if (Math.random() < 0.5) {
-        // Randomly replace with ascii symbol or change case
-        if (Math.random() < 0.5) {
-          return String.fromCharCode(33 + Math.floor(Math.random() * 30));
-        } else {
-          return Math.random() < 0.5 ? char.toUpperCase() : char.toLowerCase();
-        }
-      }
-      return char;
-    })
-    .join('');
 };

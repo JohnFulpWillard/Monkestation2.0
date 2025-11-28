@@ -1,5 +1,5 @@
-import { classes } from 'common/react';
-import { Icon } from '../../components';
+import { Icon } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 
 const MATERIAL_ICONS: Record<string, [number, string][]> = {
   iron: [
@@ -47,7 +47,7 @@ const MATERIAL_ICONS: Record<string, [number, string][]> = {
     [17, 'sheet-titanium_2'],
     [34, 'sheet-titanium_3'],
   ],
-  'bluespace crystal': [[0, 'polycrystal']],
+  'bluespace crystal': [[0, 'bluespace_crystal']],
   plastic: [
     [0, 'sheet-plastic'],
     [17, 'sheet-plastic_2'],

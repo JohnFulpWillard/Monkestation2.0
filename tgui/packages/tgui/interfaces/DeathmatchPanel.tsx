@@ -7,8 +7,8 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
-import type { BooleanLike } from 'common/react';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -24,11 +24,11 @@ type Lobby = {
 type Data = {
   hosting: BooleanLike;
   admin: BooleanLike;
-  playing: string | number;
+  playing: string;
   lobbies: Lobby[];
 };
 
-export const DeathmatchPanel = (props) => {
+export function DeathmatchPanel(props) {
   const { act, data } = useBackend<Data>();
   const { hosting } = data;
 
@@ -60,9 +60,9 @@ export const DeathmatchPanel = (props) => {
       </Window.Content>
     </Window>
   );
-};
+}
 
-const LobbyPane = (props) => {
+function LobbyPane(props) {
   const { data } = useBackend<Data>();
   const { lobbies = [] } = data;
 
@@ -98,9 +98,9 @@ const LobbyPane = (props) => {
       </Table>
     </Section>
   );
-};
+}
 
-const LobbyDisplay = (props) => {
+function LobbyDisplay(props) {
   const { act, data } = useBackend<Data>();
   const { admin, playing, hosting } = data;
   const { lobby } = props;
@@ -114,7 +114,7 @@ const LobbyDisplay = (props) => {
           lobby.name
         ) : (
           <Dropdown
-            width="10%"
+            width={10}
             noChevron
             selected={lobby.name}
             options={['Close', 'View']}
@@ -154,4 +154,4 @@ const LobbyDisplay = (props) => {
       </Table.Cell>
     </Table.Row>
   );
-};
+}

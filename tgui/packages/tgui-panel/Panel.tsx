@@ -5,7 +5,7 @@
  */
 
 import { Pane } from 'tgui/layouts';
-import { Button, Section, Stack } from 'tgui/components';
+import { Button, Section, Stack } from 'tgui-core/components';
 
 import { NowPlayingWidget, useAudio } from './audio';
 import { ChatPanel, ChatTabs } from './chat';
@@ -33,7 +33,7 @@ export const Panel = (props) => {
         <Stack.Item>
           <Section fitted>
             <Stack mr={1} align="center">
-              <Stack.Item grow overflowX="auto">
+              <Stack.Item grow>
                 <ChatTabs />
               </Stack.Item>
               <Stack.Item>

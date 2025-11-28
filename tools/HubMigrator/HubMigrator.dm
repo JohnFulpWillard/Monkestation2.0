@@ -9,6 +9,7 @@
 #define MEDAL_MATERIALCRAFT "Getting an Upgrade"
 #define MEDAL_SINGULARITY_BUSTER "The Lord Dethroned" //Singularity Nullified
 
+
 //Boss medals
 
 // Medal hub IDs for boss medals (Pre-fixes)
@@ -36,6 +37,7 @@
 #define DRAKE_SCORE "Drakes Killed"
 #define HIEROPHANT_SCORE "Hierophants Killed"
 #define LEGION_SCORE "Legion Killed"
+#define SWARMER_BEACON_SCORE "Swarmer Beacs Killed"
 #define TENDRIL_CLEAR_SCORE "Tendrils Killed"
 
 
@@ -82,6 +84,7 @@
 		DRAKE_SCORE,
 		HIEROPHANT_SCORE,
 		LEGION_SCORE,
+		SWARMER_BEACON_SCORE,
 		TENDRIL_CLEAR_SCORE,
 	)
 
@@ -104,8 +107,8 @@
 		var/data = file2text(result["CONTENT"])
 		var/regex/page_info = regex(@"page = (\d*)")
 		page_info.Find(data)
-		var/recieved_page = text2num(page_info.group[1])
-		if(recieved_page != requested_page) //out of entries
+		var/received_page = text2num(page_info.group[1])
+		if(received_page != requested_page) //out of entries
 			break
 		else
 			requested_page++
@@ -126,12 +129,12 @@
 
 	var/list/scores_data = list()
 	for(var/score in valid_scores)
-		var/recieved_count = 0
+		var/received_count = 0
 		while(1)
-			world << "Fetching [score] scores, offset :[recieved_count] of [score]"
-			var/list/batch = params2list(world.GetScores(giant_list_of_ckeys.len,recieved_count,score,hub_address,hub_password))
+			world << "Fetching [score] scores, offset :[received_count] of [score]"
+			var/list/batch = params2list(world.GetScores(giant_list_of_ckeys.len,received_count,score,hub_address,hub_password))
 			world << "Fetched [batch.len] scores for [score]."
-			recieved_count += batch.len
+			received_count += batch.len
 			if(!batch.len)
 				break
 			for(var/value in batch)

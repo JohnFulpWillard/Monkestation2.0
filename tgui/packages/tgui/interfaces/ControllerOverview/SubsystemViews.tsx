@@ -1,18 +1,18 @@
-import { useBackend, useLocalState } from '../../backend';
-import { Button, Section, Stack, Table } from '../../components';
+import { type Dispatch, useEffect, useState } from 'react';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
+
+import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';
-import { FilterState } from './filters';
+import type { FilterState } from './filters';
 import { SubsystemRow } from './SubsystemRow';
-import { ControllerData, SubsystemData } from './types';
+import type { ControllerData, SubsystemData } from './types';
 
 type Props = {
   filterOpts: FilterState;
-  setSelected: (newSelected: SubsystemData | undefined) => void;
+  setSelected: Dispatch<SubsystemData | undefined>;
 };
 
-let lastInDeciseconds: boolean | undefined;
-
-export const SubsystemViews = (props: Props) => {
+export function SubsystemViews(props: Props) {
   const { data } = useBackend<ControllerData>();
   const { subsystems } = data;
 
@@ -20,7 +20,7 @@ export const SubsystemViews = (props: Props) => {
   const { ascending, inactive, query, smallValues, sortType } = filterOpts;
   const { propName, inDeciseconds } = SORTING_TYPES[sortType];
 
-  const [bars, setBars] = useLocalState('bars', inDeciseconds);
+  const [bars, setBars] = useState(inDeciseconds);
 
   const sorted = subsystems
     .filter((subsystem) => {
@@ -54,7 +54,7 @@ export const SubsystemViews = (props: Props) => {
   let currentMax = 0;
   if (inDeciseconds) {
     for (let i = 0; i < sorted.length; i++) {
-      let value = sorted[i][propName];
+      const value = sorted[i][propName];
       if (typeof value !== 'number') {
         continue;
       }
@@ -66,14 +66,13 @@ export const SubsystemViews = (props: Props) => {
   }
 
   // Toggles default bar view for valid cases
-  if (inDeciseconds !== lastInDeciseconds) {
-    lastInDeciseconds = inDeciseconds;
+  useEffect(() => {
     if (inDeciseconds && !bars) {
       setBars(true);
     } else if (!inDeciseconds && bars) {
       setBars(false);
     }
-  }
+  }, [inDeciseconds]);
 
   return (
     <Section
@@ -112,4 +111,4 @@ export const SubsystemViews = (props: Props) => {
       </Table>
     </Section>
   );
-};
+}

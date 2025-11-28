@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
-import { Box, Button, Section, Stack } from '../components';
-import { isEscape, KEY } from 'common/keys';
-import type { BooleanLike } from 'common/react';
+import { useBackend } from 'tgui/backend';
+import { Window } from 'tgui/layouts';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
+import { isEscape, KEY } from 'tgui-core/keys';
+import type { BooleanLike } from 'tgui-core/react';
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
 

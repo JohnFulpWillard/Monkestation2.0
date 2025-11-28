@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { Box, Button } from '../components';
-import type { BooleanLike } from 'common/react';
+import { Box, Button } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';

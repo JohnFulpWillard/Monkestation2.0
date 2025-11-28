@@ -13,10 +13,10 @@
 
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
-import { setupDrag } from './drag';
-import { globalEvents } from './events';
-import { focusMap } from './focus';
+import type { BooleanLike } from 'tgui-core/react';
 
+import { setupDrag } from './drag';
+import { focusMap } from './focus';
 import { createLogger } from './logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
 
@@ -77,7 +77,7 @@ export const backendReducer = (state = initialState, action) => {
     // Merge shared states
     const shared = { ...state.shared };
     if (payload.shared) {
-      for (let key of Object.keys(payload.shared)) {
+      for (const key of Object.keys(payload.shared)) {
         const value = payload.shared[key];
         if (value === '') {
           shared[key] = undefined;
@@ -196,22 +196,6 @@ export const backendMiddleware = (store) => {
       return;
     }
 
-    if (type === 'byond/mousedown') {
-      globalEvents.emit('byond/mousedown');
-    }
-
-    if (type === 'byond/mouseup') {
-      globalEvents.emit('byond/mouseup');
-    }
-
-    if (type === 'byond/ctrldown') {
-      globalEvents.emit('byond/ctrldown');
-    }
-
-    if (type === 'byond/ctrlup') {
-      globalEvents.emit('byond/ctrlup');
-    }
-
     if (type === 'backend/suspendStart' && !suspendInterval) {
       logger.log(`suspending (${Byond.windowId})`);
       // Keep sending suspend messages until it succeeds.
@@ -225,7 +209,10 @@ export const backendMiddleware = (store) => {
       suspendRenderer();
       clearInterval(suspendInterval);
       suspendInterval = undefined;
+      // Tiny window to not show previous content when resumed
       Byond.winset(Byond.windowId, {
+        size: '1x1',
+        pos: '1,1',
         'is-visible': false,
       });
       setTimeout(() => focusMap());
@@ -330,10 +317,9 @@ const encodedLengthBinarySearch = (haystack: string[], length: number) => {
 
 const chunkSplitter = {
   [Symbol.split]: (string: string) => {
-    // TODO: get rid of the "as any" whenever we upgrade typescript
-    const charSeq = (string[Symbol.iterator]() as any).toArray();
+    const charSeq = string[Symbol.iterator]().toArray();
     const length = charSeq.length;
-    let chunks: string[] = [];
+    const chunks: string[] = [];
     let startIndex = 0;
     let endIndex = 1024;
     while (startIndex < length) {
@@ -374,46 +360,49 @@ export const sendAct = (action: string, payload: object = {}) => {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
   }
-  if (!Byond.TRIDENT) {
-    const stringifiedPayload = JSON.stringify(payload);
-    const urlSize = Object.entries({
-      type: 'act/' + action,
-      payload: stringifiedPayload,
-      tgui: 1,
-      windowId: Byond.windowId,
-    }).reduce(
-      (url, [key, value], i) =>
-        url +
-        `${i > 0 ? '&' : '?'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
-      '',
-    ).length;
-    if (urlSize > 2048) {
-      let chunks: string[] = stringifiedPayload.split(chunkSplitter);
-      const id = `${Date.now()}`;
-      globalStore?.dispatch(backendCreatePayloadQueue({ id, chunks }));
-      Byond.sendMessage('oversizedPayloadRequest', {
-        type: 'act/' + action,
-        id,
-        chunkCount: chunks.length,
-      });
-      return;
-    }
+
+  const stringifiedPayload = JSON.stringify(payload);
+  const urlSize = Object.entries({
+    type: `act/${action}`,
+    payload: stringifiedPayload,
+    tgui: 1,
+    windowId: Byond.windowId,
+  }).reduce(
+    (url, [key, value], i) =>
+      url +
+      `${i > 0 ? '&' : '?'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+    '',
+  ).length;
+  if (urlSize > 2048) {
+    const chunks: string[] = stringifiedPayload.split(chunkSplitter);
+    const id = `${Date.now()}`;
+    globalStore?.dispatch(backendCreatePayloadQueue({ id, chunks }));
+    Byond.sendMessage('oversizedPayloadRequest', {
+      type: `act/${action}`,
+      id,
+      chunkCount: chunks.length,
+    });
+    return;
   }
-  Byond.sendMessage('act/' + action, payload);
+
+  Byond.sendMessage(`act/${action}`, payload);
 };
 
 type BackendState<TData> = {
   config: {
     title: string;
     status: number;
-    interface: string;
-    refreshing: boolean;
+    interface: {
+      name: string;
+      layout: string;
+    };
+    refreshing: BooleanLike;
     window: {
       key: string;
       size: [number, number];
-      fancy: boolean;
-      locked: boolean;
-      scale: boolean;
+      fancy: BooleanLike;
+      locked: BooleanLike;
+      scale: BooleanLike;
     };
     client: {
       ckey: string;
@@ -430,10 +419,6 @@ type BackendState<TData> = {
   outgoingPayloadQueues: Record<string, any[]>;
   suspending: boolean;
   suspended: boolean;
-  debug?: {
-    debugLayout: boolean;
-    kitchenSink: boolean;
-  };
 };
 
 /**
@@ -470,8 +455,10 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  *
  * It is a lot more performant than `setSharedState`.
  *
+ * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
+ * @deprecated Use useState and useEffect when you can. Pass the state as a prop.
  */
 export const useLocalState = <T>(
   key: string,

@@ -1,18 +1,18 @@
-import { useBackend, useSharedState } from '../backend';
 import {
+  Box,
   Button,
   Icon,
+  LabeledList,
   Modal,
   Section,
   Stack,
-  LabeledList,
-  Box,
-} from '../components';
+} from 'tgui-core/components';
+
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 import { GasmixParser } from './common/GasmixParser';
 
 export const AnomalyRefinery = (props) => {
-  const { act, data } = useBackend();
   return (
     <Window title="Anomaly Refinery" width={550} height={350}>
       <Window.Content>
@@ -26,6 +26,7 @@ const AnomalyRefineryContent = (props) => {
   const { act, data } = useBackend();
   const [currentTab, changeTab] = useSharedState('exploderTab', 1);
   const { core, valvePresent, active } = data;
+
   return (
     <Stack vertical fill>
       {currentTab === 1 && <CoreCompressorContent />}
@@ -98,7 +99,7 @@ const CoreCompressorContent = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label={'Required Radius'}>
               {requiredRadius
-                ? requiredRadius + ' tiles'
+                ? `${requiredRadius} tiles`
                 : 'Implosion not possible.'}
             </LabeledList.Item>
           </LabeledList>
@@ -139,9 +140,11 @@ const CoreCompressorContent = (props) => {
                   ' Kelvin'}
               </Box>
               <Box height={2} width="100%">
-                {(gasList[1].total_moles
-                  ? String(gasList[1].pressure.toFixed(2))
-                  : '-') + ' kPa'}
+                {`${
+                  gasList[1].total_moles
+                    ? String(gasList[1].pressure.toFixed(2))
+                    : '-'
+                } kPa`}
               </Box>
             </Stack.Item>
             <Stack.Item>
@@ -164,9 +167,11 @@ const CoreCompressorContent = (props) => {
                   ' Kelvin'}
               </Box>
               <Box height={2} width="100%">
-                {(gasList[1].total_moles
-                  ? String(gasList[0].pressure.toFixed(2))
-                  : '-') + ' kPa'}
+                {`${
+                  gasList[1].total_moles
+                    ? String(gasList[0].pressure.toFixed(2))
+                    : '-'
+                } kPa`}
               </Box>
             </Stack.Item>
           </Stack>

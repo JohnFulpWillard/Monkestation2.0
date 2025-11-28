@@ -1,9 +1,6 @@
-import { map, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { clamp } from 'common/math';
-import { createSearch } from 'common/string';
 import { vecLength, vecSubtract } from 'common/vector';
-import { useBackend, useLocalState } from '../backend';
+import { sortBy } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import {
   Box,
   Button,
@@ -11,36 +8,42 @@ import {
   LabeledList,
   Section,
   Table,
-  Input,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { clamp } from 'tgui-core/math';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-const coordsToVec = (coords) => map(parseFloat)(coords.split(', '));
+const coordsToVec = (coords) => map(coords.split(', '), parseFloat);
 
 export const Gps = (props) => {
   const { act, data } = useBackend();
   const { currentArea, currentCoords, globalmode, power, tag, updating } = data;
-  const [searchName, setSearchName] = useLocalState('searchName', '');
-  const searchByName = createSearch(searchName, (gps) => gps.entrytag);
   const signals = flow([
-    map((signal, index) => {
-      // Calculate distance to the target. BYOND distance is capped to 127,
-      // that's why we roll our own calculations here.
-      const dist =
-        signal.dist &&
-        Math.round(
-          vecLength(
-            vecSubtract(coordsToVec(currentCoords), coordsToVec(signal.coords)),
-          ),
-        );
-      return { ...signal, dist, index };
-    }),
-    sortBy(
-      // Signals with distance metric go first
-      (signal) => signal.dist === undefined,
-      // Sort alphabetically
-      (signal) => signal.entrytag,
-    ),
+    (signals) =>
+      map(signals, (signal, index) => {
+        // Calculate distance to the target. BYOND distance is capped to 127,
+        // that's why we roll our own calculations here.
+        const dist =
+          signal.dist &&
+          Math.round(
+            vecLength(
+              vecSubtract(
+                coordsToVec(currentCoords),
+                coordsToVec(signal.coords),
+              ),
+            ),
+          );
+        return { ...signal, dist, index };
+      }),
+    (signals) =>
+      sortBy(signals, [
+        // Signals with distance metric go first
+        (signal) => signal.dist === undefined,
+        // Sort alphabetically
+        (signal) => signal.entrytag,
+      ]),
   ])(data.signals || []);
   return (
     <Window title="Global Positioning System" width={470} height={700}>
@@ -89,24 +92,14 @@ export const Gps = (props) => {
                 {currentArea} ({currentCoords})
               </Box>
             </Section>
-            <Section
-              title="Detected Signals"
-              buttons={
-                <Input
-                  placeholder="Search by name..."
-                  width="200px"
-                  value={searchName}
-                  onInput={(_, value) => setSearchName(value)}
-                />
-              }
-            >
+            <Section title="Detected Signals">
               <Table>
                 <Table.Row bold>
                   <Table.Cell content="Name" />
                   <Table.Cell collapsing content="Direction" />
                   <Table.Cell collapsing content="Coordinates" />
                 </Table.Row>
-                {signals.filter(searchByName).map((signal) => (
+                {signals.map((signal) => (
                   <Table.Row
                     key={signal.entrytag + signal.coords + signal.index}
                     className="candystripe"
@@ -129,7 +122,7 @@ export const Gps = (props) => {
                           rotation={signal.degrees}
                         />
                       )}
-                      {signal.dist !== undefined && signal.dist + 'm'}
+                      {signal.dist !== undefined && `${signal.dist}m`}
                     </Table.Cell>
                     <Table.Cell collapsing>{signal.coords}</Table.Cell>
                   </Table.Row>

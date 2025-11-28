@@ -1,4 +1,3 @@
-import { capitalizeFirst } from 'common/string';
 import { useBackend } from 'tgui/backend';
 import {
   Button,
@@ -7,8 +6,10 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui/components';
-import { Data } from './types';
+} from 'tgui-core/components';
+import { capitalizeFirst } from 'tgui-core/string';
+
+import type { Data } from './types';
 
 /** Displays loaded container info, if it exists */
 export const BeakerDisplay = (props) => {

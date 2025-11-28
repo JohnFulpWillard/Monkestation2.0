@@ -1,3 +1,4 @@
+import { useBackend } from 'tgui/backend';
 import {
   Box,
   Button,
@@ -8,12 +9,11 @@ import {
   NumberInput,
   Section,
   Tooltip,
-} from 'tgui/components';
-import { HelpDummy, HoverHelp } from './helpers';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
-import { BooleanLike } from 'common/react';
-import { HypertorusFilter } from '.';
-import { useBackend } from 'tgui/backend';
+import type { HypertorusFilter } from '.';
+import { HelpDummy, HoverHelp } from './helpers';
 
 type ComboProps = {
   color?: string | BooleanLike;
@@ -94,7 +94,7 @@ const ComboKnob = (props: ComboProps) => {
         maxValue={maxValue}
         step={step}
         stepPixelSize={1}
-        onDrag={(_, v) => act(parameter, { [parameter]: v })}
+        onChange={(_, v) => act(parameter, { [parameter]: v })}
         {...rest}
       />
       <Button
@@ -235,11 +235,13 @@ export const HypertorusWasteRemove = (props) => {
         >
           <NumberInput
             animated
+            tickWhileDragging
             value={mod_filtering_rate}
             unit="mol/s"
+            step={1}
             minValue={5}
             maxValue={200}
-            onDrag={(e, value) =>
+            onChange={(value) =>
               act('mod_filtering_rate', {
                 mod_filtering_rate: value,
               })

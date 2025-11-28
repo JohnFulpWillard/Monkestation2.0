@@ -5,19 +5,19 @@
  */
 
 import {
-  Middleware,
-  Reducer,
-  Store,
   applyMiddleware,
   combineReducers,
   createStore,
+  type Middleware,
+  type Reducer,
+  type Store,
 } from 'common/redux';
-import { backendMiddleware, backendReducer } from './backend';
-import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
+import { flow } from 'tgui-core/fp';
 
 import { assetMiddleware } from './assets';
+import { backendMiddleware, backendReducer } from './backend';
+import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
 import { createLogger } from './logging';
-import { flow } from 'common/fp';
 
 type ConfigureStoreOptions = {
   sideEffects?: boolean;
@@ -30,6 +30,11 @@ type ConfigureStoreOptions = {
 
 type StackAugmentor = (stack: string, error?: Error) => string;
 
+type StoreProviderProps = {
+  store: Store;
+  children: any;
+};
+
 const logger = createLogger('store');
 
 export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
@@ -39,7 +44,7 @@ export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
       debug: debugReducer,
       backend: backendReducer,
     }),
-    reducer,
+    reducer as any,
   ]);
 
   const middlewares: Middleware[] = !sideEffects

@@ -12,6 +12,7 @@ FROM base AS byond
 WORKDIR /byond
 
 RUN apt-get install -y --no-install-recommends \
+        libcurl4 \
         curl \
         unzip \
         make \
@@ -39,7 +40,7 @@ RUN apt-get install -y --no-install-recommends \
 
 COPY . .
 
-RUN env TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build \
+RUN env TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build.sh \
     && tools/deploy.sh /deploy
 
 # rust = base + rustc and i686 target
@@ -59,7 +60,7 @@ RUN apt-get install -y --no-install-recommends \
         gcc-multilib \
         git \
     && git init \
-    && git remote add origin "https://github.com/${RUST_G_REPO}"
+    && git remote add origin https://github.com/${RUST_G_REPO}
 
 COPY dependencies.sh .
 

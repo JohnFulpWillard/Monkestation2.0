@@ -5,8 +5,8 @@
  */
 
 import { Component, createRef } from 'react';
-import { Button } from 'tgui/components';
-import { shallowDiffers } from 'common/react';
+import { Button } from 'tgui-core/components';
+import { shallowDiffers } from 'tgui-core/react';
 
 import { chatRenderer } from './renderer';
 
@@ -60,7 +60,7 @@ export class ChatPanel extends Component<Props, State> {
     if (shouldUpdateStyle) {
       chatRenderer.assignStyle({
         width: '100%',
-        whiteSpace: 'pre-wrap',
+        'white-space': 'pre-wrap',
         'font-size': this.props.fontSize,
         'line-height': this.props.lineHeight,
       });

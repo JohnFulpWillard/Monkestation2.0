@@ -20,6 +20,7 @@
 
 export type Antagonist = {
   // the antag_flag, made lowercase, and with non-alphanumerics removed.
+  // or from non_ruleset_antagonists
   key: string;
 
   name: string;
@@ -31,5 +32,5 @@ export type Antagonist = {
 export enum Category {
   Roundstart,
   Midround,
-//  Latejoin,
+  Latejoin,
 }

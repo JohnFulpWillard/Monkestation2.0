@@ -24,17 +24,15 @@
 	/// The user who opened the window
 	var/client/client
 	/// Injury phrases to blurt out
-	var/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!")
+	var/static/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!")
 	/// Max message length
 	var/max_length = MAX_MESSAGE_LEN
 	/// The modal window
 	var/datum/tgui_window/window
 	/// Boolean for whether the tgui_say was opened by the user.
 	var/window_open
-	/// monkestation addition
-	/// stores whichever channel the window was opened with
-	/// ideally this would instead be the window's selected channel but that will require a more involved change
-	var/initial_channel
+	/// What text was present in the say box the last time save_text was called
+	var/saved_text = ""
 
 /** Creates the new input window to exist in the background. */
 /datum/tgui_say/New(client/client, id)
@@ -75,6 +73,7 @@
 		"scale" = client.prefs?.read_preference(/datum/preference/toggle/ui_scale),
 		"maxLength" = max_length,
 	))
+
 	stop_thinking()
 	return TRUE
 
@@ -90,10 +89,7 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-	if(payload["channel"] != OOC_CHANNEL && (payload["channel"] != ADMIN_CHANNEL) && (payload["channel"] != MENTOR_CHANNEL))
-		// monkestation edit start
-		initial_channel = payload["channel"]
-		// monkestation edit end
+	if(payload["channel"] != OOC_CHANNEL && payload["channel"] != ADMIN_CHANNEL && payload["channel"] != MENTOR_CHANNEL) //monkestation edit: mentorchat
 		start_thinking()
 	if(!client.typing_indicators)
 		log_speech_indicators("[key_name(client)] started typing at [loc_name(client.mob)], indicators DISABLED.")
@@ -108,9 +104,6 @@
 	stop_thinking()
 	if(!client.typing_indicators)
 		log_speech_indicators("[key_name(client)] stopped typing at [loc_name(client.mob)], indicators DISABLED.")
-	// monkestation edit start
-	initial_channel = null
-	// monkestation edit end
 
 /**
  * The equivalent of ui_act, this waits on messages from the window
@@ -137,7 +130,7 @@
 	if (type == "typing")
 		start_typing()
 		return TRUE
-	if (type == "entry" || type == "force")
+	if (type == "entry" || type == "force" || type == "save")
 		handle_entry(type, payload)
 		return TRUE
 	return FALSE

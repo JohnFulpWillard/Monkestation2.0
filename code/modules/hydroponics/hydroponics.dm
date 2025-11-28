@@ -71,11 +71,14 @@
 	var/helping_tray = FALSE
 
 /obj/machinery/hydroponics/Initialize(mapload)
+	. = ..()
+	log_mapping("[src] was created at [AREACOORD(src)], this is supposed to be using /obj/machinery/growing instead!")
+	return INITIALIZE_HINT_QDEL
+/*
 	create_reagents(40)
 	reagents.add_reagent(/datum/reagent/plantnutriment/eznutriment, 10) //Half filled nutrient trays for dirt trays to have more to grow with in prison/lavaland.
 	. = ..()
 	update_overlays()
-
 	var/static/list/hovering_item_typechecks = list(
 		/obj/item/plant_analyzer = list(
 			SCREENTIP_CONTEXT_LMB = "Scan tray stats",
@@ -93,6 +96,7 @@
 	register_context()
 
 	return INITIALIZE_HINT_LATELOAD
+*/
 
 /obj/machinery/hydroponics/click_alt(mob/living/user)
 	self_growing = !self_growing

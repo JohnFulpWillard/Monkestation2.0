@@ -1,19 +1,20 @@
-import { useBackend, useLocalState } from '../backend';
-import { Item } from './Uplink/GenericUplink';
-import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
-import { MalfAiModules } from './common/MalfAiModules';
-import { BooleanLike } from 'common/react';
-import { multiline } from 'common/string';
+import { useState } from 'react';
+import { BlockQuote, Button, Section, Stack, Tabs } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { MalfAiModules } from './common/MalfAiModules';
 import {
+  type Objective,
   ObjectivePrintout,
-  Objective,
   ReplaceObjectivesButton,
 } from './common/Objectives';
+import type { Item } from './Uplink/GenericUplink';
 
 const allystyle = {
-  color: 'yellow',
   fontWeight: 'bold',
+  color: 'yellow',
 };
 
 const badstyle = {
@@ -45,7 +46,7 @@ type Data = {
   can_change_objective: BooleanLike;
 };
 
-const IntroductionSection = (props) => {
+function IntroductionSection(props) {
   const { data } = useBackend<Data>();
   const { intro, objectives, can_change_objective } = data;
 
@@ -57,7 +58,7 @@ const IntroductionSection = (props) => {
           <ObjectivePrintout
             objectives={objectives}
             titleMessage="Your prime objectives"
-            objectivePrefix="≥"
+            objectivePrefix="&#8805-"
             objectiveFollowup={
               <ReplaceObjectivesButton
                 can_change_objective={can_change_objective}
@@ -70,9 +71,9 @@ const IntroductionSection = (props) => {
       </Stack>
     </Section>
   );
-};
+}
 
-const FlavorSection = (props) => {
+function FlavorSection(props) {
   const { data } = useBackend<Data>();
   const { allies, goal } = data;
 
@@ -85,10 +86,10 @@ const FlavorSection = (props) => {
           mr={-0.8}
           mt={-0.5}
           icon="hammer"
-          tooltip={multiline`
+          tooltip="
             This is a gameplay suggestion for bored ais.
             You don't have to follow it, unless you want some
-            ideas for how to spend the round.`}
+            ideas for how to spend the round."
           tooltipPosition="bottom-start"
         >
           Policy
@@ -128,9 +129,9 @@ const FlavorSection = (props) => {
       </Stack>
     </Section>
   );
-};
+}
 
-const CodewordsSection = (props) => {
+function CodewordsSection(props) {
   const { data } = useBackend<Data>();
   const { has_codewords, phrases, responses } = data;
 
@@ -175,18 +176,15 @@ const CodewordsSection = (props) => {
       </Stack>
     </Section>
   );
-};
+}
 
 enum Screen {
   Intro,
   Modules,
 }
 
-export const AntagInfoMalf = (props) => {
-  const [antagInfoTab, setAntagInfoTab] = useLocalState<Screen>(
-    'antagInfoTab',
-    Screen.Intro,
-  );
+export function AntagInfoMalf(props) {
+  const [antagInfoTab, setAntagInfoTab] = useState<Screen>(Screen.Intro);
 
   return (
     <Window
@@ -241,4 +239,4 @@ export const AntagInfoMalf = (props) => {
       </Window.Content>
     </Window>
   );
-};
+}

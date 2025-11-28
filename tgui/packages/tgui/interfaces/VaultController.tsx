@@ -1,7 +1,13 @@
-import { toFixed } from 'common/math';
-import { BooleanLike } from 'common/react';
+import {
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -51,7 +57,7 @@ const VaultList = (props) => {
             bad: [-Infinity, 0.3],
           }}
         >
-          {toFixed(stored / 1000) + ' / ' + toFixed(max / 1000) + ' kW'}
+          {`${toFixed(stored / 1000)} / ${toFixed(max / 1000)} kW`}
         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>

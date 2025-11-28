@@ -7,8 +7,8 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
-import { BooleanLike } from 'common/react';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -204,7 +204,7 @@ const OmnitongueToggle = (props) => {
       selected={omnitongue}
       onClick={() => act('toggle_omnitongue')}
     >
-      {'Omnitongue ' + (omnitongue ? 'Enabled' : 'Disabled')}
+      {`Omnitongue ${omnitongue ? 'Enabled' : 'Disabled'}`}
     </Button>
   );
 };
@@ -251,7 +251,10 @@ export const LanguageMenu = (props) => {
               <Table.Cell>Speak</Table.Cell>
               <Table.Cell>Understand</Table.Cell>
               <Table.Cell>
-                <Tooltip content="Use this key in your message to speak in this language.">
+                <Tooltip
+                  content="Use this key in your message
+                  to speak in this language."
+                >
                   <Box
                     inline
                     style={{
@@ -264,7 +267,10 @@ export const LanguageMenu = (props) => {
               </Table.Cell>
               {!!is_living && (
                 <Table.Cell>
-                  <Tooltip content="Determines which language you speak naturally, without using the 'key'.">
+                  <Tooltip
+                    content="Determines which language you speak
+                    naturally, without using the 'key'."
+                  >
                     <Box
                       inline
                       style={{

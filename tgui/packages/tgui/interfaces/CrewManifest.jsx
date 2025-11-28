@@ -1,6 +1,7 @@
-import { classes } from 'common/react';
+import { Icon, Section, Table, Tooltip } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Icon, Section, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 const commandJobs = [
@@ -9,6 +10,7 @@ const commandJobs = [
   'Chief Engineer',
   'Research Director',
   'Chief Medical Officer',
+  'Quartermaster',
 ];
 
 export const CrewManifest = (props) => {
@@ -21,7 +23,7 @@ export const CrewManifest = (props) => {
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => (
           <Section
-            className={'CrewManifest--' + dept}
+            className={`CrewManifest--${dept}`}
             key={dept}
             title={
               dept +
@@ -50,7 +52,7 @@ export const CrewManifest = (props) => {
                     minWidth="40px"
                     width="40px"
                   >
-                    {positions[dept].exceptions.includes(crewMember.trim) && (
+                    {positions[dept].exceptions.includes(crewMember.rank) && (
                       <Tooltip content="No position limit" position="bottom">
                         <Icon className="CrewManifest__Icon" name="infinity" />
                       </Tooltip>

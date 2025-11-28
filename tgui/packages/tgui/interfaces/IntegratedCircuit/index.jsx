@@ -1,19 +1,22 @@
-import { useBackend } from '../../backend';
-import { Input, InfinitePlane, Stack, Box, Button } from '../../components';
 import { Component } from 'react';
-import { Window } from '../../layouts';
+import { Box, Button, InfinitePlane, Input, Stack } from 'tgui-core/components';
+
 import { resolveAsset } from '../../assets';
+import { useBackend } from '../../backend';
+import { Window } from '../../layouts';
+import { Connections } from '../common/Connections';
 import { CircuitInfo } from './CircuitInfo';
+import { ComponentMenu } from './ComponentMenu';
 import {
   ABSOLUTE_Y_OFFSET,
   MOUSE_BUTTON_LEFT,
   TIME_UNTIL_PORT_RELEASE_WORKS,
+  VARIABLE_ASSOC_LIST,
+  VARIABLE_LIST,
 } from './constants';
-import { Connections } from '../common/Connections';
-import { ObjectComponent } from './ObjectComponent';
 import { DisplayComponent } from './DisplayComponent';
+import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
-import { ComponentMenu } from './ComponentMenu';
 
 export class IntegratedCircuit extends Component {
   constructor(props) {
@@ -91,8 +94,8 @@ export class IntegratedCircuit extends Component {
     position.color = port.color;
 
     if (
-      isNaN(position.x) ||
-      isNaN(position.y) ||
+      Number.isNaN(position.x) ||
+      Number.isNaN(position.y) ||
       (lastPosition &&
         lastPosition.x === position.x &&
         lastPosition.y === position.y)
@@ -345,8 +348,8 @@ export class IntegratedCircuit extends Component {
     act('add_setter_or_getter', {
       variable: draggingVariable,
       is_setter: variableIsSetter,
-      rel_x: xPos * Math.pow(zoom, -1),
-      rel_y: (yPos + ABSOLUTE_Y_OFFSET) * Math.pow(zoom, -1),
+      rel_x: xPos * zoom ** -1,
+      rel_y: (yPos + ABSOLUTE_Y_OFFSET) * zoom ** -1,
     });
   }
 
@@ -381,8 +384,8 @@ export class IntegratedCircuit extends Component {
 
     act('print_component', {
       component_to_print: draggingComponent.type,
-      rel_x: xPos * Math.pow(zoom, -1),
-      rel_y: (yPos + ABSOLUTE_Y_OFFSET) * Math.pow(zoom, -1),
+      rel_x: xPos * zoom ** -1,
+      rel_y: (yPos + ABSOLUTE_Y_OFFSET) * zoom ** -1,
     });
   }
 
@@ -398,6 +401,7 @@ export class IntegratedCircuit extends Component {
       examined_rel_y,
       screen_x,
       screen_y,
+      grid_mode,
       is_admin,
       variables,
       global_basic_types,
@@ -425,7 +429,7 @@ export class IntegratedCircuit extends Component {
         for (const output of input.connected_to) {
           const output_port = locations[output];
           connections.push({
-            color: (output_port && output_port.color) || 'blue',
+            color: output_port?.color || 'blue',
             from: output_port,
             to: locations[input.ref],
           });
@@ -438,11 +442,11 @@ export class IntegratedCircuit extends Component {
       const isOutput = selectedPort.is_output;
       const portLocation = locations[selectedPort.ref];
       const mouseCoords = {
-        x: mouseX * Math.pow(zoom, -1),
-        y: (mouseY + ABSOLUTE_Y_OFFSET) * Math.pow(zoom, -1),
+        x: mouseX * zoom ** -1,
+        y: (mouseY + ABSOLUTE_Y_OFFSET) * zoom ** -1,
       };
       connections.push({
-        color: (portLocation && portLocation.color) || 'blue',
+        color: portLocation?.color || 'blue',
         from: isOutput ? portLocation : mouseCoords,
         to: isOutput ? mouseCoords : portLocation,
       });
@@ -453,59 +457,61 @@ export class IntegratedCircuit extends Component {
         width={1200}
         height={800}
         buttons={
-          <Box width="160px" position="absolute" top="5px" height="22px">
-            <Stack>
-              <Stack.Item grow>
-                <Input
-                  fluid
-                  placeholder="Name"
-                  value={display_name}
-                  onChange={(e, value) =>
-                    act('set_display_name', { display_name: value })
-                  }
-                />
-              </Stack.Item>
-              <Stack.Item basis="24px">
+          <Stack>
+            <Stack.Item>
+              <Input
+                placeholder="Name"
+                value={display_name}
+                onBlur={(value) =>
+                  act('set_display_name', { display_name: value })
+                }
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="transparent"
+                tooltip="Show Variables Menu"
+                icon="cog"
+                selected={variableMenuOpen}
+                onClick={() =>
+                  this.setState((state) => ({
+                    variableMenuOpen: !state.variableMenuOpen,
+                  }))
+                }
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="transparent"
+                tooltip="Show Components Menu"
+                icon="plus"
+                selected={componentMenuOpen}
+                onClick={() =>
+                  this.setState((state) => ({
+                    componentMenuOpen: !state.componentMenuOpen,
+                  }))
+                }
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="transparent"
+                tooltip="Enable Grid Aligning"
+                icon="th-large"
+                selected={grid_mode}
+                onClick={() => act('toggle_grid_mode')}
+              />
+            </Stack.Item>
+            {!!is_admin && (
+              <Stack.Item>
                 <Button
-                  position="absolute"
-                  top={0}
                   color="transparent"
-                  icon="cog"
-                  selected={variableMenuOpen}
-                  onClick={() =>
-                    this.setState((state) => ({
-                      variableMenuOpen: !state.variableMenuOpen,
-                    }))
-                  }
+                  onClick={() => act('save_circuit')}
+                  icon="save"
                 />
               </Stack.Item>
-              <Stack.Item basis="24px">
-                <Button
-                  position="absolute"
-                  top={0}
-                  color="transparent"
-                  icon="plus"
-                  selected={componentMenuOpen}
-                  onClick={() =>
-                    this.setState((state) => ({
-                      componentMenuOpen: !state.componentMenuOpen,
-                    }))
-                  }
-                />
-              </Stack.Item>
-              {!!is_admin && (
-                <Stack.Item>
-                  <Button
-                    position="absolute"
-                    top={0}
-                    color="transparent"
-                    onClick={() => act('save_circuit')}
-                    icon="save"
-                  />
-                </Stack.Item>
-              )}
-            </Stack>
-          </Box>
+            )}
+          </Stack>
         }
       >
         <Window.Content
@@ -518,6 +524,7 @@ export class IntegratedCircuit extends Component {
             height="100%"
             backgroundImage={resolveAsset('grid_background.png')}
             imageWidth={900}
+            scalePadding={componentMenuOpen ? '300px' : '0'}
             onZoomChange={this.handleZoomChange}
             onBackgroundMoved={this.handleBackgroundMoved}
             initialLeft={screen_x}
@@ -536,6 +543,7 @@ export class IntegratedCircuit extends Component {
                     onPortRightClick={this.handlePortRightClick}
                     onPortMouseUp={this.handlePortUp}
                     act={act}
+                    gridMode={grid_mode}
                   />
                 ),
             )}
@@ -582,11 +590,12 @@ export class IntegratedCircuit extends Component {
                 variables={variables}
                 types={global_basic_types}
                 onClose={(event) => this.setState({ variableMenuOpen: false })}
-                onAddVariable={(name, type, asList, event) =>
+                onAddVariable={(name, type, listType, event) =>
                   act('add_variable', {
                     variable_name: name,
                     variable_datatype: type,
-                    is_list: asList,
+                    is_list: listType === VARIABLE_LIST,
+                    is_assoc_list: listType === VARIABLE_ASSOC_LIST,
                   })
                 }
                 onRemoveVariable={(name, event) =>

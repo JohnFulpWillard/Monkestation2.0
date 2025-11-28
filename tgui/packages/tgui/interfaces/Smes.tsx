@@ -1,22 +1,19 @@
-import { round } from 'common/math';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   LabeledList,
   ProgressBar,
   Section,
   Slider,
-} from '../components';
-import { formatPower } from '../format';
+  Stack,
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { round } from 'tgui-core/math';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-// Common power multiplier
-const POWER_MUL = 1e3;
-
 type Data = {
-  capacityPercent: number;
   capacity: number;
   charge: number;
   inputAttempt: number;
@@ -30,6 +27,9 @@ type Data = {
   outputLevelMax: number;
   outputUsed: number;
 };
+
+// Common power multiplier
+const POWER_MUL = 1e3;
 
 export const Smes = () => {
   const { act, data } = useBackend<Data>();
@@ -47,6 +47,7 @@ export const Smes = () => {
     outputLevelMax,
     outputUsed,
   } = data;
+
   const capacityPercent = round(100 * (charge / capacity), 0.1);
   const inputState =
     (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
@@ -65,20 +66,20 @@ export const Smes = () => {
             }}
           />
         </Section>
-        <Section title="Input">
-          <LabeledList>
-            <LabeledList.Item
-              label="Charge Mode"
-              buttons={
-                <Button
-                  icon={inputAttempt ? 'sync-alt' : 'times'}
-                  selected={inputAttempt}
-                  onClick={() => act('tryinput')}
-                >
-                  {inputAttempt ? 'Auto' : 'Off'}
-                </Button>
-              }
+        <Section
+          title="Input"
+          buttons={
+            <Button
+              icon={inputAttempt ? 'sync-alt' : 'times'}
+              selected={inputAttempt}
+              onClick={() => act('tryinput')}
             >
+              {inputAttempt ? 'Auto' : 'Off'}
+            </Button>
+          }
+        >
+          <LabeledList>
+            <LabeledList.Item label="Charge Mode">
               <Box color={inputState}>
                 {(capacityPercent >= 100 && 'Fully Charged') ||
                   (inputting && 'Charging') ||
@@ -86,8 +87,8 @@ export const Smes = () => {
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Input">
-              <Flex inline width="100%">
-                <Flex.Item>
+              <Stack fill>
+                <Stack.Item>
                   <Button
                     icon="fast-backward"
                     disabled={inputLevel === 0}
@@ -106,8 +107,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item grow={1} mx={1}>
+                </Stack.Item>
+                <Stack.Item grow={1} mx={1}>
                   <Slider
                     value={inputLevel / POWER_MUL}
                     fillValue={inputAvailable / POWER_MUL}
@@ -116,14 +117,14 @@ export const Smes = () => {
                     step={5}
                     stepPixelSize={4}
                     format={(value) => formatPower(value * POWER_MUL, 1)}
-                    onDrag={(e, value) =>
+                    onChange={(e, value) =>
                       act('input', {
                         target: value * POWER_MUL,
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="forward"
                     disabled={inputLevel === inputLevelMax}
@@ -142,28 +143,28 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Available">
               {formatPower(inputAvailable)}
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title="Output">
-          <LabeledList>
-            <LabeledList.Item
-              label="Output Mode"
-              buttons={
-                <Button
-                  icon={outputAttempt ? 'power-off' : 'times'}
-                  selected={outputAttempt}
-                  onClick={() => act('tryoutput')}
-                >
-                  {outputAttempt ? 'On' : 'Off'}
-                </Button>
-              }
+        <Section
+          title="Output"
+          buttons={
+            <Button
+              icon={outputAttempt ? 'power-off' : 'times'}
+              selected={outputAttempt}
+              onClick={() => act('tryoutput')}
             >
+              {outputAttempt ? 'On' : 'Off'}
+            </Button>
+          }
+        >
+          <LabeledList>
+            <LabeledList.Item label="Output Mode">
               <Box color={outputState}>
                 {outputting
                   ? 'Sending'
@@ -173,8 +174,8 @@ export const Smes = () => {
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Output">
-              <Flex inline width="100%">
-                <Flex.Item>
+              <Stack fill>
+                <Stack.Item>
                   <Button
                     icon="fast-backward"
                     disabled={outputLevel === 0}
@@ -193,8 +194,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item grow={1} mx={1}>
+                </Stack.Item>
+                <Stack.Item grow={1} mx={1}>
                   <Slider
                     value={outputLevel / POWER_MUL}
                     minValue={0}
@@ -202,14 +203,14 @@ export const Smes = () => {
                     step={5}
                     stepPixelSize={4}
                     format={(value) => formatPower(value * POWER_MUL, 1)}
-                    onDrag={(e, value) =>
+                    onChange={(e, value) =>
                       act('output', {
                         target: value * POWER_MUL,
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="forward"
                     disabled={outputLevel === outputLevelMax}
@@ -228,8 +229,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Outputting">
               {formatPower(outputUsed)}

@@ -1,13 +1,13 @@
-import { BooleanLike } from 'common/react';
+import { Box, Button, Image, NoticeBox, Section } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Box, Section, NoticeBox, DmIcon } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
   server_connected: BooleanLike;
   loaded_item: string;
   item_icon: string;
-  item_icon_state: string;
   indestructible: BooleanLike;
   already_deconstructed: BooleanLike;
   recoverable_points: string;
@@ -28,7 +28,6 @@ export const DestructiveAnalyzer = (props) => {
     indestructible,
     loaded_item,
     item_icon,
-    item_icon_state,
     already_deconstructed,
     recoverable_points,
     research_point_id,
@@ -58,13 +57,7 @@ export const DestructiveAnalyzer = (props) => {
     );
   }
   return (
-    <Window
-      width={400}
-      height={260}
-      scrollable
-      fill
-      title="Destructive Analyzer"
-    >
+    <Window width={400} height={260} title="Destructive Analyzer">
       <Window.Content scrollable>
         <Section
           title={loaded_item}
@@ -76,11 +69,10 @@ export const DestructiveAnalyzer = (props) => {
             />
           }
         >
-          <DmIcon
-            icon={item_icon}
-            icon_state={item_icon_state}
-            width="64px"
+          <Image
+            src={`data:image/jpeg;base64,${item_icon}`}
             height="64px"
+            width="64px"
             verticalAlign="middle"
           />
         </Section>

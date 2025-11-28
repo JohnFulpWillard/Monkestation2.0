@@ -1,150 +1,82 @@
-import { useBackend, useLocalState } from '../../backend';
-import {
-  PreferencesSelectedPage,
-  PreferencesMenuData,
-  PreferencesCurrentWindow,
-} from './data';
-import { CharacterPreferenceWindow } from './CharacterPreferenceWindow';
-import { Box, Button, Section, Stack } from '../../components';
-import { PageButton } from './PageButton';
+import { Suspense, useEffect, useState } from 'react';
+import { exhaustiveCheck } from 'tgui-core/exhaustive';
+import { fetchRetry } from 'tgui-core/http';
+
+import { resolveAsset } from '../../assets';
+import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { KeybindingsPage } from './KeybindingsPage';
-import { GamePreferencesPage } from './GamePreferencesPage';
-import { VolumeMixerPage } from './VolumeMixerPage';
-import { exhaustiveCheck } from 'common/exhaustive';
+import { logger } from '../../logging';
+import { LoadingScreen } from '../common/LoadingScreen';
+import { CharacterPreferenceWindow } from './CharacterPreferences';
+import { GamePreferenceWindow } from './GamePreferences';
+import {
+  GamePreferencesSelectedPage,
+  type PreferencesMenuData,
+  PrefsWindow,
+  type ServerData,
+} from './types';
+import { RandomToggleState } from './useRandomToggleState';
+import { ServerPrefs } from './useServerPrefs';
 
-export const PreferencesMenu = () => {
-  const { act, data } = useBackend<PreferencesMenuData>();
-  const [currentPageLocal, setCurrentPage] = useLocalState(
-    'currentPageGamePrefs',
-    data.starting_page ?? PreferencesSelectedPage.Settings,
+export function PreferencesMenu(props) {
+  return (
+    <Window width={920} height={770}>
+      <Window.Content>
+        <Suspense fallback={<LoadingScreen />}>
+          <PrefsWindowInner />
+        </Suspense>
+      </Window.Content>
+    </Window>
   );
+}
 
-  let currentPage = currentPageLocal;
-  let setGamePage = setCurrentPage;
+/** We're abstracting this by one level to use Suspense */
+function PrefsWindowInner(props) {
+  const { data } = useBackend<PreferencesMenuData>();
+  const { window } = data;
 
-  const window = data.window;
-  if (window === PreferencesCurrentWindow.Character) {
-    currentPage = PreferencesSelectedPage.Character;
+  const [serverData, setServerData] = useState<ServerData>();
+  const randomization = useState(false);
 
-    setGamePage = (page: PreferencesSelectedPage) => {
-      setCurrentPage(page);
-      act('open_game');
-    };
-  }
-
-  let pageContents: any;
+  let content;
+  let title;
   switch (window) {
-    case PreferencesCurrentWindow.Character:
-      pageContents = <CharacterPreferenceWindow />;
+    case PrefsWindow.Character:
+      content = <CharacterPreferenceWindow />;
+      title = 'Character Preferences';
       break;
-    case PreferencesCurrentWindow.Game:
-      switch (currentPageLocal) {
-        case PreferencesSelectedPage.Settings:
-          pageContents = <GamePreferencesPage />;
-          break;
-        case PreferencesSelectedPage.Keybindings:
-          pageContents = <KeybindingsPage />;
-          break;
-        case PreferencesSelectedPage.Volume:
-          pageContents = <VolumeMixerPage />;
-          break;
-        case PreferencesSelectedPage.Character:
-          pageContents = <Box>Error</Box>;
-          break;
-        default:
-          exhaustiveCheck(currentPageLocal);
-      }
+    case PrefsWindow.Game:
+      content = <GamePreferenceWindow />;
+      title = 'Game Preferences';
+      break;
+    case PrefsWindow.Keybindings:
+      content = (
+        <GamePreferenceWindow
+          startingPage={GamePreferencesSelectedPage.Keybindings}
+        />
+      );
+      title = 'Keybindings';
       break;
     default:
       exhaustiveCheck(window);
   }
 
-  const settingsCatergories = (
-    <Stack vertical width="115px">
-      <Stack.Item>
-        <PageButton
-          currentPage={currentPage}
-          page={PreferencesSelectedPage.Character}
-          setPage={(_) => {
-            act('open_character');
-          }}
-        >
-          Characters
-        </PageButton>
-        <Button
-          align="center"
-          fontSize="1em"
-          fluid
-          onClick={() => {
-            act('open_store');
-          }}
-        >
-          Loadout Store
-        </Button>
-      </Stack.Item>
-      <Stack.Divider />
-      <Stack.Item>
-        <PageButton
-          currentPage={currentPage}
-          page={PreferencesSelectedPage.Settings}
-          setPage={setGamePage}
-        >
-          Settings
-        </PageButton>
-      </Stack.Item>
-      <Stack.Item>
-        <PageButton
-          currentPage={currentPage}
-          page={PreferencesSelectedPage.Keybindings}
-          setPage={setGamePage}
-        >
-          Keybindings
-        </PageButton>
-      </Stack.Item>
-      <Stack.Item>
-        <PageButton
-          currentPage={currentPage}
-          page={PreferencesSelectedPage.Volume}
-          setPage={setGamePage}
-        >
-          Volume Mixer
-        </PageButton>
-      </Stack.Item>
-      <Stack.Divider />
-      {window === PreferencesCurrentWindow.Character ? (
-        <Stack.Item>
-          <Button
-            wrap
-            align="center"
-            fontSize="1em"
-            fluid
-            onClick={() => {
-              act('try_fix_preview');
-            }}
-          >
-            Try Fix Preview
-          </Button>
-        </Stack.Item>
-      ) : (
-        ''
-      )}
-    </Stack>
-  );
+  useEffect(() => {
+    fetchRetry(resolveAsset('preferences.json'))
+      .then((response) => response.json())
+      .then((data) => {
+        setServerData(data);
+      })
+      .catch((error) => {
+        logger.log('Failed to fetch preferences.json', error);
+      });
+  }, []);
 
   return (
-    <Window title="Preferences" width={1215} height={850} theme="generic">
-      <Window.Content>
-        <Stack horizontal height="100%">
-          <Stack.Item>
-            <Section height="100%" title="Preferences">
-              {settingsCatergories}
-            </Section>
-          </Stack.Item>
-          <Stack.Divider />
-          <Stack.Item grow>{pageContents}</Stack.Item>
-        </Stack>
-      </Window.Content>
-    </Window>
+    <ServerPrefs.Provider value={serverData}>
+      <RandomToggleState.Provider value={randomization}>
+        {content}
+      </RandomToggleState.Provider>
+    </ServerPrefs.Provider>
   );
-};
+}

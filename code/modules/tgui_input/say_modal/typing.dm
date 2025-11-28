@@ -40,7 +40,7 @@
 /datum/tgui_say/proc/start_thinking()
 	if(!window_open)
 		return FALSE
-	return client.start_thinking() // monkestation edit: LOOC thinking indicators
+	return client.start_thinking()
 
 /** Removes typing/thinking indicators and flags the mob as not thinking */
 /datum/tgui_say/proc/stop_thinking()
@@ -68,7 +68,7 @@
 /mob/living/create_thinking_indicator()
 	if(active_thinking_indicator || active_typing_indicator || stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
 		return FALSE
-	var/bubble_icon = client?.tgui_say?.initial_channel == LOOC_CHANNEL ? "looc" : src.bubble_icon // monkestation edit: LOOC thinking indicators
+//	var/bubble_icon_used = client?.tgui_say?.initial_channel == LOOC_CHANNEL ? "looc" : bubble_icon // monkestation edit: LOOC thinking indicators
 	active_thinking_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]3", TYPING_LAYER)
 	add_overlay(active_thinking_indicator)
 	play_fov_effect(src, 6, "talk", ignore_self = TRUE)
@@ -82,7 +82,7 @@
 /mob/living/create_typing_indicator()
 	if(active_typing_indicator || active_thinking_indicator || stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
 		return FALSE
-	var/bubble_icon = client?.tgui_say?.initial_channel == LOOC_CHANNEL ? "looc" : src.bubble_icon // monkestation edit: LOOC thinking indicators
+//	var/bubble_icon_used = client?.tgui_say?.initial_channel == LOOC_CHANNEL ? "looc" : bubble_icon // monkestation edit: LOOC thinking indicators
 	active_typing_indicator = mutable_appearance('icons/mob/effects/talk.dmi', "[bubble_icon]0", TYPING_LAYER)
 	add_overlay(active_typing_indicator)
 	play_fov_effect(src, 6, "talk", ignore_self = TRUE)

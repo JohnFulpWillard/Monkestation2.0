@@ -7,8 +7,8 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
-import type { BooleanLike } from 'common/react';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
@@ -85,20 +85,17 @@ const ImplantDisplay = (props: { implant: ImplantInfo }) => {
 };
 
 // When given a list of implants, sorts them by category
-const sortImplants = (implants: ImplantInfo[]) => {
-  const implantsByCategory: Record<string, ImplantInfo[]> = implants.reduce(
-    (acc, implant) => {
-      if (implant.category in acc) {
-        acc[implant.category].push(implant);
-      } else {
-        acc[implant.category] = [implant];
-      }
-      return acc;
-    },
-    {},
-  );
-
-  return implantsByCategory;
+const sortImplants = (
+  implants: ImplantInfo[],
+): Record<string, ImplantInfo[]> => {
+  return implants.reduce((acc, implant) => {
+    if (implant.category in acc) {
+      acc[implant.category].push(implant);
+    } else {
+      acc[implant.category] = [implant];
+    }
+    return acc;
+  }, {});
 };
 
 // Converts a category ("tracking implant") to a more readable format ("Tracking")
