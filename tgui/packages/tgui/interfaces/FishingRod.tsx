@@ -2,11 +2,6 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { Box, Stack, Button, Section, Flex } from '../components';
 
-type Quality = {
-  name: string;
-  kind: 'good' | 'neutral' | 'medium';
-};
-
 type FishingRodData = {
   bait_name: string;
   bait_icon: string;
@@ -67,10 +62,10 @@ const FishingRodSlot = (props: FishingSlotProps) => {
 };
 
 export const FishingRod = (props) => {
-  const { act, data } = useBackend<FishingRodData>();
+  const { data } = useBackend<FishingRodData>();
 
   return (
-    <Window>
+    <Window height={300} width={300}>
       <Window.Content>
         <Section>
           <FishingRodSlot

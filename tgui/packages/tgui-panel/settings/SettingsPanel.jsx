@@ -479,7 +479,7 @@ const ExperimentalSettings = (props, context) => {
                   chatRenderer.processBatch([
                     {
                       html:
-                        '<div class="boxed_message"><b>Websocket Information</b><br><span class="notice">' +
+                        '<div className="boxed_message"><b>Websocket Information</b><br><span className="notice">' +
                         'Quick rundown. This connects to the specified websocket server, and ' +
                         'forwards all data/payloads from the server, to the websocket. Allowing ' +
                         'you to have in-game actions reflect in other services, or the real ' +
