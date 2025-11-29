@@ -146,7 +146,7 @@ const AnnouncementTab = () => {
       <Box align="center">Selected Voice</Box>
       <Dropdown
         width="100%"
-        displayText={current_voice}
+        selected={current_voice}
         options={voice_names}
         onSelected={(voice) => act('set_voice', { voice })}
       />

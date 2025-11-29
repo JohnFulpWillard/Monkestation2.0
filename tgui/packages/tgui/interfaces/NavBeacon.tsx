@@ -106,7 +106,7 @@ export const NavBeaconControlSection = (props: DisabledProps) => {
           <Dropdown
             disabled={!!props.disabled}
             options={static_controls.direction_options}
-            displayText={controls.delivery_direction || 'none'}
+            selected={controls.delivery_direction || 'none'}
             onSelected={(value) =>
               act('set_delivery_direction', {
                 direction: value,

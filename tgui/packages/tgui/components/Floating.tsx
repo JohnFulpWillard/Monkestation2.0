@@ -92,7 +92,7 @@ type Props = {
  *  Floating lets you position elements so that they don't go out of the bounds of the window.
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
-export function Floating(props: Props) {
+export const Floating = (props: Props) => {
   const {
     children,
     content,
@@ -211,4 +211,4 @@ export function Floating(props: Props) {
       )}
     </>
   );
-}
+};

@@ -249,7 +249,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
               <Dropdown
                 width="100%"
                 options={job.alt_titles}
-                displayText={alt_title_selected}
+                selected={alt_title_selected}
                 onSelected={(value) =>
                   act('set_job_title', { job: name, new_title: value })
                 }
@@ -258,7 +258,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
           </Stack.Item>
         </Tooltip>
 
-        <Stack.Item width="40%" className="options" /* SKYRAT EDIT */>
+        <Stack.Item grow className="options">
           {rightSide}
         </Stack.Item>
       </Stack>
@@ -328,7 +328,7 @@ const Gap = (props: { amount: number }) => {
   return <Box height={`calc(${props.amount}px + 0.2em)`} />;
 };
 
-const JoblessRoleDropdown = (props) => {
+const JoblessRoleDropdown = () => {
   const { act, data } = useBackend<PreferencesMenuData>();
   const selected = data.character_preferences.misc.joblessrole;
 
@@ -347,18 +347,17 @@ const JoblessRoleDropdown = (props) => {
     },
   ];
 
+  const selection = options?.find(
+    (option) => option.value === selected,
+  )!.displayText;
+
   return (
     <Box position="absolute" right={1} width="25%">
       <Dropdown
         width="100%"
-        selected={selected}
+        selected={selection}
         onSelected={createSetPreference(act, 'joblessrole')}
         options={options}
-        displayText={
-          <Box pr={1}>
-            {options.find((option) => option.value === selected)!.displayText}
-          </Box>
-        }
       />
     </Box>
   );

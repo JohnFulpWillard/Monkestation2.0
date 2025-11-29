@@ -82,7 +82,7 @@ export const DeathmatchLobby = (props) => {
                         data.admin
                       ) && <b>{player}</b>) || (
                         <Dropdown
-                          displayText={player}
+                          selected={player}
                           options={['Kick', 'Transfer host', 'Toggle observe']}
                           onSelected={(value) =>
                             act('host', {
@@ -95,7 +95,7 @@ export const DeathmatchLobby = (props) => {
                     </Table.Cell>
                     <Table.Cell grow>
                       <Dropdown
-                        displayText={data.players[player].loadout}
+                        selected={data.players[player].loadout}
                         disabled={!(data.host || player === data.self)}
                         options={data.loadouts}
                         onSelected={(value) =>
@@ -128,7 +128,7 @@ export const DeathmatchLobby = (props) => {
                         data.admin
                       ) && <b>{observer}</b>) || (
                         <Dropdown
-                          displayText={observer}
+                          selected={observer}
                           options={['Kick', 'Transfer host', 'Toggle observe']}
                           onSelected={(value) =>
                             act('host', {
@@ -150,7 +150,7 @@ export const DeathmatchLobby = (props) => {
               <Box textAlign="center">
                 {(!!data.host && (
                   <Dropdown
-                    displayText={data.map.name}
+                    selected={data.map.name}
                     options={data.maps}
                     onSelected={(value) =>
                       act('host', {

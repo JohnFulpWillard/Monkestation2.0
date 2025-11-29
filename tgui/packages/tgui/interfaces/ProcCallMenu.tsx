@@ -44,7 +44,7 @@ export const ProcCallMenu = (props) => {
                 <Stack.Item>
                   <Dropdown
                     width="100%"
-                    displayText={expected_output}
+                    selected={expected_output}
                     options={possible_types}
                     color={expected_output_color}
                     onSelected={(value) =>

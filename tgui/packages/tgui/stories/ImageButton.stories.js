@@ -38,7 +38,7 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props, context) => {
+const Story = () => {
   const [disabled, setDisabled] = useLocalState('disabled', false);
   const [onClick, setOnClick] = useLocalState('onClick', true);
   const [vertical1, setVertical1] = useLocalState('vertical1', true);
@@ -56,7 +56,7 @@ const Story = (props, context) => {
 
   const [itemIconSize, setItemIconSize] = useLocalState('itemIconSize', 2);
 
-  const [imageSize, setImageSize] = useLocalState(context, 'imageSize', 64);
+  const [imageSize, setImageSize] = useLocalState('image_size', 'imageSize', 64);
 
   const toggleVertical1 = () => {
     setVertical1(!vertical1);
@@ -85,7 +85,7 @@ const Story = (props, context) => {
           <Stack.Item basis="50%">
             <LabeledList>
               <LabeledList.Item label="Title">
-                <Input value={title} onInput={(e, value) => setTitle(value)} />
+                <Input value={title} onInput={(value) => setTitle(value)} />
               </LabeledList.Item>
               <LabeledList.Item label="Content">
                 <Input
