@@ -85,9 +85,8 @@ export const SettingsPanel = (props) => {
 };
 
 export const SettingsGeneral = (props) => {
-  const { theme, fontFamily, coloredNames, fontSize, lineHeight } = useSelector(
-    selectSettings,
-  );
+  const { theme, fontFamily, coloredNames, fontSize, lineHeight } =
+    useSelector(selectSettings);
   const dispatch = useDispatch();
   const [freeFont, setFreeFont] = useLocalState('freeFont', false);
   const [editingPanes, setEditingPanes] = useLocalState('freeFont', false);
@@ -450,10 +449,10 @@ const TextHighlightSetting = (props) => {
   );
 };
 
-const ExperimentalSettings = (props, context) => {
+const ExperimentalSettings = () => {
   const { websocketEnabled, websocketServer, scrollTrackingTolerance } =
-    useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
 
   return (
     <Section>
@@ -563,12 +562,10 @@ const LinkedToChat = () => (
   <NoticeBox color="red">Unlink Stat Panel from chat!</NoticeBox>
 );
 
-const SettingsStatPanel = (props, context) => {
-  const { statLinked, statFontSize, statTabsStyle } = useSelector(
-    context,
-    selectSettings,
-  );
-  const dispatch = useDispatch(context);
+const SettingsStatPanel = () => {
+  const { statLinked, statFontSize, statTabsStyle } =
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
 
   return (
     <Section fill>

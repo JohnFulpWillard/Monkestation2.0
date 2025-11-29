@@ -750,12 +750,6 @@ the input, or successfully enter a number.
 - `onDrag: (e, value) => void` - An event, which fires about every 500ms
 when you drag the input up and down, on release and on manual editing.
 
-**Props:**
-
-- `popperContent: ReactNode` - The content that will be put inside the popper.
-- `options?: { ... }` - An object of options to pass to `createPopper`. See [https://popper.js.org/docs/v2/constructors/#options], but the one you want most is `placement`. Valid placements are "bottom", "top", "left", and "right". You can affix "-start" and "-end" to achieve something like top left or top right respectively. You can also use "auto" (with an optional "-start" or "-end"), where a best fit will be chosen.
-- `additionalStyles: { ... }` - A map of CSS styles to add to the element that will contain the popper.
-
 ### `ProgressBar`
 
 Progress indicators inform users about the status of ongoing processes.
@@ -1119,7 +1113,7 @@ Usage:
 
 **Props:**
 
-- `position?: string` - Tooltip position. See [`Popper`](#Popper) for valid options. Defaults to "auto".
+- `position?: string` - Tooltip position.
 - `content: string` - Content of the tooltip. Must be a plain string.
 Fragments or other elements are **not** supported.
 

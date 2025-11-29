@@ -5,7 +5,7 @@ import {
   Button,
   Flex,
   LabeledList,
-  Popper,
+  Floating,
   Stack,
   TrackOutsideClicks,
   FitText,
@@ -301,11 +301,9 @@ const GenderButton = (props: {
   );
 
   return (
-    <Popper
-      options={{
-        placement: 'right-end',
-      }}
-      popperContent={
+    <Floating
+      placement="right"
+      content={
         genderMenuOpen ? (
           <Stack backgroundColor="white" ml={0.5} p={0.3}>
             {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
@@ -340,7 +338,7 @@ const GenderButton = (props: {
         tooltip="Gender"
         tooltipPosition="top"
       />
-    </Popper>
+    </Floating>
   );
 };
 
@@ -394,11 +392,10 @@ const MainFeature = (props: {
   };
 
   return (
-    <Popper
-      options={{
-        placement: 'bottom-start',
-      }}
-      popperContent={
+    <Floating
+      stopChildPropagation
+      placement="right-start"
+      content={
         isOpen ? (
           <TrackOutsideClicks onOutsideClick={handleCloseInternal}>
             <ChoicedSelection
@@ -467,7 +464,7 @@ const MainFeature = (props: {
           />
         )}
       </Button>
-    </Popper>
+    </Floating>
   );
 };
 
