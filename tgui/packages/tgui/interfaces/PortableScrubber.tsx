@@ -1,6 +1,6 @@
 import { Button, Section } from 'tgui-core/components';
 
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { PortableBasicInfo } from './common/PortableAtmos';
 import { Window } from '../layouts';
 import { getGasLabel } from '../constants';

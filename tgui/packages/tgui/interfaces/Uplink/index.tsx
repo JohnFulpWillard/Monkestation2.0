@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { Component, Fragment } from 'react';
 
 import { resolveAsset } from '../../assets';

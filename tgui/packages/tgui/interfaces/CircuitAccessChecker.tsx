@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LabeledList, Button } from 'tgui-core/components';
 import { AccessConfig } from './common/AccessConfig';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type Data = {
   oneAccess: BooleanLike;

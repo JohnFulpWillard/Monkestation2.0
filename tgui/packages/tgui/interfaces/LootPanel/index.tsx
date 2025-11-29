@@ -1,5 +1,5 @@
 import { SearchItem } from './types';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { Component } from 'react';
 import { useBackend } from '../../backend';
 import { clamp } from 'tgui-core/math';

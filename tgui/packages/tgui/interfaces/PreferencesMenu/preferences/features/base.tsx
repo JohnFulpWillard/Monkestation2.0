@@ -1,4 +1,4 @@
-import { sortBy, sortStrings } from 'es-toolkit';
+import { sortBy } from 'es-toolkit';
 import { BooleanLike, classes } from 'tgui-core/react';
 import {
   ComponentType,
@@ -83,7 +83,7 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
                 ? props.value
                 : `#${props.value}`,
               border: '2px solid white',
-              'box-sizing': 'content-box',
+              boxSizing: 'content-box',
               height: '11px',
               width: '11px',
               ...(props.shrink
@@ -139,16 +139,15 @@ export const CheckboxInputInverse = (
   );
 };
 
-export const createDropdownInput = <T extends string | number = string>(
+export function createDropdownInput<T extends string | number = string>(
   // Map of value to display texts
   choices: Record<T, ReactNode>,
   dropdownProps?: Record<T, unknown>,
-): FeatureValue<T> => {
+): FeatureValue<T> {
   return (props: FeatureValueProps<T>) => {
     return (
       <Dropdown
-        selected={props.value}
-        displayText={choices[props.value]}
+        selected={choices[props.value] as string}
         onSelected={props.handleSetValue}
         width="100%"
         options={sortChoices(Object.entries(choices)).map(
@@ -163,7 +162,7 @@ export const createDropdownInput = <T extends string | number = string>(
       />
     );
   };
-};
+}
 
 export type FeatureChoicedServerData = {
   choices: string[];
@@ -172,172 +171,6 @@ export type FeatureChoicedServerData = {
 };
 
 export type FeatureChoiced = Feature<string, string, FeatureChoicedServerData>;
-
-const capitalizeFirstLetter = (text: string) =>
-  text.toString().charAt(0).toUpperCase() + text.toString().slice(1);
-
-export const StandardizedDropdown = (props: {
-  choices: string[];
-  disabled?: boolean;
-  displayNames: Record<string, ReactNode>;
-  onSetValue: (newValue: string) => void;
-  value?: string;
-  buttons?: boolean;
-  displayHeight?: string;
-}) => {
-  const {
-    choices,
-    disabled,
-    buttons,
-    displayNames,
-    onSetValue,
-    displayHeight,
-    value,
-  } = props;
-
-  return (
-    <Dropdown
-      disabled={disabled}
-      buttons={buttons}
-      selected={value}
-      onSelected={onSetValue}
-      clipSelectedText={false}
-      displayHeight={displayHeight}
-      width="100%"
-      displayText={value ? displayNames[value] : ''}
-      options={choices.map((choice) => {
-        return {
-          displayText: displayNames[choice],
-          value: choice,
-        };
-      })}
-    />
-  );
-};
-
-export const FeatureDropdownInput = (
-  props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
-    disabled?: boolean;
-    buttons?: boolean;
-  },
-) => {
-  const serverData = props.serverData;
-  if (!serverData) {
-    return null;
-  }
-
-  const displayNames =
-    serverData.display_names ||
-    Object.fromEntries(
-      serverData.choices.map((choice) => [
-        choice,
-        capitalizeFirstLetter(choice),
-      ]),
-    );
-
-  return serverData.choices.length > 5 ? (
-    <StandardizedDropdown
-      choices={sortStrings(serverData.choices)}
-      disabled={props.disabled}
-      buttons={props.buttons}
-      displayNames={displayNames}
-      onSetValue={props.handleSetValue}
-      value={props.value}
-    />
-  ) : (
-    <StandardizedChoiceButtons
-      choices={sortStrings(serverData.choices)}
-      disabled={props.disabled}
-      displayNames={displayNames}
-      onSetValue={props.handleSetValue}
-      value={props.value}
-    />
-  );
-};
-
-export const FeatureIconnedDropdownInput = (
-  props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
-    buttons?: boolean;
-  },
-) => {
-  const serverData = props.serverData;
-  if (!serverData) {
-    return null;
-  }
-
-  const icons = serverData.icons;
-
-  const textNames =
-    serverData.display_names ||
-    Object.fromEntries(
-      serverData.choices.map((choice) => [
-        choice,
-        capitalizeFirstLetter(choice),
-      ]),
-    );
-
-  const displayNames = Object.fromEntries(
-    Object.entries(textNames).map(([choice, textName]) => {
-      let element: ReactNode = textName;
-
-      if (icons && icons[choice]) {
-        const icon = icons[choice];
-        element = (
-          <Stack>
-            <Stack.Item>
-              <Box
-                className={classes(['preferences32x32', icon])}
-                style={{
-                  transform: 'scale(0.8)',
-                }}
-              />
-            </Stack.Item>
-
-            <Stack.Item grow style={{ 'line-height': '32px' }}>
-              {element}
-            </Stack.Item>
-          </Stack>
-        );
-      }
-
-      return [choice, element];
-    }),
-  );
-
-  return (
-    <StandardizedDropdown
-      buttons={props.buttons}
-      choices={sortStrings(serverData.choices)}
-      displayNames={displayNames}
-      onSetValue={props.handleSetValue}
-      value={props.value}
-      displayHeight="32px"
-    />
-  );
-};
-
-export const StandardizedChoiceButtons = (props: {
-  choices: string[];
-  disabled?: boolean;
-  displayNames: Record<string, ReactNode>;
-  onSetValue: (newValue: string) => void;
-  value?: string;
-}) => {
-  const { choices, disabled, displayNames, onSetValue, value } = props;
-  return (
-    <>
-      {choices.map((choice) => (
-        <Button
-          key={choice}
-          content={displayNames[choice]}
-          selected={choice === value}
-          disabled={disabled}
-          onClick={() => onSetValue(choice)}
-        />
-      ))}
-    </>
-  );
-};
 
 export type FeatureNumericData = {
   minimum: number;
@@ -356,7 +189,7 @@ export const FeatureNumberInput = (
 
   return (
     <NumberInput
-      onChange={(e, value) => {
+      onChange={(value) => {
         props.handleSetValue(value);
       }}
       minValue={props.serverData.minimum}

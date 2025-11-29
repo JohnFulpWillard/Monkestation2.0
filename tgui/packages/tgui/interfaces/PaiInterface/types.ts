@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 export type PaiData = {
   available: ReadonlyArray<{ name: string; value: number }>;

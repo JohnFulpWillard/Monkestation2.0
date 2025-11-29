@@ -11,7 +11,7 @@ import { Window } from '../layouts';
 import { Color } from 'tgui-core/color';
 import { JOB2ICON } from './common/JobToIcon';
 import { toMerged } from 'es-toolkit';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { LobbyNotices, LobbyNoticesType } from './common/LobbyNotices';
 
 type Job = {

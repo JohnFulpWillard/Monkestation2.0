@@ -2,7 +2,7 @@ import { Window } from '../layouts';
 import { useBackend } from '../backend';
 import { Flex, Box } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type Hotspot = {
   center_y: number;

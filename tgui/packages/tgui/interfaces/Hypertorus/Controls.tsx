@@ -11,7 +11,7 @@ import {
 } from 'tgui-core/components';
 import { HelpDummy, HoverHelp } from './helpers';
 
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { HypertorusFilter } from '.';
 import { useBackend } from 'tgui/backend';
 

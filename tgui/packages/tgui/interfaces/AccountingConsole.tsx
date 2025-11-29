@@ -10,7 +10,7 @@ import {
 import { useBackend } from '../backend';
 import { useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type Data = {
   PlayerAccounts: PlayerAccount[];

@@ -8,7 +8,7 @@ import {
   NumberInput,
   LabeledList,
 } from 'tgui-core/components';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type ModularShieldGenData = {
   max_strength: number;

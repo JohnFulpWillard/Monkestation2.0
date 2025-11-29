@@ -1,7 +1,7 @@
 import { Button, Collapsible, Flex, Section, Stack } from 'tgui-core/components';
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
 
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { HypertorusGases } from './Gases';
 import { HypertorusParameters } from './Parameters';
 import { HypertorusRecipes } from './Recipes';

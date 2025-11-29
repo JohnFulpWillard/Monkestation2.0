@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { formatSiUnit } from 'tgui-core/format';
 import { useBackend, useLocalState } from '../backend';
 import {

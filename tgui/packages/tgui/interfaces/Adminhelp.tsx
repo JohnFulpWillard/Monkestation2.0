@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../backend';
 import { TextArea, Stack, Button, NoticeBox, Input, Box } from 'tgui-core/components';
 import { Window } from '../layouts';

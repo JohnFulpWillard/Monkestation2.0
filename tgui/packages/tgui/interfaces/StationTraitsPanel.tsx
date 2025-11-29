@@ -1,6 +1,6 @@
-import { filterMap } from 'es-toolkit';
 import { exhaustiveCheck } from 'tgui-core/exhaustive';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
+import { map, filter } from 'es-toolkit/compat';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Divider, Dropdown, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -111,15 +111,9 @@ const FutureStationTraitsPage = (props) => {
                       icon="times"
                       onClick={() => {
                         act('setup_future_traits', {
-                          station_traits: filterMap(
-                            future_station_traits,
-                            (otherTrait) => {
-                              if (otherTrait.path === trait.path) {
-                                return undefined;
-                              } else {
-                                return otherTrait.path;
-                              }
-                            },
+                          station_traits: filter(
+                            map(future_station_traits, (t) => t.path),
+                            (p) => p !== trait.path,
                           ),
                         });
                       }}

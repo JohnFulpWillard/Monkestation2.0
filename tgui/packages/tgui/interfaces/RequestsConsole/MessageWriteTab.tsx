@@ -1,5 +1,4 @@
 import { useBackend, useLocalState } from '../../backend';
-import { sortStrings } from 'es-toolkit';
 import {
   Box,
   Button,
@@ -20,9 +19,9 @@ export const MessageWriteTab = (props) => {
     information_consoles = [],
   } = data;
 
-  const sorted_assistance = sortStrings(assistance_consoles);
-  const sorted_supply = sortStrings(supply_consoles);
-  const sorted_information = sortStrings(information_consoles);
+  const sorted_assistance = assistance_consoles.sort();
+  const sorted_supply = supply_consoles.sort();
+  const sorted_information = information_consoles.sort();
 
   const resetMessage = () => {
     setMessageText('');

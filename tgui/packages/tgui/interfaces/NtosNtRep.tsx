@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
 import {

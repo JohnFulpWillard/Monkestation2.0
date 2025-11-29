@@ -1,5 +1,5 @@
 import { range } from 'es-toolkit';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { Inferno } from 'react';
 import { useBackend } from '../backend';
 import { Box, Button, FitText, Stack } from 'tgui-core/components';

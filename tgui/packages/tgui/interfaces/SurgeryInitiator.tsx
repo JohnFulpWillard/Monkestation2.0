@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { KEY_DOWN, KEY_ENTER, KEY_UP } from 'tgui-core/keycodes';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { Component } from 'react';
 import { useBackend } from '../backend';
 import { Button, KeyListener, Section, Stack } from 'tgui-core/components';

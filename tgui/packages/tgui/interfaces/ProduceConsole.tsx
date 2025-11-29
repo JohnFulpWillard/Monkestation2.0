@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { capitalize, createSearch } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';
 import {

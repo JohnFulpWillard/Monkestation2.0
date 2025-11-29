@@ -2,7 +2,7 @@ import { sortBy } from 'es-toolkit';
 import { filter } from 'es-toolkit/compat';
 import { flow } from 'tgui-core/fp';
 import { toFixed } from 'tgui-core/math';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import {
   Button,

@@ -11,7 +11,7 @@ import {
   Table,
   Tooltip,
 } from 'tgui-core/components';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { LoadingScreen } from './common/LoadingScreen';
 
 type Data =

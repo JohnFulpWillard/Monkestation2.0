@@ -11,7 +11,7 @@ import {
 } from 'tgui-core/components';
 import { useBackend, useLocalState } from '../../backend';
 import { createSearch } from 'tgui-core/string';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { NtosWindow } from '../../layouts';
 
 import { NtChat, NtMessenger, NtPicture } from './types';

@@ -10,7 +10,7 @@ import {
   Section,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type DispensableReagent = {
   title: string;

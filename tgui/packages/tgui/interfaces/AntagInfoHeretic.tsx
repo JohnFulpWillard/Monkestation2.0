@@ -1,7 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import { Section, Stack, Box, Tabs, Button, BlockQuote } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import {
   ObjectivePrintout,
   Objective,

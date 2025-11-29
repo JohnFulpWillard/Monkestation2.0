@@ -2,7 +2,7 @@ import { capitalize } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';
 import { Section, Stack, Box, Tabs, Button, Flex, DmIcon } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { ObjectivePrintout, Objective } from './common/Objectives';
 
 const Velvet = {

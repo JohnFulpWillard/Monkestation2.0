@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Item } from './Uplink/GenericUplink';
 import { BlockQuote, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { MalfAiModules } from './common/MalfAiModules';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { Window } from '../layouts';
 import {
   ObjectivePrintout,

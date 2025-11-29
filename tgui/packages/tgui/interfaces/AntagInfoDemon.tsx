@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Box, Section, Stack } from 'tgui-core/components';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { Window } from '../layouts';
 import { ObjectivePrintout, Objective } from './common/Objectives';
 

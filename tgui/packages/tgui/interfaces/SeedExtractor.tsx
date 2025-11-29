@@ -1,4 +1,4 @@
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';
 import { flow } from 'tgui-core/fp';
 import { sortBy } from 'es-toolkit';

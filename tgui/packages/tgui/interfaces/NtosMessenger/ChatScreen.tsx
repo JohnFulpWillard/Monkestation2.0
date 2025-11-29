@@ -10,7 +10,7 @@ import {
 } from 'tgui-core/components';
 import { Component, RefObject, createRef, Inferno } from 'react';
 import { NtMessage, NtMessenger, NtPicture } from './types';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import { decodeHtmlEntities } from 'tgui-core/string';
 
