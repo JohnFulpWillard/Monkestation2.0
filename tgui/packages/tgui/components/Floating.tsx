@@ -1,9 +1,12 @@
+import { type BooleanLike, classes } from 'common/react';
 import {
-  FloatingPortal,
-  type Placement,
   autoUpdate,
+  FloatingPortal,
   flip,
   offset,
+  type Placement,
+  safePolygon,
+  shift,
   size,
   useClick,
   useDismiss,
@@ -13,13 +16,14 @@ import {
   useTransitionStatus,
 } from '@floating-ui/react';
 import {
-  type ReactElement,
-  type ReactNode,
+  type CSSProperties,
   cloneElement,
   isValidElement,
+  type ReactElement,
+  type ReactNode,
+  useEffect,
   useState,
 } from 'react';
-import { classes } from 'common/react';
 
 type Props = {
   /** Interacting with this element will open the floating element. */
@@ -33,16 +37,10 @@ type Props = {
    * @default 'bottom'
    */
   placement: Placement;
-  /**
-   * Passes ref directly to children, without wrapping it first.
-   * Works only with JSX elements wrapped in `React.forwardRef`
-   * or default HTML elements.
-   */
-  childrenNoWrap: boolean;
   /** Classes with will be applied to the content. */
   contentClasses: string;
   /** Inline styles with will be applied to the content. */
-  contentStyles: React.CSSProperties;
+  contentStyles: CSSProperties;
   /** Use calculated by Floating UI children width as content width. */
   contentAutoWidth: boolean;
   /**
@@ -50,6 +48,8 @@ type Props = {
    * @default 6
    */
   contentOffset: number;
+  /** Disables all interactions. */
+  disabled: BooleanLike;
   /**
    * How long the animation takes in ms.
    * - If specified, default animation will be disabled.
@@ -57,6 +57,8 @@ type Props = {
    * @default 200
    */
   animationDuration: number;
+  /** Direct content open state control. */
+  handleOpen: boolean;
   /** Content will open when you hover over children. */
   hoverOpen: boolean;
   /**
@@ -66,12 +68,20 @@ type Props = {
    */
   hoverDelay: number;
   /**
+   * Content will not close if the mouse moves out of the children while
+   * trying to move into the content.
+   * - Works only if used `hoverOpen` prop.
+   */
+  hoverSafePolygon: boolean;
+  /**
    * Whitelisted classes.
    * Used to allow to add some secured classes,
    * click on which will not close the content.
    * - Classes must be sent like this: `".class1, .class2"`
    */
   allowedOutsideClasses: string;
+  /** Do not wrap content in FloatingPortal, thus preventing it from moving into the body */
+  preventPortal: true;
   /** Stops event propagation on children. */
   stopChildPropagation: boolean;
   /** Close the content after interaction with it. */
@@ -85,63 +95,72 @@ type Props = {
    * ```
    */
   onOpenChange: (open: boolean) => void;
+  /**
+   * Called when mounted
+   */
+  onMounted: () => void;
 }>;
 
 /**
- * ## FLoating
+ * ## Floating
+ *
  *  Floating lets you position elements so that they don't go out of the bounds of the window.
+ *
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
 export const Floating = (props: Props) => {
   const {
-    children,
-    content,
-    placement,
-    childrenNoWrap,
-    contentClasses,
-    contentStyles,
-    contentAutoWidth,
-    contentOffset = 6,
-    animationDuration,
-    hoverOpen,
-    hoverDelay,
     allowedOutsideClasses,
-    stopChildPropagation,
+    animationDuration,
+    children,
     closeAfterInteract,
+    content,
+    contentAutoWidth,
+    contentClasses,
+    contentOffset = 6,
+    contentStyles,
+    disabled,
+    hoverDelay,
+    hoverOpen,
+    hoverSafePolygon,
+    handleOpen,
+    onMounted,
+    placement,
+    preventPortal,
+    stopChildPropagation,
     onOpenChange,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
-    open: isOpen,
+    middleware: [
+      offset(contentOffset),
+      flip({ padding: 6 }),
+      shift(),
+      contentAutoWidth &&
+        size({
+          apply({ rects, elements }) {
+            elements.floating.style.width = `${rects.reference.width}px`;
+          },
+        }),
+    ],
     onOpenChange(isOpen) {
       setIsOpen(isOpen);
       onOpenChange?.(isOpen);
     },
-    whileElementsMounted: autoUpdate,
+    open: isOpen,
     placement: placement || 'bottom',
-    transform: false,
-    middleware: [
-      offset(contentOffset),
-      flip({
-        padding: 6,
-        fallbackPlacements: [
-          'bottom-start',
-          'bottom-end',
-          'top',
-          'top-start',
-          'top-end',
-        ],
-      }),
-      size({
-        apply({ rects, elements }) {
-          Object.assign(elements.floating.style, {
-            height: `${rects.floating.height}px`,
-            ...(contentAutoWidth && { width: `${rects.reference.width}px` }),
-          });
-        },
-      }),
-    ],
+    transform: false, // More expensive but allows to use transform for animations
+    whileElementsMounted: (reference, floating, update) => {
+      if (onMounted !== undefined) {
+        onMounted();
+      }
+      return autoUpdate(reference, floating, update, {
+        ancestorResize: false,
+        ancestorScroll: false,
+        elementResize: false, // ResizeObserver crashes in multiple cases, disabled for now
+      });
+    },
   });
 
   const { isMounted, status } = useTransitionStatus(context, {
@@ -149,21 +168,28 @@ export const Floating = (props: Props) => {
   });
 
   const dismiss = useDismiss(context, {
+    ancestorScroll: true,
     outsidePress: (event) =>
-      (allowedOutsideClasses &&
-        event.target instanceof Element &&
-        !event.target.closest(allowedOutsideClasses)) ||
-      false,
+      !allowedOutsideClasses
+        ? true
+        : event.target instanceof Element &&
+          !event.target.closest(allowedOutsideClasses),
   });
 
-  const click = useClick(context);
-  const hover = useHover(context, { restMs: hoverDelay || 200 });
-  const openMethod = hoverOpen ? hover : click;
+  const click = useClick(context, { enabled: !disabled });
+  const hover = useHover(context, {
+    enabled: !disabled,
+    restMs: hoverDelay || 200,
+    handleClose: hoverSafePolygon
+      ? safePolygon({
+          requireIntent: false,
+        })
+      : null,
+  });
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    dismiss,
-    openMethod,
-  ]);
+  const openHandled = handleOpen !== undefined;
+  const interactions = openHandled ? [] : [dismiss, hoverOpen ? hover : click];
+  const { getReferenceProps, getFloatingProps } = useInteractions(interactions);
 
   const referenceProps = getReferenceProps({
     ref: refs.setReference,
@@ -178,37 +204,50 @@ export const Floating = (props: Props) => {
         context.onOpenChange(false);
       }
     },
+    ref: refs.setFloating,
   });
+
+  useEffect(() => {
+    if (openHandled) {
+      context.onOpenChange(handleOpen);
+    }
+  }, [handleOpen]);
 
   // Generate our children which will be used as reference
   let floatingChildren: ReactElement;
-  if (childrenNoWrap && isValidElement(children)) {
+  if (isValidElement(children)) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
-    floatingChildren = <span {...referenceProps}>{children}</span>;
+    floatingChildren = <div {...referenceProps}>{children}</div>;
   }
+
+  const floatingContent = (
+    <div
+      className={classes([
+        'Floating',
+        !animationDuration && 'Floating--animated',
+        contentClasses,
+      ])}
+      data-position={context.placement}
+      data-transition={status}
+      style={{ ...floatingStyles, ...contentStyles }}
+      {...floatingProps}
+    >
+      {content}
+    </div>
+  );
 
   return (
     <>
       {floatingChildren}
-      {isMounted && (
-        <FloatingPortal>
-          <div
-            ref={refs.setFloating}
-            className={classes([
-              'Floating',
-              !animationDuration && 'Floating--animated',
-              contentClasses,
-            ])}
-            data-position={context.placement}
-            data-transition={status}
-            style={{ ...floatingStyles, ...contentStyles }}
-            {...floatingProps}
-          >
-            {content}
-          </div>
-        </FloatingPortal>
-      )}
+      {isMounted &&
+        !!content &&
+        (preventPortal ? (
+          floatingContent
+        ) : (
+          // biome-ignore lint/nursery/useUniqueElementIds: We only want a single div in our DOM
+          <FloatingPortal id="tgui-root">{floatingContent}</FloatingPortal>
+        ))}
     </>
   );
 };

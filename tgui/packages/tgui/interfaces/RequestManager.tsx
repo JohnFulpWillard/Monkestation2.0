@@ -74,15 +74,6 @@ export const RequestManager = () => {
           buttons={
             <Stack>
               <Stack.Item>
-                <Button.Checkbox
-                  checked={data.fax_autoprinting}
-                  onClick={() => act('toggleprint')}
-                  tooltip={
-                    'Enables automatic printing of fax requests to the admin fax machine. By default, this fax is located in the briefing room at the central command station'
-                  }
-                >
-                  Auto-print Faxes
-                </Button.Checkbox>
                 <Input
                   value={searchText}
                   onChange={setSearchText}
