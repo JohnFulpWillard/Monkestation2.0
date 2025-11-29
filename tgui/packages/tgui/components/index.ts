@@ -19,6 +19,7 @@ export { Divider } from './Divider';
 export { DraggableControl } from './DraggableControl';
 export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
+export { Floating } from './Floating';
 export { FitText } from './FitText';
 export { Grid } from './Grid';
 export { Image } from './Image';

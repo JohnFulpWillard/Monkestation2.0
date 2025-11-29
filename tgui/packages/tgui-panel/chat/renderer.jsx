@@ -291,6 +291,14 @@ class ChatRenderer {
     });
   }
 
+  setColoredNames(newValue) {
+    if (newValue === this.coloredNames) {
+      return;
+    }
+    this.coloredNames = newValue;
+    this.rebuildChat();
+  }
+
   scrollToBottom() {
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.

@@ -79,10 +79,6 @@ to understand what this is about.
 
 This component provides animations for numeric values.
 
-### `Popper`
-
-Popper lets you position elements so that they don't go out of the bounds of the window. See [popper.js](https://popper.js.org/) for more information.
-
 **Props:**
 
 - `value: number` - Value to animate.
@@ -220,7 +216,7 @@ Buttons allow users to take actions, and make choices, with a single click.
 - `selected: boolean` - Activates the button (gives it a green color).
 - `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
 over the button.
-- `tooltipPosition?: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
+- `tooltipPosition?: string` - Position of the tooltip.
 - `ellipsis: boolean` - If button width is constrained, button text will
 be truncated with an ellipsis. Be careful however, because this prop breaks
 the baseline alignment.
@@ -753,10 +749,6 @@ Default is about 250ms, increase it if you still see flickering.
 the input, or successfully enter a number.
 - `onDrag: (e, value) => void` - An event, which fires about every 500ms
 when you drag the input up and down, on release and on manual editing.
-
-### `Popper`
-
-Popper lets you position elements so that they don't go out of the bounds of the window. See [popper.js](https://popper.js.org/) for more information.
 
 **Props:**
 

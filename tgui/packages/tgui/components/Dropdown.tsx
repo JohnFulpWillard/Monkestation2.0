@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 
-import { BoxProps, unit } from './Box';
+import { type BoxProps, unit } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Popper } from './Popper';
@@ -61,7 +61,7 @@ enum DIRECTION {
 
 const NONE = -1;
 
-function getOptionValue(option: DropdownOption) {
+function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
 }
 
