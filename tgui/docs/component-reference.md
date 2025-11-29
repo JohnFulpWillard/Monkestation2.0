@@ -79,6 +79,10 @@ to understand what this is about.
 
 This component provides animations for numeric values.
 
+### `Popper`
+
+Popper lets you position elements so that they don't go out of the bounds of the window. See [popper.js](https://popper.js.org/) for more information.
+
 **Props:**
 
 - `value: number` - Value to animate.
