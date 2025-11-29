@@ -13,10 +13,12 @@ import {
   Flex,
   Section,
   Stack,
-  Pointer,
   NumberInput,
   Tooltip,
 } from 'tgui-core/components';
+import {
+  Pointer,
+} from '../components/Pointer';
 import { Window } from '../layouts';
 import { clamp } from 'tgui-core/math';
 import {
@@ -27,8 +29,8 @@ import {
   hsvaToRgba,
   rgbaToHsva,
   validHex,
-} from 'tgui-core/color';
-import { Interaction, Interactive } from 'tgui-core/components/Interactive';
+} from '../../common/color';
+import { Interaction, Interactive } from '../components/Interactive';
 import { classes } from 'tgui-core/react';
 import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
 import { logger } from 'tgui/logging';
