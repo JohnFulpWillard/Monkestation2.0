@@ -45,6 +45,11 @@
 @include meta.load-css('./interfaces/Uplink.scss');
 @include meta.load-css('./interfaces/DetectiveBoard.scss');
 
+//Not included in tgui-core (monkestation specific)
+@include meta.load-css('./interfaces/ColorPicker.scss');
+@include meta.load-css('./interfaces/ClockworkSlab.scss');
+@include meta.load-css('./interfaces/VethPlayerPanel.scss');
+
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
 @include meta.load-css('./layouts/NtosHeader.scss');

@@ -45,7 +45,7 @@ type ColorPickerData = {
   default_color: string;
 };
 
-export const ColorPickerModal = (_) => {
+export const ColorPickerModal = () => {
   const { act, data } = useBackend<ColorPickerData>();
   const {
     timeout,
@@ -381,7 +381,7 @@ export class ColorInput extends Component {
   state: { localValue: string };
 
   constructor(props: ColorInputBaseProps) {
-    super();
+    super(props);
     this.props = props;
     this.state = { localValue: this.props.escape(this.props.color) };
   }

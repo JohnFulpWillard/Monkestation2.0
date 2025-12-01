@@ -52,6 +52,7 @@ export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
   children: ReactNode[];
+  containerRef: RefObject<HTMLDivElement>;
   style?: any;
 }
 
@@ -59,10 +60,10 @@ export class Interactive extends Component {
   containerRef: RefObject<HTMLDivElement>;
   props: InteractiveProps;
 
-  constructor(props: InteractiveProps) {
-    super();
+  constructor(props) {
+    super(props);
     this.props = props;
-    this.containerRef = createRef();
+    this.containerRef = props.containerRef;
   }
 
   handleMoveStart = (event: MouseEvent) => {
