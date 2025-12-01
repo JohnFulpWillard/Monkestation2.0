@@ -11,8 +11,11 @@
 		"unfetch": "^5.0.0"
 	},
 	"devDependencies": {
+		"@floating-ui/react": "^0.27.16",
 		"@types/react": "^19.1.5",
 		"@types/react-dom": "^19.1.5",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
 		"terser": "^5.39.0"
 	}
 }
