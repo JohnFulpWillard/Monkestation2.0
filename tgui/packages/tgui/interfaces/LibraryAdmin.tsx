@@ -12,7 +12,7 @@ import {
   Stack,
   Table,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { PageSelect } from './LibraryConsole';
 

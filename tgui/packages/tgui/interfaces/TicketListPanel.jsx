@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Section, Collapsible, Button, Tabs, Flex } from '../components';
+import { Section, Collapsible, Button, Tabs, Flex } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const TicketListPanel = (props) => {

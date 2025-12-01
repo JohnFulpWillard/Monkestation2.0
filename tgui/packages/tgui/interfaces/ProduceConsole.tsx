@@ -13,7 +13,7 @@ import {
   Stack,
   Tabs,
   DmIcon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const buttonWidth = 2;

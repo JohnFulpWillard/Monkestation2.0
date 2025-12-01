@@ -8,7 +8,7 @@ import {
   Section,
   Stack,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import {
   ObjectivePrintout,

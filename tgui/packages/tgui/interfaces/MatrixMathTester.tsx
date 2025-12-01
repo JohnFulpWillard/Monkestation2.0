@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Input, NumberInput, Section, Button, Table } from '../components';
+import { Input, NumberInput, Section, Button, Table } from 'tgui-core/components';
 import { toFixed } from 'common/math';
 import { Window } from '../layouts';
 

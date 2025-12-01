@@ -1,6 +1,6 @@
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Flex, Tabs, Stack, DmIcon, Icon } from '../components';
+import { Flex, Tabs, Stack, DmIcon, Icon } from 'tgui-core/components';
 import { Direction } from '../components/DmIcon';
 import { Window } from '../layouts';
 

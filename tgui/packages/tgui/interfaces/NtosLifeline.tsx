@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Icon, Input, Stack, Tabs } from '../components';
+import { Box, Button, Flex, Icon, Input, Stack, Tabs } from 'tgui-core/components';
 
 import { NtosWindow } from '../layouts';
 import { JOB2ICON } from './common/JobToIcon';

@@ -1,4 +1,4 @@
-import { Button, Section } from '../components';
+import { Button, Section } from 'tgui-core/components';
 
 import { BooleanLike } from 'common/react';
 import { PortableBasicInfo } from './common/PortableAtmos';

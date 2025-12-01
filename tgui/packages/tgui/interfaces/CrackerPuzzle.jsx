@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, Button, Icon, Dimmer, Stack } from '../components';
+import { Section, Button, Icon, Dimmer, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const CrackerPuzzle = (props) => {

@@ -7,7 +7,7 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import type { BooleanLike } from 'common/react';
 
 import { useBackend, useSharedState } from '../backend';

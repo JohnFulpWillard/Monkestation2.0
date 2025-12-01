@@ -10,7 +10,7 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import { formatTime } from '../format';

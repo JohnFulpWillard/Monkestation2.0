@@ -1,6 +1,6 @@
 import { Window } from '../layouts';
 import { useBackend } from '../backend';
-import { Flex, Box } from '../components';
+import { Flex, Box } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
 import { BooleanLike } from 'common/react';
 

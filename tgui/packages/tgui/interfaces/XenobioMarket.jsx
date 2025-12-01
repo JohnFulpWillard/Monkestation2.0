@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Section, Stack, Table, Tabs, Button } from '../components';
+import { Box, Section, Stack, Table, Tabs, Button } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 import { toFixed } from 'common/math';

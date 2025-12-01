@@ -8,7 +8,7 @@ import {
   KEY_SPACE,
   KEY_TAB,
 } from '../../common/keycodes';
-import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
+import { Autofocus, Box, Button, Flex, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type AlertModalData = {

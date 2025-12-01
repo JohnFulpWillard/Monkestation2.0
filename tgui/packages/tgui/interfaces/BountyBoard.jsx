@@ -10,7 +10,7 @@ import {
   Section,
   Stack,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 

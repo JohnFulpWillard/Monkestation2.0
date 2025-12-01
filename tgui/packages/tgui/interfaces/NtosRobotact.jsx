@@ -9,7 +9,7 @@ import {
   Section,
   Slider,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { formatEnergy } from '../format';
 import { formatPower } from '../format';
 import { NtosWindow } from '../layouts';

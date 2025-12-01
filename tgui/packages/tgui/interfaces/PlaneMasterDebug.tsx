@@ -10,7 +10,7 @@ import {
   LabeledList,
   Tooltip,
   Slider,
-} from '../components';
+} from 'tgui-core/components';
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { classes, shallowDiffers } from 'common/react';

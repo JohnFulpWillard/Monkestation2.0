@@ -7,7 +7,7 @@ import {
   ByondUi,
   NumberInput,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

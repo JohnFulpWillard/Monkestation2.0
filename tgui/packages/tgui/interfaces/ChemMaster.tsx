@@ -16,7 +16,7 @@ import {
   ProgressBar,
   Stack,
   Divider,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

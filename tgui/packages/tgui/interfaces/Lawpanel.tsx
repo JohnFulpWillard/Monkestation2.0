@@ -10,7 +10,7 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const lawtype_to_color = {

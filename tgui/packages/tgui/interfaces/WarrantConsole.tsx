@@ -10,7 +10,7 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { sortBy } from 'common/collections';
 
 type Data = {

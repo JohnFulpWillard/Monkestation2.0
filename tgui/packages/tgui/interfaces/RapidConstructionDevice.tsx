@@ -2,7 +2,7 @@ import { Window } from '../layouts';
 import { BooleanLike, classes } from 'common/react';
 import { capitalizeAll } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { LabeledList, Section, Button, Tabs, Stack, Box } from '../components';
+import { LabeledList, Section, Button, Tabs, Stack, Box } from 'tgui-core/components';
 import { AirLockMainSection } from './AirlockElectronics';
 
 type Data = {

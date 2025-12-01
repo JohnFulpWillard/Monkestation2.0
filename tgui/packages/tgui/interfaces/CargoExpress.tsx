@@ -6,7 +6,7 @@ import {
   Button,
   LabeledList,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { CargoCatalog } from './Cargo';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';

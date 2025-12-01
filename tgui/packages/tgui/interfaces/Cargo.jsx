@@ -15,7 +15,7 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -228,7 +228,7 @@ export const CargoCatalog = (props) => {
                     fluid
                     placeholder="Search..."
                     value={searchText}
-                    onInput={(e, value) => {
+                    onChange={(e, value) => {
                       if (value === searchText) {
                         return;
                       }

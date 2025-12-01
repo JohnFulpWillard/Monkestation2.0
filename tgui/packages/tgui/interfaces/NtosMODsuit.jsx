@@ -1,6 +1,6 @@
 import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
-import { NoticeBox } from '../components';
+import { NoticeBox } from 'tgui-core/components';
 import { MODsuitContent } from './MODsuit';
 
 export const NtosMODsuit = (props) => {

@@ -14,7 +14,7 @@ import {
   Stack,
   Dropdown,
   Input,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const NaniteCodes = (props) => {

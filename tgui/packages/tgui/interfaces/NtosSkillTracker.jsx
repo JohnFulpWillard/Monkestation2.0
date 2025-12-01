@@ -6,7 +6,7 @@ import {
   BlockQuote,
   ProgressBar,
   AnimatedNumber,
-} from '../components';
+} from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 export const NtosSkillTracker = (props) => {

@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, LabeledList, Stack, Tabs, Tooltip } from '../components';
+import { Box, LabeledList, Stack, Tabs, Tooltip } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { getDangerLevel } from './Uplink/calculateDangerLevel';
 import type { ReactNode } from 'react';

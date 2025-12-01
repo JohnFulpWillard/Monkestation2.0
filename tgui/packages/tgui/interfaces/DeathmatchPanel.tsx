@@ -7,7 +7,7 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import type { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';

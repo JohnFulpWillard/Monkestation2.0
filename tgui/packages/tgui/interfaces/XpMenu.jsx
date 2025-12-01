@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { ProgressBar, Section, Stack } from '../components';
+import { ProgressBar, Section, Stack } from 'tgui-core/components';
 
 export const XpMenu = (props) => {
   const { data } = useBackend();

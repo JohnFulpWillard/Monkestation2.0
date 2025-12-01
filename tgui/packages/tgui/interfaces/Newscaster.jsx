@@ -20,7 +20,7 @@ import {
   Stack,
   Tabs,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
 import { marked } from 'marked';
 import { sanitizeText } from '../sanitize';
 

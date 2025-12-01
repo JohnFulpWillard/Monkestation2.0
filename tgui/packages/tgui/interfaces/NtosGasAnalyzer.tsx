@@ -1,6 +1,6 @@
 import type { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { Button } from '../components';
+import { Button } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 import { GasAnalyzerContent, GasAnalyzerData } from './GasAnalyzer';
 

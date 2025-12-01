@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
-import { Button, Section, Stack } from '../components';
+import { Button, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type ManipulatorData = {

@@ -8,7 +8,7 @@ import {
   Section,
   Slider,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const MassSpec = (props) => {

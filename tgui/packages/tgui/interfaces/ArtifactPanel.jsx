@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, Box, Button } from '../components';
+import { Section, Box, Button } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const ArtifactPanel = (props) => {

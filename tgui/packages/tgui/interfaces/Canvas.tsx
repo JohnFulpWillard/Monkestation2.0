@@ -2,7 +2,7 @@ import { Color } from 'common/color';
 import { multiline, decodeHtmlEntities } from 'common/string';
 import { Component, createRef, RefObject } from 'react';
 import { useBackend } from '../backend';
-import { Tooltip, Icon, Box, Button, Flex } from '../components';
+import { Tooltip, Icon, Box, Button, Flex } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const LEFT_CLICK = 0;
@@ -285,11 +285,10 @@ export const Canvas = (props) => {
           {!!data.editable && !!data.paint_tool_color && (
             <Flex.Item>
               <Button
-                title="Grid Toggle"
+                tooltip="Grid Toggle"
                 icon="th-large"
                 backgroundColor={data.show_grid ? 'green' : 'red'}
                 onClick={() => act('toggle_grid')}
-                size={1.5}
                 m={0.5}
               />
             </Flex.Item>

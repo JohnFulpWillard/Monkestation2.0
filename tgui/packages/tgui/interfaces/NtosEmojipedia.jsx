@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Input, Section } from '../components';
+import { Box, Button, Input, Section } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 export const NtosEmojipedia = (props) => {

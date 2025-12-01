@@ -11,7 +11,7 @@ import {
   Stack,
   Tabs,
   Dropdown,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 // here's an important mental define:

@@ -2,7 +2,7 @@ import { flow } from 'common/fp';
 import { map, sortBy } from 'common/collections';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Stack, Section, Button } from '../components';
+import { Stack, Section, Button } from 'tgui-core/components';
 
 type DestinationTaggerData = {
   locations: string[];

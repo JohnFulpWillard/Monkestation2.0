@@ -4,7 +4,7 @@
  * @license MIT
  */
 import { useState } from 'react';
-import { Button, Floating, Input, Section, Stack, Table } from '../components';
+import { Button, Floating, Input, Section, Stack, Table } from 'tgui-core/components';
 import type { BooleanLike } from 'common/react';
 import { createSearch, decodeHtmlEntities } from 'common/string';
 

@@ -13,7 +13,7 @@ import {
   Collapsible,
   Icon,
   Divider,
-} from '../components';
+} from 'tgui-core/components';
 import { Window, NtosWindow } from '../layouts';
 import { Experiment } from './ExperimentConfigure';
 

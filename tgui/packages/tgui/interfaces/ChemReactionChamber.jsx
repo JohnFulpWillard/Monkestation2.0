@@ -8,7 +8,7 @@ import {
   Section,
   RoundGauge,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { round, toFixed } from 'common/math';
 

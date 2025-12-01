@@ -8,7 +8,7 @@ import {
   Tabs,
   Table,
   Icon,
-} from '../components';
+} from 'tgui-core/components';
 import { PreferencesMenuData } from './PreferencesMenu/data';
 import { Window } from '../layouts';
 import { classes } from 'common/react';

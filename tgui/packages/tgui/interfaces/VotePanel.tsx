@@ -9,7 +9,7 @@ import {
   NoticeBox,
   LabeledList,
   Collapsible,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { useBackend } from '../backend';
 

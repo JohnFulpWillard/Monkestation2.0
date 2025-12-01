@@ -9,7 +9,7 @@ import {
   NumberInput,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type BeakerPanelData = {
@@ -285,7 +285,7 @@ export const BeakerPanel = (props) => {
           <Input
             placeholder="Search reagents..."
             value={safeReagentSearch}
-            onChange={(e, value) => handleSearchChange(containerNum, value)}
+            onChange={(value) => handleSearchChange(containerNum, value)}
             mb={1}
           />
           <Section fill scrollable height="200px">

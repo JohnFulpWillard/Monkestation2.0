@@ -9,7 +9,7 @@ import {
   Button,
   TextArea,
   Box,
-} from '../components';
+} from 'tgui-core/components';
 
 type Data = {
   rating: number;

@@ -8,7 +8,7 @@ import {
   Modal,
   ProgressBar,
   NumberInput,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type TurbineInfo = {

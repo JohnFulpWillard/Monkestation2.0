@@ -12,7 +12,7 @@ import {
   NoticeBox,
   Tabs,
   LabeledList,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { GasmixParser } from './common/GasmixParser';
 

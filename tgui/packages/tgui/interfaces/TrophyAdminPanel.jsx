@@ -1,6 +1,6 @@
 import { decodeHtmlEntities } from 'common/string';
 import { useBackend } from '../backend';
-import { Button, Table } from '../components';
+import { Button, Table } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const TrophyAdminPanel = (props) => {

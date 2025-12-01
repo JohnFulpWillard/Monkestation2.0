@@ -10,7 +10,7 @@ import {
   Section,
   Slider,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { formatTime } from '../format';
 import { Window } from '../layouts';
 

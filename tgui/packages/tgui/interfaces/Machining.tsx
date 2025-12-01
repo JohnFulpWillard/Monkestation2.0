@@ -12,7 +12,7 @@ import {
   Input,
   NoticeBox,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const TAB_LIST = [

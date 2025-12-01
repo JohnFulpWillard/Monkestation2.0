@@ -14,7 +14,7 @@ import {
   Icon,
   Tooltip,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { Food } from './PreferencesMenu/data';
 

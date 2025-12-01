@@ -9,7 +9,7 @@ import {
   Box,
   Tooltip,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 import { Design, MaterialMap } from './Fabrication/Types';

@@ -1,6 +1,6 @@
 import { multiline } from '../../common/string';
 import { useBackend } from '../backend';
-import { Button, NoticeBox, Stack, Section } from '../components';
+import { Button, NoticeBox, Stack, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type BasketballPanelData = {

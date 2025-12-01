@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Icon, ProgressBar, Tabs } from '../components';
+import { Icon, ProgressBar, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

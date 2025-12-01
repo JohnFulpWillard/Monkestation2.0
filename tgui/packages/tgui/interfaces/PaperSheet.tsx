@@ -4,7 +4,7 @@
 
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Section, TextArea } from '../components';
+import { Box, Button, Flex, Section, TextArea } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { marked } from 'marked';
@@ -284,7 +284,7 @@ export class PrimaryView extends Component {
     this.scrollableRef = createRef();
     this.lastDistanceFromBottom = 0;
 
-    this.onScrollHandler = (ev: Event) => {
+    this.onScrollHandler = (ev) => {
       const scrollable = ev.currentTarget as HTMLDivElement;
       if (scrollable) {
         this.lastDistanceFromBottom =
@@ -957,7 +957,7 @@ export class PreviewView extends Component<PreviewViewProps> {
         fitted
         scrollable
         scrollableRef={scrollableRef}
-        onScroll={handleOnScroll}
+        onScroll={handleOnScroll as any}
       >
         <Box
           fillPositionedParent

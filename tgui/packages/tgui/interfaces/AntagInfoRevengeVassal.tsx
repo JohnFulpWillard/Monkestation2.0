@@ -1,6 +1,6 @@
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Divider, Dropdown, Section, Stack } from '../components';
+import { Box, Button, Divider, Dropdown, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { Objective, ObjectivePrintout } from './common/Objectives';
 

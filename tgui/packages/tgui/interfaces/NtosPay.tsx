@@ -11,7 +11,7 @@ import {
   NoticeBox,
   Divider,
   RestrictedInput,
-} from '../components';
+} from 'tgui-core/components';
 
 type Data = {
   name: string;

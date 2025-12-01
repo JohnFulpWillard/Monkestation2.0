@@ -9,7 +9,7 @@ import {
   Stack,
   Tabs,
   Slider,
-} from '../components';
+} from 'tgui-core/components';
 import { formatMoney, formatTime } from '../format';
 import { Window } from '../layouts';
 

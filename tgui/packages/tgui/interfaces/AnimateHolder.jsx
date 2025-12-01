@@ -8,7 +8,7 @@ import {
   LabeledList,
   NumberInput,
   Dropdown,
-} from '../components';
+} from 'tgui-core/components';
 import { ButtonCheckbox } from '../components/Button';
 
 export const AnimateHolder = (props) => {

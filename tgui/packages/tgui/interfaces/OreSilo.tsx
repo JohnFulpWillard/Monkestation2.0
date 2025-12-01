@@ -13,7 +13,7 @@ import {
   Stack,
   Tabs,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { Material } from './Fabrication/Types';

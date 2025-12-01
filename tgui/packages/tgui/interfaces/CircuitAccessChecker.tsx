@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { LabeledList, Button } from '../components';
+import { LabeledList, Button } from 'tgui-core/components';
 import { AccessConfig } from './common/AccessConfig';
 import { BooleanLike } from 'common/react';
 

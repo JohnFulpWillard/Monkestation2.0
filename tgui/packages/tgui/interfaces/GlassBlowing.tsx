@@ -12,7 +12,7 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type GlassData = {

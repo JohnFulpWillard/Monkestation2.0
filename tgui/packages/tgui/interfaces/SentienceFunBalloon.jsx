@@ -6,7 +6,7 @@ import {
   Stack,
   Input,
   LabeledList,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const SentienceFunBalloon = (props) => {

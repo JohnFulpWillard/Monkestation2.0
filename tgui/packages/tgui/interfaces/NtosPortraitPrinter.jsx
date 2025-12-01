@@ -1,6 +1,6 @@
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, NoticeBox, Section, Stack, Input } from '../components';
+import { Box, Button, NoticeBox, Section, Stack, Input } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 export const NtosPortraitPrinter = (props) => {

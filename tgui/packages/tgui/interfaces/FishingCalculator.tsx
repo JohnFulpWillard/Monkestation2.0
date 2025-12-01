@@ -1,6 +1,6 @@
 import { round } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Dropdown, Input, Stack, Table } from '../components';
+import { Button, Dropdown, Input, Stack, Table } from 'tgui-core/components';
 import { TableCell, TableRow } from '../components/Table';
 import { Window } from '../layouts';
 
@@ -64,8 +64,8 @@ export const FishingCalculator = (props) => {
             />
             <Input
               value={bait}
-              label="Bait"
-              onChange={(_, value) => setBait(value)}
+              placeholder="Bait"
+              onChange={(value) => setBait(value)}
               width="100%"
             />
             <Button

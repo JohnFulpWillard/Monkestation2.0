@@ -11,7 +11,7 @@ import {
   Modal,
   Section,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
 import { StatusDisplayControls } from './common/StatusDisplayControls';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';

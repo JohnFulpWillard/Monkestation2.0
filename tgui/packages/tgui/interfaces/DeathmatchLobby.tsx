@@ -11,7 +11,7 @@ import {
   Modal,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 

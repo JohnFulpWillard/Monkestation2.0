@@ -10,7 +10,7 @@ import {
   ProgressBar,
   Section,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { NtosWindow } from '../layouts';

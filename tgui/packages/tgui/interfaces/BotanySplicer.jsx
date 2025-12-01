@@ -10,7 +10,7 @@ import {
   Section,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const TimeFormat = (props) => {

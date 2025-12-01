@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { NoticeBox, Section } from '../components';
+import { NoticeBox, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

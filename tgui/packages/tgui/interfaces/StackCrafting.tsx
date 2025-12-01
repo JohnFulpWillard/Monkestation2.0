@@ -9,7 +9,7 @@ import {
   Section,
   Collapsible,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { clamp } from 'common/math';
 import { flow } from 'common/fp';

@@ -7,7 +7,7 @@ import {
   Button,
   NumberInput,
   LabeledList,
-} from '../components';
+} from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 type ModularShieldGenData = {

@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
 import { capitalizeAll } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Tabs, Stack } from '../components';
+import { Box, Button, Section, Tabs, Stack } from 'tgui-core/components';
 import { InfoSection } from './RapidConstructionDevice';
 import { Window } from '../layouts';
 

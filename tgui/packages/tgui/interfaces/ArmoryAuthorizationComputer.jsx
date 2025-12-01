@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack, Grid } from '../components';
+import { Box, Button, LabeledList, Section, Stack, Grid } from 'tgui-core/components';
 import { EditableText } from './common/EditableText';
 import { Window } from '../layouts';
 

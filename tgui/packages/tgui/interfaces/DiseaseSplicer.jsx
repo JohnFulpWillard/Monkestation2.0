@@ -7,7 +7,7 @@ import {
   Slider,
   NoticeBox,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const DiseaseSplicer = (props) => {

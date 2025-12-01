@@ -8,7 +8,7 @@ import {
   Section,
   NumberInput,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

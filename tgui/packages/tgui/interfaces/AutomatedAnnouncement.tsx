@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 import { multiline } from 'common/string';
 import { useBackend } from '../backend';
-import { Button, Input, LabeledList, Section } from '../components';
+import { Button, Input, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const TOOLTIP_TEXT = multiline`
@@ -60,7 +60,7 @@ export const AutomatedAnnouncement = (props) => {
               <Input
                 fluid
                 value={arrival}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('ArrivalText', {
                     newText: value,
                   })
@@ -94,7 +94,7 @@ export const AutomatedAnnouncement = (props) => {
               <Input
                 fluid
                 value={newhead}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('NewheadText', {
                     newText: value,
                   })
@@ -128,7 +128,7 @@ export const AutomatedAnnouncement = (props) => {
               <Input
                 fluid
                 value={node_message}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('node_message', {
                     newText: value,
                   })

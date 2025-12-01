@@ -1,4 +1,4 @@
-import { Section, Box, LabeledList } from '../components';
+import { Section, Box, LabeledList } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const BarDrone = () => {

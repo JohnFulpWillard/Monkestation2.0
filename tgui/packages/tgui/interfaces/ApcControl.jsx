@@ -10,7 +10,7 @@ import {
   Tabs,
   Stack,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { AreaCharge, powerRank } from './PowerMonitor';
 

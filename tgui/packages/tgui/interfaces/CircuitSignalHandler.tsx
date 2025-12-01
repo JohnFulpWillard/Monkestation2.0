@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import { Component, MouseEvent } from 'react';
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Stack, Section, Input, Button, Dropdown } from '../components';
+import { Box, Stack, Section, Input, Button, Dropdown } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Response = {
@@ -17,7 +18,7 @@ type CircuitSignalHandlerState = {
   signal_id: string;
   responseList: Response[];
   parameterList: Parameter[];
-  global: Boolean;
+  global: BooleanLike;
 };
 
 type CircuitSignalHandlerData = {
@@ -66,7 +67,7 @@ export class CircuitSignalHandler extends Component<
                     placeholder="Signal ID"
                     value={signal_id}
                     fluid
-                    onChange={(e, value) => this.setState({ signal_id: value })}
+                    onChange={(value) => this.setState({ signal_id: value })}
                   />
                 </Stack.Item>
                 <Stack.Item>
@@ -191,8 +192,8 @@ export class CircuitSignalHandler extends Component<
 }
 
 type EntryProps = {
-  onRemove: (e: MouseEvent) => any;
-  onEnter: (e: MouseEvent, value: string) => any;
+  onRemove: (e: MouseEvent<HTMLDivElement>) => any;
+  onEnter: (value: string) => any;
   onSetOption?: (type: string) => any;
   name: string;
   current_option: string;

@@ -9,7 +9,7 @@ import {
   ProgressBar,
   Section,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 

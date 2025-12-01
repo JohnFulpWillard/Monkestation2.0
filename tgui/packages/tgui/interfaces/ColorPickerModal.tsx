@@ -16,7 +16,7 @@ import {
   Pointer,
   NumberInput,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { clamp } from 'common/math';
 import {

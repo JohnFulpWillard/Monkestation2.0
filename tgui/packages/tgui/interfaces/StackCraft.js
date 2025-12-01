@@ -11,7 +11,7 @@ import {
   Input,
   ImageButton,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 
 export const StackCraft = () => {
   return (

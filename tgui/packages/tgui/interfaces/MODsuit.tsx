@@ -17,7 +17,7 @@ import {
   AnimatedNumber,
   Dropdown,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type MODsuitData = {

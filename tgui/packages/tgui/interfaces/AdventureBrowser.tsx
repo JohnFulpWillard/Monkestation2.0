@@ -6,7 +6,7 @@ import {
   Box,
   NoticeBox,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { AdventureDataProvider, AdventureScreen } from './ExodroneConsole';
 import { formatTime } from '../format';

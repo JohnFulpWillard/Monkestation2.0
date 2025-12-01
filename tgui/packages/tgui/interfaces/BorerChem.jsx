@@ -2,7 +2,7 @@
 
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { RecipeLookup } from './common/RecipeLookup';
 

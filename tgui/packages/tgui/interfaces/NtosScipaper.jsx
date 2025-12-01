@@ -14,7 +14,7 @@ import {
   NoticeBox,
   Tooltip,
   Icon,
-} from '../components';
+} from 'tgui-core/components';
 import { TableCell, TableRow } from '../components/Table';
 import { NtosWindow } from '../layouts';
 

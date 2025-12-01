@@ -1,6 +1,6 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
-import { Button, Input, Section, Stack } from '../components';
+import { Button, Input, Section, Stack } from 'tgui-core/components';
 import { useBackend, useLocalState } from '../backend';
 import {
   KEY_A,

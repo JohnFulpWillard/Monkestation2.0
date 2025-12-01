@@ -8,7 +8,7 @@ import {
   Table,
   NoticeBox,
   Box,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 enum Screen {

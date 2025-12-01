@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Icon, Section, Table, Tooltip } from '../components';
+import { Icon, Section, Table, Tooltip } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const commandJobs = [

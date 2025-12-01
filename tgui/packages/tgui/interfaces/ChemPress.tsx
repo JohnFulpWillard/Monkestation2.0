@@ -6,7 +6,7 @@ import {
   LabeledList,
   NumberInput,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { capitalizeAll } from 'common/string';
 import { Window } from '../layouts';
 
@@ -83,7 +83,7 @@ export const ChemPress = (props) => {
               <Input
                 value={product_name}
                 placeholder={product_name}
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('change_product_name', {
                     name: value,
                   })

@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, Section, Stack } from '../components';
+import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { logger } from '../logging';
 

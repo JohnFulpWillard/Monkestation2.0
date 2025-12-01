@@ -9,7 +9,7 @@ import {
   LabeledList,
   Table,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { sortBy } from 'common/collections';
 
 const ExperimentStages = (props) => {

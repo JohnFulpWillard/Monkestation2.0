@@ -1,7 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import { NtosWindow } from '../layouts';
 import { SupermatterContent, SupermatterData } from './Supermatter';
-import { Button, ProgressBar, Section, Table } from '../components';
+import { Button, ProgressBar, Section, Table } from 'tgui-core/components';
 
 type NtosSupermatterData = SupermatterData & { focus_uid?: number };
 

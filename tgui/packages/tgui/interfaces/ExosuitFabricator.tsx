@@ -1,11 +1,11 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Icon } from '../components';
+import { Box, Button, Section, Stack, Icon } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { FabricatorData, MaterialMap, Design } from './Fabrication/Types';
 import { DesignBrowser } from './Fabrication/DesignBrowser';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
-import { Tooltip } from '../components';
+import { Tooltip } from 'tgui-core/components';
 import { BooleanLike, classes } from 'common/react';
 
 type ExosuitDesign = Design & {

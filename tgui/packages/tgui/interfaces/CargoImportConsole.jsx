@@ -7,7 +7,7 @@ import {
   Button,
   DmIcon,
   Icon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const CargoImportConsole = (props) => {

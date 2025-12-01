@@ -7,7 +7,7 @@ import {
   Table,
   LabeledList,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 enum Screen {

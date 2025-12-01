@@ -10,7 +10,7 @@ import {
   Grid,
   ProgressBar,
   Collapsible,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
 

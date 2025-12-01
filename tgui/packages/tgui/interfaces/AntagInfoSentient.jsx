@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { BlockQuote, Section, Stack } from '../components';
+import { BlockQuote, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AntagInfoSentient = (props) => {

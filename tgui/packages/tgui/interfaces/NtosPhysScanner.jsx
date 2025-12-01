@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
-import { Section, Box } from '../components';
+import { Section, Box } from 'tgui-core/components';
 import { sanitizeText } from '../sanitize';
 
 export const NtosPhysScanner = (props) => {

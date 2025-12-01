@@ -8,7 +8,7 @@ import {
   RoundGauge,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const TAB2NAME = [

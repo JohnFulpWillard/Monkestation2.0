@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Section, Slider } from '../components';
+import { Box, Button, Flex, Icon, Section, Slider } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const BasicOffsetEditor = (properties) => {

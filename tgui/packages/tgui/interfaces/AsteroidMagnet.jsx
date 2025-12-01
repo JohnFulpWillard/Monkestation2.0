@@ -1,7 +1,7 @@
 // THIS IS A MONKESTATION UI FILE
 
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section } from '../components';
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AsteroidMagnet = (props) => {

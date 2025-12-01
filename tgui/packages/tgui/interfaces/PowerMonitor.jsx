@@ -15,7 +15,7 @@ import {
   Table,
   Dimmer,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const PEAK_DRAW = 500000;

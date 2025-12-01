@@ -1,4 +1,4 @@
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import type { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';

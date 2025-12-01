@@ -5,7 +5,7 @@ import {
   NumberInput,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';

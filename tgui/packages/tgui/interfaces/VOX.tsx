@@ -8,7 +8,7 @@ import {
   Divider,
   Button,
   Dropdown,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { Component } from 'react';
 import { fetchRetry } from '../http';

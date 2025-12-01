@@ -7,7 +7,7 @@ import {
   Dropdown,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import {
   AtmosHandbookContent,

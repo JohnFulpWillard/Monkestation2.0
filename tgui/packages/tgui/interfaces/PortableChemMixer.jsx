@@ -7,7 +7,7 @@ import {
   Button,
   LabeledList,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const PortableChemMixer = (props) => {

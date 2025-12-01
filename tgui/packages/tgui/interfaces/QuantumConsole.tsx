@@ -10,7 +10,7 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 import { LoadingScreen } from './common/LoadingToolbox';
 import { TableCell, TableRow } from '../components/Table';

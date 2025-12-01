@@ -1,5 +1,5 @@
 import { BooleanLike, classes } from 'common/react';
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, MouseEvent  } from 'react';
 
 import {
   Box,
@@ -75,8 +75,8 @@ export class ObjectiveMenu extends Component<
     };
 
     this.handleObjectiveClick = this.handleObjectiveClick.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this as any);
+    this.handleMouseMove = this.handleMouseMove.bind(this as any);
     this.handleObjectiveAdded = this.handleObjectiveAdded.bind(this);
   }
 
@@ -100,26 +100,26 @@ export class ObjectiveMenu extends Component<
     }
   }
 
-  handleMouseUp(event: MouseEvent) {
+  handleMouseUp(event: MouseEvent<HTMLDivElement>) {
     if (dragClickTimer > Date.now()) {
       return;
     }
 
-    window.removeEventListener('mouseup', this.handleMouseUp);
-    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp as any);
+    window.removeEventListener('mousemove', this.handleMouseMove as any);
     this.setState({
       draggingObjective: null,
     });
   }
 
-  handleMouseMove(event: MouseEvent) {
+  handleMouseMove(event: MouseEvent<HTMLDivElement>) {
     this.setState({
       objectiveX: event.pageX,
       objectiveY: event.pageY - 32,
     });
   }
 
-  handleObjectiveAdded(event: MouseEvent) {
+  handleObjectiveAdded(event: MouseEvent<HTMLDivElement>) {
     const { draggingObjective } = this.state as ObjectiveMenuState;
     if (!draggingObjective) {
       return;

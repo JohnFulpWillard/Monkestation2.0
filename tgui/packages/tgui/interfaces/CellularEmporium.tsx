@@ -1,5 +1,6 @@
 import { BooleanLike } from '../../common/react';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Section,
@@ -9,7 +10,7 @@ import {
   LabeledList,
   Box,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type typePath = string;
@@ -35,10 +36,7 @@ type Ability = {
 
 export const CellularEmporium = (props) => {
   const { act, data } = useBackend<CellularEmporiumContext>();
-  const [searchAbilities, setSearchAbilities] = useLocalState(
-    'searchAbilities',
-    '',
-  );
+  const [searchAbilities, setSearchAbilities] = useState('');
 
   const { can_readapt, genetic_points_count } = data;
   return (
@@ -72,7 +70,7 @@ export const CellularEmporium = (props) => {
               <Stack.Item>
                 <Input
                   width="200px"
-                  onInput={(event) => setSearchAbilities(event.target.value)}
+                  onChange={setSearchAbilities}
                   placeholder="Search Abilities..."
                   value={searchAbilities}
                 />
@@ -89,7 +87,7 @@ export const CellularEmporium = (props) => {
 
 const AbilityList = (props) => {
   const { act, data } = useBackend<CellularEmporiumContext>();
-  const [searchAbilities] = useLocalState('searchAbilities', '');
+  const [searchAbilities] = useState('');
   const {
     abilities,
     owned_abilities,

@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Section, Button, Stack, Tabs } from '../components';
+import { Section, Button, Stack, Tabs } from 'tgui-core/components';
 
 type Data = {
   approved_cassettes: Cassette[];

@@ -7,7 +7,7 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { TableCell, TableRow } from '../components/Table';
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
@@ -99,7 +99,7 @@ export const CheckboxInput = (props) => {
               <Input
                 fluid
                 value={searchQuery}
-                onInput={(_, value) => setSearchQuery(value)}
+                onChange={setSearchQuery}
               />
             </Stack.Item>
           </Stack>

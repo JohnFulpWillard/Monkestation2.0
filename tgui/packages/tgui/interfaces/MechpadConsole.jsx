@@ -7,7 +7,7 @@ import {
   Input,
   NoticeBox,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const MechpadControl = (props) => {

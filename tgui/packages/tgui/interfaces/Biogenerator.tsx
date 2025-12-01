@@ -10,7 +10,7 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';

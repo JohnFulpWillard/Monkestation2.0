@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table, Stack, Grid } from '../components';
+import { Box, Button, Section, Table, Stack, Grid } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 interface MuteStates {

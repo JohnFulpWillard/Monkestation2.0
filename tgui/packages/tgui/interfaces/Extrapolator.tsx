@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Section, Tabs, Stack } from '../components';
+import { Section, Tabs, Stack } from 'tgui-core/components';
 
 type ExtrapolatorData = {
   varients: string[];

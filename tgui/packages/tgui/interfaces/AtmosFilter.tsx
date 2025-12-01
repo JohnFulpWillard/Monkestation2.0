@@ -1,4 +1,4 @@
-import { Button, LabeledList, NumberInput, Section } from '../components';
+import { Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';

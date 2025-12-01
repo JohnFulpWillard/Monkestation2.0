@@ -7,7 +7,7 @@ import {
   TextArea,
   Grid,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { BoxProps } from '../components/Box';
 import { Window } from '../layouts';
 

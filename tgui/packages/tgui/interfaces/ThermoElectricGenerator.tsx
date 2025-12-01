@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Chart, Divider, Section } from '../components';
+import { Box, Chart, Divider, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

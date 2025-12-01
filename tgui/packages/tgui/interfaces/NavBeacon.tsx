@@ -6,7 +6,7 @@ import {
   LabeledList,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { BooleanLike } from 'common/react';

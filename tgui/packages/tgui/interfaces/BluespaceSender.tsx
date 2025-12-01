@@ -13,7 +13,7 @@ import {
   Box,
   LabeledList,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { getGasColor } from '../constants';
 import { Window } from '../layouts';
 

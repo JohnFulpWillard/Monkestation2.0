@@ -7,7 +7,7 @@ import {
   Box,
   Tooltip,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';

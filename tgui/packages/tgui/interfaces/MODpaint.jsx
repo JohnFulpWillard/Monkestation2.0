@@ -7,7 +7,7 @@ import {
   Slider,
   Flex,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 

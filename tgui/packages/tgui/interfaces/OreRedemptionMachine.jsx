@@ -12,7 +12,7 @@ import {
   Section,
   LabeledList,
   DmIcon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { formatSiUnit } from '../format';
 

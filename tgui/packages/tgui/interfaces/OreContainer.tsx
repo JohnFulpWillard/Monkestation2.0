@@ -8,7 +8,7 @@ import {
   Section,
   DmIcon,
   Icon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Ores = {

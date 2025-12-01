@@ -10,7 +10,7 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 import { Material } from './Fabrication/Types';

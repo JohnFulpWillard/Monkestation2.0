@@ -9,7 +9,7 @@ import {
   Flex,
   DmIcon,
   Dimmer,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { Objective } from './common/Objectives';
 

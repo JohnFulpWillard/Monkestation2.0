@@ -9,7 +9,7 @@ import {
   Icon,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type FloorData = {

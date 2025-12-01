@@ -3,7 +3,7 @@ import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
 
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Input, Section, Table } from '../components';
+import { Box, Button, Icon, Input, Section, Table } from 'tgui-core/components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 
@@ -205,9 +205,8 @@ const CrewTable = () => {
           </Button>
           <Input
             placeholder="Search for name..."
-            onInput={(e) =>
-              setSearchQuery((e.target as HTMLTextAreaElement).value)
-            }
+            onChange={setSearchQuery}
+            value={searchQuery}
           />
           <Button onClick={() => setfilterTracking(!filterTracking)}>
             {filterTracking ? (

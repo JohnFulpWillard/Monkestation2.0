@@ -12,7 +12,7 @@ import {
   Section,
   Table,
   Input,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const coordsToVec = (coords) => map(parseFloat)(coords.split(', '));

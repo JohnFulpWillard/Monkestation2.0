@@ -7,7 +7,7 @@ import {
   Box,
   Input,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type OverwatchDisplayData = {

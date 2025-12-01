@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Section, Table, Tooltip } from '../components';
+import { Box, Section, Table, Tooltip } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { ReactNode } from 'react';
 

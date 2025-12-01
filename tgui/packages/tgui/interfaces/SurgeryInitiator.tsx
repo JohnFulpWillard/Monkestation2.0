@@ -3,7 +3,7 @@ import { KEY_DOWN, KEY_ENTER, KEY_UP } from 'common/keycodes';
 import { BooleanLike } from 'common/react';
 import { Component } from 'react';
 import { useBackend } from '../backend';
-import { Button, KeyListener, Section, Stack } from '../components';
+import { Button, KeyListener, Section, Stack } from 'tgui-core/components';
 import { BodyZone, BodyZoneSelector } from '../components/BodyZoneSelector';
 import { Window } from '../layouts';
 

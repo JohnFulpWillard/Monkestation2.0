@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { capitalizeAll } from 'common/string';
 import { BooleanLike, classes } from 'common/react';
 import { Window } from '../layouts';
-import { Section, Tabs, Button, LabeledList, Stack, Box } from '../components';
+import { Section, Tabs, Button, LabeledList, Stack, Box } from 'tgui-core/components';
 import { ColorItem } from './RapidPipeDispenser';
 import { SiloItem, MatterItem } from './RapidConstructionDevice';
 

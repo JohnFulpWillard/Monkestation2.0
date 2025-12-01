@@ -14,7 +14,7 @@ import {
   NoticeBox,
   Icon,
   DmIcon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type TraitData = {

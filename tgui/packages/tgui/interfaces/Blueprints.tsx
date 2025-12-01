@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Section, Stack } from '../components';
+import { Box, Button, Divider, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

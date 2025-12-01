@@ -11,7 +11,7 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { getGasFromPath } from '../constants';
 import { Window } from '../layouts';
 

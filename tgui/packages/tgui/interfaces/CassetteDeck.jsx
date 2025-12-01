@@ -1,7 +1,7 @@
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend } from '../backend';
-import { Button, Dropdown, Section, LabeledList } from '../components';
+import { Button, Dropdown, Section, LabeledList } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const CassetteDeck = (props) => {

@@ -6,7 +6,7 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
 import { useBackend, useLocalState } from '../backend';
 
 import { Window } from '../layouts';

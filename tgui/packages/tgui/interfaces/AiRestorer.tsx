@@ -7,7 +7,7 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

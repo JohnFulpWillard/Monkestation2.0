@@ -13,7 +13,7 @@ import {
   Tabs,
   Table,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AmmoWorkbench = (props) => {

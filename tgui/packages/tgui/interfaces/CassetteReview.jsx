@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Section, Box, Button, Flex } from '../components';
+import { Section, Box, Button, Flex } from 'tgui-core/components';
 
 export const CassetteReview = (props) => {
   const { act, data } = useBackend();

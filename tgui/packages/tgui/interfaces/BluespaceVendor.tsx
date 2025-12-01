@@ -10,7 +10,7 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Table, TableCell, TableRow } from '../components/Table';
 import { getGasColor } from '../constants';
 import { Window } from '../layouts';

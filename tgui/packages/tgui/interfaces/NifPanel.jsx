@@ -12,7 +12,7 @@ import {
   ProgressBar,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { TableCell, TableRow } from '../components/Table';
 import { Window } from '../layouts';
 

@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { Item } from './Uplink/GenericUplink';
-import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
+import { BlockQuote, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { MalfAiModules } from './common/MalfAiModules';
 import { BooleanLike } from 'common/react';
 import { multiline } from 'common/string';

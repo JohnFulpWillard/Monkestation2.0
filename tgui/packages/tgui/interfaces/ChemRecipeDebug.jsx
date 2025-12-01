@@ -11,7 +11,7 @@ import {
   RoundGauge,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 

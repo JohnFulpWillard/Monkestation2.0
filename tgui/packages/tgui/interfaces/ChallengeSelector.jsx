@@ -7,7 +7,7 @@ import {
   Flex,
   Stack,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const ItemListEntry = (props) => {

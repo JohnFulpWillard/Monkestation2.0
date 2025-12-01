@@ -1,6 +1,6 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { Button, Flex, NoticeBox, Section, ProgressBar } from '../components';
+import { Button, Flex, NoticeBox, Section, ProgressBar } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type BorgHypoContext = {

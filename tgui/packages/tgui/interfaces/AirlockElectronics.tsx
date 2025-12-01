@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { Button, Input, LabeledList, Section } from '../components';
+import { Button, Input, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { AccessConfig } from './common/AccessConfig';
 
@@ -93,7 +93,7 @@ export const AirLockMainSection = (props) => {
             fluid
             maxLength={30}
             value={passedName}
-            onChange={(e, value) =>
+            onChange={(value) =>
               act('passedName', {
                 passedName: value,
               })
@@ -105,7 +105,7 @@ export const AirLockMainSection = (props) => {
             fluid
             maxLength={30}
             value={passedCycleId}
-            onChange={(e, value) =>
+            onChange={(value) =>
               act('passedCycleId', {
                 passedCycleId: value,
               })

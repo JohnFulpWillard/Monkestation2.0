@@ -6,7 +6,7 @@ import {
   LabeledList,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Objective } from './common/Objectives';
 
 import { Window } from '../layouts';

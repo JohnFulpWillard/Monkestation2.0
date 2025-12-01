@@ -14,7 +14,7 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { formatMoney, formatSiUnit, formatPower } from '../format';
 import { Window } from '../layouts';
 

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Slider, Button, Stack, NoticeBox, Section, Box } from '../components';
+import { Slider, Button, Stack, NoticeBox, Section, Box } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const ArtifactXray = (props) => {

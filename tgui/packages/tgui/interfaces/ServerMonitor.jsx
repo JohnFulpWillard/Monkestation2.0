@@ -9,7 +9,7 @@ import {
   Flex,
   Divider,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const PacketInfo = (props) => {

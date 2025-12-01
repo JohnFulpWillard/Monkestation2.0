@@ -9,7 +9,7 @@ import {
   Section,
   Icon,
   DmIcon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { LobbyNotices, LobbyNoticesType } from './common/LobbyNotices';
 

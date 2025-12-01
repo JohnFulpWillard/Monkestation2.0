@@ -1,7 +1,7 @@
 import { useBackend } from '../backend';
 import { Material } from './Fabrication/Types';
 import { Window } from '../layouts';
-import { Box, Tooltip, Icon, Stack, Section } from '../components';
+import { Box, Tooltip, Icon, Stack, Section } from 'tgui-core/components';
 import { Design } from './Fabrication/Types';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
 import { MaterialMap } from './Fabrication/Types';

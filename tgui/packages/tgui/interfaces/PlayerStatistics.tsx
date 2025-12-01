@@ -1,4 +1,4 @@
-import { Section, LabeledList } from '../components';
+import { Section, LabeledList } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { useBackend } from '../backend';
 type Data = {

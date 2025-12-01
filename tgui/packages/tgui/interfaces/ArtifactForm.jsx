@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 
-import { Section, Button } from '../components';
+import { Section, Button } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const ArtifactForm = (props) => {

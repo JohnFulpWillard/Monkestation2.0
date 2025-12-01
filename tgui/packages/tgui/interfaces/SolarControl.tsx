@@ -11,7 +11,7 @@ import {
   Section,
   Stack,
   Icon,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {

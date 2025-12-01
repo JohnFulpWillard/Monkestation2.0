@@ -1,6 +1,6 @@
 import { Window } from '../layouts';
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Section } from '../components';
+import { Box, Button, Stack, Section } from 'tgui-core/components';
 
 export const ATM = (props) => {
   const { act, data } = useBackend();

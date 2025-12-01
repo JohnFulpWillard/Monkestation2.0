@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, Table, Button } from '../components';
+import { Section, Table, Button } from 'tgui-core/components';
 import { Window } from '../layouts';
 type CassetteDetails = {
   submitter_name: string;

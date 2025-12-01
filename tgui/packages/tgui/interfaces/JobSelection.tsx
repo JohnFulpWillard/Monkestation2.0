@@ -6,7 +6,7 @@ import {
   Icon,
   Stack,
   NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 import { Color } from 'common/color';
 import { JOB2ICON } from './common/JobToIcon';

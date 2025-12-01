@@ -5,7 +5,7 @@ import {
   LabeledList,
   NoticeBox,
   Section,
-} from '../components';
+} from 'tgui-core/components';
 import { capitalizeFirst } from '../../common/string';
 
 import { useBackend } from '../backend';

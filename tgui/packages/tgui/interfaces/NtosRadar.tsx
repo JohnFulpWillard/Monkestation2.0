@@ -1,7 +1,7 @@
 import { type BooleanLike, classes } from 'common/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, NoticeBox, Section, Stack } from '../components';
+import { Box, Button, Icon, NoticeBox, Section, Stack } from 'tgui-core/components';
 import { NtosWindow } from '../layouts';
 
 type Data = {

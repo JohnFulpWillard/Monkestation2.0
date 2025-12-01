@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Stack, Tabs } from '../components';
+import { Button, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 import {
   ICON_BY_CATEGORY_NAME,

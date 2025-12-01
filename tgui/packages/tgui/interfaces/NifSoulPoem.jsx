@@ -9,7 +9,7 @@ import {
   Input,
   LabeledList,
   Button,
-} from '../components';
+} from 'tgui-core/components';
 
 export const NifSoulPoem = (props) => {
   const { act, data } = useBackend();

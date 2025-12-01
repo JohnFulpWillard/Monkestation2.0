@@ -6,7 +6,7 @@ import {
   atmosHandbookHooks,
 } from './common/AtmosHandbook';
 import { Window } from '../layouts';
-import { Section } from '../components';
+import { Section } from 'tgui-core/components';
 
 export type GasAnalyzerData = {
   gasmixes: Gasmix[];

@@ -10,7 +10,7 @@ import {
   Stack,
   Tabs,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 // 15x crate value
