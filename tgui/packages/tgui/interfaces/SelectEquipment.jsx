@@ -1,7 +1,8 @@
 import { filter, map, sortBy, uniq } from 'common/collections';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -17,10 +18,6 @@ import { Window } from '../layouts';
 // here's an important mental define:
 // custom outfits give a ref keyword instead of path
 const getOutfitKey = (outfit) => outfit.path || outfit.ref;
-
-const useOutfitTabs = (categories) => {
-  return useLocalState('selected-tab', categories[0]);
-};
 
 export const SelectEquipment = (props) => {
   const { act, data } = useBackend();
@@ -39,9 +36,9 @@ export const SelectEquipment = (props) => {
     ...outfits.map((entry) => entry.category),
     'Custom',
   ]);
-  const [tab] = useOutfitTabs(categories);
+  const [tab, setTab] = useState(categories[0]);
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const searchFilter = createSearch(
     searchText,
     (entry) => entry.name + entry.path,
@@ -74,11 +71,15 @@ export const SelectEquipment = (props) => {
                   autoFocus
                   placeholder="Search"
                   value={searchText}
-                  onInput={(e, value) => setSearchText(value)}
+                  onChange={setSearchText}
                 />
               </Stack.Item>
               <Stack.Item>
-                <DisplayTabs categories={categories} />
+                <DisplayTabs
+                  categories={categories}
+                  tab={tab}
+                  onSelect={setTab}
+                />
               </Stack.Item>
               <Stack.Item mt={0} grow={1} basis={0}>
                 <OutfitDisplay entries={visibleOutfits} currentTab={tab} />
@@ -115,23 +116,23 @@ export const SelectEquipment = (props) => {
   );
 };
 
-const DisplayTabs = (props) => {
-  const { categories } = props;
-  const [tab, setTab] = useOutfitTabs(categories);
+function DisplayTabs(props) {
+  const { categories, tab, onSelect } = props;
+
   return (
     <Tabs textAlign="center">
       {categories.map((category) => (
         <Tabs.Tab
           key={category}
           selected={tab === category}
-          onClick={() => setTab(category)}
+          onClick={() => onSelect(category)}
         >
           {category}
         </Tabs.Tab>
       ))}
     </Tabs>
   );
-};
+}
 
 const OutfitDisplay = (props) => {
   const { act, data } = useBackend();
@@ -154,7 +155,7 @@ const OutfitDisplay = (props) => {
               path: getOutfitKey(entry),
             })
           }
-          onDblClick={() =>
+          onDoubleClick={() =>
             act('applyoutfit', {
               path: getOutfitKey(entry),
             })
@@ -215,11 +216,8 @@ const CurrentlySelectedDisplay = (props) => {
 const ConfirmationBox = (props) => {
   const { act, data } = useBackend();
   const { current_outfit } = data;
-  const [effectState, setEffectState] = useLocalState('effectState', 'None');
-  const [applyQuirks, setApplyQuirks] = useLocalState(
-    'applyQuirks',
-    'No Quirks',
-  );
+  const [effectState, setEffectState] = useState('None');
+  const [applyQuirks, setApplyQuirks] = useState('No Quirks');
 
   return (
     <Stack>

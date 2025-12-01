@@ -97,7 +97,7 @@ export const Mule = (props) => {
               <LabeledList.Item label="ID">
                 <Input
                   value={id}
-                  onChange={(e, value) => act('setid', { value })}
+                  onChange={(e, value) => act('setid', { value: e })}
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Destination">
@@ -106,7 +106,7 @@ export const Mule = (props) => {
                   selected={destination || 'None'}
                   options={destinations}
                   width="150px"
-                  onSelected={(value) => act('destination', { value })}
+                  onSelected={(e, value) => act('destination', { value: e })}
                 />
                 <Button
                   icon="stop"
@@ -121,7 +121,7 @@ export const Mule = (props) => {
                   selected={home}
                   options={destinations}
                   width="150px"
-                  onSelected={(value) => act('destination', { value })}
+                  onSelected={(e, value) => act('sethome', { value: e })}
                 />
                 <Button
                   icon="home"

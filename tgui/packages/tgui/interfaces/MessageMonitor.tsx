@@ -1,4 +1,5 @@
 import { BooleanLike } from 'common/react';
+import { useState } from 'react';
 import { useBackend, useLocalState } from '../backend';
 import {
   Section,
@@ -162,8 +163,7 @@ const HackedScreen = (props) => {
 const MainScreenAuth = (props) => {
   const { act, data } = useBackend<Data>();
   const { status, is_malf, password } = data;
-  const [auth_password, setPassword] = useLocalState(
-    'input_password',
+  const [auth_password, setPassword] = useState(
     password,
   );
   return (
@@ -172,7 +172,7 @@ const MainScreenAuth = (props) => {
         <Section>
           <Input
             value={auth_password}
-            onInput={(e, value) => setPassword(value)}
+            onChange={setPassword}
             placeholder="Password"
           />
           <Button
@@ -262,8 +262,7 @@ const MainScreenAuth = (props) => {
 const MainScreenNotAuth = (props) => {
   const { act, data } = useBackend<Data>();
   const { status, is_malf, password } = data;
-  const [auth_password, setPassword] = useLocalState(
-    'input_password',
+  const [auth_password, setPassword] = useState(
     password,
   );
 
@@ -273,7 +272,7 @@ const MainScreenNotAuth = (props) => {
         <Section>
           <Input
             value={auth_password}
-            onInput={(e, value) => setPassword(value)}
+            onChange={setPassword}
             placeholder="Password"
           />
           <Button

@@ -1,11 +1,11 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
   Section,
   Table,
   TextArea,
-  Grid,
   Stack,
 } from 'tgui-core/components';
 import { BoxProps } from '../components/Box';
@@ -33,10 +33,7 @@ const TextOrNA = (props: { text?: string } & BoxProps) => {
 
 const handleAction = (action: string, params?: Record<string, any>) => {
   const { act } = useBackend();
-  const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(
-    'selectedPlayerCkey',
-    '',
-  );
+  const [selectedPlayerCkey, setSelectedPlayerCkey] = useState('');
 
   // If params has a ckey, set it as the selected ckey
   if (params?.ckey) {
@@ -156,8 +153,8 @@ const PlayerRow = (props: { player: PlayerData }) => {
 const AdminHelpers = () => {
   return (
     <Section>
-      <Grid>
-        <Grid.Column>
+      <Stack>
+        <Stack.Item>
           <Button
             fluid
             content="Check Players"
@@ -168,8 +165,8 @@ const AdminHelpers = () => {
             content="Game Panel"
             onClick={() => handleAction('gamePanel')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             fluid
             content="Old PP"
@@ -185,8 +182,8 @@ const AdminHelpers = () => {
             content="Combo HUD"
             onClick={() => handleAction('comboHUD')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             fluid
             content="Fax Panel"
@@ -202,8 +199,8 @@ const AdminHelpers = () => {
             content="Generate Code"
             onClick={() => handleAction('generateCode')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             fluid
             content="View Opfors"
@@ -219,8 +216,8 @@ const AdminHelpers = () => {
             content="Toggle Admin AI Interact"
             onClick={() => handleAction('adminaiinteract')}
           />
-        </Grid.Column>
-      </Grid>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -229,11 +226,8 @@ export const VethPlayerPanel = (_props) => {
   const { data, act } = useBackend<{ Data: PlayerData[] }>();
   const playerData = data?.Data || [];
 
-  const [searchTerm, setSearchTerm] = useLocalState('searchTerm', '');
-  const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(
-    'selectedPlayerCkey',
-    '',
-  );
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedPlayerCkey, setSelectedPlayerCkey] = useState('');
   // Filter player data based on the search term
   const filteredData = searchTerm
     ? playerData.filter((player) =>
@@ -280,8 +274,7 @@ export const VethPlayerPanel = (_props) => {
                         autoFocus
                         placeholder="Search by name, old name, job, or ckey"
                         value={searchTerm}
-                        onInput={(_, value) => setSearchTerm(value)}
-                        rows={1}
+                        onChange={setSearchTerm}
                         height="2rem"
                         width="500px"
                         className="VethPlayerPanel__search"

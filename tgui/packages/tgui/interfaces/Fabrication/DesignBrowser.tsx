@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { useSharedState } from '../../backend';
 import { Stack, Section, Icon, Dimmer } from '../../components';
 import { Design, MaterialMap } from './Types';
-import { SearchBar } from './SearchBar';
+import { SearchBar } from '../common/SearchBar';
 
 /**
  * A function that does nothing.
@@ -264,9 +264,10 @@ export const DesignBrowser = <T extends Design = Design>(
             <Stack.Item>
               <Section>
                 <SearchBar
-                  searchText={searchText}
-                  onSearchTextChanged={setSearchText}
-                  hint={'Search all designs...'}
+                  expensive
+                  query={searchText}
+                  onSearch={setSearchText}
+                  placeholder={'Search all designs...'}
                 />
               </Section>
             </Stack.Item>

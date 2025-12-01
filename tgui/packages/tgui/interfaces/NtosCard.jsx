@@ -162,7 +162,7 @@ const IdCardPage = (props) => {
               <Input
                 width="100%"
                 value={id_owner}
-                onInput={(e, value) =>
+                onChange={(value) =>
                   act('PRG_edit', {
                     name: value,
                   })
@@ -172,10 +172,11 @@ const IdCardPage = (props) => {
             <Stack.Item>
               <NumberInput
                 value={id_age || 0}
+                step={1}
                 unit="Years"
                 minValue={17}
                 maxValue={85}
-                onChange={(e, value) => {
+                onChange={(value) => {
                   act('PRG_age', {
                     id_age: value,
                   });
@@ -190,7 +191,7 @@ const IdCardPage = (props) => {
                 fluid
                 mt={1}
                 value={id_rank}
-                onInput={(e, value) =>
+                onChange={(value) =>
                   act('PRG_assign', {
                     assignment: value,
                   })

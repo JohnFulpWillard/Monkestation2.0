@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { filter } from 'es-toolkit/compat';
-import { flow } from 'common/fp';
+import { useState } from 'react';
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';
@@ -105,7 +105,7 @@ export const CameraContent = (props) => {
 
 const CameraSelector = (props) => {
   const { act, data } = useBackend<Data>();
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const { activeCamera } = data;
   const cameras = selectCameras(data.cameras, searchText);
 

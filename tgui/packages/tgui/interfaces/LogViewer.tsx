@@ -101,10 +101,10 @@ const CategoryBar = (props: CategoryBarProps) => {
       scrollableHorizontal
       buttons={
         <Input
-          grow
-          placeholder="Search"
+          width="100%"
+          placeholder="Search Categories"
           value={categorySearch}
-          onChange={(_: any, value: string) => setCategorySearch(value)}
+          onChange={(value: string) => setCategorySearch(value)}
         />
       }
     >
@@ -180,11 +180,10 @@ const CategoryViewer = (props: CategoryViewerProps) => {
       buttons={
         <>
           <Input
-            grow
-            fill
+            width="60%"
             placeholder="Search"
             value={search}
-            onChange={(_: any, value: string) => setSearch(value)}
+            onChange={(value: string) => setSearch(value)}
           />
           <Button
             icon={'code'}
