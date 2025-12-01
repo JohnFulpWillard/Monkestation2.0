@@ -69,7 +69,7 @@ const TextAreaSection = (props) => {
             scrollbar
             height="100%"
             value={message}
-            onInput={(_, value) => setMessage(value)}
+            onChange={(_, value) => setMessage(value)}
           />
         </Stack.Item>
       </Stack>

@@ -123,7 +123,7 @@ const NtosLifelineContent = () => {
             <Input
               placeholder="Search for name..."
               style={{ flex: 1 }}
-              onInput={(e: { target: HTMLTextAreaElement }) =>
+              onChange={(e: { target: HTMLTextAreaElement }) =>
                 setSearchQuery((e.target as HTMLTextAreaElement).value)
               }
             />

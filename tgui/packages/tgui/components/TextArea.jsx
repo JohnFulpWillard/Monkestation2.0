@@ -22,12 +22,12 @@ export class TextArea extends Component {
     const { dontUseTabForIndent = false } = props;
     this.handleOnInput = (e) => {
       const { editing } = this.state;
-      const { onInput } = this.props;
+      const { onChange } = this.props;
       if (!editing) {
         this.setEditing(true);
       }
-      if (onInput) {
-        onInput(e, e.target.value);
+      if (onChange) {
+        onChange(e, e.target.value);
       }
     };
     this.handleOnChange = (e) => {
@@ -52,14 +52,14 @@ export class TextArea extends Component {
     };
     this.handleKeyDown = (e) => {
       const { editing } = this.state;
-      const { onChange, onInput, onEnter, onKey } = this.props;
+      const { onChange, onChange, onEnter, onKey } = this.props;
       if (e.keyCode === KEY_ENTER) {
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);
         }
-        if (onInput) {
-          onInput(e, e.target.value);
+        if (onChange) {
+          onChange(e, e.target.value);
         }
         if (onEnter) {
           onEnter(e, e.target.value);
@@ -100,8 +100,8 @@ export class TextArea extends Component {
             '\t' +
             value.substring(selectionEnd);
           e.target.selectionEnd = selectionStart + 1;
-          if (onInput) {
-            onInput(e, e.target.value);
+          if (onChange) {
+            onChange(e, e.target.value);
           }
         }
       }
@@ -173,7 +173,7 @@ export class TextArea extends Component {
       onChange,
       onKeyDown,
       onKeyPress,
-      onInput,
+      onChange,
       onFocus,
       onBlur,
       onEnter,
@@ -223,7 +223,7 @@ export class TextArea extends Component {
           onChange={this.handleOnChange}
           onKeyDown={this.handleKeyDown}
           onKeyPress={this.handleKeyPress}
-          onInput={this.handleOnInput}
+          onChange={this.handleOnInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onScroll={this.handleScroll}

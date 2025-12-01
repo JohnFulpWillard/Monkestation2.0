@@ -25,12 +25,12 @@ export class Input extends Component {
     };
     this.handleInput = (e) => {
       const { editing } = this.state;
-      const { onInput } = this.props;
+      const { onChange } = this.props;
       if (!editing) {
         this.setEditing(true);
       }
-      if (onInput) {
-        onInput(e, e.target.value);
+      if (onChange) {
+        onChange(e, e.target.value);
       }
     };
     this.handleFocus = (e) => {
@@ -50,14 +50,14 @@ export class Input extends Component {
       }
     };
     this.handleKeyDown = (e) => {
-      const { onInput, onChange, onEnter } = this.props;
+      const { onChange, onChange, onEnter } = this.props;
       if (e.keyCode === KEY_ENTER) {
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);
         }
-        if (onInput) {
-          onInput(e, e.target.value);
+        if (onChange) {
+          onChange(e, e.target.value);
         }
         if (onEnter) {
           onEnter(e, e.target.value);
@@ -120,7 +120,7 @@ export class Input extends Component {
     // Input only props
     const {
       selfClear,
-      onInput,
+      onChange,
       onChange,
       onEnter,
       value,
@@ -144,7 +144,7 @@ export class Input extends Component {
           ref={this.inputRef}
           className="Input__input"
           placeholder={placeholder}
-          onInput={this.handleInput}
+          onChange={this.handleInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}

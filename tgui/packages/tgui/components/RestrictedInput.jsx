@@ -61,12 +61,12 @@ export class RestrictedInput extends Component {
     };
     this.handleInput = (e) => {
       const { editing } = this.state;
-      const { onInput } = this.props;
+      const { onChange } = this.props;
       if (!editing) {
         this.setEditing(true);
       }
-      if (onInput) {
-        onInput(e, +e.target.value);
+      if (onChange) {
+        onChange(e, +e.target.value);
       }
     };
     this.handleKeyDown = (e) => {
@@ -148,7 +148,7 @@ export class RestrictedInput extends Component {
 
   render() {
     const { props } = this;
-    const { onChange, onEnter, onInput, value, ...boxProps } = props;
+    const { onChange, onEnter, onChange, value, ...boxProps } = props;
     const { className, fluid, monospace, ...rest } = boxProps;
     return (
       <Box
@@ -163,7 +163,7 @@ export class RestrictedInput extends Component {
         <input
           className="Input__input"
           onChange={this.handleChange}
-          onInput={this.handleInput}
+          onChange={this.handleInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}

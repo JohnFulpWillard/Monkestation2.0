@@ -318,7 +318,7 @@ export function TguiSay() {
             value.length > LineLength.Large && 'textarea-large',
           ])}
           maxLength={maxLength}
-          onInput={handleInput}
+          onChange={handleInput}
           onKeyDown={handleKeyDown}
           ref={innerRef}
           spellCheck={false}

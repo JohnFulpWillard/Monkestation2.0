@@ -244,9 +244,9 @@ export const CargoCatalog = (props) => {
                     }}
                     onChange={(e, value) => {
                       // Allow edge cases like the X button to work
-                      const onInput = e.target?.props?.onInput;
-                      if (onInput) {
-                        onInput(e, value);
+                      const onChange = e.target?.props?.onChange;
+                      if (onChange) {
+                        onChange(e, value);
                       }
                     }}
                   />

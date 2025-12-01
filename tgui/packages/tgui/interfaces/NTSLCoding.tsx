@@ -25,7 +25,7 @@ class NTSLTextArea extends TextArea {
     const { dontUseTabForIndent = false } = props;
     this.handleKeyDown = (e) => {
       const { editing } = this.state;
-      const { onInput, onKey } = this.props;
+      const { onChange, onKey } = this.props;
       if (e.keyCode === KEY_ESCAPE) {
         if (this.props.onEscape) {
           this.props.onEscape(e);
@@ -56,8 +56,8 @@ class NTSLTextArea extends TextArea {
             '\t' +
             value.substring(selectionEnd);
           e.target.selectionEnd = selectionStart + 1;
-          if (onInput) {
-            onInput(e, e.target.value);
+          if (onChange) {
+            onChange(e, e.target.value);
           }
         }
       }

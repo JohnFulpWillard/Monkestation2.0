@@ -427,7 +427,7 @@ export class ColorInput extends Component {
               : this.state.localValue
           }
           spellCheck="false" // the element should not be checked for spelling errors
-          onInput={this.handleInput}
+          onChange={this.handleInput}
           onBlur={this.handleBlur}
         />
       </Box>
