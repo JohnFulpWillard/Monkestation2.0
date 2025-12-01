@@ -5,7 +5,7 @@
  */
 
 import { resolveAsset } from '../assets';
-import { classes, pureComponentHooks } from 'common/react';
+import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
@@ -135,8 +135,6 @@ export const ImageButton = (props) => {
     </div>
   );
 };
-
-ImageButton.defaultHooks = pureComponentHooks;
 
 /**
  * That's VERY fucking expensive thing!

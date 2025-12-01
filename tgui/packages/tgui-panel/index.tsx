@@ -10,10 +10,10 @@ import './styles/themes/light.scss';
 
 import { perf } from 'common/perf';
 import { combineReducers } from 'common/redux';
-import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+import { setupHotReloading } from 'tgui-dev-server/link/client';
 import { setupGlobalEvents } from 'tgui/events';
 import { captureExternalLinks } from 'tgui/links';
-import { createRenderer } from 'tgui/renderer';
+import { render } from 'tgui/renderer';
 import { configureStore } from '../tgui/store';
 import { audioMiddleware, audioReducer } from './audio';
 import { chatMiddleware, chatReducer } from './chat';
@@ -24,6 +24,7 @@ import { settingsMiddleware, settingsReducer } from './settings';
 import { telemetryMiddleware } from './telemetry';
 import { setGlobalStore } from 'tgui/backend';
 import { websocketMiddleware } from './websocket';
+import { Panel } from './Panel';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
@@ -49,19 +50,14 @@ const store = configureStore({
   },
 });
 
-const renderApp = createRenderer(() => {
-  setGlobalStore(store);
-
-  const { Panel } = require('./Panel');
-  return <Panel />;
-});
-
 const setupApp = () => {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
     return;
   }
+
+  setGlobalStore(store);
 
   setupGlobalEvents({
     ignoreWindowFocus: true,
@@ -70,7 +66,7 @@ const setupApp = () => {
   captureExternalLinks();
 
   // Re-render UI on store updates
-  store.subscribe(renderApp);
+  store.subscribe(() => render(<Panel />));
 
   // Dispatch incoming messages as store actions
   Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
@@ -103,10 +99,10 @@ const setupApp = () => {
         './telemetry',
       ],
       () => {
-        renderApp();
+        render(<Panel />);
       },
     );
   }
-};
+}
 
 setupApp();
