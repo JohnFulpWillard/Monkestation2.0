@@ -2,12 +2,10 @@
 	"name": "tgui-panel",
 	"version": "6.0.0",
 	"dependencies": {
-		"@types/bun": "^1.2.16",
 		"common": "workspace:*",
 		"dompurify": "^2.4.4",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
-		"tgui": "workspace:*",
 		"tgui-core": "^5.3.1",
 		"tgui-dev-server": "workspace:*"
 	},
