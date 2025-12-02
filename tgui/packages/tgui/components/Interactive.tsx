@@ -56,15 +56,13 @@ export interface InteractiveProps {
   style?: any;
 }
 
-type InteractiveState = {
-  scrollTracking: boolean;
-};
-
-export class Interactive extends Component<InteractiveProps, InteractiveState> {
-  containerRef: React.RefObject<HTMLDivElement | null>;
+export class Interactive extends Component {
+  containerRef: RefObject<HTMLDivElement>;
+  props: InteractiveProps;
 
   constructor(props) {
     super(props);
+    this.props = props;
     this.containerRef = props.containerRef;
   }
 
@@ -102,7 +100,7 @@ export class Interactive extends Component<InteractiveProps, InteractiveState> {
     this.toggleDocumentEvents(false);
   };
 
-  handleKeyDown = (event: KeyboardEvent) => {
+  handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const keyCode = event.which || event.keyCode;
 
     // Ignore all keys except arrow ones
