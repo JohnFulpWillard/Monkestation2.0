@@ -1,4 +1,5 @@
-import { filter, uniqBy } from 'common/collections';
+import { filter } from 'es-toolkit/compat';
+import { uniqBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { useBackend } from '../../backend';
 import {

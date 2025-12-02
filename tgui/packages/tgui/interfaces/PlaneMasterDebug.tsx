@@ -11,7 +11,7 @@ import {
   Tooltip,
   Slider,
 } from 'tgui-core/components';
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { classes, shallowDiffers } from 'common/react';
 import { Component, createRef, RefObject } from 'react';

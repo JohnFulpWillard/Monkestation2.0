@@ -1,5 +1,6 @@
 import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { useBackend, useSharedState } from '../backend';
 import {
   AnimatedNumber,

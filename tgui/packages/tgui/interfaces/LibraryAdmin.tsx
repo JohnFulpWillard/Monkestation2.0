@@ -1,4 +1,5 @@
-import { map, sortBy } from 'common/collections';
+import { map } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';

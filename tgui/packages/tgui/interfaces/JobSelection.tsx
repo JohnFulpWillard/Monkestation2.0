@@ -10,7 +10,7 @@ import {
 import { Window } from '../layouts';
 import { Color } from 'common/color';
 import { JOB2ICON } from './common/JobToIcon';
-import { deepMerge } from 'common/collections';
+import { toMerged } from 'es-toolkit';
 import { BooleanLike } from 'common/react';
 import { LobbyNotices, LobbyNoticesType } from './common/LobbyNotices';
 
@@ -105,7 +105,7 @@ export const JobSelection = (props) => {
   if (!data?.departments_static) {
     return null; // Stop TGUI whitescreens with TGUI-dev!
   }
-  const departments: Record<string, Department> = deepMerge(
+  const departments: Record<string, Department> = toMerged(
     data.departments,
     data.departments_static,
   );

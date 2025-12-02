@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { classes } from 'common/react';
 import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';

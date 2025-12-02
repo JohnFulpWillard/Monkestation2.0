@@ -1,4 +1,4 @@
-import { paginate } from 'common/collections';
+import { chunk } from 'es-toolkit';
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Stack, Button, Icon, Input, Section, Tabs } from 'tgui-core/components';
@@ -180,7 +180,7 @@ export const EventTabs = (props) => {
 
   const [category, setCategory] = useLocalState('category', categories[0]);
 
-  const layerCats = paginate(categories, CATEGORY_PAGE_ITEMS);
+  const layerCats = chunk(categories, CATEGORY_PAGE_ITEMS);
 
   return (
     <Section mb="-6px">

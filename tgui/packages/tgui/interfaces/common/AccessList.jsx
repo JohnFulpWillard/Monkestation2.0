@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { useSharedState } from '../../backend';
 import { Button, Stack, Section, Tabs, Box } from '../../components';
 

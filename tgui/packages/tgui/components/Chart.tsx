@@ -4,7 +4,8 @@
  * @license MIT
  */
 
-import { map, zipWith } from 'common/collections';
+import { zip } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 import { Component, createRef, RefObject } from 'react';
 import { Box, BoxProps } from './Box';
 
@@ -36,8 +37,8 @@ const normalizeData = (
     return [];
   }
 
-  const min = zipWith(Math.min)(...data);
-  const max = zipWith(Math.max)(...data);
+  const min = zip(Math.min)(...data);
+  const max = zip(Math.max)(...data);
 
   if (rangeX !== undefined) {
     min[0] = rangeX[0];
@@ -50,7 +51,7 @@ const normalizeData = (
   }
 
   const normalized = map((point: Point) => {
-    return zipWith((value: number, min: number, max: number, scale: number) => {
+    return zip((value: number, min: number, max: number, scale: number) => {
       return ((value - min) / (max - min)) * scale;
     })(point, min, max, scale);
   })(data);

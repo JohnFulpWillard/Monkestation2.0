@@ -16,7 +16,7 @@ import { NtosWindow } from '../../layouts';
 
 import { NtChat, NtMessenger, NtPicture } from './types';
 import { ChatScreen } from './ChatScreen';
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 
 type NtosMessengerData = {
   can_spam: BooleanLike;

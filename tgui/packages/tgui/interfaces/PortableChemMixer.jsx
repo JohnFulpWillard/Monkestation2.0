@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { toTitleCase } from 'common/string';
 import { useBackend } from '../backend';
 import {

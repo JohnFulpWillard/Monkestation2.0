@@ -1,5 +1,5 @@
 // THIS IS A NOVA SECTOR UI FILE
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Section, Table } from 'tgui-core/components';

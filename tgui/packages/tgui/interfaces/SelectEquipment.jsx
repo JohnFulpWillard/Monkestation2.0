@@ -1,4 +1,5 @@
-import { filter, map, sortBy, uniq } from 'common/collections';
+import { sortBy, uniq } from 'es-toolkit';
+import { filter, map } from 'es-toolkit/compat';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';

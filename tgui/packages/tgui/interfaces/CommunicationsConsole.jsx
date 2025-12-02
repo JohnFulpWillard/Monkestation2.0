@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import {

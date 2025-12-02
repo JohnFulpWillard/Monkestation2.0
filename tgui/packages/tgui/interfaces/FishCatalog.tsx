@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';

@@ -1,4 +1,5 @@
-import { map, sortBy } from 'common/collections';
+import { map } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { useBackend, useLocalState } from '../backend';

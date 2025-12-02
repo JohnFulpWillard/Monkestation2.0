@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { multiline } from 'common/string';
-import { paginate, range } from 'common/collections';
+import { chunk, range } from 'es-toolkit';
 
 type Entry = {
   name: string;
@@ -126,7 +126,7 @@ export const InfuserBook = (props) => {
     'Tier 3 - Abberations - RESTRICTED',
   ];
 
-  const paginatedTabs = paginate(tabs, 3);
+  const paginatedTabs = chunk(tabs, 3);
 
   const restrictedNext = chapter === 3 && pageInChapter === 0;
 
