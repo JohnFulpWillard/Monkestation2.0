@@ -13,7 +13,7 @@
  */
 
 import { clamp } from 'common/math';
-import { Component, type ReactNode, type RefObject } from 'react';
+import { Component, createRef, type ReactNode, type RefObject } from 'react';
 
 export interface Interaction {
   left: number;
@@ -28,10 +28,10 @@ const getParentWindow = (node?: HTMLDivElement | null): Window => {
 // Returns a relative position of the pointer inside the node's bounding box
 const getRelativePosition = (
   node: HTMLDivElement,
-  event: MouseEvent,
+  event: React.MouseEvent<HTMLDivElement>,
 ): Interaction => {
   const rect = node.getBoundingClientRect();
-  const pointer = event as MouseEvent;
+  const pointer = event as React.MouseEvent<HTMLDivElement>;
   return {
     left: clamp(
       (pointer.pageX - (rect.left + getParentWindow(node).pageXOffset)) /
@@ -52,18 +52,16 @@ export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
   children: ReactNode[];
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement | null>;
   style?: any;
 }
 
-export class Interactive extends Component {
-  containerRef: RefObject<HTMLDivElement>;
-  props: InteractiveProps;
+export class Interactive extends Component<InteractiveProps> {
+  containerRef: RefObject<HTMLDivElement | null>;
 
   constructor(props) {
     super(props);
-    this.props = props;
-    this.containerRef = props.containerRef;
+    this.containerRef = createRef<HTMLDivElement>();
   }
 
   handleMoveStart = (event: React.MouseEvent<HTMLDivElement>) => {
