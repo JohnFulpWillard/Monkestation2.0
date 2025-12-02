@@ -13,7 +13,7 @@
  */
 
 import { clamp } from 'common/math';
-import { Component, ReactNode, createRef, RefObject } from 'react';
+import { Component, type ReactNode, type RefObject } from 'react';
 
 export interface Interaction {
   left: number;
@@ -22,7 +22,7 @@ export interface Interaction {
 
 // Finds the proper window object to fix iframe embedding issues
 const getParentWindow = (node?: HTMLDivElement | null): Window => {
-  return (node && node.ownerDocument.defaultView) || self;
+  return (node?.ownerDocument?.defaultView) || self;
 };
 
 // Returns a relative position of the pointer inside the node's bounding box
@@ -56,19 +56,22 @@ export interface InteractiveProps {
   style?: any;
 }
 
-export class Interactive extends Component {
-  containerRef: RefObject<HTMLDivElement>;
-  props: InteractiveProps;
+type InteractiveState = {
+  scrollTracking: boolean;
+};
+
+export class Interactive extends Component<InteractiveProps, InteractiveState> {
+  containerRef: React.RefObject<HTMLDivElement | null>;
 
   constructor(props) {
     super(props);
-    this.props = props;
     this.containerRef = props.containerRef;
   }
 
-  handleMoveStart = (event: MouseEvent) => {
+  handleMoveStart = (event: React.MouseEvent<HTMLDivElement>) => {
     const el = this.containerRef?.current;
-    if (!el) return;
+    if (!el)
+        return;
 
     // Prevent text selection
     event.preventDefault();
@@ -77,7 +80,7 @@ export class Interactive extends Component {
     this.toggleDocumentEvents(true);
   };
 
-  handleMove = (event: MouseEvent) => {
+  handleMove = (event: React.MouseEvent<HTMLDivElement>) => {
     // Prevent text selection
     event.preventDefault();
 

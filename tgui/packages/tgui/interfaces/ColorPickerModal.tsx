@@ -5,32 +5,31 @@
  */
 
 import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { Component, createRef, useState, type FocusEvent, type FormEvent, type ReactNode } from 'react';
 import {
   Autofocus,
   Box,
   Button,
-  Flex,
-  Section,
   Stack,
-  Pointer,
+  Section,
   NumberInput,
   Tooltip,
 } from 'tgui-core/components';
+import { Pointer } from '../components';
 import { Window } from '../layouts';
 import { clamp } from 'common/math';
 import {
   hexToHsva,
-  HsvaColor,
+  type HsvaColor,
   hsvaToHex,
   hsvaToHslString,
   hsvaToRgba,
   rgbaToHsva,
   validHex,
 } from 'common/color';
-import { Interaction, Interactive } from 'tgui/components/Interactive';
+import { type Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
 import { logger } from 'tgui/logging';
 import { InputButtons } from './common/InputButtons';
 
@@ -54,10 +53,7 @@ export const ColorPickerModal = () => {
     autofocus,
     default_color = '#000000',
   } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
-    'color_picker_choice',
-    hexToHsva(default_color),
-  );
+  const [selectedColor, setSelectedColor] = useState<HsvaColor>(hexToHsva(default_color));
 
   return (
     <Window height={400} title={title} width={600} theme="generic">
@@ -110,8 +106,8 @@ export const ColorSelector = ({
   const rgb = hsvaToRgba(color);
   const hexColor = hsvaToHex(color);
   return (
-    <Flex direction="row">
-      <Flex.Item mr={2}>
+    <Stack direction="row">
+      <Stack.Item mr={2}>
         <Stack vertical>
           <Stack.Item>
             <div className="react-colorful">
@@ -149,8 +145,8 @@ export const ColorSelector = ({
             </Tooltip>
           </Stack.Item>
         </Stack>
-      </Flex.Item>
-      <Flex.Item grow fontSize="15px" lineHeight="24px">
+      </Stack.Item>
+      <Stack.Item grow fontSize="15px" lineHeight="24px">
         <Stack vertical>
           <Stack.Item>
             <Stack>
@@ -285,8 +281,8 @@ export const ColorSelector = ({
             </Stack>
           </Stack.Item>
         </Stack>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -341,11 +337,11 @@ interface HexColorInputProps
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): ReactNode => {
+function HexColorInput(props: HexColorInputProps) {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
-  const escape = (value: string) =>
+  const escapeKey = (value: string) =>
     value.replace(/([^0-9A-F]+)/gi, '').substring(0, alpha ? 8 : 6);
 
   /** Validates hexadecimal strings */
@@ -357,7 +353,7 @@ export const HexColorInput = (props: HexColorInputProps): ReactNode => {
       fluid={fluid}
       color={color}
       onChange={onChange}
-      escape={escape}
+      escape={escapeKey}
       format={prefixed ? prefix : undefined}
       validate={validate}
     />
@@ -376,13 +372,17 @@ interface ColorInputBaseProps {
   format?: (value: string) => string;
 }
 
-export class ColorInput extends Component {
-  props: ColorInputBaseProps;
-  state: { localValue: string };
+type ColorState = {
+  localValue: string;
+};
 
-  constructor(props: ColorInputBaseProps) {
+export class ColorInput extends Component<ColorInputBaseProps, ColorState> {
+  ref: React.RefObject<HTMLDivElement | null>;
+  handleScrollTrackingChange: (value: boolean) => void;
+
+  constructor(props) {
     super(props);
-    this.props = props;
+    this.ref = createRef();
     this.state = { localValue: this.props.escape(this.props.color) };
   }
 
@@ -407,7 +407,7 @@ export class ColorInput extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState): void {
+  componentDidUpdate(prevProps) {
     if (prevProps.color !== this.props.color) {
       // Update the local state when `color` property value is changed
       // eslint-disable-next-line react/no-did-update-set-state

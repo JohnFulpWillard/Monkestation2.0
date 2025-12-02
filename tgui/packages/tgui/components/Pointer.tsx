@@ -13,7 +13,7 @@
  */
 
 import { classes } from 'common/react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface PointerProps {
   className?: string;
@@ -39,7 +39,7 @@ export const Pointer = ({
     <div className={nodeClassName} style={style}>
       <div
         className="react-colorful__pointer-fill"
-        style={{ 'background-color': color }}
+        style={{ backgroundColor: color }}
       />
     </div>
   );
