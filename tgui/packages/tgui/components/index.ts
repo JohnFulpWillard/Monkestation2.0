@@ -20,7 +20,6 @@ export { DraggableControl } from './DraggableControl';
 export { Dropdown } from './Dropdown';
 export { Floating } from './Floating';
 export { FitText } from './FitText';
-export { Grid } from './Grid';
 export { Image } from './Image';
 export { DmIcon } from './DmIcon';
 export { Icon } from './Icon';

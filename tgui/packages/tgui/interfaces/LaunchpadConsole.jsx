@@ -4,7 +4,6 @@ import {
   Button,
   Divider,
   Stack,
-  Grid,
   Input,
   NoticeBox,
   NumberInput,
@@ -15,8 +14,8 @@ import { Window } from '../layouts';
 const LaunchpadButtonPad = (props) => {
   const { act } = useBackend();
   return (
-    <Grid width="1px">
-      <Grid.Column>
+    <Stack width="1px">
+      <Stack.Item grow>
         <Button
           fluid
           icon="arrow-left"
@@ -51,8 +50,8 @@ const LaunchpadButtonPad = (props) => {
             })
           }
         />
-      </Grid.Column>
-      <Grid.Column>
+      </Stack.Item>
+      <Stack.Item grow>
         <Button
           fluid
           icon="arrow-up"
@@ -84,8 +83,8 @@ const LaunchpadButtonPad = (props) => {
             })
           }
         />
-      </Grid.Column>
-      <Grid.Column>
+      </Stack.Item>
+      <Stack.Item grow>
         <Button
           fluid
           icon="arrow-up"
@@ -120,8 +119,8 @@ const LaunchpadButtonPad = (props) => {
             })
           }
         />
-      </Grid.Column>
-    </Grid>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -152,13 +151,13 @@ export const LaunchpadControl = (props) => {
         />
       }
     >
-      <Grid>
-        <Grid.Column>
+      <Stack>
+        <Stack.Item grow>
           <Section title="Controls" level={2}>
             <LaunchpadButtonPad />
           </Section>
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item grow>
           <Section title="Target" level={2}>
             <Box fontSize="26px">
               <Box mb={1}>
@@ -203,10 +202,10 @@ export const LaunchpadControl = (props) => {
               </Box>
             </Box>
           </Section>
-        </Grid.Column>
-      </Grid>
-      <Grid>
-        <Grid.Column>
+        </Stack.Item>
+      </Stack>
+      <Stack>
+        <Stack.Item grow>
           <Button
             fluid
             icon="upload"
@@ -214,8 +213,8 @@ export const LaunchpadControl = (props) => {
             textAlign="center"
             onClick={() => act('launch')}
           />
-        </Grid.Column>
-        <Grid.Column>
+        </Stack.Item>
+        <Stack.Item grow>
           <Button
             fluid
             icon="download"
@@ -223,8 +222,8 @@ export const LaunchpadControl = (props) => {
             textAlign="center"
             onClick={() => act('pull')}
           />
-        </Grid.Column>
-      </Grid>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

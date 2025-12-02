@@ -1,5 +1,5 @@
 import { sortBy } from 'es-toolkit';
-import { Section, Button, Stack, Tabs, Grid } from '../../components';
+import { Section, Button, Stack, Tabs } from '../../components';
 import { useLocalState } from '../../backend';
 
 export const AccessConfig = (props) => {
@@ -85,8 +85,8 @@ export const AccessConfig = (props) => {
           </Tabs>
         </Stack.Item>
         <Stack.Item grow={1} ml={1.5}>
-          <Grid>
-            <Grid.Column mr={0}>
+          <Stack>
+            <Stack.Item grow mr={0}>
               <Button
                 fluid
                 icon="check"
@@ -94,8 +94,8 @@ export const AccessConfig = (props) => {
                 color="good"
                 onClick={() => grantDep(selectedAccess.name)}
               />
-            </Grid.Column>
-            <Grid.Column ml={0}>
+            </Stack.Item>
+            <Stack.Item grow ml={0}>
               <Button
                 fluid
                 icon="times"
@@ -103,8 +103,8 @@ export const AccessConfig = (props) => {
                 color="bad"
                 onClick={() => denyDep(selectedAccess.name)}
               />
-            </Grid.Column>
-          </Grid>
+            </Stack.Item>
+          </Stack>
           {selectedAccessEntries.map((entry) => (
             <Button.Checkbox
               fluid
