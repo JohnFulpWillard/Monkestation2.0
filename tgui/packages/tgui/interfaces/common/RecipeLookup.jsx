@@ -7,7 +7,7 @@ import {
   Icon,
   LabeledList,
   Tooltip,
-} from '../../components';
+} from 'tgui-core/components';
 
 export const RecipeLookup = (props) => {
   const { recipe, bookmarkedReactions } = props;
