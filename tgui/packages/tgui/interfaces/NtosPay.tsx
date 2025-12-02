@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
 import {
@@ -25,7 +26,6 @@ type Transactions = {
   adjusted_money: number;
   reason: string;
 };
-let name_to_token, money_to_send, token;
 
 export const NtosPay = (props) => {
   return (
@@ -83,14 +83,19 @@ const Introduction = (props) => {
 };
 
 /** Displays the transfer section. */
-const TransferSection = (props) => {
+const TransferSection = () => {
   const { act, data } = useBackend<Data>();
   const { money, wanted_token } = data;
+
+  const [token, setToken] = useState('');
+  const [moneyToSend, setMoneyToSend] = useState(1);
+  const [nameToToken, setNameToToken] = useState('');
+  const [moneyToSendIsValid, setMoneyToSendIsValid] = useState(true);
 
   return (
     <Stack>
       <Stack.Item>
-        <Section vertical title="Transfer Money">
+        <Section title="Transfer Money">
           <Box>
             <Tooltip
               content="Enter the pay token of the account you want to transfer credits to."
@@ -99,7 +104,7 @@ const TransferSection = (props) => {
               <Input
                 placeholder="Pay Token"
                 width="190px"
-                onChange={(e, value) => (token = value)}
+                onChange={setToken}
               />
             </Tooltip>
           </Box>
@@ -111,19 +116,20 @@ const TransferSection = (props) => {
               width="83px"
               minValue={1}
               maxValue={money}
-              onChange={(_, value) => (money_to_send = value)}
-              value={1}
+              onChange={setMoneyToSend}
+              onValidationChange={setMoneyToSendIsValid}
+              value={moneyToSend}
             />
           </Tooltip>
           <Button
-            content="Send credits"
+            disabled={!moneyToSendIsValid}
             onClick={() =>
               act('Transaction', {
                 token: token,
-                amount: money_to_send,
+                amount: moneyToSend,
               })
             }
-          />
+          >Send credits</Button>
         </Section>
       </Stack.Item>
       <Stack.Item>
@@ -132,13 +138,13 @@ const TransferSection = (props) => {
             <Input
               placeholder="Full name of account."
               width="190px"
-              onChange={(e, value) => (name_to_token = value)}
+              onChange={setNameToToken}
             />
             <Button
               content="Get it"
               onClick={() =>
                 act('GetPayToken', {
-                  wanted_name: name_to_token,
+                  wanted_name: nameToToken,
                 })
               }
             />

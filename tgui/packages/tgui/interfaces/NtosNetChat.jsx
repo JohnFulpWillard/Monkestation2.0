@@ -174,14 +174,14 @@ export const NtosNetChat = (props) => {
                 <Input
                   backgroundColor={this_client && this_client.muted && 'red'}
                   height="22px"
-                  placeholder={
+                  value={
                     (this_client && this_client.muted && 'You are muted!') ||
                     'Message ' + title
                   }
                   fluid
                   selfClear
                   mt={1}
-                  onEnter={(e, value) =>
+                  onEnter={(_e, value) =>
                     act('PRG_speak', {
                       message: value,
                     })
