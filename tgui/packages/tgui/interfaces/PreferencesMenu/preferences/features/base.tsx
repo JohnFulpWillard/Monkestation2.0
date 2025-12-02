@@ -11,7 +11,7 @@ import {
   Stack,
   Flex,
   Tooltip,
-} from '../../../../components';
+} from 'tgui-core/components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';

@@ -5,7 +5,7 @@ import {
   PreferencesCurrentWindow,
 } from './data';
 import { CharacterPreferenceWindow } from './CharacterPreferenceWindow';
-import { Box, Button, Section, Stack } from '../../components';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import { PageButton } from './PageButton';
 import { Window } from '../../layouts';
 import { KeybindingsPage } from './KeybindingsPage';

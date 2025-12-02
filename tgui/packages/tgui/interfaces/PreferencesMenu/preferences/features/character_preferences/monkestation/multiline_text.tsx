@@ -1,5 +1,5 @@
-import { Box, TextArea } from '../../../../../../components';
-import { Feature, FeatureShortTextData, FeatureValueProps } from '../../base';
+import { Box, TextArea } from 'tgui-core/components';
+import type { Feature, FeatureShortTextData, FeatureValueProps } from '../../base';
 
 export type FeatureMultiline = Feature<string, string, FeatureShortTextData>;
 export type FeatureMultilineProps = FeatureValueProps<
@@ -22,7 +22,7 @@ export const MultilineText = (
       height={props.box_height || '36px'}
       value={props.value}
       maxLength={props.serverData.maximum_length || 1024}
-      onChange={(_, new_value) => {
+      onChange={(new_value) => {
         props.handleSetValue(new_value);
       }}
     />
