@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Button, Section, Flex, Icon, Box } from 'tgui-core/components';
+import { Button, Section, Stack, Icon, Box } from 'tgui-core/components';
 import { BooleanLike } from '../../common/react';
 import { SearchBar } from './common/SearchBar';
 import { capitalizeFirst } from '../../common/string';
@@ -70,7 +70,7 @@ export const EmotePanelContent = (props) => {
       <Section
         title="Filters"
         buttons={
-          <Flex>
+          <Stack>
             <Button
               icon="eye"
               width="100%"
@@ -116,7 +116,7 @@ export const EmotePanelContent = (props) => {
               selected={filterUseParams}
               onClick={() => toggleUseParamsFilter(!filterUseParams)}
             />
-          </Flex>
+          </Stack>
         }
       >
         <SearchBar
@@ -132,8 +132,8 @@ export const EmotePanelContent = (props) => {
             : `All Emotes`
         }
         buttons={
-          <Flex>
-            <Flex.Item>
+          <Stack>
+            <Stack.Item>
               <Button onClick={() => toggleShowNames(!showNames)}>
                 {showNames ? 'Show Names' : 'Show Keys'}
               </Button>
@@ -143,8 +143,8 @@ export const EmotePanelContent = (props) => {
               >
                 Show Icons
               </Button>
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 icon="crosshairs"
                 selected={useParams}
@@ -152,12 +152,12 @@ export const EmotePanelContent = (props) => {
               >
                 Use Params
               </Button>
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         }
       >
-        <Flex>
-          <Flex.Item>
+        <Stack>
+          <Stack.Item>
             {emotes
               .filter(
                 (emote) =>
@@ -221,8 +221,8 @@ export const EmotePanelContent = (props) => {
                   )}
                 </Button>
               ))}
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Section>
     </Section>
   );

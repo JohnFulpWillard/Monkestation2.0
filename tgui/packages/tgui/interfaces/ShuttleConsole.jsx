@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Modal,
@@ -27,14 +27,14 @@ export const ShuttleConsole = (props) => {
           fontFamily="monospace"
           textAlign="center"
         >
-          <Flex>
-            <Flex.Item mt={2}>
+          <Stack>
+            <Stack.Item mt={2}>
               <Icon name="minus-circle" />
-            </Flex.Item>
-            <Flex.Item mt={2} ml={2} color="bad">
+            </Stack.Item>
+            <Stack.Item mt={2} ml={2} color="bad">
               {type === 'shuttle' ? 'SHUTTLE LOCKED' : 'BASE LOCKED'}
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
           <Box fontSize="18px" mt={4}>
             <Button
               lineHeight="40px"

@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
   Input,
   LabeledList,
   NumberInput,
@@ -218,11 +217,11 @@ export const BeakerPanel = (props) => {
               (r) => r.id === reagent.id,
             );
             return (
-              <Flex key={index} align="center" mb={1}>
-                <Flex.Item grow>
+              <Stack key={index} align="center" mb={1}>
+                <Stack.Item grow>
                   {currentreagentData?.name || 'Unknown Reagent ' + reagent.id}
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <NumberInput
                     width="80px"
                     value={reagent.amount}
@@ -237,8 +236,8 @@ export const BeakerPanel = (props) => {
                       }
                     }}
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="trash"
                     color="bad"
@@ -248,15 +247,15 @@ export const BeakerPanel = (props) => {
                   >
                     Remove
                   </Button>
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             );
           })}
         </Stack.Item>
 
         <Stack.Item>
-          <Flex align="center">
-            <Flex.Item grow>
+          <Stack align="center">
+            <Stack.Item grow>
               <Box
                 p={1}
                 style={{
@@ -267,8 +266,8 @@ export const BeakerPanel = (props) => {
               >
                 {selectedReagents[containerNum]?.name || 'No reagent selected'}
               </Box>
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 icon="plus"
                 onClick={() => addReagentToContainer(containerNum, 1)}
@@ -276,8 +275,8 @@ export const BeakerPanel = (props) => {
               >
                 Add
               </Button>
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
 
         <Stack.Item>
@@ -361,11 +360,11 @@ export const BeakerPanel = (props) => {
             </Section>
           </Stack.Item>
           <Stack.Item>
-            <Flex>
-              <Flex.Item width="48%">{renderContainerSection(1)}</Flex.Item>
-              <Flex.Item width="4%" />
-              <Flex.Item width="48%">{renderContainerSection(2)}</Flex.Item>
-            </Flex>
+            <Stack>
+              <Stack.Item width="48%">{renderContainerSection(1)}</Stack.Item>
+              <Stack.Item width="4%" />
+              <Stack.Item width="48%">{renderContainerSection(2)}</Stack.Item>
+            </Stack>
           </Stack.Item>
         </Stack>
       </Window.Content>

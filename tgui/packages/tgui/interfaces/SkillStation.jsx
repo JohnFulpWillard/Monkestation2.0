@@ -3,7 +3,6 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Icon,
   LabeledList,
   NoticeBox,
@@ -247,14 +246,14 @@ export const SkillStation = (props) => {
         {!!error && <NoticeBox>{error}</NoticeBox>}
         {!!working && (
           <NoticeBox danger>
-            <Flex direction="column">
-              <Flex.Item mb={0.5}>
+            <Stack direction="column">
+              <Stack.Item mb={0.5}>
                 Operation in progress. Please do not leave the chamber.
-              </Flex.Item>
-              <Flex.Item>
+              </Stack.Item>
+              <Stack.Item>
                 Time Left: <TimeFormat value={timeleft} />
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </NoticeBox>
         )}
         <InsertedSkillchip />

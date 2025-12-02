@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
+  Stack,
   Grid,
   Input,
   NoticeBox,
@@ -239,8 +239,8 @@ export const LaunchpadConsole = (props) => {
           <NoticeBox>No Pads Connected</NoticeBox>
         )) || (
           <Section>
-            <Flex minHeight="190px">
-              <Flex.Item width="140px" minHeight="190px">
+            <Stack minHeight="190px">
+              <Stack.Item width="140px" minHeight="190px">
                 {launchpads.map((launchpad) => (
                   <Button
                     fluid
@@ -256,16 +256,16 @@ export const LaunchpadConsole = (props) => {
                     }
                   />
                 ))}
-              </Flex.Item>
-              <Flex.Item minHeight="100%">
+              </Stack.Item>
+              <Stack.Item minHeight="100%">
                 <Divider vertical />
-              </Flex.Item>
-              <Flex.Item grow={1} basis={0} minHeight="100%">
+              </Stack.Item>
+              <Stack.Item grow={1} basis={0} minHeight="100%">
                 {(selected_id && <LaunchpadControl />) || (
                   <Box>Please select a pad</Box>
                 )}
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </Section>
         )}
       </Window.Content>

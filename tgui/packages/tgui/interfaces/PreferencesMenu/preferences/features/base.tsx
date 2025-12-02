@@ -9,7 +9,6 @@ import {
   Input,
   NumberInput,
   Stack,
-  Flex,
   Tooltip,
 } from 'tgui-core/components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
@@ -339,25 +338,22 @@ export type FeatureNumericData = {
 
 export type FeatureNumeric = Feature<number, number, FeatureNumericData>;
 
-export const FeatureNumberInput = (
+export function FeatureNumberInput(
   props: FeatureValueProps<number, number, FeatureNumericData>,
-) => {
-  if (!props.serverData) {
-    return <Box>Loading...</Box>;
-  }
+) {
+  const { serverData, handleSetValue, value } = props;
 
   return (
     <NumberInput
-      onChange={(e, value) => {
-        props.handleSetValue(value);
-      }}
-      minValue={props.serverData.minimum}
-      maxValue={props.serverData.maximum}
-      step={props.serverData.step}
-      value={props.value}
+      onChange={(value) => handleSetValue(value)}
+      disabled={!serverData}
+      minValue={serverData?.minimum || 0}
+      maxValue={serverData?.maximum || 100}
+      step={serverData?.step || 1}
+      value={value}
     />
   );
-};
+}
 
 export const FeatureValueInput = (props: {
   feature: Feature<unknown>;
@@ -416,7 +412,7 @@ export const FeatureShortTextInput = (
       width="100%"
       value={props.value}
       maxLength={props.serverData.maximum_length}
-      onChange={(_, value) => props.handleSetValue(value)}
+      onChange={(value) => props.handleSetValue(value)}
     />
   );
 };
@@ -468,21 +464,21 @@ export const StandardizedPalette = (props: {
     ? props.value && safeHex(props.value)
     : props.value;
   return (
-    <Flex style={{ alignItems: 'baseline', maxWidth: maxWidth }}>
-      <Flex.Item
+    <Stack style={{ alignItems: 'baseline', maxWidth: maxWidth }}>
+      <Stack.Item
         shrink
         style={{
           borderRadius: '0.16em',
           maxWidth: maxWidth,
-          'padding-bottom': '-5px',
+          paddingBottom: '-5px',
         }}
         className="section-background"
         backgroundColor={backgroundColor}
         p={0.5}
       >
-        <Flex style={{ 'flex-wrap': 'wrap', maxWidth: maxWidth }}>
+        <Stack style={{ flexWrap: 'wrap', maxWidth: maxWidth }}>
           {choices.map((choice) => (
-            <Flex.Item key={choice} ml={0}>
+            <Stack.Item key={choice} ml={0}>
               <Tooltip
                 content={`${displayNames[choice]}${
                   includeHex ? ` (${safeHex(choice)})` : ''
@@ -514,15 +510,15 @@ export const StandardizedPalette = (props: {
                   />
                 </Box>
               </Tooltip>
-            </Flex.Item>
+            </Stack.Item>
           ))}
           {allow_custom && (
             <>
-              <Flex.Item grow />
+              <Stack.Item grow />
               {!Object.values(choices_to_hex)
                 .map(safeHex)
                 .includes(safeValue!) && (
-                <Flex.Item>
+                <Stack.Item>
                   <Tooltip
                     content={`Your Custom Selection (${safeValue})`}
                     position="bottom"
@@ -543,10 +539,10 @@ export const StandardizedPalette = (props: {
                       />
                     </Box>
                   </Tooltip>
-                </Flex.Item>
+                </Stack.Item>
               )}
 
-              <Flex.Item ml={0.5}>
+              <Stack.Item ml={0.5}>
                 <Button
                   tooltip="Choose Custom"
                   tooltipPosition="bottom"
@@ -562,11 +558,11 @@ export const StandardizedPalette = (props: {
                     }
                   }}
                 />
-              </Flex.Item>
+              </Stack.Item>
             </>
           )}
-        </Flex>
-      </Flex.Item>
-    </Flex>
+        </Stack>
+      </Stack.Item>
+    </Stack>
   );
 };

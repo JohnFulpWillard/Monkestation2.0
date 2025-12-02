@@ -1,6 +1,6 @@
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Flex, Tabs, Stack, DmIcon, Icon } from 'tgui-core/components';
+import { Tabs, Stack, DmIcon, Icon } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Requirement = {
@@ -62,12 +62,12 @@ const PlantInfo = () => {
   } = useBackend<Data>();
   const [selectedPlant] = useLocalState('plant', plants[0]);
   return (
-    <Flex className="chicken-info-container">
-      <Flex.Item className="chicken-title">
+    <Stack className="chicken-info-container">
+      <Stack.Item className="chicken-title">
         {toTitleCase(selectedPlant.name)}
-      </Flex.Item>
+      </Stack.Item>
 
-      <Flex.Item className="chicken-icon-container">
+      <Stack.Item className="chicken-icon-container">
         <Stack>
           {selectedPlant.results.map((result) => (
             <Stack.Item key={result.path}>
@@ -81,28 +81,28 @@ const PlantInfo = () => {
             </Stack.Item>
           ))}
         </Stack>
-      </Flex.Item>
+      </Stack.Item>
 
-      <Flex.Item className="chicken-metric">
+      <Stack.Item className="chicken-metric">
         {selectedPlant.mutates_from &&
           'Mutates From:' + selectedPlant.mutates_from}
-      </Flex.Item>
+      </Stack.Item>
 
-      <Flex.Item className="chicken-metric">
+      <Stack.Item className="chicken-metric">
         {selectedPlant.desc && 'Description:' + selectedPlant.desc}
-      </Flex.Item>
+      </Stack.Item>
 
       {selectedPlant.requirements.map((stat) => (
-        <Flex.Item className="chicken-metric" key={stat.stat}>
+        <Stack.Item className="chicken-metric" key={stat.stat}>
           {stat.stat} Range: {stat.low} to {stat.high}
-        </Flex.Item>
+        </Stack.Item>
       ))}
 
-      <Flex.Item className="chicken-metric">
+      <Stack.Item className="chicken-metric">
         {selectedPlant.required_reagents &&
           'Required Infusions: ' + selectedPlant.required_reagents}
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 

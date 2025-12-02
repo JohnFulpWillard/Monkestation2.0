@@ -3,7 +3,7 @@ import { Window } from '../layouts';
 import {
   Section,
   Divider,
-  Flex,
+  Stack,
   Box,
   BlockQuote,
   Input,
@@ -25,7 +25,7 @@ export const NifSoulPoem = (props) => {
       <Window.Content scrollable>
         <Section title="Messages">
           {messages.map((message) => (
-            <Flex.Item key={message.key}>
+            <Stack.Item key={message.key}>
               <Box textAlign="center" fontSize="14px">
                 <b>{message.sender_name} </b>
                 <Button
@@ -40,7 +40,7 @@ export const NifSoulPoem = (props) => {
               <Box>{message.message}</Box>
               <br />
               <BlockQuote>Time Recieved: {message.timestamp}</BlockQuote>
-            </Flex.Item>
+            </Stack.Item>
           ))}
         </Section>
         <Section title="Settings">

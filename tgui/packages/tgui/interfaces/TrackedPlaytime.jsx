@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, ProgressBar, Section, Table } from 'tgui-core/components';
+import { Box, Button, Stack, ProgressBar, Section, Table } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const JOB_REPORT_MENU_FAIL_REASON_TRACKING_DISABLED = 1;
@@ -37,16 +37,16 @@ const PlaytimeSection = (props) => {
             </Table.Cell>
             <Table.Cell>
               <ProgressBar maxValue={mostPlayed} value={playtime}>
-                <Flex>
-                  <Flex.Item width={`${ratio * 100}%`} />
-                  <Flex.Item>
+                <Stack>
+                  <Stack.Item width={`${ratio * 100}%`} />
+                  <Stack.Item>
                     {(playtime / 60).toLocaleString(undefined, {
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 1,
                     })}
                     h
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </ProgressBar>
             </Table.Cell>
           </Table.Row>

@@ -3,7 +3,7 @@ import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   NoticeBox,
   ProgressBar,
@@ -339,12 +339,12 @@ export const BotanySplicer = (props) => {
         {!!error && <NoticeBox>{error}</NoticeBox>}
         {!!working && (
           <NoticeBox danger>
-            <Flex direction="column">
-              <Flex.Item mb={0.5}>Operation in progress.</Flex.Item>
-              <Flex.Item>
+            <Stack direction="column">
+              <Stack.Item mb={0.5}>Operation in progress.</Stack.Item>
+              <Stack.Item>
                 Time Left: <TimeFormat value={timeleft} />
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </NoticeBox>
         )}
         <Section fitted>
@@ -388,9 +388,9 @@ export const InfusionTab = (props) => {
   return (
     <Section fitted>
       <InsertedSeedOneInfusion />
-      <Flex.Item>
+      <Stack.Item>
         <DamageBar />
-      </Flex.Item>
+      </Stack.Item>
       <InsertedBeaker />
       <InfuseButton />
     </Section>

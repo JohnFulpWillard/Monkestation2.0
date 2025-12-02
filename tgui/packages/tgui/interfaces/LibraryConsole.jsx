@@ -13,7 +13,6 @@ import {
   LabeledList,
   Section,
   Stack,
-  Flex,
   Table,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -30,14 +29,14 @@ export const LibraryConsole = (props) => {
       height={520}
     >
       <Window.Content m="0">
-        <Flex height="100%">
-          <Flex.Item>
+        <Stack height="100%">
+          <Stack.Item>
             <PopoutMenu />
-          </Flex.Item>
-          <Flex.Item grow position="relative" pl={1}>
+          </Stack.Item>
+          <Stack.Item grow position="relative" pl={1}>
             <PageDisplay />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

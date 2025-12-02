@@ -1,7 +1,7 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { useLocalState } from '../../backend';
-import { Flex, Button, AnimatedNumber } from '../../components';
+import { Stack, Button, AnimatedNumber } from '../../components';
 import { formatSiUnit } from '../../format';
 import { MaterialIcon } from './MaterialIcon';
 import { Material } from './Types';
@@ -53,10 +53,10 @@ export const MaterialAccessBar = (props: MaterialAccessBarProps) => {
   const { availableMaterials, SHEET_MATERIAL_AMOUNT, onEjectRequested } = props;
 
   return (
-    <Flex wrap>
+    <Stack wrap>
       {sortBy((m: Material) => MATERIAL_RARITY[m.name])(availableMaterials).map(
         (material) => (
-          <Flex.Item grow basis={4.5} key={material.name}>
+          <Stack.Item grow basis={4.5} key={material.name}>
             <MaterialCounter
               material={material}
               SHEET_MATERIAL_AMOUNT={SHEET_MATERIAL_AMOUNT}
@@ -64,10 +64,10 @@ export const MaterialAccessBar = (props: MaterialAccessBarProps) => {
                 onEjectRequested && onEjectRequested(material, quantity)
               }
             />
-          </Flex.Item>
+          </Stack.Item>
         ),
       )}
-    </Flex>
+    </Stack>
   );
 };
 
@@ -97,23 +97,23 @@ const MaterialCounter = (props: MaterialCounterProps) => {
         sheets < 1 && 'MaterialDock--disabled',
       ])}
     >
-      <Flex direction="column-reverse">
-        <Flex
+      <Stack direction="column-reverse">
+        <Stack
           direction="column"
           textAlign="center"
           onClick={() => onEjectRequested(1)}
           className="MaterialDock__Label"
         >
-          <Flex.Item>
+          <Stack.Item>
             <MaterialIcon materialName={material.name} sheets={sheets} />
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <AnimatedNumber value={sheets} format={LABEL_FORMAT} />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
         {hovering && (
           <div className={'MaterialDock__Dock'}>
-            <Flex vertical direction={'column-reverse'}>
+            <Stack vertical direction={'column-reverse'}>
               <EjectButton
                 sheets={sheets}
                 amount={5}
@@ -134,10 +134,10 @@ const MaterialCounter = (props: MaterialCounterProps) => {
                 amount={50}
                 onEject={onEjectRequested}
               />
-            </Flex>
+            </Stack>
           </div>
         )}
-      </Flex>
+      </Stack>
     </div>
   );
 };

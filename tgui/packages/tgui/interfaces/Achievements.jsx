@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Flex, Icon, Table, Tabs, Tooltip } from 'tgui-core/components';
+import { Box, Stack, Icon, Table, Tabs, Tooltip } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const Achievements = (props) => {
@@ -104,8 +104,8 @@ const HighScoreTable = (props) => {
     value: highscore.scores[key],
   }));
   return (
-    <Flex>
-      <Flex.Item>
+    <Stack>
+      <Stack.Item>
         <Tabs vertical>
           {highscores.map((highscore, i) => (
             <Tabs.Tab
@@ -117,8 +117,8 @@ const HighScoreTable = (props) => {
             </Tabs.Tab>
           ))}
         </Tabs>
-      </Flex.Item>
-      <Flex.Item grow={1} basis={0}>
+      </Stack.Item>
+      <Stack.Item grow={1} basis={0}>
         <Table>
           <Table.Row header>
             <Table.Cell textAlign="center">#</Table.Cell>
@@ -142,7 +142,7 @@ const HighScoreTable = (props) => {
             </Table.Row>
           ))}
         </Table>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };

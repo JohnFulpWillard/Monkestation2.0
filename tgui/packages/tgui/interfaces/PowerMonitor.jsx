@@ -7,7 +7,6 @@ import {
   Button,
   Chart,
   ColorBox,
-  Flex,
   Icon,
   LabeledList,
   ProgressBar,
@@ -73,8 +72,8 @@ export const PowerMonitorContent = (props) => {
           </Stack>
         </Dimmer>
       )}
-      <Flex mx={-0.5} mb={1}>
-        <Flex.Item mx={0.5} width="200px">
+      <Stack mx={-0.5} mb={1}>
+        <Stack.Item mx={0.5} width="200px">
           <Section>
             <LabeledList>
               <LabeledList.Item label="Supply">
@@ -99,8 +98,8 @@ export const PowerMonitorContent = (props) => {
               </LabeledList.Item>
             </LabeledList>
           </Section>
-        </Flex.Item>
-        <Flex.Item mx={0.5} grow={1}>
+        </Stack.Item>
+        <Stack.Item mx={0.5} grow={1}>
           <Section position="relative" height="100%" fill="true">
             <Chart.Line
               fillPositionedParent
@@ -119,8 +118,8 @@ export const PowerMonitorContent = (props) => {
               fillColor="rgba(224, 57, 151, 0.25)"
             />
           </Section>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Section>
         <Box mb={1}>
           <Box inline mr={2} color="label">

@@ -6,7 +6,6 @@ import {
   Button,
   Table,
   LabeledList,
-  Flex,
   Divider,
   NoticeBox,
 } from 'tgui-core/components';
@@ -17,16 +16,16 @@ const PacketInfo = (props) => {
   const { packet } = props;
   return (
     <Stack.Item>
-      <Flex justify="space-between">
-        <Flex.Item align="left">{packet.name}</Flex.Item>
-        <Flex.Item align="right">
+      <Stack justify="space-between">
+        <Stack.Item align="left">{packet.name}</Stack.Item>
+        <Stack.Item align="right">
           <Button
             icon="trash"
             color="red"
             onClick={() => act('delete_packet', { ref: packet.ref })}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <LabeledList>
         <LabeledList.Item label="Data Type">{packet.type}</LabeledList.Item>
         <LabeledList.Item label="Source">

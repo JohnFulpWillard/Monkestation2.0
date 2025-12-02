@@ -6,7 +6,7 @@ import {
   Button,
   Collapsible,
   Divider,
-  Flex,
+  Stack,
   LabeledList,
   Section,
 } from 'tgui-core/components';
@@ -138,9 +138,9 @@ export const SoulcatcherUser = (props) => {
                 <b>Souls</b>
               </Box>
               <Divider />
-              <Flex direction="column">
+              <Stack direction="column">
                 {souls.map((soul) => (
-                  <Flex.Item key={soul.key}>
+                  <Stack.Item key={soul.key}>
                     <Collapsible title={soul.name}>
                       <Box textAlign="center" fontSize="13px" opacity={0.8}>
                         <b>Flavor Text</b>
@@ -158,9 +158,9 @@ export const SoulcatcherUser = (props) => {
                         {soul.ooc_notes}
                       </BlockQuote>
                     </Collapsible>
-                  </Flex.Item>
+                  </Stack.Item>
                 ))}
-              </Flex>
+              </Stack>
             </>
           ) : (
             <> </>

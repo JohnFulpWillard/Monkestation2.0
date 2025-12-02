@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Collapsible,
-  Flex,
   NoticeBox,
   Section,
   Stack,
@@ -222,16 +221,16 @@ const MafiaListOfRoles = (props) => {
         </>
       }
     >
-      <Flex direction="column">
+      <Stack direction="column">
         {all_roles?.map((r) => (
-          <Flex.Item
+          <Stack.Item
             key={r}
             height="30px"
             className="Section__title candystripe"
           >
-            <Flex height="18px" align="center" justify="space-between">
-              <Flex.Item>{r}</Flex.Item>
-              <Flex.Item textAlign="right">
+            <Stack height="18px" align="center" justify="space-between">
+              <Stack.Item>{r}</Stack.Item>
+              <Stack.Item textAlign="right">
                 <Button
                   color="transparent"
                   icon="question"
@@ -241,11 +240,11 @@ const MafiaListOfRoles = (props) => {
                     })
                   }
                 />
-              </Flex.Item>
-            </Flex>
-          </Flex.Item>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
         ))}
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -270,7 +269,7 @@ const MafiaJudgement = (props) => {
         />
       }
     >
-      <Flex justify="space-around">
+      <Stack justify="space-around">
         <Button
           icon="smile-beam"
           content="INNOCENT!"
@@ -292,8 +291,8 @@ const MafiaJudgement = (props) => {
         >
           GUILTY!
         </Button>
-      </Flex>
-      <Flex justify="center">
+      </Stack>
+      <Stack justify="center">
         <Button
           icon="meh"
           color="white"
@@ -302,7 +301,7 @@ const MafiaJudgement = (props) => {
         >
           Abstain
         </Button>
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -312,9 +311,9 @@ const MafiaPlayers = (props) => {
   const { players } = data;
   return (
     <Section fill scrollable title="Players">
-      <Flex direction="column">
+      <Stack direction="column">
         {players?.map((player) => (
-          <Flex.Item
+          <Stack.Item
             height="30px"
             className="Section__title candystripe"
             key={player.ref}
@@ -344,9 +343,9 @@ const MafiaPlayers = (props) => {
                 ))}
               </Stack.Item>
             </Stack>
-          </Flex.Item>
+          </Stack.Item>
         ))}
-      </Flex>
+      </Stack>
     </Section>
   );
 };

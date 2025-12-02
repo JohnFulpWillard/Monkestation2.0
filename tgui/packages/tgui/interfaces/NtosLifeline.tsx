@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Icon, Input, Stack, Tabs } from 'tgui-core/components';
+import { Box, Button, Icon, Input, Stack, Tabs } from 'tgui-core/components';
 
 import { NtosWindow } from '../layouts';
 import { JOB2ICON } from './common/JobToIcon';
@@ -119,10 +119,10 @@ const NtosLifelineContent = () => {
     <NtosWindow.Content scrollable minHeight="540px">
       <Stack vertical>
         <Stack.Item>
-          <Flex>
+          <Stack>
             <Input
               placeholder="Search for name..."
-              style={{ flex: 1 }}
+              style={{ Stack: 1 }}
               onChange={(e: { target: HTMLTextAreaElement }) =>
                 setSearchQuery((e.target as HTMLTextAreaElement).value)
               }
@@ -142,7 +142,7 @@ const NtosLifelineContent = () => {
             >
               <Icon name={JOB2ICON['Blueshield']} />
             </Button.Checkbox>
-          </Flex>
+          </Stack>
         </Stack.Item>
         <Stack.Item>
           {sorted.map((object, index) => (
@@ -175,7 +175,7 @@ const CrewTab = (props: { sensor: CrewSensor }) => {
         name={selected ? 'check-square-o' : 'square-o'}
         style={{ float: 'left', padding: '4px 4px 4px 2px' }}
       />
-      <Box style={{ display: 'flex' }}>
+      <Box style={{ display: 'Stack' }}>
         <Box>
           <Icon
             color={jobToColor(sensor.ijob)}

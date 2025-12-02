@@ -2,7 +2,6 @@ import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Icon,
   Modal,
   RoundGauge,
@@ -77,13 +76,13 @@ const AlertBoxes = (props) => {
       fontSize={1.25}
       backgroundColor={active ? color : '#999999'}
     >
-      <Flex height="100%" width="100%" justify="center" direction="column">
-        <Flex.Item>
+      <Stack height="100%" width="100%" justify="center" direction="column">
+        <Stack.Item>
           <Icon name={icon_name} width={2} />
           {icon_break && <br />}
           {text_content}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

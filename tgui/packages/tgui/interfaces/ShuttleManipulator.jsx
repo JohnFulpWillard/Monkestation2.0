@@ -1,6 +1,6 @@
 import { map } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
+import { Button, Stack, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const ShuttleManipulator = (props) => {
@@ -98,8 +98,8 @@ export const ShuttleManipulatorTemplates = (props) => {
   const actualTemplates = templateObject[selectedTemplateId]?.templates || [];
   return (
     <Section>
-      <Flex>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item>
           <Tabs vertical>
             {map((template, templateId) => (
               <Tabs.Tab
@@ -111,8 +111,8 @@ export const ShuttleManipulatorTemplates = (props) => {
               </Tabs.Tab>
             ))(templateObject)}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1} basis={0}>
+        </Stack.Item>
+        <Stack.Item grow={1} basis={0}>
           {actualTemplates.map((actualTemplate) => {
             const isSelected =
               actualTemplate.shuttle_id === selected.shuttle_id;
@@ -152,8 +152,8 @@ export const ShuttleManipulatorTemplates = (props) => {
               </Section>
             );
           })}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

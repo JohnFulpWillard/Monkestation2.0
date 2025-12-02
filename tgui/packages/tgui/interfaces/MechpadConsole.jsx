@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
+  Stack,
   Input,
   NoticeBox,
   Section,
@@ -66,8 +66,8 @@ export const MechpadConsole = (props) => {
           <NoticeBox>No Pads Connected</NoticeBox>
         )) || (
           <Section>
-            <Flex minHeight="70px">
-              <Flex.Item width="140px" minHeight="70px">
+            <Stack minHeight="70px">
+              <Stack.Item width="140px" minHeight="70px">
                 {mechpads.map((mechpad) => (
                   <Button
                     fluid
@@ -83,16 +83,16 @@ export const MechpadConsole = (props) => {
                     }
                   />
                 ))}
-              </Flex.Item>
-              <Flex.Item minHeight="100%">
+              </Stack.Item>
+              <Stack.Item minHeight="100%">
                 <Divider vertical />
-              </Flex.Item>
-              <Flex.Item grow={1} basis={0} minHeight="100%">
+              </Stack.Item>
+              <Stack.Item grow={1} basis={0} minHeight="100%">
                 {(selected_id && <MechpadControl />) || (
                   <Box>Please select a pad</Box>
                 )}
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </Section>
         )}
       </Window.Content>

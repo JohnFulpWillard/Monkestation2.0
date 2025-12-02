@@ -1,4 +1,4 @@
-import { Flex, LabeledControls, RoundGauge, Section } from 'tgui/components';
+import { Stack, LabeledControls, RoundGauge, Section } from 'tgui/components';
 
 import { formatSiUnit } from 'tgui/format';
 import { toFixed } from 'common/math';
@@ -52,8 +52,8 @@ export const HypertorusParameters = (props) => {
 
   return (
     <Section title="Reactor Status">
-      <Flex className="hypertorus-parameters" justify="space-between" wrap>
-        <Flex.Item grow="360" minWidth="120px">
+      <Stack className="hypertorus-parameters" justify="space-between" wrap>
+        <Stack.Item grow="360" minWidth="120px">
           <LabeledControls justify="space-around" wrap>
             <LabeledControls.Item label="Reactor Integrity">
               <RoundGauge
@@ -102,8 +102,8 @@ export const HypertorusParameters = (props) => {
               />
             </LabeledControls.Item>
           </LabeledControls>
-        </Flex.Item>
-        <Flex.Item grow="140" minWidth="140px" align="center">
+        </Stack.Item>
+        <Stack.Item grow="140" minWidth="140px" align="center">
           <LabeledControls justify="space-around">
             <LabeledControls.Item label="Fusion Level">
               <RoundGauge
@@ -121,8 +121,8 @@ export const HypertorusParameters = (props) => {
               />
             </LabeledControls.Item>
           </LabeledControls>
-        </Flex.Item>
-        <Flex.Item grow="360" minWidth="120px">
+        </Stack.Item>
+        <Stack.Item grow="360" minWidth="120px">
           <LabeledControls justify="space-around" wrap>
             <LabeledControls.Item label="Energy">
               <RoundGauge
@@ -171,8 +171,8 @@ export const HypertorusParameters = (props) => {
               />
             </LabeledControls.Item>
           </LabeledControls>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

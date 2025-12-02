@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Section, Stack, Tooltip } from 'tgui/components';
+import { Box, Icon, Section, Stack, Tooltip } from 'tgui/components';
 import { HypertorusFuel } from '.';
 
 import { to_exponential_if_big } from './helpers';
@@ -178,7 +178,7 @@ export const HypertorusTemperatures = (props) => {
     const { label, delta, value, children, ...rest } = props;
     const y = value_to_y(value);
     return (
-      <Flex.Item mx={1}>
+      <Stack.Item mx={1}>
         <Stack vertical align="center">
           <Stack.Item>
             <VerticalBar progressHeight={y} value={value} {...rest}>
@@ -189,7 +189,7 @@ export const HypertorusTemperatures = (props) => {
             <BarLabel delta={delta} label={label} value={value} />
           </Stack.Item>
         </Stack>
-      </Flex.Item>
+      </Stack.Item>
     );
   };
 
@@ -230,7 +230,7 @@ export const HypertorusTemperatures = (props) => {
         <Box className="hypertorus-temperatures__y-axis">
           <Box className="hypertorus-temperatures__x-axis" />
         </Box>
-        <Flex
+        <Stack
           overflowY="hidden"
           className="hypertorus-temperatures__chart"
           justify="space-around"
@@ -259,7 +259,7 @@ export const HypertorusTemperatures = (props) => {
             delta={internal_output_temperature_delta}
             color="#20b142"
           />
-        </Flex>
+        </Stack>
       </Box>
     </Section>
   );

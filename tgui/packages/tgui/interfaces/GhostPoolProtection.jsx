@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Flex, NoticeBox, Section } from 'tgui-core/components';
+import { Button, Stack, NoticeBox, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const GhostPoolProtection = (props) => {
@@ -19,7 +19,7 @@ export const GhostPoolProtection = (props) => {
       theme="admin"
     >
       <Window.Content>
-        <Flex grow={1} height="100%">
+        <Stack grow={1} height="100%">
           <Section
             title="Options"
             buttons={
@@ -44,7 +44,7 @@ export const GhostPoolProtection = (props) => {
               Sentience, people may catch on that admins have disabled roles for
               your event...
             </NoticeBox>
-            <Flex.Item>
+            <Stack.Item>
               <Button
                 fluid
                 textAlign="center"
@@ -53,8 +53,8 @@ export const GhostPoolProtection = (props) => {
                 content="Events and Midround Rulesets"
                 onClick={() => act('toggle_events_or_midrounds')}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 fluid
                 textAlign="center"
@@ -63,8 +63,8 @@ export const GhostPoolProtection = (props) => {
                 content="Ghost Role Spawners"
                 onClick={() => act('toggle_spawners')}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 fluid
                 textAlign="center"
@@ -73,8 +73,8 @@ export const GhostPoolProtection = (props) => {
                 content="Station Created Sentience"
                 onClick={() => act('toggle_station_sentience')}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 fluid
                 textAlign="center"
@@ -83,8 +83,8 @@ export const GhostPoolProtection = (props) => {
                 content="Silicons"
                 onClick={() => act('toggle_silicons')}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 fluid
                 textAlign="center"
@@ -93,8 +93,8 @@ export const GhostPoolProtection = (props) => {
                 content="Minigames"
                 onClick={() => act('toggle_minigames')}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 fluid
                 textAlign="center"
@@ -103,9 +103,9 @@ export const GhostPoolProtection = (props) => {
                 content="Apply Changes"
                 onClick={() => act('apply_settings')}
               />
-            </Flex.Item>
+            </Stack.Item>
           </Section>
-        </Flex>
+        </Stack>
       </Window.Content>
     </Window>
   );

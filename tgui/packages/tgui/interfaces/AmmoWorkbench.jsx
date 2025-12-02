@@ -7,7 +7,6 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
-  Flex,
   Stack,
   RoundGauge,
   Tabs,
@@ -119,7 +118,7 @@ export const AmmunitionsTab = (props) => {
       </Section>
       <Section title="Available Ammunition Types">
         {!!mag_loaded && (
-          <Flex.Item grow={1} basis={0}>
+          <Stack.Item grow={1} basis={0}>
             {available_rounds.map((available_round) => (
               <Box
                 key={available_round.name}
@@ -145,7 +144,7 @@ export const AmmunitionsTab = (props) => {
                 </Stack.Item>
               </Box>
             ))}
-          </Flex.Item>
+          </Stack.Item>
         )}
       </Section>
       {!!hacked && (

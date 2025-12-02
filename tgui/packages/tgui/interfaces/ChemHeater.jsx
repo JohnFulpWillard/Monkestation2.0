@@ -5,7 +5,7 @@ import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   NumberInput,
   ProgressBar,
@@ -42,7 +42,7 @@ export const ChemHeater = (props) => {
         <Section
           title="Controls"
           buttons={
-            <Flex>
+            <Stack>
               <Button
                 icon={'question'}
                 selected={tutorialMessage}
@@ -57,7 +57,7 @@ export const ChemHeater = (props) => {
                 content={isActive ? 'On' : 'Off'}
                 onClick={() => act('power')}
               />
-            </Flex>
+            </Stack>
           }
         >
           <Table>
@@ -196,14 +196,14 @@ export const ChemHeater = (props) => {
           <Section
             title="Reactions"
             buttons={
-              <Flex>
-                <Flex.Item color="label">
+              <Stack>
+                <Stack.Item color="label">
                   <AnimatedNumber
                     value={currentpH}
                     format={(value) => 'pH: ' + round(value, 3)}
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <RoundGauge
                     size={1.6}
                     value={currentpH}
@@ -225,8 +225,8 @@ export const ChemHeater = (props) => {
                       violet: [12.5, 14],
                     }}
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             }
           >
             {(activeReactions.length === 0 && (

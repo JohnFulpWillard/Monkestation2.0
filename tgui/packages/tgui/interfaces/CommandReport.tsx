@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
   Input,
   Section,
   Stack,
@@ -156,11 +155,11 @@ const AnnouncementSound = (props) => {
         {`
       #announcement-sound-container div:last-child {
         width: 100%;
-        flex-grow: true;
+        Stack-grow: true;
       }
     `}
       </style>
-      <Flex id="announcement-sound-container" direction="row" width="100%" grow>
+      <Stack id="announcement-sound-container" direction="row" width="100%" grow>
         <Button
           width="24px"
           height="22px"
@@ -180,7 +179,7 @@ const AnnouncementSound = (props) => {
             })
           }
         />
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -224,7 +223,7 @@ const ReportText = (props) => {
       />
       <Stack vertical>
         <Stack.Item>
-          <Flex direction="row" width="100%" grow>
+          <Stack direction="row" width="100%" grow>
             <Button.Checkbox
               fluid
               width="100%"
@@ -245,8 +244,8 @@ const ReportText = (props) => {
                 'Preview report - Sends the report to only you to preview it.'
               }
             />
-          </Flex>
-          <Flex direction="row" width="100%" grow>
+          </Stack>
+          <Stack direction="row" width="100%" grow>
             <Button.Checkbox
               fluid
               width="100%"
@@ -273,7 +272,7 @@ const ReportText = (props) => {
                 'Preview page report - Shows you a preview of what the printed report page will look like.'
               }
             />
-          </Flex>
+          </Stack>
         </Stack.Item>
         <Stack.Item>
           <Button.Confirm

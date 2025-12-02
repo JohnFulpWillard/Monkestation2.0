@@ -1,6 +1,6 @@
 import { BooleanLike } from '../../common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Flex, Stack } from 'tgui-core/components';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type CTFPanelData =
@@ -26,9 +26,9 @@ export const CTFPanel = (props) => {
     <Window title="CTF Panel" width={700} height={600}>
       <Window.Content scrollable>
         {'teams' in data ? (
-          <Flex align="center" wrap="wrap" textAlign="center" m={-0.5}>
+          <Stack align="center" wrap="wrap" textAlign="center" m={-0.5}>
             {data.teams.map((team) => (
-              <Flex.Item key={team.name} width="49%" m={0.5} mb={8}>
+              <Stack.Item key={team.name} width="49%" m={0.5} mb={8}>
                 <Section key={team.name} title={`${team.color} Team`}>
                   <Stack fill mb={1}>
                     <Stack.Item grow>
@@ -70,9 +70,9 @@ export const CTFPanel = (props) => {
                     }
                   />
                 </Section>
-              </Flex.Item>
+              </Stack.Item>
             ))}
-          </Flex>
+          </Stack>
         ) : (
           <Stack fill align="center" justify="center" vertical>
             <Stack.Item mb={5}>

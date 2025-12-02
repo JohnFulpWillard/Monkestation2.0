@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from '../../components';
+import { Box, Button, Stack } from '../../components';
 import {
   FUNDAMENTAL_DATA_TYPES,
   DATATYPE_DISPLAY_HANDLERS,
@@ -20,8 +20,8 @@ export const DisplayName = (props) => {
 
   return (
     <Box {...rest}>
-      <Flex direction="column">
-        <Flex.Item textAlign={isOutput ? 'right' : 'left'}>
+      <Stack direction="column">
+        <Stack.Item textAlign={isOutput ? 'right' : 'left'}>
           {(hasInput && (
             <InputComponent
               setValue={(val, extraParams) =>
@@ -53,8 +53,8 @@ export const DisplayName = (props) => {
               </Button>
             )) ||
             port.name}
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Box
             fontSize={0.75}
             opacity={0.25}
@@ -62,8 +62,8 @@ export const DisplayName = (props) => {
           >
             {displayType || 'unknown'}
           </Box>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

@@ -2,7 +2,7 @@ import { Color } from 'common/color';
 import { multiline, decodeHtmlEntities } from 'common/string';
 import { Component, createRef, RefObject } from 'react';
 import { useBackend } from '../backend';
-import { Tooltip, Icon, Box, Button, Flex } from 'tgui-core/components';
+import { Tooltip, Icon, Box, Button, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const LEFT_CLICK = 0;
@@ -260,9 +260,9 @@ export const Canvas = (props) => {
       }
     >
       <Window.Content>
-        <Flex align="start" direction="row">
+        <Stack align="start" direction="row">
           {!!data.paint_tool_palette && (
-            <Flex.Item>
+            <Stack.Item>
               <Tooltip
                 content={
                   multiline`
@@ -280,10 +280,10 @@ export const Canvas = (props) => {
               >
                 <Icon name="question-circle" color="blue" size={1.5} m={0.5} />
               </Tooltip>
-            </Flex.Item>
+            </Stack.Item>
           )}
           {!!data.editable && !!data.paint_tool_color && (
-            <Flex.Item>
+            <Stack.Item>
               <Button
                 tooltip="Grid Toggle"
                 icon="th-large"
@@ -291,9 +291,9 @@ export const Canvas = (props) => {
                 onClick={() => act('toggle_grid')}
                 m={0.5}
               />
-            </Flex.Item>
+            </Stack.Item>
           )}
-        </Flex>
+        </Stack>
         <Box textAlign="center">
           <PaintCanvas
             value={data.grid}
@@ -312,9 +312,9 @@ export const Canvas = (props) => {
             editable={data.editable}
             has_palette={!!data.paint_tool_palette}
           />
-          <Flex align="center" justify="center" direction="column">
+          <Stack align="center" justify="center" direction="column">
             {!!data.editable && !!data.paint_tool_palette && (
-              <Flex.Item>
+              <Stack.Item>
                 {data.paint_tool_palette.map((element, index) => (
                   <Button
                     key={`${index}`}
@@ -340,18 +340,18 @@ export const Canvas = (props) => {
                     }}
                   />
                 ))}
-              </Flex.Item>
+              </Stack.Item>
             )}
             {!data.finalized && (
-              <Flex.Item>
+              <Stack.Item>
                 <Button.Confirm
                   onClick={() => act('finalize')}
                   content="Finalize"
                 />
-              </Flex.Item>
+              </Stack.Item>
             )}
             {!!data.finalized && !!data.show_plaque && (
-              <Flex.Item
+              <Stack.Item
                 basis="content"
                 p={2}
                 width="60%"
@@ -378,9 +378,9 @@ export const Canvas = (props) => {
                     onClick={() => act('patronage')}
                   />
                 </Box>
-              </Flex.Item>
+              </Stack.Item>
             )}
-          </Flex>
+          </Stack>
         </Box>
       </Window.Content>
     </Window>

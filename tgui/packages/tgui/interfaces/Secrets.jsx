@@ -2,7 +2,6 @@ import { toFixed } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
-  Flex,
   LabeledControls,
   NoticeBox,
   RoundGauge,
@@ -610,8 +609,8 @@ export const Secrets = (props) => {
   return (
     <Window title="Secrets Panel" width={500} height={488} theme="admin">
       <Window.Content>
-        <Flex direction="column" height="100%">
-          <Flex.Item mb={1}>
+        <Stack direction="column" height="100%">
+          <Stack.Item mb={1}>
             <Section
               title="Secrets"
               buttons={
@@ -631,29 +630,29 @@ export const Secrets = (props) => {
                 </>
               }
             >
-              <Flex mx={-0.5} align="stretch" justify="center">
-                <Flex.Item bold>
+              <Stack mx={-0.5} align="stretch" justify="center">
+                <Stack.Item bold>
                   <NoticeBox color="black">
                     &quot;The first rule of adminbuse is: you don&apos;t talk
                     about the adminbuse.&quot;
                   </NoticeBox>
-                </Flex.Item>
-              </Flex>
-              <Flex
+                </Stack.Item>
+              </Stack>
+              <Stack
                 textAlign="center"
                 mx={-0.5}
                 align="stretch"
                 justify="center"
               >
-                <Flex.Item ml={-10} mr={1}>
+                <Stack.Item ml={-10} mr={1}>
                   <Button
                     selected={tabIndex === 2}
                     icon="check-circle"
                     content="Helpful"
                     onClick={() => setTabIndex(2)}
                   />
-                </Flex.Item>
-                <Flex.Item ml={1}>
+                </Stack.Item>
+                <Stack.Item ml={1}>
                   <Button
                     disabled={is_funmin === 0}
                     selected={tabIndex === 3}
@@ -661,10 +660,10 @@ export const Secrets = (props) => {
                     content="Fun"
                     onClick={() => setTabIndex(3)}
                   />
-                </Flex.Item>
-              </Flex>
-              <Flex mx={-0.5} align="stretch" justify="center">
-                <Flex.Item mt={1}>
+                </Stack.Item>
+              </Stack>
+              <Stack mx={-0.5} align="stretch" justify="center">
+                <Stack.Item mt={1}>
                   <Button
                     disabled={is_debugger === 0}
                     selected={tabIndex === 1}
@@ -672,8 +671,8 @@ export const Secrets = (props) => {
                     content="Debugging"
                     onClick={() => setTabIndex(1)}
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <LabeledControls>
                     <LabeledControls.Item
                       minWidth="66px"
@@ -694,8 +693,8 @@ export const Secrets = (props) => {
                       />
                     </LabeledControls.Item>
                   </LabeledControls>
-                </Flex.Item>
-                <Flex.Item mt={1}>
+                </Stack.Item>
+                <Stack.Item mt={1}>
                   <Button
                     disabled={is_funmin === 0}
                     selected={tabIndex === 4}
@@ -703,11 +702,11 @@ export const Secrets = (props) => {
                     content="Only Fun For You"
                     onClick={() => setTabIndex(4)}
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </Section>
-          </Flex.Item>
-          <Flex.Item grow={1}>
+          </Stack.Item>
+          <Stack.Item grow={1}>
             <Section
               fill={false}
               title={
@@ -718,8 +717,8 @@ export const Secrets = (props) => {
             >
               <TabComponent />
             </Section>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

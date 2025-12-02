@@ -4,7 +4,7 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
+  Stack,
   NumberInput,
   ProgressBar,
   Section,
@@ -87,11 +87,11 @@ const Options = (props) => {
 
   return (
     <Section title="Options">
-      <Flex>
-        <Flex.Item mt={0.4} width={11} color="label">
+      <Stack>
+        <Stack.Item mt={0.4} width={11} color="label">
           Make copies:
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <NumberInput
             animate
             width={2.6}
@@ -107,8 +107,8 @@ const Options = (props) => {
               })
             }
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             ml={0.2}
             icon="copy"
@@ -118,11 +118,11 @@ const Options = (props) => {
           >
             Copy
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       {!!is_photo && (
-        <Flex mt={0.5}>
-          <Flex.Item mr={0.4} width="50%">
+        <Stack mt={0.5}>
+          <Stack.Item mr={0.4} width="50%">
             <Button
               fluid
               textAlign="center"
@@ -135,8 +135,8 @@ const Options = (props) => {
             >
               Greyscale
             </Button>
-          </Flex.Item>
-          <Flex.Item ml={0.4} width="50%">
+          </Stack.Item>
+          <Stack.Item ml={0.4} width="50%">
             <Button
               fluid
               textAlign="center"
@@ -149,8 +149,8 @@ const Options = (props) => {
             >
               Color
             </Button>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       )}
       <Button
         mt={0.5}

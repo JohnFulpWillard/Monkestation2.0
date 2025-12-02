@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Section, Button, Box, Flex, TextArea } from 'tgui-core/components';
+import { Section, Button, Box, Stack, TextArea } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { KEY_ENTER } from 'common/keycodes';
 import { decodeHtmlEntities } from 'common/string';
@@ -135,9 +135,9 @@ export const TicketPanel = (props) => {
             </Section>
             <Section m="-5px" level="2">
               {buttons.map((button_row, i) => (
-                <Flex key={i} direction="row">
+                <Stack key={i} direction="row">
                   {button_row.map((button) => (
-                    <Flex.Item key={button.act} grow={1}>
+                    <Stack.Item key={button.act} grow={1}>
                       <Button
                         fluid
                         m="2.5px"
@@ -151,9 +151,9 @@ export const TicketPanel = (props) => {
                       >
                         {button.name}
                       </Button>
-                    </Flex.Item>
+                    </Stack.Item>
                   ))}
-                </Flex>
+                </Stack>
               ))}
             </Section>
           </Section>

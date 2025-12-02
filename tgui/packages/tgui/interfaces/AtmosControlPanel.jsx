@@ -1,7 +1,7 @@
 import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Section, Table } from 'tgui-core/components';
+import { Box, Button, Stack, Section, Table } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AtmosControlPanel = (props) => {
@@ -17,37 +17,37 @@ export const AtmosControlPanel = (props) => {
   return (
     <Window title="SSAir Control Panel" width={900} height={500}>
       <Section m={1}>
-        <Flex justify="space-between" align="baseline">
-          <Flex.Item>
+        <Stack justify="space-between" align="baseline">
+          <Stack.Item>
             <Button
               onClick={() => act('toggle-freeze')}
               color={data.frozen === 1 ? 'good' : 'bad'}
             >
               {data.frozen === 1 ? 'Freeze Subsystem' : 'Unfreeze Subsystem'}
             </Button>
-          </Flex.Item>
-          <Flex.Item>Fire Cnt: {data.fire_count}</Flex.Item>
-          <Flex.Item>Active Turfs: {data.active_size}</Flex.Item>
-          <Flex.Item>Excited Groups: {data.excited_size}</Flex.Item>
-          <Flex.Item>Hotspots: {data.hotspots_size}</Flex.Item>
-          <Flex.Item>Superconductors: {data.conducting_size}</Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>Fire Cnt: {data.fire_count}</Stack.Item>
+          <Stack.Item>Active Turfs: {data.active_size}</Stack.Item>
+          <Stack.Item>Excited Groups: {data.excited_size}</Stack.Item>
+          <Stack.Item>Hotspots: {data.hotspots_size}</Stack.Item>
+          <Stack.Item>Superconductors: {data.conducting_size}</Stack.Item>
+          <Stack.Item>
             <Button.Checkbox
               checked={data.showing_user}
               onClick={() => act('toggle_user_display')}
             >
               Personal View
             </Button.Checkbox>
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <Button.Checkbox
               checked={data.show_all}
               onClick={() => act('toggle_show_all')}
             >
               Display all
             </Button.Checkbox>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Section>
       <Box fillPositionedParent top="45px">
         <Window.Content scrollable>

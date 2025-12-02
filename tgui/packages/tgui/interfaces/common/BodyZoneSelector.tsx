@@ -1,7 +1,6 @@
 import { Component, createRef } from 'react';
-import { Image } from 'tgui-core/components';
-
 import { resolveAsset } from '../../assets';
+import { Box } from 'tgui-core/components';
 
 export enum BodyZone {
   Head = 'head',
@@ -15,7 +14,7 @@ export enum BodyZone {
   Groin = 'groin',
 }
 
-function bodyZonePixelToZone(x: number, y: number): BodyZone | null {
+const bodyZonePixelToZone = (x: number, y: number): BodyZone | null => {
   // TypeScript translation of /atom/movable/screen/zone_sel/proc/get_zone_at
   if (y < 1) {
     return null;
@@ -52,13 +51,12 @@ function bodyZonePixelToZone(x: number, y: number): BodyZone | null {
   }
 
   return null;
-}
+};
 
 type BodyZoneSelectorProps = {
   onClick?: (zone: BodyZone) => void;
   scale?: number;
   selectedZone: BodyZone | null;
-  theme?: string;
 };
 
 type BodyZoneSelectorState = {
@@ -76,7 +74,7 @@ export class BodyZoneSelector extends Component<
 
   render() {
     const { hoverZone } = this.state;
-    const { scale = 3, selectedZone, theme = 'midnight' } = this.props;
+    const { scale = 3, selectedZone } = this.props;
 
     return (
       <div
@@ -87,8 +85,9 @@ export class BodyZoneSelector extends Component<
           position: 'relative',
         }}
       >
-        <Image
-          src={resolveAsset(`body_zones.base_${theme}.png`)}
+        <Box
+          as="img"
+          src={resolveAsset('body_zones.base.png')}
           onClick={() => {
             const onClick = this.props.onClick;
             if (onClick && this.state.hoverZone) {
@@ -120,7 +119,8 @@ export class BodyZoneSelector extends Component<
         />
 
         {selectedZone && (
-          <Image
+          <Box
+          as="img"
             src={resolveAsset(`body_zones.${selectedZone}.png`)}
             style={{
               pointerEvents: 'none',
@@ -132,7 +132,8 @@ export class BodyZoneSelector extends Component<
         )}
 
         {hoverZone && hoverZone !== selectedZone && (
-          <Image
+          <Box
+          as="img"
             src={resolveAsset(`body_zones.${hoverZone}.png`)}
             style={{
               opacity: '0.5',

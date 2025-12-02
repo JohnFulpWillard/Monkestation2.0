@@ -5,7 +5,6 @@ import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
   Icon,
   Input,
   RestrictedInput,
@@ -212,8 +211,8 @@ export const CargoCatalog = (props) => {
         )
       }
     >
-      <Flex>
-        <Flex.Item ml={-1} mr={1}>
+      <Stack>
+        <Stack.Item ml={-1} mr={1}>
           <Tabs vertical>
             <Tabs.Tab
               key="search_results"
@@ -266,8 +265,8 @@ export const CargoCatalog = (props) => {
               </Tabs.Tab>
             ))}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1} basis={0}>
+        </Stack.Item>
+        <Stack.Item grow={1} basis={0}>
           <Table>
             {activeSupply?.packs.map((pack) => {
               const tags = [];
@@ -307,8 +306,8 @@ export const CargoCatalog = (props) => {
               );
             })}
           </Table>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

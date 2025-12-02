@@ -4,7 +4,7 @@ import {
   Box,
   Button,
   Collapsible,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Section,
@@ -62,9 +62,9 @@ const ProductCategory = (props) => {
 
   return (
     <Section>
-      <Flex direction="Column">
+      <Stack direction="Column">
         {products.map((product) => (
-          <Flex.Item key={product.key}>
+          <Stack.Item key={product.key}>
             <Section
               title={
                 <span>
@@ -122,9 +122,9 @@ const ProductCategory = (props) => {
               )}
               <br />
             </Section>
-          </Flex.Item>
+          </Stack.Item>
         ))}
-      </Flex>
+      </Stack>
     </Section>
   );
 };

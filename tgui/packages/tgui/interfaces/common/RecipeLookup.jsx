@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Chart,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Tooltip,
@@ -207,7 +207,7 @@ export const RecipeLookup = (props) => {
             />
           )}
         </Box>
-        <Flex justify="space-between">
+        <Stack justify="space-between">
           <Tooltip
             content={
               recipe.isColdRecipe
@@ -215,14 +215,14 @@ export const RecipeLookup = (props) => {
                 : 'The minimum temperature needed for this reaction to start. Heating it up past this point will increase the reaction rate.'
             }
           >
-            <Flex.Item
+            <Stack.Item
               position="relative"
               textColor={recipe.isColdRecipe && 'red'}
             >
               {recipe.isColdRecipe
                 ? recipe.explodeTemp + 'K'
                 : recipe.tempMin + 'K'}
-            </Flex.Item>
+            </Stack.Item>
           </Tooltip>
 
           {recipe.explosive && (
@@ -233,17 +233,17 @@ export const RecipeLookup = (props) => {
                   : 'The temperature at which it is overheated, causing negative effects on the reaction.'
               }
             >
-              <Flex.Item
+              <Stack.Item
                 position="relative"
                 textColor={!recipe.isColdRecipe && 'red'}
               >
                 {recipe.isColdRecipe
                   ? recipe.tempMin + 'K'
                   : recipe.explodeTemp + 'K'}
-              </Flex.Item>
+              </Stack.Item>
             </Tooltip>
           )}
-        </Flex>
+        </Stack>
       </LabeledList.Item>
       <LabeledList.Item bold label="Dynamics">
         <LabeledList>

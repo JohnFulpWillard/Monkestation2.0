@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { Section, Button, Flex, Tabs, Grid } from '../../components';
+import { Section, Button, Stack, Tabs, Grid } from '../../components';
 import { useLocalState } from '../../backend';
 
 export const AccessConfig = (props) => {
@@ -62,8 +62,8 @@ export const AccessConfig = (props) => {
         </>
       }
     >
-      <Flex>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item>
           <Tabs vertical>
             {accesses.map((access) => {
               const entries = access.accesses || [];
@@ -83,8 +83,8 @@ export const AccessConfig = (props) => {
               );
             })}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1} ml={1.5}>
+        </Stack.Item>
+        <Stack.Item grow={1} ml={1.5}>
           <Grid>
             <Grid.Column mr={0}>
               <Button
@@ -114,8 +114,8 @@ export const AccessConfig = (props) => {
               onClick={() => accessMod(entry.ref)}
             />
           ))}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

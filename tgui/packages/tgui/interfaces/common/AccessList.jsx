@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { useSharedState } from '../../backend';
-import { Button, Flex, Section, Tabs, Box } from '../../components';
+import { Button, Stack, Section, Tabs, Box } from '../../components';
 
 export const AccessList = (props) => {
   const {
@@ -151,8 +151,8 @@ export const AccessList = (props) => {
 
   return (
     <Section title="Access" buttons={extraButtons}>
-      <Flex wrap="wrap">
-        <Flex.Item width="100%">
+      <Stack wrap="wrap">
+        <Stack.Item width="100%">
           <FormatWildcards
             wildcardSlots={wildcardSlots}
             selectedList={selectedList}
@@ -160,11 +160,11 @@ export const AccessList = (props) => {
             basicUsed={selectedTrimAccess.length}
             basicMax={trimAccess.length}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <RegionTabList accesses={parsedRegions} />
-        </Flex.Item>
-        <Flex.Item grow={1}>
+        </Stack.Item>
+        <Stack.Item grow={1}>
           {!!multiAccessMod && (
             <Box grow align="right">
               <Button ml={1} color="good" onClick={handleGrantAll}>
@@ -185,8 +185,8 @@ export const AccessList = (props) => {
             wildcardSlots={wildcardSlots}
             showBasic={showBasic}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

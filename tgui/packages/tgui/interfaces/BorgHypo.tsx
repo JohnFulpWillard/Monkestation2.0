@@ -1,6 +1,6 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { Button, Flex, NoticeBox, Section, ProgressBar } from 'tgui-core/components';
+import { Button, Stack, NoticeBox, Section, ProgressBar } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type BorgHypoContext = {
@@ -44,25 +44,25 @@ const ReagentDisplay = (props) => {
     return <NoticeBox>No reagents available!</NoticeBox>;
   }
   return reagents.map((reagent) => (
-    <Flex key={reagent.name} m={0.5}>
-      <Flex.Item grow>
+    <Stack key={reagent.name} m={0.5}>
+      <Stack.Item grow>
         <ProgressBar value={reagent.volume / maxVolume}>
-          <Flex>
-            <Flex.Item grow textAlign={'left'}>
+          <Stack>
+            <Stack.Item grow textAlign={'left'}>
               {reagent.name}
-            </Flex.Item>
-            <Flex.Item>{toFixed(reagent.volume) + 'u'}</Flex.Item>
-          </Flex>
+            </Stack.Item>
+            <Stack.Item>{toFixed(reagent.volume) + 'u'}</Stack.Item>
+          </Stack>
         </ProgressBar>
-      </Flex.Item>
-      <Flex.Item mx={1}>
+      </Stack.Item>
+      <Stack.Item mx={1}>
         <Button
           icon={'info-circle'}
           textAlign={'center'}
           tooltip={reagent.description}
         />
-      </Flex.Item>
-      <Flex.Item textAlign={'right'}>
+      </Stack.Item>
+      <Stack.Item textAlign={'right'}>
         <Button
           icon={'syringe'}
           color={reagent.name === selected ? 'green' : 'default'}
@@ -70,7 +70,7 @@ const ReagentDisplay = (props) => {
           textAlign={'center'}
           onClick={() => act(reagent.name)}
         />
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   ));
 };

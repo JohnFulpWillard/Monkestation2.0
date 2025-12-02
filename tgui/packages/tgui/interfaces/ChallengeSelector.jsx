@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Stack,
   Section,
 } from 'tgui-core/components';
@@ -20,20 +19,20 @@ const ItemListEntry = (props) => {
 
   return (
     <>
-      <Flex direction="row" align="center">
-        <Flex.Item grow={1}>
+      <Stack direction="row" align="center">
+        <Stack.Item grow={1}>
           <Box bold>{name}</Box>
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           {`Payout: ${payout}`} <i className="fa-solid fa-coins" />
-        </Flex.Item>
-        <Flex.Item>{`Difficulty: ${difficulty}`}</Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>{`Difficulty: ${difficulty}`}</Stack.Item>
+        <Stack.Item>
           <Button onClick={onClick} disabled={disabled}>
             {buttonName}
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Divider />
     </>
   );

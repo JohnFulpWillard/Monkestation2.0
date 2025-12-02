@@ -8,7 +8,7 @@ import {
   KEY_SPACE,
   KEY_TAB,
 } from '../../common/keycodes';
-import { Autofocus, Box, Button, Flex, Section, Stack } from 'tgui-core/components';
+import { Autofocus, Box, Button, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type AlertModalData = {
@@ -103,7 +103,7 @@ const ButtonDisplay = (props) => {
   const { selected } = props;
 
   return (
-    <Flex
+    <Stack
       align="center"
       direction={!swapped_buttons ? 'row-reverse' : 'row'}
       fill
@@ -112,24 +112,24 @@ const ButtonDisplay = (props) => {
     >
       {buttons?.map((button, index) =>
         !!large_buttons && buttons.length < 3 ? (
-          <Flex.Item grow key={index}>
+          <Stack.Item grow key={index}>
             <AlertButton
               button={button}
               id={index.toString()}
               selected={selected === index}
             />
-          </Flex.Item>
+          </Stack.Item>
         ) : (
-          <Flex.Item key={index}>
+          <Stack.Item key={index}>
             <AlertButton
               button={button}
               id={index.toString()}
               selected={selected === index}
             />
-          </Flex.Item>
+          </Stack.Item>
         ),
       )}
-    </Flex>
+    </Stack>
   );
 };
 

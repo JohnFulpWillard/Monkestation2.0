@@ -4,7 +4,6 @@ import {
   Button,
   Collapsible,
   Dimmer,
-  Flex,
   Icon,
   LabeledList,
   NoticeBox,
@@ -226,8 +225,8 @@ export const SiliconReadout = (props: { cyborg: Silicon }) => {
   const { cyborg } = props;
 
   return (
-    <Flex>
-      <Flex.Item grow>
+    <Stack>
+      <Stack.Item grow>
         <Collapsible title={`${cyborg.borg_type}: ${cyborg.borg_name}`}>
           <Section backgroundColor={'black'}>
             {cyborg.master_ai && !!cyborg.borg_synced && (
@@ -291,8 +290,8 @@ export const SiliconReadout = (props: { cyborg: Silicon }) => {
             </Stack>
           </Section>
         </Collapsible>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 

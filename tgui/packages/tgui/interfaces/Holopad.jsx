@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Modal,
@@ -18,12 +18,12 @@ export const Holopad = (props) => {
     <Window width={440} height={245}>
       {!!calling && (
         <Modal fontSize="36px" fontFamily="monospace">
-          <Flex align="center">
-            <Flex.Item mr={2} mt={2}>
+          <Stack align="center">
+            <Stack.Item mr={2} mt={2}>
               <Icon name="phone-alt" rotation={25} />
-            </Flex.Item>
-            <Flex.Item mr={2}>{'Dialing...'}</Flex.Item>
-          </Flex>
+            </Stack.Item>
+            <Stack.Item mr={2}>{'Dialing...'}</Stack.Item>
+          </Stack>
           <Box mt={2} textAlign="center" fontSize="24px">
             <Button
               lineHeight="40px"

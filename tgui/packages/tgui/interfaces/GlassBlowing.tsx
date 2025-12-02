@@ -7,7 +7,6 @@ import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
   ProgressBar,
   Section,
   Stack,
@@ -213,8 +212,8 @@ export const GlassBlowing = () => {
               </Stack>
             </Section>
             <Section title>
-              <Flex direction="row-reverse">
-                <Flex.Item>
+              <Stack direction="row-reverse">
+                <Stack.Item>
                   <Button
                     icon="times"
                     color={glass.timeLeft ? 'orange' : 'default'}
@@ -222,8 +221,8 @@ export const GlassBlowing = () => {
                     disabled={inUse}
                     onClick={() => act('Cancel')}
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </Section>
           </>
         )}

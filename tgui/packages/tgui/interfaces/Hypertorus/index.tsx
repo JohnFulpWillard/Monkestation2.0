@@ -1,4 +1,4 @@
-import { Button, Collapsible, Flex, Section, Stack } from 'tgui/components';
+import { Button, Collapsible, Section, Stack } from 'tgui/components';
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
 
 import { BooleanLike } from 'common/react';
@@ -97,30 +97,30 @@ const HypertorusMainControls = (props) => {
 
 const HypertorusLayout = () => {
   return (
-    <Flex className="hypertorus-layout" wrap>
-      <Flex.Item grow width="100%">
+    <Stack className="hypertorus-layout" wrap>
+      <Stack.Item grow width="100%">
         <HypertorusMainControls />
-      </Flex.Item>
-      <Flex.Item grow="20" width="350px" minWidth="280px">
+      </Stack.Item>
+      <Stack.Item grow="20" width="350px" minWidth="280px">
         <HypertorusGases />
-      </Flex.Item>
-      <Flex.Item grow width="420px" overflowX="auto">
+      </Stack.Item>
+      <Stack.Item grow width="420px" overflowX="auto">
         <HypertorusTemperatures />
-      </Flex.Item>
-      <Flex.Item grow="4" width="580px">
-        <Flex className="hypertorus-layout" wrap>
-          <Flex.Item grow width="860px">
+      </Stack.Item>
+      <Stack.Item grow="4" width="580px">
+        <Stack className="hypertorus-layout" wrap>
+          <Stack.Item grow width="860px">
             <HypertorusParameters />
-          </Flex.Item>
-          <Flex.Item grow width="580px">
+          </Stack.Item>
+          <Stack.Item grow width="580px">
             <HypertorusSecondaryControls />
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      <Flex.Item grow width="100%">
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item grow width="100%">
         <HypertorusWasteRemove />
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 

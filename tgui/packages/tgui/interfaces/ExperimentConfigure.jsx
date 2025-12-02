@@ -4,7 +4,7 @@ import {
   Section,
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Table,
@@ -68,15 +68,15 @@ export const TechwebServer = (props) => {
 
   return techwebs.map((server, index) => (
     <Box key={index} m={1} className="ExperimentTechwebServer__Web">
-      <Flex
+      <Stack
         align="center"
         justify="space-between"
         className="ExperimentTechwebServer__WebHeader"
       >
-        <Flex.Item className="ExperimentTechwebServer__WebName">
+        <Stack.Item className="ExperimentTechwebServer__WebName">
           {server.web_id} / {server.web_org}
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             onClick={() =>
               server.selected
@@ -87,8 +87,8 @@ export const TechwebServer = (props) => {
             backgroundColor={server.selected ? 'good' : 'rgba(0, 0, 0, 0.4)'}
             className="ExperimentTechwebServer__ConnectButton"
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Box className="ExperimentTechwebServer__WebContent">
         <span>
           Connectivity to this web is maintained by the following servers...
@@ -128,8 +128,8 @@ export const ExperimentConfigure = (props) => {
   return (
     <Window resizable width={600} height={735}>
       <Window.Content>
-        <Flex direction="column" height="100%">
-          <Flex.Item mb={1}>
+        <Stack direction="column" height="100%">
+          <Stack.Item mb={1}>
             <Section title="Servers">
               <Box>
                 {webs.size > 0
@@ -141,8 +141,8 @@ export const ExperimentConfigure = (props) => {
                   <TechwebServer key={techweb} techwebs={techwebs} />
                 ))}
             </Section>
-          </Flex.Item>
-          <Flex.Item mb={has_start_callback ? 1 : 0} grow={1}>
+          </Stack.Item>
+          <Stack.Item mb={has_start_callback ? 1 : 0} grow={1}>
             {techwebs.some((e) => e.selected) && (
               <Section
                 title="Experiments"
@@ -150,7 +150,7 @@ export const ExperimentConfigure = (props) => {
                 scrollable // MONKESTATION ADDITION: See note(react) above
                 fill // MONKESTATION ADDITION: See note(react) above
               >
-                <Flex.Item mb={1}>
+                <Stack.Item mb={1}>
                   {(experiments.length &&
                     always_active &&
                     'This device is configured to attempt to perform all available' +
@@ -158,17 +158,17 @@ export const ExperimentConfigure = (props) => {
                     (experiments.length &&
                       'Select one of the following experiments...') ||
                     'No experiments found on this web'}
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   {experiments.map((exp, i) => {
                     return <Experiment key={i} exp={exp} />;
                   })}
-                </Flex.Item>
+                </Stack.Item>
               </Section>
             )}
-          </Flex.Item>
+          </Stack.Item>
           {!!has_start_callback && (
-            <Flex.Item>
+            <Stack.Item>
               <Button
                 fluid
                 className="ExperimentConfigure__PerformExperiment"
@@ -178,9 +178,9 @@ export const ExperimentConfigure = (props) => {
               >
                 Perform Experiment
               </Button>
-            </Flex.Item>
+            </Stack.Item>
           )}
-        </Flex>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -204,9 +204,9 @@ export const Experiment = (props) => {
         backgroundColor={selected ? 'good' : '#40628a'}
         className="ExperimentConfigure__ExperimentName"
       >
-        <Flex align="center" justify="space-between">
-          <Flex.Item color={'white'}>{name}</Flex.Item>
-          <Flex.Item color={'rgba(255, 255, 255, 0.5)'}>
+        <Stack align="center" justify="space-between">
+          <Stack.Item color={'white'}>{name}</Stack.Item>
+          <Stack.Item color={'rgba(255, 255, 255, 0.5)'}>
             <Box className="ExperimentConfigure__TagContainer">
               {tag}
               <Tooltip content={performance_hint} position="bottom-start">
@@ -214,8 +214,8 @@ export const Experiment = (props) => {
                 <Box className="ExperimentConfigure__PerformanceHint" />
               </Tooltip>
             </Box>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Button>
       <Box className={'ExperimentConfigure__ExperimentContent'}>
         <Box mb={1}>{description}</Box>

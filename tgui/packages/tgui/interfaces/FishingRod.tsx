@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Box, Stack, Button, Section, Flex } from 'tgui-core/components';
+import { Box, Stack, Button, Section } from 'tgui-core/components';
 
 type FishingRodData = {
   bait_name: string;
@@ -43,17 +43,17 @@ const FishingRodSlot = (props: FishingSlotProps) => {
             fluid
             onClick={() => act('slot_action', { slot: props.slot })}
           >
-            <Flex>
-              <Flex.Item>
+            <Stack>
+              <Stack.Item>
                 {!!props.current_item_icon &&
                   icon_wrapper(props.current_item_icon)}
-              </Flex.Item>
-              <Flex.Item grow align="center">
+              </Stack.Item>
+              <Stack.Item grow align="center">
                 <Box textAlign="center">
                   {props.current_item_name ?? 'None'}
                 </Box>
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </Button>
         </Stack.Item>
       </Stack>

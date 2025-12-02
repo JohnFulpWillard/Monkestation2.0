@@ -5,7 +5,7 @@ import {
   Button,
   Collapsible,
   Dropdown,
-  Flex,
+  Stack,
   Icon,
   Input,
   LabeledList,
@@ -57,9 +57,9 @@ export const NifPanel = (props) => {
               right
             >
               {(loaded_nifsofts.length && (
-                <Flex direction="column">
+                <Stack direction="column">
                   {loaded_nifsofts.map((nifsoft) => (
-                    <Flex.Item key={nifsoft.name}>
+                    <Stack.Item key={nifsoft.name}>
                       <Collapsible
                         title={
                           <>
@@ -164,9 +164,9 @@ export const NifPanel = (props) => {
                           />
                         </box>
                       </Collapsible>
-                    </Flex.Item>
+                    </Stack.Item>
                   ))}
-                </Flex>
+                </Stack>
               )) || (
                 <Box>
                   {' '}

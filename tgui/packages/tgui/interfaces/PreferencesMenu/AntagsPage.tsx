@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Section,
   Stack,
   Tooltip,
@@ -98,7 +97,7 @@ const AntagSelection = (props: { antagonists: Antagonist[]; name: string }) => {
         </>
       }
     >
-      <Flex className={className} align="flex-end" wrap>
+      <Stack className={className} align="Stack-end" wrap>
         {props.antagonists.map((antagonist) => {
           const isBanned =
             data.antag_bans && data.antag_bans.indexOf(antagonist.key) !== -1;
@@ -107,7 +106,7 @@ const AntagSelection = (props: { antagonists: Antagonist[]; name: string }) => {
             (data.antag_days_left && data.antag_days_left[antagonist.key]) || 0;
 
           return (
-            <Flex.Item
+            <Stack.Item
               className={classes([
                 `${className}__antagonist`,
                 `${className}__antagonist--${
@@ -184,10 +183,10 @@ const AntagSelection = (props: { antagonists: Antagonist[]; name: string }) => {
                   </Tooltip>
                 </Stack.Item>
               </Stack>
-            </Flex.Item>
+            </Stack.Item>
           );
         })}
-      </Flex>
+      </Stack>
     </Section>
   );
 };

@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import {
   Button,
   Dropdown,
-  Flex,
+  Stack,
   Input,
   LabeledList,
   ProgressBar,
@@ -60,15 +60,15 @@ export const Mule = (props) => {
             value={cell ? cellPercent / 100 : 0}
             color={cell ? 'good' : 'bad'}
           />
-          <Flex mt={1}>
-            <Flex.Item grow={1} basis={0}>
+          <Stack mt={1}>
+            <Stack.Item grow={1} basis={0}>
               <LabeledList>
                 <LabeledList.Item label="Mode" color={modeStatus}>
                   {mode}
                 </LabeledList.Item>
               </LabeledList>
-            </Flex.Item>
-            <Flex.Item grow={1} basis={0}>
+            </Stack.Item>
+            <Stack.Item grow={1} basis={0}>
               <LabeledList>
                 <LabeledList.Item
                   label="Load"
@@ -77,8 +77,8 @@ export const Mule = (props) => {
                   {load || 'None'}
                 </LabeledList.Item>
               </LabeledList>
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
         {!locked && (
           <Section

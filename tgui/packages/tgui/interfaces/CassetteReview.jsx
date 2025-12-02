@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Section, Box, Button, Flex } from 'tgui-core/components';
+import { Section, Box, Button, Stack } from 'tgui-core/components';
 
 export const CassetteReview = (props) => {
   const { act, data } = useBackend();
@@ -8,8 +8,8 @@ export const CassetteReview = (props) => {
   return (
     <Window width={600} height={313}>
       <Window.Content>
-        <Flex>
-          <Flex.Item>
+        <Stack>
+          <Stack.Item>
             <Section key="urls">
               {side1.song_url.map((song) => (
                 <Box key={song}>
@@ -22,8 +22,8 @@ export const CassetteReview = (props) => {
                 </Box>
               ))}
             </Section>
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <Section key="names">
               {side1.song_name.map((song) => (
                 <Box key={song}>{song}</Box>
@@ -32,8 +32,8 @@ export const CassetteReview = (props) => {
                 <Box key={song}>{song}</Box>
               ))}
             </Section>
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             {reviewed ? (
               verdict === 'APPROVED' ? (
                 <Box backgroundColor="#0e7f1b">
@@ -50,8 +50,8 @@ export const CassetteReview = (props) => {
                 <Button onClick={() => act('deny')}>Deny</Button>
               </>
             )}
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

@@ -3,7 +3,6 @@ import { useBackend, useLocalState } from '../../backend';
 import {
   Box,
   Button,
-  Flex,
   Input,
   LabeledList,
   Section,
@@ -53,8 +52,8 @@ const GasSearchBar = (props: {
 }) => {
   const { title, onChange, activeInput, setActiveInput } = props;
   return (
-    <Flex align="center">
-      <Flex.Item grow>
+    <Stack align="center">
+      <Stack.Item grow>
         {activeInput ? (
           <Input
             fluid
@@ -66,11 +65,11 @@ const GasSearchBar = (props: {
         ) : (
           title
         )}
-      </Flex.Item>
-      <Flex.Item>
+      </Stack.Item>
+      <Stack.Item>
         <Button icon="search" onClick={() => setActiveInput(!activeInput)} />
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -179,14 +178,14 @@ const ReactionHandbook = (props) => {
                     />
                   ) : factor.tooltip ? (
                     <Tooltip content={factor.tooltip} position="top">
-                      <Flex>
-                        <Flex.Item
+                      <Stack>
+                        <Stack.Item
                           style={{ borderBottom: 'dotted 2px' }}
                           shrink
                         >
                           {factor.factor_name + ':'}
-                        </Flex.Item>
-                      </Flex>
+                        </Stack.Item>
+                      </Stack>
                     </Tooltip>
                   ) : (
                     factor.factor_name

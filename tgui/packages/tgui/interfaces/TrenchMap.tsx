@@ -1,6 +1,6 @@
 import { Window } from '../layouts';
 import { useBackend } from '../backend';
-import { Flex, Box } from 'tgui-core/components';
+import { Stack, Box } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
 import { BooleanLike } from 'common/react';
 
@@ -34,8 +34,8 @@ export const TrenchMap = (_props) => {
 const MapInfo = (_props) => {
   const { data } = useBackend<Data>();
   return (
-    <Flex mt={1} align="center" justify="space-between">
-      <Flex.Item ml={1}>
+    <Stack mt={1} align="center" justify="space-between">
+      <Stack.Item ml={1}>
         <div>
           <div
             style={{
@@ -49,8 +49,8 @@ const MapInfo = (_props) => {
           />
           Trench Wall
         </div>
-      </Flex.Item>
-      <Flex.Item ml={1}>
+      </Stack.Item>
+      <Stack.Item ml={1}>
         <div>
           <div
             style={{
@@ -64,8 +64,8 @@ const MapInfo = (_props) => {
           />
           Station
         </div>
-      </Flex.Item>
-      <Flex.Item ml={1}>
+      </Stack.Item>
+      <Stack.Item ml={1}>
         <div>
           <div
             style={{
@@ -79,8 +79,8 @@ const MapInfo = (_props) => {
           />
           Locked Hotspot
         </div>
-      </Flex.Item>
-      <Flex.Item ml={1}>
+      </Stack.Item>
+      <Stack.Item ml={1}>
         <div>
           <div
             style={{
@@ -94,8 +94,8 @@ const MapInfo = (_props) => {
           />
           Moving Hotspot
         </div>
-      </Flex.Item>
-      <Flex.Item ml={1}>
+      </Stack.Item>
+      <Stack.Item ml={1}>
         <div>
           <div
             style={{
@@ -109,8 +109,8 @@ const MapInfo = (_props) => {
           />
           You Are Here
         </div>
-      </Flex.Item>
-      <Flex.Item ml={1}>
+      </Stack.Item>
+      <Stack.Item ml={1}>
         <div>
           <div
             style={{
@@ -124,8 +124,8 @@ const MapInfo = (_props) => {
           />
           Other
         </div>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 

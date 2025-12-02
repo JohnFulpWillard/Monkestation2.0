@@ -7,7 +7,7 @@ import {
   FeatureToggle,
   FeatureValueProps,
 } from '../base';
-import { Box, Dropdown, Flex } from '../../../../../components';
+import { Box, Dropdown, Stack } from '../../../../../components';
 import { classes } from 'common/react';
 import { ReactNode } from 'react';
 import { binaryInsertWith } from 'common/collections';
@@ -49,15 +49,15 @@ const GhostFormInput = (
 
   for (const [name, displayName] of Object.entries(displayNames)) {
     const displayText = (
-      <Flex key={name}>
-        <Flex.Item>
+      <Stack key={name}>
+        <Stack.Item>
           <Box
             className={classes([`preferences32x32`, serverData.icons![name]])}
           />
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item grow={1}>{displayName}</Flex.Item>
-      </Flex>
+        <Stack.Item grow={1}>{displayName}</Stack.Item>
+      </Stack>
     );
 
     displayTexts[name] = displayText;

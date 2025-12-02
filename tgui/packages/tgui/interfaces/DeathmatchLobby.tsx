@@ -6,7 +6,7 @@ import {
   Button,
   Divider,
   Dropdown,
-  Flex,
+  Stack,
   Icon,
   Modal,
   Section,
@@ -61,8 +61,8 @@ export const DeathmatchLobby = (props) => {
     <Window title="Deathmatch Lobby" width={560} height={480}>
       <ModSelector />
       <Window.Content>
-        <Flex height="94%">
-          <Flex.Item width="63%">
+        <Stack height="94%">
+          <Stack.Item width="63%">
             <Section fill scrollable>
               <Table>
                 <Table.Row>
@@ -144,8 +144,8 @@ export const DeathmatchLobby = (props) => {
                 ))}
               </Table>
             </Section>
-          </Flex.Item>
-          <Flex.Item width="210px">
+          </Stack.Item>
+          <Stack.Item width="210px">
             <Section>
               <Box textAlign="center">
                 {(!!data.host && (
@@ -199,8 +199,8 @@ export const DeathmatchLobby = (props) => {
                 </>
               )}
             </Section>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
         <Button
           color="good"
           content="Start Game"

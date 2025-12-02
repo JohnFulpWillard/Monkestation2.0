@@ -3,7 +3,6 @@ import { sendAct, useBackend, useLocalState } from '../../backend';
 import {
   Box,
   Button,
-  Flex,
   LabeledList,
   Floating,
   Stack,
@@ -205,12 +204,12 @@ const ChoicedSelection = (props: {
             grow
             className="section-background"
           >
-            <Flex wrap>
+            <Stack wrap>
               {Object.entries(catalog.icons)
                 .filter(([n, _]) => searchText?.length < 1 || search(n))
                 .map(([name, image], index) => {
                   return (
-                    <Flex.Item
+                    <Stack.Item
                       key={index}
                       basis={`${CLOTHING_SELECTION_CELL_SIZE}px`}
                       style={{
@@ -247,10 +246,10 @@ const ChoicedSelection = (props: {
                           {name}
                         </FitText>
                       </Box>
-                    </Flex.Item>
+                    </Stack.Item>
                   );
                 })}
-            </Flex>
+            </Stack>
           </Stack.Item>
           {/* Handle larger supplemental features */}
           {supplementalFeatures.map((feature, index) => {

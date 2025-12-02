@@ -6,7 +6,6 @@ import {
   Section,
   Stack,
   Icon,
-  Flex,
   DmIcon,
   Dimmer,
 } from 'tgui-core/components';
@@ -156,21 +155,21 @@ const HunterWeaponSelection = (props: { weapon: HunterWeapon }) => {
   const { weapon } = props;
   return (
     <Box className="candystripe" p={1} pb={2}>
-      <Flex justify="space-between" align="center">
-        <Flex.Item pr={1}>
+      <Stack justify="space-between" align="center">
+        <Stack.Item pr={1}>
           <DmIcon
             icon={weapon.icon}
             icon_state={weapon.icon_state}
             verticalAlign="middle"
           />
-        </Flex.Item>
-        <Flex.Item grow>
-          <Flex direction="column">
-            <Flex.Item bold>{weapon.name}</Flex.Item>
-            <Flex.Item>{weapon.desc}</Flex.Item>
-          </Flex>
-        </Flex.Item>
-        <Flex.Item pl={0.5}>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Stack direction="column">
+            <Stack.Item bold>{weapon.name}</Stack.Item>
+            <Stack.Item>{weapon.desc}</Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item pl={0.5}>
           <Button
             height="3rem"
             verticalAlignContent="middle"
@@ -184,8 +183,8 @@ const HunterWeaponSelection = (props: { weapon: HunterWeapon }) => {
           >
             Claim
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

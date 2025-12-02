@@ -9,7 +9,6 @@ import {
   NoticeBox,
   NumberInput,
   Section,
-  Flex,
   Tabs,
   Stack,
   Dropdown,
@@ -596,8 +595,8 @@ export const NaniteProgramHub = (props) => {
       }
     >
       {programs !== null ? (
-        <Flex>
-          <Flex.Item minWidth="110px">
+        <Stack>
+          <Stack.Item minWidth="110px">
             <Tabs vertical>
               {map((cat_contents, category) => {
                 const progs = cat_contents || [];
@@ -615,8 +614,8 @@ export const NaniteProgramHub = (props) => {
                 );
               })(programs)}
             </Tabs>
-          </Flex.Item>
-          <Flex.Item grow={1} basis={0}>
+          </Stack.Item>
+          <Stack.Item grow={1} basis={0}>
             {detail_view ? (
               programsInCategory.map((program) => (
                 <Section
@@ -659,8 +658,8 @@ export const NaniteProgramHub = (props) => {
                 ))}
               </LabeledList>
             )}
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       ) : (
         <NoticeBox>No nanite programs are currently researched.</NoticeBox>
       )}

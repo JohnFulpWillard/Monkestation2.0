@@ -1,6 +1,6 @@
 import { capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Section, Stack, Box, Tabs, Button, Flex, DmIcon } from 'tgui-core/components';
+import { Section, Stack, Box, Tabs, Button, Stack, DmIcon } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
 import { ObjectivePrintout, Objective } from './common/Objectives';
@@ -442,7 +442,7 @@ const KnowledgePreview = (props) => {
           fill
           fluid
           vertical
-          justify="flex-start"
+          justify="Stack-start"
           fontSize="16px"
           textAlign="center"
         >
@@ -501,7 +501,7 @@ const ClassSelection = (props) => {
 
   const [currentTab, setTab] = useLocalState('currentTab', 0);
   return (
-    <Flex
+    <Stack
       justify="space-evenly"
       height="100%"
       width="100%"
@@ -512,21 +512,21 @@ const ClassSelection = (props) => {
       }}
     >
       {classData.map((darkspawnclass) => (
-        <Flex
+        <Stack
           width="100%"
           direction="column"
           key={darkspawnclass}
           fontSize="16px"
           textAlign="center"
         >
-          <Flex.Item height="50px" fontSize="20px" color={darkspawnclass.color}>
+          <Stack.Item height="50px" fontSize="20px" color={darkspawnclass.color}>
             {capitalize(darkspawnclass.name)}
-          </Flex.Item>
-          <Flex.Item height="50px">{darkspawnclass.description}</Flex.Item>
-          <Flex.Item height="70px" fontSize="14px" style={Velvet}>
+          </Stack.Item>
+          <Stack.Item height="50px">{darkspawnclass.description}</Stack.Item>
+          <Stack.Item height="70px" fontSize="14px" style={Velvet}>
             {darkspawnclass.long_description}
-          </Flex.Item>
-          <Flex.Item height="50px">
+          </Stack.Item>
+          <Stack.Item height="50px">
             <Tabs.Tab
               height="50px"
               fontSize="20px"
@@ -537,9 +537,9 @@ const ClassSelection = (props) => {
             >
               Choose
             </Tabs.Tab>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       ))}
-    </Flex>
+    </Stack>
   );
 };

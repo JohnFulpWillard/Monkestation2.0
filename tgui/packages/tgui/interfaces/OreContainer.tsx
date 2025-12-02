@@ -4,7 +4,6 @@ import {
   Button,
   Input,
   Stack,
-  Flex,
   Section,
   DmIcon,
   Icon,
@@ -56,16 +55,16 @@ export const OreContainer = (props) => {
             <Section title="Stock" fill scrollable>
               <Stack wrap>
                 {ores_filtered.map((ore) => (
-                  <Flex.Item key={ore.id}>
-                    <Flex direction="column" m={0.5} textAlign="center">
-                      <Flex.Item>
+                  <Stack.Item key={ore.id}>
+                    <Stack direction="column" m={0.5} textAlign="center">
+                      <Stack.Item>
                         <RetrieveIcon ore={ore} />
-                      </Flex.Item>
-                      <Flex.Item>
+                      </Stack.Item>
+                      <Stack.Item>
                         <Orename ore_name={toTitleCase(ore.name)} />
-                      </Flex.Item>
-                      <Flex.Item>Amount: {ore.amount}</Flex.Item>
-                      <Flex.Item>
+                      </Stack.Item>
+                      <Stack.Item>Amount: {ore.amount}</Stack.Item>
+                      <Stack.Item>
                         <Button
                           content="Withdraw"
                           color="transparent"
@@ -75,9 +74,9 @@ export const OreContainer = (props) => {
                             })
                           }
                         />
-                      </Flex.Item>
-                    </Flex>
-                  </Flex.Item>
+                      </Stack.Item>
+                    </Stack>
+                  </Stack.Item>
                 ))}
               </Stack>
             </Section>

@@ -1,4 +1,4 @@
-import { Button, ColorBox, Flex, Section, Stack } from 'tgui-core/components';
+import { Button, ColorBox, Section, Stack } from 'tgui-core/components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
@@ -131,7 +131,7 @@ export const DecalPainter = (props) => {
           )}
           <Stack.Item grow>
             <Section title="Style" fill scrollable>
-              <Flex wrap="wrap">
+              <Stack wrap="wrap">
                 {decal_list.map((decal) => {
                   const nondirectional = decal.directional === 0;
 
@@ -147,7 +147,7 @@ export const DecalPainter = (props) => {
                     />
                   ) : (
                     // 4 buttons for directional
-                    <Flex key={decal.icon_state} direction="column">
+                    <Stack key={decal.icon_state} direction="column">
                       {dir_list.map((dir) => {
                         const selected =
                           decal.icon_state === current_decal &&
@@ -164,10 +164,10 @@ export const DecalPainter = (props) => {
                           />
                         );
                       })}
-                    </Flex>
+                    </Stack>
                   );
                 })}
-              </Flex>
+              </Stack>
             </Section>
           </Stack.Item>
         </Stack>

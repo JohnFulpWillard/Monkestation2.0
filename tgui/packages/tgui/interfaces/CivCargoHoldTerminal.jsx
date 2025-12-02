@@ -2,7 +2,6 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   LabeledList,
   NoticeBox,
   Section,
@@ -104,8 +103,8 @@ const BountyPickBox = (props) => {
   const { id_bounty_names, id_bounty_values } = data;
   return (
     <Section title="Please Select a Bounty:" textAlign="center">
-      <Flex width="100%" wrap>
-        <Flex.Item shrink={0} grow={0.5}>
+      <Stack width="100%" wrap>
+        <Stack.Item shrink={0} grow={0.5}>
           <Button
             fluid
             color="green"
@@ -114,8 +113,8 @@ const BountyPickBox = (props) => {
           >
             <Box fontSize="14px">Payout: {id_bounty_values[0]} cr</Box>
           </Button>
-        </Flex.Item>
-        <Flex.Item shrink={0} grow={0.5} px={1}>
+        </Stack.Item>
+        <Stack.Item shrink={0} grow={0.5} px={1}>
           <Button
             fluid
             color="green"
@@ -124,8 +123,8 @@ const BountyPickBox = (props) => {
           >
             <Box fontSize="14px">Payout: {id_bounty_values[1]} cr</Box>
           </Button>
-        </Flex.Item>
-        <Flex.Item shrink={0} grow={0.5}>
+        </Stack.Item>
+        <Stack.Item shrink={0} grow={0.5}>
           <Button
             fluid
             color="green"
@@ -134,8 +133,8 @@ const BountyPickBox = (props) => {
           >
             <Box fontSize="14px">Payout: {id_bounty_values[2]} cr</Box>
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

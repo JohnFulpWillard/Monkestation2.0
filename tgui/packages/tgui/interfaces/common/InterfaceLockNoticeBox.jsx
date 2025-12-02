@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Button, Flex, NoticeBox } from '../../components';
+import { Button, Stack, NoticeBox } from '../../components';
 
 /**
  * This component by expects the following fields to be returned
@@ -28,10 +28,10 @@ export const InterfaceLockNoticeBox = (props) => {
   if (siliconUser) {
     return (
       <NoticeBox color="grey">
-        <Flex align="center">
-          <Flex.Item>Interface lock status:</Flex.Item>
-          <Flex.Item grow={1} />
-          <Flex.Item>
+        <Stack align="center">
+          <Stack.Item>Interface lock status:</Stack.Item>
+          <Stack.Item grow={1} />
+          <Stack.Item>
             <Button
               m={0}
               color={locked ? 'red' : 'green'}
@@ -44,8 +44,8 @@ export const InterfaceLockNoticeBox = (props) => {
                 }
               }}
             />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </NoticeBox>
     );
   }

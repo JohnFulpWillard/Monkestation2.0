@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../../backend';
-import { Flex, Input, Section, Button } from '../../components';
+import { Stack, Input, Section, Button } from '../../components';
 
 type Data = {
   upperText: string;
@@ -74,33 +74,33 @@ export const StatusDisplayControls = (props) => {
       </Section>
 
       <Section title="Message">
-        <Flex direction="column" align="stretch">
-          <Flex.Item mb={1}>
+        <Stack direction="column" align="stretch">
+          <Stack.Item mb={1}>
             <Input
               fluid
               maxLength={maxStatusLineLength}
               value={upperText}
               onChange={(_, value) => setUpperText(value)}
             />
-          </Flex.Item>
+          </Stack.Item>
 
-          <Flex.Item mb={1}>
+          <Stack.Item mb={1}>
             <Input
               fluid
               maxLength={maxStatusLineLength}
               value={lowerText}
               onChange={(_, value) => setLowerText(value)}
             />
-          </Flex.Item>
+          </Stack.Item>
 
-          <Flex.Item>
+          <Stack.Item>
             <Button
               icon="comment-o"
               onClick={() => act('setStatusMessage', { upperText, lowerText })}
               content="Send"
             />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Section>
     </>
   );

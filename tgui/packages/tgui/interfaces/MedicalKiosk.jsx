@@ -4,7 +4,6 @@ import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
   Icon,
   LabeledList,
   ProgressBar,
@@ -21,8 +20,8 @@ export const MedicalKiosk = (props) => {
   return (
     <Window width={575} height={420}>
       <Window.Content scrollable>
-        <Flex mb={1}>
-          <Flex.Item mr={1}>
+        <Stack mb={1}>
+          <Stack.Item mr={1}>
             <Section minHeight="100%">
               <MedicalKioskScanButton
                 index={1}
@@ -59,11 +58,11 @@ export const MedicalKiosk = (props) => {
                 `}
               />
             </Section>
-          </Flex.Item>
-          <Flex.Item grow={1} basis={0}>
+          </Stack.Item>
+          <Stack.Item grow={1} basis={0}>
             <MedicalKioskInstructions />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
         {!!active_status_1 && scanIndex === 1 && <MedicalKioskScanResults1 />}
         {!!active_status_2 && scanIndex === 2 && <MedicalKioskScanResults2 />}
         {!!active_status_3 && scanIndex === 3 && <MedicalKioskScanResults3 />}

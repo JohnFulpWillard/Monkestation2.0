@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, DmIcon, Flex, Section, Stack, Tabs } from 'tgui-core/components';
+import { Box, Button, DmIcon, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 import {
   Objective,
@@ -217,8 +217,8 @@ const PowerSection = (props: any) => {
 
   return (
     <Section title="Powers">
-      <Flex>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item>
           <Tabs vertical overflowY="auto">
             {powers.map((power) => (
               <Tabs.Tab
@@ -237,15 +237,15 @@ const PowerSection = (props: any) => {
               </Tabs.Tab>
             ))}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item ml="1rem" grow={1} basis={0} fontSize="14px">
+        </Stack.Item>
+        <Stack.Item ml="1rem" grow={1} basis={0} fontSize="14px">
           <Box
             dangerouslySetInnerHTML={{
               __html: selectedPower.explanation,
             }}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

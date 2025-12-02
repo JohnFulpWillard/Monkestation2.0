@@ -5,7 +5,6 @@ import {
   Section,
   ByondUi,
   Slider,
-  Flex,
   Button,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -77,13 +76,13 @@ export const MODpaint = (props) => {
                 title={`${displayText(prefixes[row])} turns to:`}
               >
                 {[0, 1, 2].map((col) => (
-                  <Flex key={col}>
-                    <Flex.Item align="left" width="30%">
+                  <Stack key={col}>
+                    <Stack.Item align="left" width="30%">
                       <Box inline textColor="label">
                         {`${displayText(prefixes[col])}:`}
                       </Box>
-                    </Flex.Item>
-                    <Flex.Item align="right" width="70%">
+                    </Stack.Item>
+                    <Stack.Item align="right" width="70%">
                       <Slider
                         inline
                         textAlign="right"
@@ -99,8 +98,8 @@ export const MODpaint = (props) => {
                           act('transition_color', { color: retColor });
                         }}
                       />
-                    </Flex.Item>
-                  </Flex>
+                    </Stack.Item>
+                  </Stack>
                 ))}
               </Section>
             ))}

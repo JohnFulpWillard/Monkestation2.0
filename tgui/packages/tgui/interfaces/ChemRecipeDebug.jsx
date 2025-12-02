@@ -4,7 +4,7 @@ import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   NumberInput,
   ProgressBar,
@@ -220,14 +220,14 @@ export const ChemRecipeDebug = (props) => {
         <Section
           title="Reactions"
           buttons={
-            <Flex>
-              <Flex.Item color="label">
+            <Stack>
+              <Stack.Item color="label">
                 <AnimatedNumber
                   value={currentpH}
                   format={(value) => 'pH: ' + round(value, 3)}
                 />
-              </Flex.Item>
-              <Flex.Item>
+              </Stack.Item>
+              <Stack.Item>
                 <RoundGauge
                   size={1.6}
                   value={currentpH}
@@ -249,8 +249,8 @@ export const ChemRecipeDebug = (props) => {
                     violet: [12.5, 14],
                   }}
                 />
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           }
         >
           {(activeReactions.length === 0 && (

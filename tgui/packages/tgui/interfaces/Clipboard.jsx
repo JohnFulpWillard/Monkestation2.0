@@ -4,7 +4,7 @@ import {
   Button,
   Divider,
   LabeledList,
-  Flex,
+  Stack,
   Section,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -40,15 +40,15 @@ export const Clipboard = (props) => {
         </Section>
         <Divider />
         {top_paper ? (
-          <Flex
+          <Stack
             color="black"
             backgroundColor="white"
             style={{ padding: '2px 2px 0 2px' }}
           >
-            <Flex.Item align="center" grow={1}>
+            <Stack.Item align="center" grow={1}>
               <Box align="center">{top_paper}</Box>
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 icon={pen ? 'pen' : 'eye'}
                 onClick={() => act('edit_paper', { ref: top_paper_ref })}
@@ -61,8 +61,8 @@ export const Clipboard = (props) => {
                 icon="eject"
                 onClick={() => act('remove_paper', { ref: top_paper_ref })}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         ) : (
           <Section>
             <Box color="white" align="center">
@@ -72,25 +72,25 @@ export const Clipboard = (props) => {
         )}
         {paper.length > 0 && <Divider />}
         {paper.map((paper_item, index) => (
-          <Flex
+          <Stack
             key={paper_ref[index]}
             color="black"
             backgroundColor="white"
             style={{ padding: '2px 2px 0 2px' }}
             mb={0.5}
           >
-            <Flex.Item>
+            <Stack.Item>
               <Button
                 icon="chevron-up"
                 color="transparent"
                 iconColor="black"
                 onClick={() => act('move_top_paper', { ref: paper_ref[index] })}
               />
-            </Flex.Item>
-            <Flex.Item align="center" grow={1}>
+            </Stack.Item>
+            <Stack.Item align="center" grow={1}>
               <Box align="center">{paper_item}</Box>
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 icon={pen ? 'pen' : 'eye'}
                 onClick={() => act('edit_paper', { ref: paper_ref[index] })}
@@ -103,8 +103,8 @@ export const Clipboard = (props) => {
                 icon="eject"
                 onClick={() => act('remove_paper', { ref: paper_ref[index] })}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         ))}
       </Window.Content>
     </Window>

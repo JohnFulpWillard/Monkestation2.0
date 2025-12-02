@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Collapsible,
-  Flex,
   NumberInput,
   Section,
   Stack,
@@ -50,8 +49,8 @@ export const BountyBoardContent = (props) => {
       >
         <UserDetails />
       </Section>
-      <Flex mb={1}>
-        <Flex.Item grow={1} basis={0}>
+      <Stack mb={1}>
+        <Stack.Item grow={1} basis={0}>
           {requests?.map((request) => (
             <Collapsible key={request.name} title={request.owner} width="300px">
               <Section key={request.name} width="300px">
@@ -94,8 +93,8 @@ export const BountyBoardContent = (props) => {
                   {applicants?.map(
                     (applicant) =>
                       applicant.request_id === request.acc_number && (
-                        <Flex key={applicant.request_id}>
-                          <Flex.Item
+                        <Stack key={applicant.request_id}>
+                          <Stack.Item
                             grow={1}
                             p={0.5}
                             backgroundColor={backColor}
@@ -106,8 +105,8 @@ export const BountyBoardContent = (props) => {
                             }}
                           >
                             {applicant.name}
-                          </Flex.Item>
-                          <Flex.Item align="end">
+                          </Stack.Item>
+                          <Stack.Item align="end">
                             <Button
                               fluid
                               p={1}
@@ -120,16 +119,16 @@ export const BountyBoardContent = (props) => {
                                 })
                               }
                             />
-                          </Flex.Item>
-                        </Flex>
+                          </Stack.Item>
+                        </Stack>
                       ),
                   )}
                 </Section>
               </Section>
             </Collapsible>
           ))}
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Collapsible title="New Bounty" width="220px" color="green">
             <Section>
               <TextArea
@@ -167,8 +166,8 @@ export const BountyBoardContent = (props) => {
               </Box>
             </Section>
           </Collapsible>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </>
   );
 };

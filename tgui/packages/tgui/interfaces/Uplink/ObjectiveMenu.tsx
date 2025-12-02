@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Dimmer,
-  Flex,
   Icon,
   NoticeBox,
   Section,
@@ -201,10 +200,10 @@ export class ObjectiveMenu extends Component<
               fill
               scrollable
             >
-              <Flex wrap="wrap" justify="space-evenly">
+              <Stack wrap="wrap" justify="space-evenly">
                 {potentialObjectives.map((objective) => {
                   return (
-                    <Flex.Item
+                    <Stack.Item
                       key={objective.id}
                       textAlign="left"
                       basis="49%"
@@ -232,7 +231,7 @@ export class ObjectiveMenu extends Component<
                           minHeight="100px"
                         />
                       )}
-                    </Flex.Item>
+                    </Stack.Item>
                   );
                 })}
                 {(maximumPotentialObjectives === 0 && (
@@ -244,7 +243,7 @@ export class ObjectiveMenu extends Component<
                   </Dimmer>
                 )) ||
                   (potentialObjectives.length < maximumPotentialObjectives && (
-                    <Flex.Item basis="100%" mb={1} mx="0.5%" minHeight="100px">
+                    <Stack.Item basis="100%" mb={1} mx="0.5%" minHeight="100px">
                       <Stack
                         align="center"
                         height="100%"
@@ -259,9 +258,9 @@ export class ObjectiveMenu extends Component<
                           />
                         </Stack.Item>
                       </Stack>
-                    </Flex.Item>
+                    </Stack.Item>
                   ))}
-              </Flex>
+              </Stack>
             </Section>
           </Stack.Item>
         </Stack>
@@ -409,8 +408,8 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
     Math.round((1 - progressionReward / originalProgression) * 1000) / 10;
 
   return (
-    <Flex height={grow ? '100%' : undefined} direction="column">
-      <Flex.Item grow={grow} basis="content">
+    <Stack height={grow ? '100%' : undefined} direction="column">
+      <Stack.Item grow={grow} basis="content">
         <Box
           className={classes([
             'UplinkObjective__Titlebar',
@@ -436,8 +435,8 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
             )}
           </Stack>
         </Box>
-      </Flex.Item>
-      <Flex.Item grow={grow} basis="content">
+      </Stack.Item>
+      <Stack.Item grow={grow} basis="content">
         <Box className="UplinkObjective__Content" height="100%">
           <Box>{description}</Box>
           {!hideTcRep && (
@@ -453,8 +452,8 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
             </NoticeBox>
           )}
         </Box>
-      </Flex.Item>
-      <Flex.Item>
+      </Stack.Item>
+      <Stack.Item>
         <Box className="UplinkObjective__Footer">
           <Stack vertical>
             {!hideTcRep && (
@@ -568,7 +567,7 @@ export const ObjectiveElement = (props: ObjectiveElementProps) => {
             )}
           </Stack>
         </Box>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };

@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { Button, Flex, Knob, LabeledControls, Section } from 'tgui-core/components';
+import { Button, Stack, Knob, LabeledControls, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -48,18 +48,18 @@ export const Aquarium = (props) => {
               />
             </LabeledControls.Item>
             <LabeledControls.Item label="Fluid">
-              <Flex direction="column" mb={1}>
+              <Stack direction="column" mb={1}>
                 {fluidTypes.map((f) => (
-                  <Flex.Item key={f}>
+                  <Stack.Item key={f}>
                     <Button
                       fluid
                       content={f}
                       selected={fluid_type === f}
                       onClick={() => act('fluid', { fluid: f })}
                     />
-                  </Flex.Item>
+                  </Stack.Item>
                 ))}
-              </Flex>
+              </Stack>
             </LabeledControls.Item>
             <LabeledControls.Item label="Reproduction Prevention System">
               <Button

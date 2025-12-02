@@ -6,7 +6,7 @@ import {
   Button,
   Collapsible,
   Divider,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -155,9 +155,9 @@ export const Soulcatcher = (props) => {
                   <b>Current Souls</b>
                 </Box>
                 <Divider />
-                <Flex direction="column">
+                <Stack direction="column">
                   {room.souls.map((soul) => (
-                    <Flex.Item key={soul.key}>
+                    <Stack.Item key={soul.key}>
                       <Collapsible
                         title={soul.name}
                         buttons={
@@ -397,9 +397,9 @@ export const Soulcatcher = (props) => {
                           Remove Soul
                         </Button>
                       </Collapsible>
-                    </Flex.Item>
+                    </Stack.Item>
                   ))}
-                </Flex>
+                </Stack>
               </>
             ) : (
               <> </>

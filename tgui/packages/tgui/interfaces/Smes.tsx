@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -86,8 +86,8 @@ export const Smes = () => {
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Input">
-              <Flex inline width="100%">
-                <Flex.Item>
+              <Stack inline width="100%">
+                <Stack.Item>
                   <Button
                     icon="fast-backward"
                     disabled={inputLevel === 0}
@@ -106,8 +106,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item grow={1} mx={1}>
+                </Stack.Item>
+                <Stack.Item grow={1} mx={1}>
                   <Slider
                     value={inputLevel / POWER_MUL}
                     fillValue={inputAvailable / POWER_MUL}
@@ -122,8 +122,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="forward"
                     disabled={inputLevel === inputLevelMax}
@@ -142,8 +142,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Available">
               {formatPower(inputAvailable)}
@@ -173,8 +173,8 @@ export const Smes = () => {
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Output">
-              <Flex inline width="100%">
-                <Flex.Item>
+              <Stack inline width="100%">
+                <Stack.Item>
                   <Button
                     icon="fast-backward"
                     disabled={outputLevel === 0}
@@ -193,8 +193,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item grow={1} mx={1}>
+                </Stack.Item>
+                <Stack.Item grow={1} mx={1}>
                   <Slider
                     value={outputLevel / POWER_MUL}
                     minValue={0}
@@ -208,8 +208,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="forward"
                     disabled={outputLevel === outputLevelMax}
@@ -228,8 +228,8 @@ export const Smes = () => {
                       })
                     }
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Outputting">
               {formatPower(outputUsed)}

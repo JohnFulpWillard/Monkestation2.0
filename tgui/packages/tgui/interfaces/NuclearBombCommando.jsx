@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
 
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Grid, Icon } from 'tgui-core/components';
+import { Box, Button, Stack, Grid, Icon } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 // This ui is so many manual overrides and !important tags
@@ -56,11 +56,11 @@ export const NuclearBombCommando = (props) => {
           <Box mb="6px" className="NuclearBombCommando__displayBox">
             {status1}
           </Box>
-          <Flex mb={1.5}>
-            <Flex.Item grow={1}>
+          <Stack mb={1.5}>
+            <Stack.Item grow={1}>
               <Box className="NuclearBombCommando__displayBox">{status2}</Box>
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 icon="eject"
                 fontSize="24px"
@@ -73,13 +73,13 @@ export const NuclearBombCommando = (props) => {
                 className="NuclearBombCommando__Button NuclearBombCommando__Button--keypad"
                 onClick={() => act('eject_disk')}
               />
-            </Flex.Item>
-          </Flex>
-          <Flex ml="3px">
-            <Flex.Item>
+            </Stack.Item>
+          </Stack>
+          <Stack ml="3px">
+            <Stack.Item>
               <NukeKeypad />
-            </Flex.Item>
-            <Flex.Item ml="6px" width="129px">
+            </Stack.Item>
+            <Stack.Item ml="6px" width="129px">
               <Box>
                 <Button
                   fluid
@@ -96,8 +96,8 @@ export const NuclearBombCommando = (props) => {
                   <Icon name="radiation" />
                 </Box>
               </Box>
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Box>
       </Window.Content>
     </Window>

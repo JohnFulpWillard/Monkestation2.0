@@ -5,7 +5,6 @@ import { useBackend, useLocalState } from '../../backend';
 import {
   Box,
   Button,
-  Flex,
   Section,
   Stack,
   Tabs,
@@ -234,14 +233,14 @@ export class LuaEditor extends Component<{}, LuaEditorState> {
             </MenuBar.Dropdown>
           </MenuBar>
           {noStateYet ? (
-            <Flex
+            <Stack
               width="100%"
               height="100%"
               align="center"
               justify="space-around"
             >
               <h1>Please select or create a lua state to get started.</h1>
-            </Flex>
+            </Stack>
           ) : (
             <Stack height="calc(100% - 16px)">
               <Stack.Item grow shrink basis="55%">
@@ -382,7 +381,7 @@ export class LuaEditor extends Component<{}, LuaEditorState> {
                         {tabContent}
                       </Section>
                       {activeTab === 'log' && showJumpToBottomButton && (
-                        <Flex
+                        <Stack
                           position="absolute"
                           bottom="2.5rem"
                           width="100%"
@@ -401,7 +400,7 @@ export class LuaEditor extends Component<{}, LuaEditorState> {
                           >
                             Jump to Bottom
                           </Button>
-                        </Flex>
+                        </Stack>
                       )}
                     </Stack.Item>
                     {activeTab === 'log' && pageCount > 1 && (

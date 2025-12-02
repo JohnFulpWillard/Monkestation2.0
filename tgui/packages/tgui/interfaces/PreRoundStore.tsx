@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Stack,
   Section,
   Icon,
@@ -37,8 +36,8 @@ const ItemListEntry = (props) => {
 
   return (
     <>
-      <Flex direction="row" align="center">
-        <Flex.Item>
+      <Stack direction="row" align="center">
+        <Stack.Item>
           <DmIcon
             icon={icon}
             icon_state={icon_state}
@@ -47,19 +46,19 @@ const ItemListEntry = (props) => {
             width={'32px'}
             verticalAlign="middle"
           />
-        </Flex.Item>
-        <Flex.Item grow={1}>
+        </Stack.Item>
+        <Stack.Item grow={1}>
           <Box bold>{name}</Box>
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           {`Cost: ${cost}`} <Icon name="coins" pr={1} />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button onClick={onClick} disabled={disabled}>
             Buy
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Divider />
     </>
   );
@@ -89,11 +88,11 @@ export const PreRoundStore = (_props) => {
             )}
             <Stack.Item>
               <Section>
-                <Flex direction="row" align="center">
+                <Stack direction="row" align="center">
                   <Box>
                     Balance: {balance} <Icon name="coins" />
                   </Box>
-                </Flex>
+                </Stack>
               </Section>
             </Stack.Item>
             <Stack.Item>

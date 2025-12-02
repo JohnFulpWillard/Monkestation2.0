@@ -1,4 +1,4 @@
-import { Box, Flex } from '../../components';
+import { Box, Stack } from '../../components';
 
 export const calculateProgression = (progression_points: number) => {
   return Math.round(progression_points / 6) / 10;
@@ -73,7 +73,7 @@ export const ranks: Rank[] = [
 let lastMinutesThan = -1;
 export const dangerLevelsTooltip = (
   <Box preserveWhitespace>
-    <Flex direction="column" mt={1}>
+    <Stack direction="column" mt={1}>
       {ranks.map((value) => {
         if (lastMinutesThan === -1) {
           lastMinutesThan = 0;
@@ -83,7 +83,7 @@ export const dangerLevelsTooltip = (
 
         lastMinutesThan = value.minutesLessThan;
         return (
-          <Flex.Item key={value.minutesLessThan} mt={0.1}>
+          <Stack.Item key={value.minutesLessThan} mt={0.1}>
             <Box
               color="white"
               className={value.gradient}
@@ -96,10 +96,10 @@ export const dangerLevelsTooltip = (
             >
               {text}
             </Box>
-          </Flex.Item>
+          </Stack.Item>
         );
       })}
-    </Flex>
+    </Stack>
   </Box>
 );
 

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Section, Slider } from 'tgui-core/components';
+import { Box, Button, Stack, Icon, Section, Slider } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const BasicOffsetEditor = (properties) => {
@@ -16,8 +16,8 @@ export const BasicOffsetEditor = (properties) => {
                 {offset.name}
               </Box>
               <Box mt="0.5rem">
-                <Flex justify="center">
-                  <Flex.Item>
+                <Stack justify="center">
+                  <Stack.Item>
                     <Box
                       fontSize="1.25rem"
                       color="label"
@@ -25,8 +25,8 @@ export const BasicOffsetEditor = (properties) => {
                     >
                       North
                     </Box>
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-off"
@@ -41,8 +41,8 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                  <Flex.Item width="50%" mx="1rem">
+                  </Stack.Item>
+                  <Stack.Item width="50%" mx="1rem">
                     <Slider
                       minValue={-100}
                       maxValue={100}
@@ -56,8 +56,8 @@ export const BasicOffsetEditor = (properties) => {
                         })
                       }
                     />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-up"
@@ -72,12 +72,12 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </Box>
               <Box mt="0.5rem">
-                <Flex justify="center">
-                  <Flex.Item>
+                <Stack justify="center">
+                  <Stack.Item>
                     <Box
                       fontSize="1.25rem"
                       color="label"
@@ -85,8 +85,8 @@ export const BasicOffsetEditor = (properties) => {
                     >
                       South
                     </Box>
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-off"
@@ -101,8 +101,8 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                  <Flex.Item width="50%" mx="1rem">
+                  </Stack.Item>
+                  <Stack.Item width="50%" mx="1rem">
                     <Slider
                       minValue={-100}
                       maxValue={100}
@@ -116,8 +116,8 @@ export const BasicOffsetEditor = (properties) => {
                         })
                       }
                     />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-up"
@@ -132,12 +132,12 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </Box>
               <Box mt="0.5rem">
-                <Flex justify="center">
-                  <Flex.Item>
+                <Stack justify="center">
+                  <Stack.Item>
                     <Box
                       fontSize="1.25rem"
                       color="label"
@@ -145,8 +145,8 @@ export const BasicOffsetEditor = (properties) => {
                     >
                       East
                     </Box>
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-off"
@@ -161,8 +161,8 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                  <Flex.Item width="50%" mx="1rem">
+                  </Stack.Item>
+                  <Stack.Item width="50%" mx="1rem">
                     <Slider
                       minValue={-100}
                       maxValue={100}
@@ -176,8 +176,8 @@ export const BasicOffsetEditor = (properties) => {
                         })
                       }
                     />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-up"
@@ -192,12 +192,12 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </Box>
               <Box mt="0.5rem">
-                <Flex justify="center">
-                  <Flex.Item>
+                <Stack justify="center">
+                  <Stack.Item>
                     <Box
                       fontSize="1.25rem"
                       color="label"
@@ -205,8 +205,8 @@ export const BasicOffsetEditor = (properties) => {
                     >
                       West
                     </Box>
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-off"
@@ -221,8 +221,8 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                  <Flex.Item width="50%" mx="1rem">
+                  </Stack.Item>
+                  <Stack.Item width="50%" mx="1rem">
                     <Slider
                       minValue={-100}
                       maxValue={100}
@@ -236,8 +236,8 @@ export const BasicOffsetEditor = (properties) => {
                         })
                       }
                     />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-up"
@@ -252,8 +252,8 @@ export const BasicOffsetEditor = (properties) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </Box>
             </Fragment>
           ))}

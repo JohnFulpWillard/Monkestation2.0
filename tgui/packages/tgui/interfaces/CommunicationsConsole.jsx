@@ -6,7 +6,7 @@ import {
   Box,
   Button,
   Dimmer,
-  Flex,
+  Stack,
   Icon,
   Modal,
   Section,
@@ -72,12 +72,12 @@ const MessageModal = (props) => {
 
   return (
     <Modal>
-      <Flex direction="column">
-        <Flex.Item fontSize="16px" maxWidth="90vw" mb={1}>
+      <Stack direction="column">
+        <Stack.Item fontSize="16px" maxWidth="90vw" mb={1}>
           {props.label}:
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item mr={2} mb={1}>
+        <Stack.Item mr={2} mb={1}>
           <TextArea
             fluid
             height="20vh"
@@ -89,9 +89,9 @@ const MessageModal = (props) => {
             }}
             value={input}
           />
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item>
+        <Stack.Item>
           <Button
             icon={props.icon}
             content={props.buttonText}
@@ -113,12 +113,12 @@ const MessageModal = (props) => {
             color="bad"
             onClick={props.onBack}
           />
-        </Flex.Item>
+        </Stack.Item>
 
         {!!props.notice && (
-          <Flex.Item maxWidth="90vw">{props.notice}</Flex.Item>
+          <Stack.Item maxWidth="90vw">{props.notice}</Stack.Item>
         )}
-      </Flex>
+      </Stack>
     </Modal>
   );
 };
@@ -126,8 +126,8 @@ const MessageModal = (props) => {
 const NoConnectionModal = () => {
   return (
     <Dimmer>
-      <Flex direction="column" textAlign="center" width="300px">
-        <Flex.Item>
+      <Stack direction="column" textAlign="center" width="300px">
+        <Stack.Item>
           <Icon color="red" name="wifi" size={10} />
 
           <Blink>
@@ -143,12 +143,12 @@ const NoConnectionModal = () => {
               }}
             />
           </Blink>
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item fontSize="16px">
+        <Stack.Item fontSize="16px">
           A connection to the station cannot be established.
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Dimmer>
   );
 };
@@ -334,14 +334,14 @@ const PageMain = (props) => {
 
       {!!canSetAlertLevel && (
         <Section title="Alert Level">
-          <Flex justify="space-between">
-            <Flex.Item>
+          <Stack justify="space-between">
+            <Stack.Item>
               <Box>
                 Currently on <b>{capitalize(alertLevel)}</b> Alert
               </Box>
-            </Flex.Item>
+            </Stack.Item>
 
-            <Flex.Item>
+            <Stack.Item>
               {settableLevels.map((level) => (
                 <AlertButton
                   alertLevel={level}
@@ -350,13 +350,13 @@ const PageMain = (props) => {
                   setShowAlertLevelConfirm={setShowAlertLevelConfirm}
                 />
               ))}
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
       )}
 
       <Section title="Functions">
-        <Flex direction="column">
+        <Stack direction="column">
           {!!canMakeAnnouncement && (
             <Button
               icon="bullhorn"
@@ -428,7 +428,7 @@ const PageMain = (props) => {
               onClick={() => act('restoreBackupRoutingData')}
             />
           )}
-        </Flex>
+        </Stack>
       </Section>
 
       {!!canMessageAssociates && messagingAssociates && (
@@ -485,12 +485,12 @@ const PageMain = (props) => {
         showAlertLevelConfirm &&
         confirmingAlertLevelTick === alertLevelTick && (
           <Modal>
-            <Flex direction="column" textAlign="center" width="300px">
-              <Flex.Item fontSize="16px" mb={2}>
+            <Stack direction="column" textAlign="center" width="300px">
+              <Stack.Item fontSize="16px" mb={2}>
                 Swipe ID to confirm change
-              </Flex.Item>
+              </Stack.Item>
 
-              <Flex.Item mr={2} mb={1}>
+              <Stack.Item mr={2} mb={1}>
                 <Button
                   icon="id-card-o"
                   content="Swipe ID"
@@ -510,34 +510,34 @@ const PageMain = (props) => {
                   fontSize="16px"
                   onClick={() => setShowAlertLevelConfirm(false)}
                 />
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </Modal>
         )}
 
       {!!canSendToSectors && sectors.length > 0 && (
         <Section title="Allied Sectors">
-          <Flex direction="column">
+          <Stack direction="column">
             {sectors.map((sectorName) => (
-              <Flex.Item key={sectorName}>
+              <Stack.Item key={sectorName}>
                 <Button
                   content={`Send a message to station in ${sectorName} sector`}
                   disabled={!importantActionReady}
                   onClick={() => setMessagingSector(sectorName)}
                 />
-              </Flex.Item>
+              </Stack.Item>
             ))}
 
             {sectors.length > 2 && (
-              <Flex.Item>
+              <Stack.Item>
                 <Button
                   content="Send a message to all allied stations"
                   disabled={!importantActionReady}
                   onClick={() => setMessagingSector('all')}
                 />
-              </Flex.Item>
+              </Stack.Item>
             )}
-          </Flex>
+          </Stack>
         </Section>
       )}
 

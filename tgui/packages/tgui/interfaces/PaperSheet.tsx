@@ -4,7 +4,7 @@
 
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Section, TextArea } from 'tgui-core/components';
+import { Box, Button, Stack, Section, TextArea } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { marked } from 'marked';
@@ -334,8 +334,8 @@ export class PrimaryView extends Component {
     return (
       <>
         <PaperSheetStamper scrollableRef={this.scrollableRef} />
-        <Flex direction="column" fillPositionedParent>
-          <Flex.Item grow={3} basis={1}>
+        <Stack direction="column" fillPositionedParent>
+          <Stack.Item grow={3} basis={1}>
             <PreviewView
               key={`${raw_field_input?.length || 0}_${
                 raw_text_input?.length || 0
@@ -344,9 +344,9 @@ export class PrimaryView extends Component {
               handleOnScroll={this.onScrollHandler}
               textArea={textAreaText}
             />
-          </Flex.Item>
+          </Stack.Item>
           {interactMode === InteractionType.writing && (
-            <Flex.Item shrink={1} height={TEXTAREA_INPUT_HEIGHT + 'px'}>
+            <Stack.Item shrink={1} height={TEXTAREA_INPUT_HEIGHT + 'px'}>
               <Section
                 title="Insert Text"
                 fitted
@@ -402,9 +402,9 @@ export class PrimaryView extends Component {
                   }}
                 />
               </Section>
-            </Flex.Item>
+            </Stack.Item>
           )}
-        </Flex>
+        </Stack>
       </>
     );
   }

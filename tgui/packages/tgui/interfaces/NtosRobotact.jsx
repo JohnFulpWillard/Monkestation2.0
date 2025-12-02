@@ -3,7 +3,7 @@ import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -55,8 +55,8 @@ export const NtosRobotactContent = (props) => {
   const borgLog = data.borgLog || [];
   const borgUpgrades = data.borgUpgrades || [];
   return (
-    <Flex direction={'column'}>
-      <Flex.Item position="relative" mb={1}>
+    <Stack direction={'column'}>
+      <Stack.Item position="relative" mb={1}>
         <Tabs>
           <Tabs.Tab
             icon="list"
@@ -75,11 +75,11 @@ export const NtosRobotactContent = (props) => {
             Logs
           </Tabs.Tab>
         </Tabs>
-      </Flex.Item>
+      </Stack.Item>
       {tab_main === 1 && (
         <>
-          <Flex direction={'row'}>
-            <Flex.Item width="30%">
+          <Stack direction={'row'}>
+            <Stack.Item width="30%">
               <Section title="Configuration" fill>
                 <LabeledList>
                   <LabeledList.Item label="Unit">
@@ -91,8 +91,8 @@ export const NtosRobotactContent = (props) => {
                   </LabeledList.Item>
                 </LabeledList>
               </Section>
-            </Flex.Item>
-            <Flex.Item grow={1} basis="content" ml={1}>
+            </Stack.Item>
+            <Stack.Item grow={1} basis="content" ml={1}>
               <Section title="Status">
                 Charge:
                 <Button
@@ -140,8 +140,8 @@ export const NtosRobotactContent = (props) => {
                 />
                 Lamp power usage: {formatPower(lampIntensity * lampConsumption)}
               </Section>
-            </Flex.Item>
-            <Flex.Item width="50%" ml={1}>
+            </Stack.Item>
+            <Stack.Item width="50%" ml={1}>
               <Section fitted>
                 <Tabs fluid={1} textAlign="center">
                   <Tabs.Tab
@@ -292,9 +292,9 @@ export const NtosRobotactContent = (props) => {
                   </LabeledList>
                 </Section>
               )}
-            </Flex.Item>
-          </Flex>
-          <Flex.Item height={21} mt={1}>
+            </Stack.Item>
+          </Stack>
+          <Stack.Item height={21} mt={1}>
             <Section
               title="Laws"
               fill
@@ -315,11 +315,11 @@ export const NtosRobotactContent = (props) => {
                 </Box>
               ))}
             </Section>
-          </Flex.Item>
+          </Stack.Item>
         </>
       )}
       {tab_main === 2 && (
-        <Flex.Item height={40}>
+        <Stack.Item height={40}>
           <Section fill scrollable backgroundColor="black">
             {borgLog.map((log) => (
               <Box mb={1} key={log}>
@@ -327,8 +327,8 @@ export const NtosRobotactContent = (props) => {
               </Box>
             ))}
           </Section>
-        </Flex.Item>
+        </Stack.Item>
       )}
-    </Flex>
+    </Stack>
   );
 };

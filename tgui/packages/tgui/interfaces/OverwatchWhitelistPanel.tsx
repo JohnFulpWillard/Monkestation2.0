@@ -1,7 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import {
   Section,
-  Flex,
   Stack,
   Button,
   Box,
@@ -33,8 +32,8 @@ export const OverwatchWhitelistPanel = (props) => {
     >
       <Window.Content scrollable>
         <Section title="Add CKEY to Overwatch Whitelist">
-          <Flex>
-            <Flex.Item grow>
+          <Stack>
+            <Stack.Item grow>
               <Input
                 value={inputWLCkey}
                 placeholder="Input ckey"
@@ -43,8 +42,8 @@ export const OverwatchWhitelistPanel = (props) => {
                   setInputWLCkey(value);
                 }}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 color="green"
                 content="OK"
@@ -57,42 +56,42 @@ export const OverwatchWhitelistPanel = (props) => {
                   setInputWLCkey('');
                 }}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
         <Section title={'Whitelist Entries: ' + (displayData?.length || 0)}>
           {((displayData?.length || 0) !== 0 && (
             <Stack vertical>
               <Stack.Item>
-                <Flex justify="space-evenly">
-                  <Flex.Item grow>
+                <Stack justify="space-evenly">
+                  <Stack.Item grow>
                     <Box> CKEY </Box>
-                  </Flex.Item>
-                  <Flex.Item grow>
+                  </Stack.Item>
+                  <Stack.Item grow>
                     <Box> TIMESTAMP </Box>
-                  </Flex.Item>
-                  <Flex.Item grow>
+                  </Stack.Item>
+                  <Stack.Item grow>
                     <Box> ADMIN CKEY </Box>
-                  </Flex.Item>
-                  <Flex.Item width="4%" />
-                </Flex>
+                  </Stack.Item>
+                  <Stack.Item width="4%" />
+                </Stack>
               </Stack.Item>
               <Stack.Divider />
               {displayData.map((displayRow, index) => {
                 return (
                   <Stack.Item key={index}>
                     <Box>
-                      <Flex justify="space-around" align="center">
-                        <Flex.Item grow order={1}>
+                      <Stack justify="space-around" align="center">
+                        <Stack.Item grow order={1}>
                           {displayRow.ckey}
-                        </Flex.Item>
-                        <Flex.Item grow order={2}>
+                        </Stack.Item>
+                        <Stack.Item grow order={2}>
                           {displayRow.timestamp}
-                        </Flex.Item>
-                        <Flex.Item grow order={3}>
+                        </Stack.Item>
+                        <Stack.Item grow order={3}>
                           {displayRow.a_ckey}
-                        </Flex.Item>
-                        <Flex.Item order={4}>
+                        </Stack.Item>
+                        <Stack.Item order={4}>
                           <Button
                             icon="trash"
                             color="red"
@@ -102,8 +101,8 @@ export const OverwatchWhitelistPanel = (props) => {
                               });
                             }}
                           />
-                        </Flex.Item>
-                      </Flex>
+                        </Stack.Item>
+                      </Stack>
                     </Box>
                   </Stack.Item>
                 );

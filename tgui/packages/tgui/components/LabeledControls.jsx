@@ -4,38 +4,38 @@
  * @license MIT
  */
 
-import { Flex } from './Flex';
+import { Stack } from 'tgui-core/components';
 
 export const LabeledControls = (props) => {
   const { children, wrap, ...rest } = props;
   return (
-    <Flex
+    <Stack
       mx={-0.5}
       wrap={wrap}
       align="stretch"
       justify="space-between"
       {...rest}>
       {children}
-    </Flex>
+    </Stack>
   );
 };
 
 const LabeledControlsItem = (props) => {
   const { label, children, mx = 1, ...rest } = props;
   return (
-    <Flex.Item mx={mx}>
-      <Flex
+    <Stack.Item mx={mx}>
+      <Stack
         height="100%"
         direction="column"
         align="center"
         textAlign="center"
         justify="space-between"
         {...rest}>
-        <Flex.Item />
-        <Flex.Item>{children}</Flex.Item>
-        <Flex.Item color="label">{label}</Flex.Item>
-      </Flex>
-    </Flex.Item>
+        <Stack.Item />
+        <Stack.Item>{children}</Stack.Item>
+        <Stack.Item color="label">{label}</Stack.Item>
+      </Stack>
+    </Stack.Item>
   );
 };
 

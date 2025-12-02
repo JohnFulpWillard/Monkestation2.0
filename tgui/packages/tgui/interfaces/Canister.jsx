@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   Knob,
   LabeledControls,
@@ -47,8 +47,8 @@ export const Canister = (props) => {
   return (
     <Window width={350} height={335}>
       <Window.Content>
-        <Flex direction="column" height="100%">
-          <Flex.Item mb={1}>
+        <Stack direction="column" height="100%">
+          <Stack.Item mb={1}>
             <Section
               title="Canister"
               buttons={
@@ -187,8 +187,8 @@ export const Canister = (props) => {
                 )}
               </LabeledList>
             </Section>
-          </Flex.Item>
-          <Flex.Item grow={1}>
+          </Stack.Item>
+          <Stack.Item grow={1}>
             <Section
               height="100%"
               title="Holding Tank"
@@ -233,8 +233,8 @@ export const Canister = (props) => {
               )}
               {!hasHoldingTank && <Box color="average">No Holding Tank</Box>}
             </Section>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

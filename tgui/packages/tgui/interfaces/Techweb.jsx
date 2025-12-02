@@ -8,7 +8,7 @@ import {
   Box,
   Input,
   LabeledList,
-  Flex,
+  Stack,
   ProgressBar,
   Collapsible,
   Icon,
@@ -152,10 +152,10 @@ export const TechwebContent = (props) => {
   const [lastPoints, setLastPoints] = useLocalState('lastPoints', {});
 
   return (
-    <Flex direction="column" className="Techweb__Viewport" height="100%">
-      <Flex.Item className="Techweb__HeaderSection">
-        <Flex className="Techweb__HeaderContent">
-          <Flex.Item>
+    <Stack direction="column" className="Techweb__Viewport" height="100%">
+      <Stack.Item className="Techweb__HeaderSection">
+        <Stack className="Techweb__HeaderContent">
+          <Stack.Item>
             <LabeledList>
               <LabeledList.Item label="Security">
                 <span
@@ -185,14 +185,14 @@ export const TechwebContent = (props) => {
                   : 'Empty'}
               </LabeledList.Item>
             </LabeledList>
-          </Flex.Item>
-          <Flex.Item grow={1} />
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item grow={1} />
+          <Stack.Item>
             <Button fluid onClick={() => act('toggleLock')} icon="lock">
               Lock Console
             </Button>
             {d_disk && (
-              <Flex.Item>
+              <Stack.Item>
                 <Button
                   fluid
                   onClick={() =>
@@ -201,10 +201,10 @@ export const TechwebContent = (props) => {
                 >
                   Design Disk Inserted
                 </Button>
-              </Flex.Item>
+              </Stack.Item>
             )}
             {t_disk && (
-              <Flex.Item>
+              <Stack.Item>
                 <Button
                   fluid
                   onClick={() =>
@@ -213,15 +213,15 @@ export const TechwebContent = (props) => {
                 >
                   Tech Disk Inserted
                 </Button>
-              </Flex.Item>
+              </Stack.Item>
             )}
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      <Flex.Item className="Techweb__RouterContent" height="100%">
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item className="Techweb__RouterContent" height="100%">
         <TechwebRouter />
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -272,13 +272,13 @@ const TechwebOverview = (props) => {
   };
 
   return (
-    <Flex direction="column" height="100%">
-      <Flex.Item>
-        <Flex justify="space-between" className="Techweb__HeaderSectionTabs">
-          <Flex.Item align="center" className="Techweb__HeaderTabTitle">
+    <Stack direction="column" height="100%">
+      <Stack.Item>
+        <Stack justify="space-between" className="Techweb__HeaderSectionTabs">
+          <Stack.Item align="center" className="Techweb__HeaderTabTitle">
             Web View
-          </Flex.Item>
-          <Flex.Item grow={1}>
+          </Stack.Item>
+          <Stack.Item grow={1}>
             <Tabs>
               <Tabs.Tab
                 selected={!searching && tabIndex === 0}
@@ -300,22 +300,22 @@ const TechwebOverview = (props) => {
               </Tabs.Tab>
               {!!searching && <Tabs.Tab selected>Search Results</Tabs.Tab>}
             </Tabs>
-          </Flex.Item>
-          <Flex.Item align={'center'}>
+          </Stack.Item>
+          <Stack.Item align={'center'}>
             <Input
               value={searchText}
               onChange={(e, value) => setSearchText(value)}
               placeholder={'Search...'}
             />
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      <Flex.Item className={'Techweb__OverviewNodes'} height="100%">
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item className={'Techweb__OverviewNodes'} height="100%">
         {displayedNodes.map((n) => {
           return <TechNode node={n} key={n.id} />;
         })}
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -343,18 +343,18 @@ const TechwebDiskMenu = (props) => {
   const DiskContent =
     (diskType === 'design' && TechwebDesignDisk) || TechwebTechDisk;
   return (
-    <Flex direction="column" height="100%">
-      <Flex.Item>
-        <Flex justify="space-between" className="Techweb__HeaderSectionTabs">
-          <Flex.Item align="center" className="Techweb__HeaderTabTitle">
+    <Stack direction="column" height="100%">
+      <Stack.Item>
+        <Stack justify="space-between" className="Techweb__HeaderSectionTabs">
+          <Stack.Item align="center" className="Techweb__HeaderTabTitle">
             {diskType.charAt(0).toUpperCase() + diskType.slice(1)} Disk
-          </Flex.Item>
-          <Flex.Item grow={1}>
+          </Stack.Item>
+          <Stack.Item grow={1}>
             <Tabs>
               <Tabs.Tab selected>Stored Data</Tabs.Tab>
             </Tabs>
-          </Flex.Item>
-          <Flex.Item align="center">
+          </Stack.Item>
+          <Stack.Item align="center">
             {diskType === 'tech' && (
               <Button icon="save" onClick={() => act('loadTech')}>
                 Web &rarr; Disk
@@ -378,13 +378,13 @@ const TechwebDiskMenu = (props) => {
             <Button icon="home" onClick={() => setTechwebRoute(null)}>
               Home
             </Button>
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      <Flex.Item grow={1} className="Techweb__OverviewNodes">
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item grow={1} className="Techweb__OverviewNodes">
         <DiskContent />
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -437,13 +437,13 @@ const TechNodeDetail = (props) => {
   const unlockedNodes = nodes.filter((x) => unlock_ids.includes(x.id));
 
   return (
-    <Flex direction="column" height="100%">
-      <Flex.Item shrink={1}>
-        <Flex justify="space-between" className="Techweb__HeaderSectionTabs">
-          <Flex.Item align="center" className="Techweb__HeaderTabTitle">
+    <Stack direction="column" height="100%">
+      <Stack.Item shrink={1}>
+        <Stack justify="space-between" className="Techweb__HeaderSectionTabs">
+          <Stack.Item align="center" className="Techweb__HeaderTabTitle">
             Node
-          </Flex.Item>
-          <Flex.Item grow={1}>
+          </Stack.Item>
+          <Stack.Item grow={1}>
             <Tabs>
               <Tabs.Tab
                 selected={tabIndex === 0}
@@ -459,33 +459,33 @@ const TechNodeDetail = (props) => {
                 Unlocks ({unlockedNodes.length})
               </Tabs.Tab>
             </Tabs>
-          </Flex.Item>
-          <Flex.Item align="center">
+          </Stack.Item>
+          <Stack.Item align="center">
             <Button icon="home" onClick={() => setTechwebRoute(null)}>
               Home
             </Button>
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      <Flex.Item className="Techweb__OverviewNodes" shrink={0}>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item className="Techweb__OverviewNodes" shrink={0}>
         <TechNode node={node} nodetails />
         <Divider />
-      </Flex.Item>
+      </Stack.Item>
       {tabIndex === 0 && (
-        <Flex.Item className="Techweb__OverviewNodes" grow={1}>
+        <Stack.Item className="Techweb__OverviewNodes" grow={1}>
           {prereqNodes.map((n) => (
             <TechNode key={n.id} node={n} />
           ))}
-        </Flex.Item>
+        </Stack.Item>
       )}
       {tabIndex === 1 && (
-        <Flex.Item className="Techweb__OverviewNodes" grow={1}>
+        <Stack.Item className="Techweb__OverviewNodes" grow={1}>
           {unlockedNodes.map((n) => (
             <TechNode key={n.id} node={n} />
           ))}
-        </Flex.Item>
+        </Stack.Item>
       )}
-    </Flex>
+    </Stack>
   );
 };
 
@@ -618,12 +618,12 @@ const TechNode = (props) => {
       }
     >
       {tier !== 0 && (
-        <Flex className="Techweb__NodeProgress">
+        <Stack className="Techweb__NodeProgress">
           {costs.map((k) => {
             const reqPts = Math.max(0, k.value - nodeDiscount);
             const nodeProg = Math.min(reqPts, points[k.type]) || 0;
             return (
-              <Flex.Item key={k.type} grow={1} basis={0}>
+              <Stack.Item key={k.type} grow={1} basis={0}>
                 <ProgressBar
                   ranges={{
                     good: [0.5, Infinity],
@@ -638,20 +638,20 @@ const TechNode = (props) => {
                 >
                   {point_types_abbreviations[k.type]} ({nodeProg}/{reqPts})
                 </ProgressBar>
-              </Flex.Item>
+              </Stack.Item>
             );
           })}
           {prereq_ids.length > 0 && (
-            <Flex.Item grow={1} basis={0}>
+            <Stack.Item grow={1} basis={0}>
               {techProgress}
-            </Flex.Item>
+            </Stack.Item>
           )}
           {required_experiments.length > 0 && (
-            <Flex.Item grow={1} basis={0}>
+            <Stack.Item grow={1} basis={0}>
               {experimentProgress}
-            </Flex.Item>
+            </Stack.Item>
           )}
-        </Flex>
+        </Stack>
       )}
       <Box className="Techweb__NodeDescription" mb={2}>
         {description}
@@ -714,13 +714,13 @@ const LockedExperiment = (props) => {
         className="ExperimentConfigure__ExperimentName"
         disabled
       >
-        <Flex align="center" justify="space-between">
-          <Flex.Item color="rgba(0, 0, 0, 0.6)">
+        <Stack align="center" justify="space-between">
+          <Stack.Item color="rgba(0, 0, 0, 0.6)">
             <Icon name="lock" />
             Undiscovered Experiment
-          </Flex.Item>
-          <Flex.Item color="rgba(0, 0, 0, 0.5)">???</Flex.Item>
-        </Flex>
+          </Stack.Item>
+          <Stack.Item color="rgba(0, 0, 0, 0.5)">???</Stack.Item>
+        </Stack>
       </Button>
       <Box className={'ExperimentConfigure__ExperimentContent'}>
         This experiment has not been discovered yet, continue researching nodes

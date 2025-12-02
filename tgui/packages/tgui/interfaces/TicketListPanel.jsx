@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Section, Collapsible, Button, Tabs, Flex } from 'tgui-core/components';
+import { Section, Collapsible, Button, Tabs, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const TicketListPanel = (props) => {
@@ -215,9 +215,9 @@ export const TicketSummary = (props) => {
       <span className="color-bad">{!ticket.has_client ? 'DISCONNECTED' : ''}</span>
       <Section level="2">
         {buttons.map((button_row, i) => (
-          <Flex direction="row" key={i}>
+          <Stack direction="row" key={i}>
             {button_row.map((button) => (
-              <Flex.Item key={button.act} grow={1}>
+              <Stack.Item key={button.act} grow={1}>
                 <Button
                   key={button.act}
                   fluid
@@ -234,9 +234,9 @@ export const TicketSummary = (props) => {
                 >
                   {button.name}
                 </Button>
-              </Flex.Item>
+              </Stack.Item>
             ))}
-          </Flex>
+          </Stack>
         ))}
       </Section>
     </Section>

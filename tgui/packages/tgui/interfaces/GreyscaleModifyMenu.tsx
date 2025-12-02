@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   ColorBox,
-  Flex,
   Stack,
   Icon,
   Input,
@@ -140,25 +139,25 @@ const PreviewCompassSelect = (props) => {
   return (
     <Box>
       <Stack vertical>
-        <Flex>
+        <Stack>
           <SingleDirection dir={Direction.NorthWest} />
           <SingleDirection dir={Direction.North} />
           <SingleDirection dir={Direction.NorthEast} />
-        </Flex>
-        <Flex>
+        </Stack>
+        <Stack>
           <SingleDirection dir={Direction.West} />
-          <Flex.Item grow={1} basis={0}>
+          <Stack.Item grow={1} basis={0}>
             <Button lineHeight={3} m={-0.2} fluid>
               <Icon name="arrows-alt" size={1.5} m="20%" />
             </Button>
-          </Flex.Item>
+          </Stack.Item>
           <SingleDirection dir={Direction.East} />
-        </Flex>
-        <Flex>
+        </Stack>
+        <Stack>
           <SingleDirection dir={Direction.SouthWest} />
           <SingleDirection dir={Direction.South} />
           <SingleDirection dir={Direction.SouthEast} />
-        </Flex>
+        </Stack>
       </Stack>
     </Box>
   );
@@ -168,7 +167,7 @@ const SingleDirection = (props) => {
   const { dir } = props;
   const { data, act } = useBackend<GreyscaleMenuData>();
   return (
-    <Flex.Item grow={1} basis={0}>
+    <Stack.Item grow={1} basis={0}>
       <Button
         content={DirectionAbbreviation[dir]}
         tooltip={`Sets the direction of the preview sprite to ${dir}`}
@@ -179,7 +178,7 @@ const SingleDirection = (props) => {
         m={-0.2}
         fluid
       />
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -187,18 +186,18 @@ const IconStatesDisplay = (props) => {
   const { data, act } = useBackend<GreyscaleMenuData>();
   return (
     <Section title="Icon States">
-      <Flex>
+      <Stack>
         {data.sprites.icon_states.map((item) => (
-          <Flex.Item key={item}>
+          <Stack.Item key={item}>
             <Button
               mx={0.5}
               content={item ? item : 'Blank State'}
               disabled={item === data.icon_state}
               onClick={() => act('select_icon_state', { new_icon_state: item })}
             />
-          </Flex.Item>
+          </Stack.Item>
         ))}
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -296,9 +295,9 @@ export const GreyscaleModifyMenu = (props) => {
         <ConfigDisplay />
         <ColorDisplay />
         <IconStatesDisplay />
-        <Flex direction="column">
+        <Stack direction="column">
           {!!data.unlocked && (
-            <Flex.Item justify="flex-start">
+            <Stack.Item justify="Stack-start">
               <Button
                 content={
                   <Icon name="file-image-o" spin={data.monitoring_files} />
@@ -319,9 +318,9 @@ export const GreyscaleModifyMenu = (props) => {
                 tooltip="Saves the icon to a temp file in tmp/. This is useful if you want to use a generated icon elsewhere or just view a more accurate representation"
                 onClick={() => act('save_dmi')}
               />
-            </Flex.Item>
+            </Stack.Item>
           )}
-          <Flex.Item>
+          <Stack.Item>
             <Button
               content="Apply"
               tooltip="Applies changes made to the object this menu was created from."
@@ -335,8 +334,8 @@ export const GreyscaleModifyMenu = (props) => {
               checked={data.generate_full_preview}
               onClick={() => act('toggle_full_preview')}
             />
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
         <PreviewDisplay />
         {!!data.refreshing && <LoadingAnimation />}
       </Window.Content>

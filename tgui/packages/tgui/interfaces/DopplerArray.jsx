@@ -2,7 +2,6 @@ import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   LabeledList,
   NoticeBox,
   Section,
@@ -140,15 +139,15 @@ const DopplerArrayContent = (props) => {
     </Section>
   );
   return (
-    <Flex direction="column" height="100%">
-      <Flex.Item grow>
+    <Stack direction="column" height="100%">
+      <Stack.Item grow>
         {!records.length ? (
           <NoticeBox>No Records</NoticeBox>
         ) : (
           DopplerArrayRecords
         )}
-      </Flex.Item>
-      <Flex.Item>{DopplerArrayFooter}</Flex.Item>
-    </Flex>
+      </Stack.Item>
+      <Stack.Item>{DopplerArrayFooter}</Stack.Item>
+    </Stack>
   );
 };

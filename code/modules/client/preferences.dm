@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			channels += list(list(
 				"num" = channel,
 				"name" = get_channel_name(channel),
-				"volume" = channel_volume["[channel]"]
+				"volume" = channel_volume["[channel]"],
 			))
 		data["channels"] = channels
 

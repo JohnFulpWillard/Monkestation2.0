@@ -1,4 +1,4 @@
-import { Flex } from '../../components';
+import { Stack } from '../../components';
 import { Design, MaterialMap } from './Types';
 import { MaterialIcon } from './MaterialIcon';
 import { formatSiUnit } from '../../format';
@@ -26,12 +26,12 @@ export type MaterialCostSequenceProps = {
   amount?: number;
 
   /**
-   * The `align-items` flex property provided to the generated list.
+   * The `align-items` Stack property provided to the generated list.
    */
   align?: string;
 
   /**
-   * The `justify-content` flex property provided to the generated list.
+   * The `justify-content` Stack property provided to the generated list.
    */
   justify?: string;
 
@@ -70,17 +70,17 @@ export const MaterialCostSequence = (props: MaterialCostSequenceProps) => {
   }
 
   return (
-    <Flex wrap justify={justify ?? 'space-around'} align={align ?? 'center'}>
+    <Stack wrap justify={justify ?? 'space-around'} align={align ?? 'center'}>
       {Object.entries(costMap).map(([material, quantity]) => (
-        <Flex.Item key={material} style={{ padding: '0.25em' }}>
-          <Flex direction={'column'} align="center">
-            <Flex.Item>
+        <Stack.Item key={material} style={{ padding: '0.25em' }}>
+          <Stack direction={'column'} align="center">
+            <Stack.Item>
               <MaterialIcon
                 materialName={material}
                 sheets={((amount || 1) * quantity) / SHEET_MATERIAL_AMOUNT}
               />
-            </Flex.Item>
-            <Flex.Item
+            </Stack.Item>
+            <Stack.Item
               style={
                 available && {
                   color:
@@ -96,10 +96,10 @@ export const MaterialCostSequence = (props: MaterialCostSequenceProps) => {
                 ((amount || 1) * quantity) / SHEET_MATERIAL_AMOUNT,
                 0,
               )}
-            </Flex.Item>
-          </Flex>
-        </Flex.Item>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
       ))}
-    </Flex>
+    </Stack>
   );
 };
