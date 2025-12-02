@@ -469,6 +469,7 @@ const SaturationValue = ({ hsva, onChange }) => {
   return (
     <div className="react-colorful__saturation_value" style={containerStyle}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         onMove={handleMove}
         onKey={handleKey}
         aria-label="Color"
@@ -512,6 +513,7 @@ const Hue = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         onMove={handleMove}
         onKey={handleKey}
         aria-label="Hue"
@@ -554,6 +556,7 @@ const Saturation = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         style={{
           background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
@@ -603,6 +606,7 @@ const Value = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         style={{
           background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
@@ -666,6 +670,7 @@ const RGBSlider = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         onMove={handleMove}
         onKey={handleKey}
         aria-valuenow={rgb[target]}

@@ -51,7 +51,7 @@ const getRelativePosition = (
 export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
-  children: ReactNode[];
+  children: ReactNode;
   containerRef: RefObject<HTMLDivElement | null>;
   style?: any;
 }
@@ -59,9 +59,9 @@ export interface InteractiveProps {
 export class Interactive extends Component<InteractiveProps> {
   containerRef: RefObject<HTMLDivElement | null>;
 
-  constructor(props) {
+  constructor(props: InteractiveProps) {
     super(props);
-    this.containerRef = createRef<HTMLDivElement>();
+    this.containerRef = props.containerRef
   }
 
   handleMoveStart = (event: React.MouseEvent<HTMLDivElement>) => {
