@@ -106,7 +106,8 @@ export class Interactive extends Component<InteractiveProps, InteractiveState> {
     const keyCode = event.which || event.keyCode;
 
     // Ignore all keys except arrow ones
-    if (keyCode < 37 || keyCode > 40) return;
+    if (keyCode < 37 || keyCode > 40)
+        return;
     // Do not scroll page by arrow keys when document is focused on the element
     event.preventDefault();
     // Send relative offset to the parent component.
