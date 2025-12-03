@@ -1,4 +1,4 @@
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { ComponentType, createElement, ReactNode } from 'react';
 import { sendAct, useBackend, useLocalState } from '../../../../backend';

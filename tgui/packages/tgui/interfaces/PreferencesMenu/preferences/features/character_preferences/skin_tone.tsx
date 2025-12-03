@@ -1,4 +1,4 @@
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import {
   Feature,
   FeatureChoicedServerData,

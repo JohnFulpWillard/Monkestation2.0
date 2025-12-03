@@ -27,7 +27,7 @@ import {
   FeatureChoicedServerData,
   FeatureValueInput,
 } from './preferences/features/base';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { filter, map } from 'es-toolkit/compat';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';

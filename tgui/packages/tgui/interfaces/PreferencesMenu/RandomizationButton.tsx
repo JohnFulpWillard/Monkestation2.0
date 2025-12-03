@@ -1,11 +1,32 @@
-import { Dropdown, Icon } from '../../components';
+import { Dropdown } from 'tgui-core/components';
+import { exhaustiveCheck } from 'tgui-core/exhaustive';
+
 import { RandomSetting } from './data';
 
-export const RandomizationButton = (props: {
+const options = [
+  {
+    displayText: 'Do not randomize',
+    value: RandomSetting.Disabled,
+  },
+
+  {
+    displayText: 'Always randomize',
+    value: RandomSetting.Enabled,
+  },
+
+  {
+    displayText: 'Randomize when antagonist',
+    value: RandomSetting.AntagOnly,
+  },
+];
+
+type Props = {
   dropdownProps?: Record<string, unknown>;
   setValue: (newValue: RandomSetting) => void;
-  value?: RandomSetting;
-}) => {
+  value: never;
+};
+
+export function RandomizationButton(props: Props) {
   const { dropdownProps = {}, setValue, value } = props;
 
   let color;
@@ -20,34 +41,20 @@ export const RandomizationButton = (props: {
     case RandomSetting.Enabled:
       color = 'green';
       break;
+    default:
+      exhaustiveCheck(value);
   }
 
   return (
     <Dropdown
-      backgroundColor={color}
+      color={color}
       {...dropdownProps}
-      clipSelectedText={false}
-      displayText={<Icon name="dice-d20" mr="-0.25em" />}
-      options={[
-        {
-          displayText: 'Do not randomize',
-          value: RandomSetting.Disabled,
-        },
-
-        {
-          displayText: 'Always randomize',
-          value: RandomSetting.Enabled,
-        },
-
-        {
-          displayText: 'Randomize when antagonist',
-          value: RandomSetting.AntagOnly,
-        },
-      ]}
-      nochevron
+      icon="dice-d20"
+      iconOnly
+      options={options}
       onSelected={setValue}
-      menuWidth="120px"
-      width="auto"
+      menuWidth={20}
+      selected="None"
     />
   );
-};
+}
