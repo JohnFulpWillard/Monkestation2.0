@@ -27,8 +27,7 @@ import {
   FeatureChoicedServerData,
   FeatureValueInput,
 } from './preferences/features/base';
-import { sortBy } from 'common/collections';
-import { filter, map } from 'es-toolkit/compat';
+import { filterMap, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
 import { ReactNode } from 'react';
@@ -600,15 +599,23 @@ export const MainPage = (props: { openSpecies: () => void }) => {
           }
 
           return Object.fromEntries(
-            map(
-              filter(Object.keys(preferences), (key) =>
-                serverData.random.randomizable.includes(key),
-              ),
-              (key) => [
-                key,
-                data.character_preferences.randomization[key] || RandomSetting.Disabled,
-              ],
-            ),
+            filterMap(Object.keys(preferences), (preferenceKey) => {
+              if (
+                serverData.random.randomizable.indexOf(preferenceKey) === -1
+              ) {
+                return undefined;
+              }
+
+              if (!randomBodyEnabled) {
+                return undefined;
+              }
+
+              return [
+                preferenceKey,
+                data.character_preferences.randomization[preferenceKey] ||
+                  RandomSetting.Disabled,
+              ];
+            }),
           );
         };
 
