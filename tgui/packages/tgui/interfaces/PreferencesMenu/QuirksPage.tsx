@@ -1,4 +1,4 @@
-import { Box, Icon, Stack, Tooltip } from '../../components';
+import { Box, Icon, Stack, Tooltip } from 'tgui-core/components';
 import { PreferencesMenuData, Quirk } from './data';
 import { useBackend } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
@@ -30,10 +30,8 @@ const QuirkList = (props: {
 
         const child = (
           <Box
-            className={className}
             key={quirkKey}
-            role="button"
-            tabIndex="1"
+            className={className}
             onClick={() => {
               props.onClick(quirkKey, quirk);
             }}
