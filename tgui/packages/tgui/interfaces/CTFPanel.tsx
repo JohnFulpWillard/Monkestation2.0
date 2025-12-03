@@ -1,4 +1,4 @@
-import { BooleanLike } from '../../common/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Box, Button, Section, Stack } from 'tgui-core/components';
 import { Window } from '../layouts';
@@ -49,7 +49,7 @@ export const CTFPanel = (props) => {
                   <Button
                     content="Jump"
                     fontSize="18px"
-                    fluid={1}
+                    fluid
                     color={team.color.toLowerCase()}
                     onClick={() =>
                       act('jump', {
@@ -61,7 +61,7 @@ export const CTFPanel = (props) => {
                   <Button
                     content="Join"
                     fontSize="18px"
-                    fluid={1}
+                    fluid
                     color={team.color.toLowerCase()}
                     onClick={() =>
                       act('join', {

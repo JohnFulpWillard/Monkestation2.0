@@ -36,7 +36,7 @@ const toMassPaintFormat = (data: PointData[]) => {
 };
 
 class PaintCanvas extends Component<PaintCanvasProps> {
-  canvasRef: RefObject<HTMLCanvasElement>;
+  canvasRef: RefObject<HTMLCanvasElement | null>;
   baseImageData: Color[][];
   is_grid_shown: boolean;
   modifiedElements: PointData[];
@@ -47,7 +47,7 @@ class PaintCanvas extends Component<PaintCanvasProps> {
 
   constructor(props) {
     super(props);
-    this.canvasRef = createRef<HTMLCanvasElement>();
+    this.canvasRef = createRef();
     this.modifiedElements = [];
     this.is_grid_shown = false;
     this.drawing = false;

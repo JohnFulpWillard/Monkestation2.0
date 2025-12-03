@@ -1,5 +1,6 @@
 import { createSearch } from 'common/string';
-import { filter, map, reduce, sortBy } from 'common/collections';
+import { filter, map, reduce } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,

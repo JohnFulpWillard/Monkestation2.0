@@ -12,7 +12,7 @@ import {
 import { Window } from '../layouts';
 
 type Data = {
-  announce_contents: string;
+  announce_contents: BooleanLike;
   announcer_sounds: string[];
   command_name: string;
   command_name_presets: string[];
@@ -23,7 +23,7 @@ type Data = {
   subheader: string;
   custom_name: string;
   played_sound: string;
-  print_report: string;
+  print_report: BooleanLike;
   append_update_name: BooleanLike;
 };
 
@@ -159,7 +159,7 @@ const AnnouncementSound = (props) => {
       }
     `}
       </style>
-      <Stack id="announcement-sound-container" direction="row" width="100%" grow>
+      <Stack id="announcement-sound-container" direction="row" width="100%">
         <Button
           width="24px"
           height="22px"
@@ -218,12 +218,12 @@ const ReportText = (props) => {
       <TextArea
         height="200px"
         mb={1}
-        onChange={(_, value) => setCommandReport(value)}
+        onChange={setCommandReport}
         value={commandReport}
       />
       <Stack vertical>
         <Stack.Item>
-          <Stack direction="row" width="100%" grow>
+          <Stack direction="row" width="100%">
             <Button.Checkbox
               fluid
               width="100%"
@@ -245,7 +245,7 @@ const ReportText = (props) => {
               }
             />
           </Stack>
-          <Stack direction="row" width="100%" grow>
+          <Stack direction="row" width="100%">
             <Button.Checkbox
               fluid
               width="100%"

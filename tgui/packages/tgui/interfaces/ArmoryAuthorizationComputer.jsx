@@ -3,7 +3,7 @@ import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { EditableText } from './common/EditableText';
 import { Window } from '../layouts';
 
-export const ArmoryAuthorizationComputer = (props) => {
+export const ArmoryAuthorizationComputer = () => {
   const { act, data } = useBackend();
   const {
     is_authorized,
@@ -86,7 +86,7 @@ export const ArmoryAuthorizationComputer = (props) => {
                   const isSelected = legal_reason === selected_reason;
                   return (
                     // eslint-disable-next-line react/jsx-key
-                    <Stack.Item>
+                    <Stack.Item key={legal_reason}>
                       <Button
                         color={isSelected ? 'good' : 'average'}
                         disabled={!is_authorized || armory_open}

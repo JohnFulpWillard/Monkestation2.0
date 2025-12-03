@@ -1,5 +1,5 @@
 import { chunk } from 'es-toolkit';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../backend';
 import { Stack, Button, Icon, Input, Section, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';

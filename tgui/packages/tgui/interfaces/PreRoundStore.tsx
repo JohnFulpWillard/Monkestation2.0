@@ -10,7 +10,7 @@ import {
   DmIcon,
 } from 'tgui-core/components';
 import { Window } from '../layouts';
-import { LobbyNotices, LobbyNoticesType } from './common/LobbyNotices';
+import { LobbyNotices, type LobbyNoticesType } from './common/LobbyNotices';
 
 type Item = {
   path: string;
@@ -71,7 +71,7 @@ export const PreRoundStore = (_props) => {
   } = useBackend<Data>();
 
   return (
-    <Window resizable title="Pre Round Shop" width={450} height={700}>
+    <Window title="Pre Round Shop" width={450} height={700}>
       <Window.Content scrollable>
         <Section>
           <LobbyNotices notices={notices} />

@@ -1,6 +1,6 @@
 import { capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Section, Stack, Box, Tabs, Button, Stack, DmIcon } from 'tgui-core/components';
+import { Section, Stack, Box, Tabs, Button, DmIcon } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
 import { ObjectivePrintout, Objective } from './common/Objectives';

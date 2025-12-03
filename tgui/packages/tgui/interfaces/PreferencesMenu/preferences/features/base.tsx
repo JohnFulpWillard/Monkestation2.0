@@ -1,4 +1,3 @@
-import { sort } from 'common/collections';
 import { sortBy } from 'es-toolkit';
 import { BooleanLike, classes } from 'common/react';
 import { ComponentType, createElement, ReactNode } from 'react';
@@ -229,7 +228,7 @@ export const FeatureDropdownInput = (
 
   return serverData.choices.length > 5 ? (
     <StandardizedDropdown
-      choices={sort(serverData.choices)}
+      choices={serverData.choices.sort()}
       disabled={props.disabled}
       buttons={props.buttons}
       displayNames={displayNames}
@@ -238,7 +237,7 @@ export const FeatureDropdownInput = (
     />
   ) : (
     <StandardizedChoiceButtons
-      choices={sort(serverData.choices)}
+      choices={serverData.choices.sort()}
       disabled={props.disabled}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
@@ -299,7 +298,7 @@ export const FeatureIconnedDropdownInput = (
   return (
     <StandardizedDropdown
       buttons={props.buttons}
-      choices={sort(serverData.choices)}
+      choices={serverData.choices.sort()}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
       value={props.value}

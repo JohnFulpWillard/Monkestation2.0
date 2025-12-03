@@ -261,7 +261,7 @@ export const BeakerPanel = (props) => {
                 style={{
                   border: '1px solid #ccc',
                   minHeight: '25px',
-                  backgroundColor: 1 ? '#2a2a2a' : '#1a1a1a',
+                  backgroundColor: '#2a2a2a',
                 }}
               >
                 {selectedReagents[containerNum]?.name || 'No reagent selected'}

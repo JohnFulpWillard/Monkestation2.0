@@ -1,5 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
-import { filter, sortBy, map, reduce } from 'common/collections';
+import { filter, map, reduce } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
 import { Window } from '../layouts';

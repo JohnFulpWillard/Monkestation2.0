@@ -1,4 +1,5 @@
-import { filter, sortBy } from 'common/collections';
+import { filter } from 'es-toolkit/compat';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {

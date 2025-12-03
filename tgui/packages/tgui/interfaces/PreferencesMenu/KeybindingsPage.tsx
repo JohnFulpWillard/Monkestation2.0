@@ -10,7 +10,7 @@ import {
 import { resolveAsset } from '../../assets';
 import { PreferencesMenuData } from './data';
 import { useBackend } from '../../backend';
-import { range, sortBy } from 'common/collections';
+import { range, sortBy } from 'es-toolkit';
 import { KeyEvent } from '../../events';
 import { TabbedMenu } from './TabbedMenu';
 import { fetchRetry } from '../../http';
