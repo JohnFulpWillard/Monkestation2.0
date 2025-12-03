@@ -23,7 +23,7 @@ const options = [
 type Props = {
   dropdownProps?: Record<string, unknown>;
   setValue: (newValue: RandomSetting) => void;
-  value: never;
+  value: RandomSetting;
 };
 
 export function RandomizationButton(props: Props) {

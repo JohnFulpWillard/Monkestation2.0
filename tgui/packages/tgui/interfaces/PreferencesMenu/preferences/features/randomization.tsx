@@ -1,88 +1,53 @@
-import { useBackend } from '../../../../backend';
-import { Button, Stack } from '../../../../components';
-import { PreferencesMenuData, RandomSetting } from '../../data';
-import { RandomizationButton } from '../../RandomizationButton';
-import { useRandomToggleState } from '../../useRandomToggleState';
-import { CheckboxInput, Feature, FeatureToggle } from './base';
+import { Dropdown, Icon } from 'tgui-core/components';
+import { RandomSetting } from '../../data';
 
-export const random_body: Feature<RandomSetting> = {
-  name: 'Random body',
-  component: (props) => {
-    const [randomToggle, setRandomToggle] = useRandomToggleState();
-
-    return (
-      <Stack>
-        <Stack.Item>
-          <RandomizationButton
-            setValue={(newValue) => props.handleSetValue(newValue)}
-            value={props.value}
-          />
-        </Stack.Item>
-
-        {randomToggle ? (
-          <>
-            <Stack.Item>
-              <Button
-                color="green"
-                onClick={() => {
-                  props.act('randomize_character');
-                  setRandomToggle(false);
-                }}
-              >
-                Randomize
-              </Button>
-            </Stack.Item>
-
-            <Stack.Item>
-              <Button color="red" onClick={() => setRandomToggle(false)}>
-                Cancel
-              </Button>
-            </Stack.Item>
-          </>
-        ) : (
-          <Stack.Item>
-            <Button onClick={() => setRandomToggle(true)}>Randomize</Button>
-          </Stack.Item>
-        )}
-      </Stack>
-    );
+const options = [
+  {
+    displayText: 'Do not randomize',
+    value: RandomSetting.Disabled,
   },
-};
 
-export const random_hardcore: FeatureToggle = {
-  name: 'Hardcore random',
-  component: CheckboxInput,
-};
-
-export const random_name: Feature<RandomSetting> = {
-  name: 'Random Name',
-  component: (props) => {
-    return (
-      <RandomizationButton
-        setValue={(value) => props.handleSetValue(value)}
-        value={props.value}
-      />
-    );
+  {
+    displayText: 'Always randomize',
+    value: RandomSetting.Enabled,
   },
-};
 
-export const random_species: Feature<RandomSetting> = {
-  name: 'Random species',
-  component: (props) => {
-    const { act, data } = useBackend<PreferencesMenuData>();
-
-    const species = data.character_preferences.randomization['species'];
-
-    return (
-      <RandomizationButton
-        setValue={(newValue) =>
-          act('set_random_preference', {
-            preference: 'species',
-            value: newValue,
-          })
-        }
-        value={species || RandomSetting.Disabled}
-      />
-    );
+  {
+    displayText: 'Randomize when antagonist',
+    value: RandomSetting.AntagOnly,
   },
+];
+
+export const RandomizationButton = (props: {
+  dropdownProps?: Record<string, unknown>;
+  setValue: (newValue: RandomSetting) => void;
+  value?: RandomSetting;
+}) => {
+  const { dropdownProps = {}, setValue, value } = props;
+
+  let color;
+  switch (value) {
+    case RandomSetting.AntagOnly:
+      color = 'orange';
+      break;
+    case RandomSetting.Disabled:
+      color = 'red';
+      break;
+    case RandomSetting.Enabled:
+      color = 'green';
+      break;
+}
+  return (
+    <Dropdown
+      backgroundColor={color}
+      {...dropdownProps}
+      width={'100%'}
+      displayText={<Icon name="dice-d20" mr="-0.25em" />}
+      options={options}
+      noChevron
+      onSelected={setValue}
+      menuWidth="120px"
+      selected={value}
+    />
+  );
 };
