@@ -4,34 +4,40 @@
  * @license MIT
  */
 
-import { Loader } from './common/Loader';
-import { useBackend } from '../backend';
-import { Component, createRef, useState, type FocusEvent, type FormEvent, type ReactNode } from 'react';
-import { KEY } from 'tgui-core/keys';
 import {
-  Autofocus,
-  Box,
-  Stack,
-  Section,
-  NumberInput,
-  Tooltip,
-} from 'tgui-core/components';
-import { Pointer } from '../components';
-import { Window } from '../layouts';
-import { clamp } from 'common/math';
+  Component,
+  createRef,
+  type FocusEvent,
+  type FormEvent,
+  useState,
+} from 'react';
+import { logger } from 'tgui/logging';
 import {
-  hexToHsva,
   type HsvaColor,
+  hexToHsva,
   hsvaToHex,
   hsvaToHslString,
   hsvaToRgba,
   rgbaToHsva,
   validHex,
-} from 'common/color';
-import { type Interaction, Interactive } from 'tgui/components/Interactive';
-import { classes } from 'common/react';
-import { logger } from 'tgui/logging';
+} from 'tgui-core/color';
+import {
+  Autofocus,
+  Box,
+  Interactive,
+  NumberInput,
+  Pointer,
+  Section,
+  Stack,
+  Tooltip,
+} from 'tgui-core/components';
+import { KEY } from 'tgui-core/keys';
+import { clamp } from 'tgui-core/math';
+import { classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ColorPickerData = {
   autofocus: boolean;
@@ -44,6 +50,11 @@ type ColorPickerData = {
   default_color: string;
 };
 
+type Interaction = {
+  left: number;
+  top: number;
+};
+
 export const ColorPickerModal = () => {
   const { data } = useBackend<ColorPickerData>();
   const {
@@ -53,7 +64,9 @@ export const ColorPickerModal = () => {
     autofocus,
     default_color = '#000000',
   } = data;
-  const [selectedColor, setSelectedColor] = useState<HsvaColor>(hexToHsva(default_color));
+  const [selectedColor, setSelectedColor] = useState<HsvaColor>(
+    hexToHsva(default_color),
+  );
 
   return (
     <Window height={390} title={title} width={600} theme="generic">
@@ -81,7 +94,7 @@ export const ColorPickerModal = () => {
           </Stack.Item>
           <Stack.Item>
             <Section fill>
-                <InputButtons input={hsvaToHex(selectedColor)} />
+              <InputButtons input={hsvaToHex(selectedColor)} />
             </Section>
           </Stack.Item>
         </Stack>
@@ -359,7 +372,7 @@ function HexColorInput(props: HexColorInputProps) {
       validate={validate}
     />
   );
-};
+}
 
 interface ColorInputBaseProps {
   fluid?: boolean;
@@ -408,16 +421,15 @@ export class ColorInput extends Component<ColorInputBaseProps, ColorState> {
   };
 
   handleKeyDown = (event): void => {
-      if (event.getModifierState('AltGraph'))
-        return;
+    if (event.getModifierState('AltGraph')) return;
 
-      switch (event.key) {
-        case KEY.Enter:
-          event.preventDefault();
-          this.handleBlur(event);
-          break;
-      }
+    switch (event.key) {
+      case KEY.Enter:
+        event.preventDefault();
+        this.handleBlur(event);
+        break;
     }
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.color !== this.props.color) {
@@ -429,18 +441,18 @@ export class ColorInput extends Component<ColorInputBaseProps, ColorState> {
 
   render() {
     return (
-        <input
-          className={classes(['Input', this.props.fluid && 'Input--fluid'])}
-          value={
-            this.props.format
-              ? this.props.format(this.state.localValue)
-              : this.state.localValue
-          }
-          spellCheck={false} // the element should not be checked for spelling errors
-          onChange={this.handleInput}
-          onKeyDown={this.handleKeyDown}
-          onBlur={this.handleBlur}
-        />
+      <input
+        className={classes(['Input', this.props.fluid && 'Input--fluid'])}
+        value={
+          this.props.format
+            ? this.props.format(this.state.localValue)
+            : this.state.localValue
+        }
+        spellCheck={false} // the element should not be checked for spelling errors
+        onChange={this.handleInput}
+        onKeyDown={this.handleKeyDown}
+        onBlur={this.handleBlur}
+      />
     );
   }
 }
