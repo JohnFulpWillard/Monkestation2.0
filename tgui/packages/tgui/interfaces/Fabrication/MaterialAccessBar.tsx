@@ -1,4 +1,4 @@
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { useLocalState } from '../../backend';
 import { Stack, Button, AnimatedNumber } from '../../components';

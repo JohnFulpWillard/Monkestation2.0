@@ -11,7 +11,7 @@ import {
   Stack,
   Tabs,
 } from 'tgui-core/components';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 
 type Data = {
   records: WarrantRecord[];

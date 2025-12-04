@@ -1,5 +1,5 @@
 import { filter } from 'es-toolkit/compat';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { capitalizeFirst, multiline } from 'common/string';
 import { useBackend, useLocalState } from 'tgui/backend';

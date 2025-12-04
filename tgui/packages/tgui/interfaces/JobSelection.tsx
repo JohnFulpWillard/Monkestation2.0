@@ -10,7 +10,7 @@ import {
 import { Window } from '../layouts';
 import { Color } from 'common/color';
 import { JOB2ICON } from './common/JobToIcon';
-import { toMerged } from 'es-toolkit';
+import { toMerged } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { LobbyNotices, LobbyNoticesType } from './common/LobbyNotices';
 

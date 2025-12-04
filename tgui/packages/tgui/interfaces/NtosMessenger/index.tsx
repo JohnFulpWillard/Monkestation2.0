@@ -8,7 +8,7 @@ import {
   TextArea,
   Dimmer,
   Divider,
-} from '../../components';
+} from 'tgui-core/components';
 import { useBackend, useLocalState } from '../../backend';
 import { createSearch } from 'common/string';
 import { BooleanLike } from 'common/react';
@@ -16,7 +16,7 @@ import { NtosWindow } from '../../layouts';
 
 import { NtChat, NtMessenger, NtPicture } from './types';
 import { ChatScreen } from './ChatScreen';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 
 type NtosMessengerData = {
   can_spam: BooleanLike;

@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { filter, map, reduce } from 'es-toolkit/compat';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
 import { Window } from '../layouts';
@@ -24,7 +24,7 @@ export const StackCraft = () => {
   );
 };
 
-const Recipes = () => {
+const Recipes = (props, context) => {
   const { data } = useBackend();
   const { amount, recipes } = data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
@@ -126,8 +126,8 @@ const calculateMultiplier = (recipe, amount) => {
   return Math.floor(amount / recipe.required_amount);
 };
 
-const Multipliers = () => {
-  const { act } = useBackend();
+const Multipliers = (props, context) => {
+  const { act } = useBackend(context);
 
   const { recipe, max_possible_multiplier } = props;
 
@@ -177,7 +177,7 @@ const Multipliers = () => {
   return <>{finalResult.map((x) => x)}</>;
 };
 
-const RecipeListBox = () => {
+const RecipeListBox = (props, context) => {
   const { data } = useBackend();
   const { recipes } = data;
 
@@ -206,7 +206,7 @@ const RecipeListBox = () => {
   });
 };
 
-const RecipeBox = () => {
+const RecipeBox = (props, context) => {
   const { act, data } = useBackend();
   const { amount } = data;
   const { title, recipe } = props;

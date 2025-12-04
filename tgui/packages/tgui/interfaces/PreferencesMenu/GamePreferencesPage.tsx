@@ -1,5 +1,5 @@
 import { binaryInsertWith } from 'common/collections';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Stack, Tooltip } from '../../components';

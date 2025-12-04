@@ -1,4 +1,4 @@
-import { range } from 'es-toolkit';
+import { range } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { PropsWithChildren } from 'react';
 import { useBackend } from '../backend';

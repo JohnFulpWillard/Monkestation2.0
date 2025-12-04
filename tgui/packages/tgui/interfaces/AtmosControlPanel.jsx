@@ -1,5 +1,5 @@
 import { map } from 'es-toolkit/compat';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend } from '../backend';
 import { Box, Button, Stack, Section, Table } from 'tgui-core/components';

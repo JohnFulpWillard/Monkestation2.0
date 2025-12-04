@@ -1,5 +1,5 @@
 import { map } from 'es-toolkit/compat';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,

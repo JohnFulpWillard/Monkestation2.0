@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import {
   Input,

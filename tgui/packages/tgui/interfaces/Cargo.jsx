@@ -1,5 +1,5 @@
 import { flow } from 'common/fp';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { filter } from 'es-toolkit/compat';
 import { useBackend, useSharedState } from '../backend';
 import {

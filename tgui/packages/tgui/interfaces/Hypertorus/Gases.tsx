@@ -9,7 +9,7 @@ import {
 import { HelpDummy, HoverHelp } from './helpers';
 import { HypertorusFuel, HypertorusGas } from '.';
 import { filter } from 'es-toolkit/compat';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { getGasColor, getGasLabel } from 'tgui/constants';
 
 import { flow } from 'common/fp';

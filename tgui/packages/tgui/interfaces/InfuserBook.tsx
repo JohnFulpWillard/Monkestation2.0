@@ -2,7 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 import { multiline } from 'common/string';
-import { chunk, range } from 'es-toolkit';
+import { chunk, range } from 'common/collections';
 
 type Entry = {
   name: string;

@@ -1,5 +1,5 @@
 // THIS IS A NOVA SECTOR UI FILE
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Section, Table } from 'tgui-core/components';
@@ -54,7 +54,7 @@ export const CrewConsoleNovaBlueshield = () => {
 };
 
 const CrewTable = (props) => {
-  const { act, data } = useBackend();
+  const { data } = useBackend();
   const sensors = sortBy((s) => s.ijob)(data.sensors ?? []);
   return (
     <Table cellpadding="3">

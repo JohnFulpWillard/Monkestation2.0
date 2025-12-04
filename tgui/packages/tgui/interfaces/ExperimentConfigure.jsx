@@ -10,7 +10,7 @@ import {
   Table,
   Tooltip,
 } from 'tgui-core/components';
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 
 const ExperimentStages = (props) => {
   return (
