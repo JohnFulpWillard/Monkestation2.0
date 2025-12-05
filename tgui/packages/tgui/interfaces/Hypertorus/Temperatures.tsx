@@ -1,4 +1,4 @@
-import { Box, Icon, Section, Stack, Tooltip } from 'tgui/components';
+import { Box, Icon, Section, Stack, Tooltip } from 'tgui-core/components';
 import { HypertorusFuel } from '.';
 
 import { to_exponential_if_big } from './helpers';

@@ -57,7 +57,7 @@ const GasSearchBar = (props: {
         {activeInput ? (
           <Input
             fluid
-            onChange={(e, value) => {
+            onChange={(_e, value) => {
               setActiveInput(false);
               onChange(value);
             }}

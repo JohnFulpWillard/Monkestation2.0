@@ -7,7 +7,7 @@ import {
   Section,
   Stack,
   Tooltip,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { getColor } from './helpers';
 import { Data } from './types';
 

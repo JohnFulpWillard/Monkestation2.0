@@ -7,7 +7,7 @@ import {
   LabeledList,
   Button,
   RestrictedInput,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { CharacterPreview } from '../common/CharacterPreview';
 import { getMedicalRecord, getQuirkStrings } from './helpers';
 import { useBackend } from '../../backend';

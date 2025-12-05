@@ -7,7 +7,7 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { Data } from './types';
 
 /** Displays loaded container info, if it exists */

@@ -12,7 +12,7 @@ import {
   Table,
   TextArea,
   Tooltip,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { Window } from 'tgui/layouts';
 
 type HoloPayData = {

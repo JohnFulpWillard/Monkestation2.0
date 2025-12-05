@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Stack } from 'tgui/components';
+import { Stack } from 'tgui-core/components';
 
 export const Notifications = (props) => {
   const { children } = props;

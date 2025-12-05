@@ -305,7 +305,7 @@ const TechwebOverview = (props) => {
           <Stack.Item align={'center'}>
             <Input
               value={searchText}
-              onChange={(e, value) => setSearchText(value)}
+              onChange={setSearchText}
               placeholder={'Search...'}
             />
           </Stack.Item>

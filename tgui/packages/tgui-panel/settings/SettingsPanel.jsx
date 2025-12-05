@@ -23,7 +23,7 @@ import {
   TextArea,
   Slider,
   NoticeBox,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';

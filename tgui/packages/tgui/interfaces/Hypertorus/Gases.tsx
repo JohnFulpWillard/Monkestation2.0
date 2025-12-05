@@ -5,7 +5,7 @@ import {
   NumberInput,
   ProgressBar,
   Section,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { HelpDummy, HoverHelp } from './helpers';
 import { HypertorusFuel, HypertorusGas } from '.';
 import { filter } from 'es-toolkit/compat';

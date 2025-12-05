@@ -7,7 +7,7 @@
 import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
 import { createRoot } from 'react-dom/client';
-import { Tooltip } from 'tgui/components';
+import { Tooltip } from 'tgui-core/components';
 import { createLogger } from 'tgui/logging';
 
 import {

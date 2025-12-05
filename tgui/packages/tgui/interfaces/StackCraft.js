@@ -45,7 +45,7 @@ const Recipes = (props, context) => {
               width={12.5}
               value={searchText}
               placeholder={'Find recipe'}
-              onChange={(e, value) => setSearchText(value)}
+              onChange={(_e, value) => setSearchText(value)}
             />
           )}
           <Button

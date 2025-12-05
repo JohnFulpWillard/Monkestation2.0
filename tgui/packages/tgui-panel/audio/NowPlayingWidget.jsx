@@ -5,7 +5,7 @@
  */
 
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Collapsible, Stack, Knob, Section } from 'tgui/components';
+import { Button, Collapsible, Stack, Knob, Section } from 'tgui-core/components';
 import { toFixed } from 'common/math';
 
 import { useSettings } from '../settings';

@@ -1,4 +1,4 @@
-import { Button, Collapsible, Section, Stack } from 'tgui/components';
+import { Button, Collapsible, Section, Stack } from 'tgui-core/components';
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
 
 import { BooleanLike } from 'common/react';

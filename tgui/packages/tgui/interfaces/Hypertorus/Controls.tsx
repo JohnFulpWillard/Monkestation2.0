@@ -8,7 +8,7 @@ import {
   NumberInput,
   Section,
   Tooltip,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { HelpDummy, HoverHelp } from './helpers';
 
 import { BooleanLike } from 'common/react';

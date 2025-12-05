@@ -11,7 +11,7 @@ import {
   Box,
   Icon,
   Button,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { JOB2ICON } from '../common/JobToIcon';
 import { CRIMESTATUS2COLOR } from './constants';
 import { isRecordMatch } from './helpers';

@@ -16,7 +16,7 @@ import {
   Tabs,
   TextArea,
   Tooltip,
-} from 'tgui/components';
+} from 'tgui-core/components';
 
 /** Displays a list of crimes and allows to add new ones. */
 export const CrimeWatcher = (props) => {

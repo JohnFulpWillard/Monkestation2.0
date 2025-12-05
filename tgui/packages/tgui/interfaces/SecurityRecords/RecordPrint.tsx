@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from 'tgui/backend';
 import { PRINTOUT, SecurityRecordsData } from './types';
-import { Box, Button, Input, Section, Stack } from 'tgui/components';
+import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
 import {
   getSecurityRecord,
   getDefaultPrintDescription,

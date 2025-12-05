@@ -11,7 +11,7 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { Window } from 'tgui/layouts';
 
 type VendingData = {

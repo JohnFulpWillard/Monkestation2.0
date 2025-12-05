@@ -1,4 +1,4 @@
-import { Stack, LabeledControls, RoundGauge, Section } from 'tgui/components';
+import { Stack, LabeledControls, RoundGauge, Section } from 'tgui-core/components';
 
 import { formatSiUnit } from 'tgui/format';
 import { toFixed } from 'common/math';

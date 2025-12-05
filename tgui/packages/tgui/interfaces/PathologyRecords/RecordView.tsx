@@ -6,7 +6,7 @@ import {
   NoticeBox,
   LabeledList,
   Button,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { getMedicalRecord } from './helpers';
 import { useBackend, useLocalState } from '../../backend';
 import { MedicalRecordData } from './types';
