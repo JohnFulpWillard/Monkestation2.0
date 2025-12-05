@@ -1,6 +1,6 @@
 import { binaryInsertWith } from 'common/collections';
-import { sortBy } from 'common/collections';
-import { useLocalState } from '../../backend';
+import { sortBy } from 'es-toolkit';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -12,8 +12,9 @@ import {
   Section,
   Stack,
   TrackOutsideClicks,
-} from '../../components';
-import { Name } from './data';
+} from 'tgui-core/components';
+
+import type { Name } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 type NameWithKey = {
@@ -23,17 +24,19 @@ type NameWithKey = {
 
 const binaryInsertName = binaryInsertWith<NameWithKey>(({ key }) => key);
 
-const sortNameWithKeyEntries = sortBy<[string, NameWithKey[]]>(([key]) => key);
+function sortNameWithKeyEntries(array: [string, NameWithKey[]][]) {
+  return sortBy(array, [([key]) => key]);
+}
 
-export const MultiNameInput = (props: {
+type MultiNameProps = {
   handleClose: () => void;
   handleRandomizeName: (nameType: string) => void;
   handleUpdateName: (nameType: string, value: string) => void;
   names: Record<string, string>;
-}) => {
-  const [currentlyEditingName, setCurrentlyEditingName] = useLocalState<
-    string | null
-  >('currentlyEditingName', null);
+};
+
+export function MultiNameInput(props: MultiNameProps) {
+  const { handleUpdateName, handleRandomizeName } = props;
 
   return (
     <ServerPreferencesFetcher
@@ -70,60 +73,23 @@ export const MultiNameInput = (props: {
                     ([_, names], index, collection) => (
                       <>
                         {names.map(({ key, name }) => {
-                          let content;
-
-                          if (currentlyEditingName === key) {
-                            const updateName = (event, value) => {
-                              props.handleUpdateName(key, value);
-
-                              setCurrentlyEditingName(null);
-                            };
-
-                            content = (
-                              <Input
-                                autoSelect
-                                onEnter={updateName}
-                                onChange={updateName}
-                                onEscape={() => {
-                                  setCurrentlyEditingName(null);
-                                }}
-                                value={props.names[key]}
-                              />
-                            );
-                          } else {
-                            content = (
-                              <Button
-                                width="100%"
-                                onClick={(event) => {
-                                  setCurrentlyEditingName(key);
-                                  event.cancelBubble = true;
-                                  event.stopPropagation();
-                                }}
-                              >
-                                <FitText maxFontSize={12} maxWidth={90}>
-                                  {props.names[key]}
-                                </FitText>
-                              </Button>
-                            );
-                          }
-
                           return (
-                            <LabeledList.Item
-                              key={key}
-                              label={name.explanation}
-                            >
+                            <LabeledList.Item key={key} label={name.explanation}>
                               <Stack fill>
-                                <Stack.Item grow>{content}</Stack.Item>
-
+                                <Stack.Item grow>
+                                  <Button.Input
+                                    fluid
+                                    onCommit={(value) => handleUpdateName(key, value)}
+                                    value={props.names[key]}
+                                  />
+                                </Stack.Item>
                                 {!!name.can_randomize && (
                                   <Stack.Item>
                                     <Button
                                       icon="dice"
                                       tooltip="Randomize"
                                       tooltipPosition="right"
-                                      onClick={() => {
-                                        props.handleRandomizeName(key);
-                                      }}
+                                      onClick={() => handleRandomizeName(key)}
                                     />
                                   </Stack.Item>
                                 )}
@@ -132,9 +98,7 @@ export const MultiNameInput = (props: {
                           );
                         })}
 
-                        {index !== collection.length - 1 && (
-                          <LabeledList.Divider />
-                        )}
+                        {index !== collection.length - 1 && <LabeledList.Divider />}
                       </>
                     ),
                   )}
@@ -142,26 +106,25 @@ export const MultiNameInput = (props: {
               </Section>
             </TrackOutsideClicks>
           </Modal>
-        );
+      );
       }}
     />
-  );
-};
+  )}
 
-export const NameInput = (props: {
+type NameInputProps = {
   handleUpdateName: (name: string) => void;
   name: string;
   openMultiNameInput: () => void;
-}) => {
-  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useLocalState<
-    string | null
-  >('lastNameBeforeEdit', null);
-  const editing = lastNameBeforeEdit === props.name;
+};
 
-  const updateName = (e, value) => {
+export function NameInput(props: NameInputProps) {
+  function updateName(value: string) {
     setLastNameBeforeEdit(null);
     props.handleUpdateName(value);
-  };
+  }
+
+  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useState(null);
+  const editing = lastNameBeforeEdit === props.name;
 
   return (
     <Button
@@ -188,8 +151,7 @@ export const NameInput = (props: {
           {(editing && (
             <Input
               autoSelect
-              onEnter={updateName}
-              onChange={updateName}
+              onBlur={updateName}
               onEscape={() => {
                 setLastNameBeforeEdit(null);
               }}
@@ -216,43 +178,42 @@ export const NameInput = (props: {
         {/* We only know other names when the server tells us */}
         <ServerPreferencesFetcher
           render={(data) =>
-            data ? (
-              <Stack.Item>
-                <Button
-                  as="span"
-                  tooltip="Alternate Names"
-                  tooltipPosition="right"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    position: 'absolute',
-                    right: '2px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '2%',
-                  }}
-                  onClick={(event) => {
-                    props.openMultiNameInput();
+            data && (
+            <Stack.Item>
+              <Button
+                as="span"
+                tooltip="Alternate Names"
+                tooltipPosition="bottom"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  position: 'absolute',
+                  right: '2px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '2%',
+                }}
+                onClick={(event: { cancelBubble: boolean; stopPropagation: () => void; }) => {
+                  props.openMultiNameInput();
 
-                    // We're a button inside a button.
-                    // Did you know that's against the W3C standard? :)
-                    event.cancelBubble = true;
-                    event.stopPropagation();
+                  // We're a button inside a button.
+                  // Did you know that's against the W3C standard? :)
+                  event.cancelBubble = true;
+                  event.stopPropagation();
+                }}
+              >
+                <Icon
+                  name="ellipsis-v"
+                  style={{
+                    position: 'relative',
+                    left: '-1px',
+                    minWidth: '0px',
                   }}
-                >
-                  <Icon
-                    name="ellipsis-v"
-                    style={{
-                      position: 'relative',
-                      left: '1px',
-                      minWidth: '0px',
-                    }}
-                  />
-                </Button>
-              </Stack.Item>
-            ) : null
-          }
+                />
+              </Button>
+            </Stack.Item>
+          )}
         />
       </Stack>
     </Button>
   );
-};
+}

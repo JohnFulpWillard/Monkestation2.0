@@ -1,7 +1,7 @@
 import { sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { ComponentType, createElement, ReactNode, useState } from 'react';
-import { sendAct, useBackend } from '../../../../backend';
+import { sendAct } from '../../../../backend';
 import {
   Box,
   Button,
@@ -11,7 +11,7 @@ import {
   Stack,
   Tooltip,
 } from 'tgui-core/components';
-import { createSetPreference, PreferencesMenuData } from '../../data';
+import { createSetPreference } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 
@@ -53,7 +53,7 @@ export type FeatureValueProps<
   handleSetValue: (newValue: TSending) => void;
   serverData: TServerData | undefined;
   shrink?: boolean;
-  value?: TReceiving;
+  value: TReceiving;
 }>;
 
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
@@ -172,7 +172,7 @@ export const StandardizedDropdown = (props: {
   disabled?: boolean;
   displayNames: Record<string, ReactNode>;
   onSetValue: (newValue: string) => void;
-  value?: string;
+  value: string;
   buttons?: boolean;
 }) => {
   const {
@@ -206,7 +206,7 @@ export const FeatureDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;
     buttons?: boolean;
-  },
+  }
 ) => {
   const serverData = props.serverData;
   if (!serverData) {
@@ -239,7 +239,7 @@ export const FeatureDropdownInput = (
       onSetValue={props.handleSetValue}
       value={props.value}
     />
-  );
+  )
 };
 
 export const FeatureIconnedDropdownInput = (
@@ -401,7 +401,7 @@ export const FeatureShortTextInput = (
       width="100%"
       value={props.value}
       maxLength={props.serverData.maximum_length}
-      onChange={(value) => props.handleSetValue(value)}
+      onBlur={(value) => props.handleSetValue(value)}
     />
   );
 };
@@ -467,7 +467,7 @@ export const StandardizedPalette = (props: {
       >
         <Stack style={{ flexWrap: 'wrap', maxWidth: maxWidth }}>
           {choices.map((choice) => (
-            <Stack.Item key={choice} ml={0}>
+            <Stack.Item key={choice}>
               <Tooltip
                 content={`${displayNames[choice]}${
                   includeHex ? ` (${safeHex(choice)})` : ''
@@ -481,27 +481,22 @@ export const StandardizedPalette = (props: {
                       'ColorSelectBox--selected',
                     disabled && 'ColorSelectBox--disabled',
                   ])}
+                  style={{
+                    backgroundColor: hex_values
+                      ? choice
+                      : choices_to_hex[choice],
+                  }}
                   onClick={() =>
                     !disabled && onSetValue(hex_values ? safeHex(choice) : choice)
                   }
                   width="16px"
                   height="16px"
-                >
-                  <Box
-                    className="ColorSelectBox--inner"
-                    style={{
-                      backgroundColor: hex_values
-                        ? choice
-                        : choices_to_hex[choice],
-                    }}
-                  />
-                </Box>
+                />
               </Tooltip>
             </Stack.Item>
           ))}
           {allow_custom && (
             <>
-              <Stack.Item grow />
               {!Object.values(choices_to_hex)
                 .map(safeHex)
                 .includes(safeValue!) && (
@@ -512,24 +507,20 @@ export const StandardizedPalette = (props: {
                   >
                     <Box
                       className={classes([
-                        'ColorSelectBox',
-                        'ColorSelectBox--selected',
-                      ])}
+                      'ColorSelectBox',
+                      'ColorSelectBox--selected',
+                    ])}
+                      style={{
+                        backgroundColor: `${safeValue}`,
+                      }}
                       width="16px"
                       height="16px"
-                    >
-                      <Box
-                        className="ColorSelectBox--inner"
-                        style={{
-                          backgroundColor: `${safeValue}`,
-                        }}
-                      />
-                    </Box>
+                    />
                   </Tooltip>
                 </Stack.Item>
               )}
 
-              <Stack.Item ml={0.5}>
+              <Stack.Item>
                 <Button
                   tooltip="Choose Custom"
                   tooltipPosition="bottom"

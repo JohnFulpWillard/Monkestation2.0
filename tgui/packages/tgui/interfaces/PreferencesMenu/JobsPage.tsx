@@ -12,12 +12,11 @@ import {
 } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
-function sortJobs(entries: [string, Job][], head?: string) {
-  return sortBy(entries, [
+const sortJobs = (entries: [string, Job][], head?: string) =>
+  sortBy<[string, Job]>(
     ([key, _]) => (key === head ? -1 : 1),
     ([key, _]) => key,
-  ]);
-}
+)(entries);
 
 const PRIORITY_BUTTON_SIZE = '18px';
 

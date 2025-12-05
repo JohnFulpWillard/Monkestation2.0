@@ -5,6 +5,7 @@ import {
   type FeatureValueProps,
   FeatureDropdownInput,
   StandardizedPalette,
+  type FeatureChoicedServerData,
 } from './base';
 
 const eyePresets = {
@@ -132,7 +133,11 @@ export const gradient_color: Feature<string> = {
 
 export const facial_hair_gradient: FeatureChoiced = {
   name: 'Facial hair gradient',
-  component: FeatureDropdownInput,
+  component: (
+    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+  ) => {
+    return <FeatureDropdownInput buttons {...props} />;
+  },
 };
 
 export const facial_hair_gradient_color: Feature<string> = {

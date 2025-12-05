@@ -10,7 +10,7 @@ import {
   FitText,
   Input,
   Icon,
-} from '../../components';
+} from 'tgui-core/components';
 import {
   createSetPreference,
   PreferencesMenuData,
@@ -30,7 +30,7 @@ import {
 import { filterMap, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 const CLOTHING_CELL_SIZE = 64;
 const CLOTHING_SIDEBAR_ROWS = 10;
@@ -87,7 +87,7 @@ const CharacterControls = (props: {
           color="red"
           tooltip="Delete character"
           tooltipPosition="top"
-          disabled={!props.canDeleteCharacter}
+          disabled={props.canDeleteCharacter}
         />
       </Stack.Item>
     </Stack>
@@ -290,29 +290,25 @@ const ChoicedSelection = (props: {
   );
 };
 
-const GenderButton = (props: {
+type GenderButtonProps = {
   handleSetGender: (gender: Gender) => void;
   gender: Gender;
-}) => {
-  const [genderMenuOpen, setGenderMenuOpen] = useLocalState(
-    'genderMenuOpen',
-    false,
-  );
+};
 
+function GenderButton(props: GenderButtonProps) {
   return (
     <Floating
       placement="right"
       content={
-        genderMenuOpen ? (
-          <Stack backgroundColor="white" ml={0.5} p={0.3}>
-            {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
+        <Stack backgroundColor="white" p={0.3}>
+          {[Gender.Male, Gender.Female, Gender.Other].map(
+            (gender) => {
               return (
                 <Stack.Item key={gender}>
                   <Button
                     selected={gender === props.gender}
                     onClick={() => {
                       props.handleSetGender(gender);
-                      setGenderMenuOpen(false);
                     }}
                     fontSize="22px"
                     icon={GENDERS[gender].icon}
@@ -321,25 +317,22 @@ const GenderButton = (props: {
                   />
                 </Stack.Item>
               );
-            })}
-          </Stack>
-        ) : (
-          <> </>
-        )
+            },
+          )}
+        </Stack>
       }
     >
-      <Button
-        onClick={() => {
-          setGenderMenuOpen(!genderMenuOpen);
-        }}
-        fontSize="22px"
-        icon={GENDERS[props.gender].icon}
-        tooltip="Gender"
-        tooltipPosition="top"
-      />
+      <div>
+        <Button
+          fontSize="22px"
+          icon={GENDERS[props.gender].icon}
+          tooltip="Gender"
+          tooltipPosition="top"
+        />
+      </div>
     </Floating>
   );
-};
+}
 
 const MainFeature = (props: {
   catalog: FeatureChoicedServerData & {
@@ -549,17 +542,9 @@ const PreferenceList = (props: {
 
 export const MainPage = (props: { openSpecies: () => void }) => {
   const { act, data } = useBackend<PreferencesMenuData>();
-  const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<
-    string | null
-  >('currentClothingMenu', null);
-  const [deleteCharacterPopupOpen, setDeleteCharacterPopupOpen] = useLocalState(
-    'deleteCharacterPopupOpen',
-    false,
-  );
-  const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(
-    'multiNameInputOpen',
-    false,
-  );
+  const [currentClothingMenu, setCurrentClothingMenu] = useState(null);
+  const [deleteCharacterPopupOpen, setDeleteCharacterPopupOpen] = useState(false);
+  const [multiNameInputOpen, setMultiNameInputOpen] = useState(false);
   const [randomToggleEnabled] = useRandomToggleState();
 
   return (

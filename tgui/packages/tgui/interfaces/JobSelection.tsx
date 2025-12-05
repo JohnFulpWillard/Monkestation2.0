@@ -10,7 +10,7 @@ import {
 import { Window } from '../layouts';
 import { Color } from 'common/color';
 import { JOB2ICON } from './common/JobToIcon';
-import { deepMerge } from 'common/collections';
+import { toMerged } from 'es-toolkit';
 import type { BooleanLike } from 'common/react';
 import { LobbyNotices, type LobbyNoticesType } from './common/LobbyNotices';
 
@@ -105,7 +105,7 @@ export const JobSelection = (props) => {
   if (!data?.departments_static) {
     return null; // Stop TGUI whitescreens with TGUI-dev!
   }
-  const departments: Record<string, Department> = deepMerge(
+  const departments: Record<string, Department> = toMerged(
     data.departments,
     data.departments_static,
   );
@@ -135,69 +135,77 @@ export const JobSelection = (props) => {
           }
           titleStyle={{ minHeight: '3.4em' }}
         >
-          <Box wrap="wrap" style={{ columns: '20em' }}>
-            {Object.entries(departments).map((departmentEntry) => {
-              const departmentName = departmentEntry[0];
-              const entry = departmentEntry[1];
-              return (
-                <Box key={departmentName} minWidth="30%">
-                  <StyleableSection
-                    title={
-                      <>
-                        {departmentName}
-                        <span
-                          style={{
-                            fontSize: '1rem',
-                            whiteSpace: 'nowrap',
-                            position: 'absolute',
-                            right: '1em',
-                            color: Color.fromHex(entry.color)
-                              .darken(60)
-                              .toString(),
-                          }}
-                        >
-                          {entry.open_slots +
-                            (entry.open_slots === 1 ? ' slot' : ' slots') +
-                            ' available'}
-                        </span>
-                      </>
-                    }
-                    style={{
-                      backgroundColor: entry.color,
-                      marginBottom: '1em',
-                      breakInside: 'avoid-column',
-                    }}
-                    titleStyle={{
-                      'border-bottom-color': Color.fromHex(entry.color)
-                        .darken(50)
-                        .toString(),
-                    }}
-                    textStyle={{
-                      color: Color.fromHex(entry.color).darken(80).toString(),
-                    }}
-                  >
-                    <Stack vertical>
-                      {Object.entries(entry.jobs).map((job) => (
-                        <Stack.Item key={job[0]}>
-                          <JobEntry
-                            key={job[0]}
-                            jobName={job[0]}
-                            job={job[1]}
-                            department={entry}
-                            onClick={() => {
-                              act('select_job', { job: job[0] });
-                            }}
-                          />
-                        </Stack.Item>
-                      ))}
-                    </Stack>
-                  </StyleableSection>
-                </Box>
-              );
-            })}
+          <Box style={{ columns: '20em' }}>
+            {Object.entries(departments).map(([name, department]) => (
+              <DepartmentEntry key={name} name={name} department={department} />
+            ))}
           </Box>
         </StyleableSection>
       </Window.Content>
     </Window>
   );
 };
+
+type DepartmentEntryProps = {
+  name: string;
+  department: Department;
+};
+
+function DepartmentEntry(props: DepartmentEntryProps) {
+  const { name, department } = props;
+  const { act } = useBackend<Data>();
+
+  return (
+    <Box minWidth="30%">
+      <StyleableSection
+        title={
+          <>
+            {name}
+            <span
+              style={{
+                fontSize: '1rem',
+                whiteSpace: 'nowrap',
+                position: 'absolute',
+                right: '1em',
+                color: Color.fromHex(department.color).darken(60).toString(),
+              }}
+            >
+              {department.open_slots +
+                (department.open_slots === 1 ? ' slot' : ' slots') +
+                ' available'}
+            </span>
+          </>
+        }
+        style={{
+          backgroundColor: department.color,
+          marginBottom: '1em',
+          breakInside: 'avoid-column',
+        }}
+        titleStyle={{
+          'border-bottom-color': Color.fromHex(department.color)
+            .darken(50)
+            .toString(),
+        }}
+        textStyle={{
+          color: Color.fromHex(department.color).darken(80).toString(),
+        }}
+      >
+        <Stack vertical>
+          {Object.entries(department.jobs).map(([name, job]) => (
+            <Stack.Item key={name}>
+              <JobEntry
+                key={name}
+                jobName={name}
+                job={job}
+                department={department}
+                onClick={() => {
+                  act('select_job', { job: name });
+                }}
+              />
+            </Stack.Item>
+          ))}
+        </Stack>
+      </StyleableSection>
+    </Box>
+  );
+}
