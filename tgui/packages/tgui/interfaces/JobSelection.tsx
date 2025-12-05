@@ -10,9 +10,9 @@ import {
 import { Window } from '../layouts';
 import { Color } from 'common/color';
 import { JOB2ICON } from './common/JobToIcon';
-import { toMerged } from 'common/collections';
-import { BooleanLike } from 'common/react';
-import { LobbyNotices, LobbyNoticesType } from './common/LobbyNotices';
+import { deepMerge } from 'common/collections';
+import type { BooleanLike } from 'common/react';
+import { LobbyNotices, type LobbyNoticesType } from './common/LobbyNotices';
 
 type Job = {
   unavailable_reason: string | null;
@@ -105,7 +105,7 @@ export const JobSelection = (props) => {
   if (!data?.departments_static) {
     return null; // Stop TGUI whitescreens with TGUI-dev!
   }
-  const departments: Record<string, Department> = toMerged(
+  const departments: Record<string, Department> = deepMerge(
     data.departments,
     data.departments_static,
   );

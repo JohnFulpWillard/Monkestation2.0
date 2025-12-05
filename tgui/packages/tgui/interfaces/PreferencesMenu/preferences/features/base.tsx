@@ -1,7 +1,7 @@
 import { sortBy } from 'common/collections';
 import { BooleanLike, classes } from 'common/react';
-import { ComponentType, createElement, ReactNode } from 'react';
-import { sendAct, useBackend, useLocalState } from '../../../../backend';
+import { ComponentType, createElement, ReactNode, useState } from 'react';
+import { sendAct, useBackend } from '../../../../backend';
 import {
   Box,
   Button,
@@ -98,7 +98,7 @@ export const TextInput = (props: FeatureValueProps<string, string>) => {
   return (
     <Input
       value={props.value}
-      onChange={(_, newValue) => props.handleSetValue(newValue)}
+      onChange={(newValue) => props.handleSetValue(newValue)}
       width="100%"
     />
   );
@@ -133,7 +133,7 @@ export const CheckboxInputInverse = (
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
   choices: Record<T, ReactNode>,
-  dropdownProps?: Record<T, unknown>,
+  dropdownProps?: Record<T, unknown>
 ): FeatureValue<T> => {
   return (props: FeatureValueProps<T>) => {
     return (
@@ -148,7 +148,7 @@ export const createDropdownInput = <T extends string | number = string>(
               displayText: label,
               value: dataValue,
             };
-          },
+          }
         )}
         {...dropdownProps}
       />
@@ -174,7 +174,6 @@ export const StandardizedDropdown = (props: {
   onSetValue: (newValue: string) => void;
   value?: string;
   buttons?: boolean;
-  displayHeight?: string;
 }) => {
   const {
     choices,
@@ -182,7 +181,6 @@ export const StandardizedDropdown = (props: {
     buttons,
     displayNames,
     onSetValue,
-    displayHeight,
     value,
   } = props;
 
@@ -192,10 +190,8 @@ export const StandardizedDropdown = (props: {
       buttons={buttons}
       selected={value}
       onSelected={onSetValue}
-      clipSelectedText={false}
-      displayHeight={displayHeight}
       width="100%"
-      displayText={value ? displayNames[value] : ''}
+      displayText={displayNames[value]}
       options={choices.map((choice) => {
         return {
           displayText: displayNames[choice],
@@ -223,7 +219,7 @@ export const FeatureDropdownInput = (
       serverData.choices.map((choice) => [
         choice,
         capitalizeFirstLetter(choice),
-      ]),
+      ])
     );
 
   return serverData.choices.length > 5 ? (
@@ -302,7 +298,6 @@ export const FeatureIconnedDropdownInput = (
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
       value={props.value}
-      displayHeight="32px"
     />
   );
 };
@@ -320,11 +315,12 @@ export const StandardizedChoiceButtons = (props: {
       {choices.map((choice) => (
         <Button
           key={choice}
-          content={displayNames[choice]}
           selected={choice === value}
           disabled={disabled}
           onClick={() => onSetValue(choice)}
-        />
+        >
+            {displayNames[choice]}
+        </Button>
       ))}
     </>
   );
@@ -363,17 +359,10 @@ export const FeatureValueInput = (props: {
 
   act: typeof sendAct;
 }) => {
-  const { data } = useBackend<PreferencesMenuData>();
 
   const feature = props.feature;
 
-  const [predictedValue, setPredictedValue] =
-    feature.predictable === undefined || feature.predictable
-      ? useLocalState(
-          `${props.featureId}_predictedValue_${data.active_slot}`,
-          props.value,
-        )
-      : [props.value, () => {}];
+  const [predictedValue, setPredictedValue] = useState(props.value);
 
   const changeValue = (newValue: unknown) => {
     setPredictedValue(newValue);
@@ -492,10 +481,8 @@ export const StandardizedPalette = (props: {
                       'ColorSelectBox--selected',
                     disabled && 'ColorSelectBox--disabled',
                   ])}
-                  onClick={
-                    disabled
-                      ? null
-                      : () => onSetValue(hex_values ? safeHex(choice) : choice)
+                  onClick={() =>
+                    !disabled && onSetValue(hex_values ? safeHex(choice) : choice)
                   }
                   width="16px"
                   height="16px"

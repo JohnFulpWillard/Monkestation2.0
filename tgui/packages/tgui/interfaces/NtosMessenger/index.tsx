@@ -11,10 +11,10 @@ import {
 } from 'tgui-core/components';
 import { useBackend, useLocalState } from '../../backend';
 import { createSearch } from 'common/string';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 import { NtosWindow } from '../../layouts';
 
-import { NtChat, NtMessenger, NtPicture } from './types';
+import type { NtChat, NtMessenger, NtPicture } from './types';
 import { ChatScreen } from './ChatScreen';
 import { sortBy } from 'common/collections';
 
@@ -313,7 +313,7 @@ const SendToAllSection = (props) => {
               icon="arrow-right"
               disabled={on_spam_cooldown || message === ''}
               tooltip={on_spam_cooldown && 'Wait before sending more messages!'}
-              tooltipPosition="auto-start"
+              tooltipPosition="top-start"
               onClick={() => {
                 act('PDA_sendEveryone', { message: message });
                 setmessage('');
@@ -329,7 +329,7 @@ const SendToAllSection = (props) => {
           height={6}
           value={message}
           placeholder="Send message to everyone..."
-          onChange={(_: any, v: string) => setmessage(v)}
+          onChange={setmessage}
         />
       </Section>
     </>
