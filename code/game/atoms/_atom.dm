@@ -640,8 +640,6 @@
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
-	if(isnull(dna)) // Xenos
-		return ..()
 	var/datum/blood_type/blood = get_blood_type()
 	if(isnull(blood)) // Skeletons?
 		return null
