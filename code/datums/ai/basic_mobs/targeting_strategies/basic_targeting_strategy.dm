@@ -98,6 +98,12 @@
 			return FALSE
 		return TRUE
 
+	if(istype(the_target, /obj/structure/liquid_plasma_extraction_pipe))
+		var/obj/structure/liquid_plasma_extraction_pipe/extraction_pipe = the_target
+		if(extraction_pipe.pipe_state != PIPE_STATE_FINE) //Don't attack ones you've already broken.
+			return FALSE
+		return TRUE
+
 	return FALSE
 
 /// Returns true if the mob and target share factions

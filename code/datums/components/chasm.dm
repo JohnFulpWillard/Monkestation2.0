@@ -13,6 +13,7 @@
 		/obj/narsie,
 		/obj/docking_port,
 		/obj/structure/lattice,
+		/obj/structure/liquid_plasma_geyser,
 		/obj/structure/stone_tile,
 		/obj/projectile,
 		/obj/effect/projectile,

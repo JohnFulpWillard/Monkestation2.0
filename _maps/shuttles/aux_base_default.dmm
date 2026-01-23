@@ -27,6 +27,10 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
+"u" = (
+/obj/structure/plasma_extraction_hub/part/pipe/main,
+/turf/open/floor/plating,
+/area/shuttle/auxiliary_base)
 "v" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -49,15 +53,23 @@
 /turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
 "B" = (
-/obj/machinery/computer/auxiliary_base/directional/north,
+/obj/machinery/bluespace_beacon,
+/turf/open/floor/plating,
+/area/shuttle/auxiliary_base)
+"C" = (
+/turf/closed/wall,
+/area/shuttle/auxiliary_base)
+"L" = (
+/turf/open/space/basic,
 /turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
 "P" = (
+/obj/machinery/computer/auxiliary_base/directional/north,
 /obj/docking_port/mobile/auxiliary_base{
 	dir = 2
 	},
-/obj/machinery/bluespace_beacon,
-/turf/closed/wall,
+/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
 "U" = (
 /obj/structure/closet/secure_closet/miner/unlocked,
@@ -116,8 +128,8 @@ x
 v
 k
 k
-k
 W
+L
 k
 k
 k
@@ -126,20 +138,20 @@ x
 (5,1,1) = {"
 v
 k
-k
 X
+C
 P
+k
+u
 B
-k
-k
 x
 "}
 (6,1,1) = {"
 v
 k
 k
-k
 z
+L
 k
 k
 k

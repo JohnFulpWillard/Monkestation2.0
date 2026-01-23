@@ -322,18 +322,18 @@
 
 /obj/structure/closet/crate/engineering/fundedsatellites/PopulateContents()
 	. = ..()
-	if(GLOB.station_goals.len)
-		for(var/datum/station_goal/station_goal as anything in GLOB.station_goals)
-			if(istype(station_goal, /datum/station_goal/station_shield))
-				new /obj/item/paper/crumpled/wehavenomoneyhaha(src)
-				return
-		for(var/i in 1 to 20)
-			new /obj/item/meteor_shield_capsule(src)
-	else
+	if(!length(SSstation.get_station_goals()))
 		new /mob/living/basic/spider/giant(src)
+		return
+	var/datum/station_goal/station_shield/goal = locate() in SSstation.get_station_goal(/datum/station_goal/station_shield)
+	if(goal)
+		new /obj/item/paper/crumpled/wehavenomoneyhaha(src)
+		return
+	for(var/i in 1 to 20)
+		new /obj/item/meteor_shield_capsule(src)
 
 /obj/structure/closet/crate/engineering/fundedsatellites/allowed(user)
-	if(GLOB.station_goals.len)
+	if(length(SSstation.get_station_goals()))
 		return TRUE
 	return FALSE
 

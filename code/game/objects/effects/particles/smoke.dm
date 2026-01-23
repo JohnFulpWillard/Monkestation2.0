@@ -95,3 +95,9 @@
 	fade = 0.5 SECONDS
 	velocity = list(0, 0.3, 0)
 
+/particles/smoke/plasma
+	lifespan = 1 SECONDS
+	spawning = 2
+	position = list(0, -13, 0)
+	velocity = list(0, 0.4, 0)
+	color = COLOR_STRONG_VIOLET

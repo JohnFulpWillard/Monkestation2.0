@@ -287,6 +287,11 @@
 			if(P.machine_stat & BROKEN) //Or turrets that are already broken
 				return FALSE
 			return TRUE
+		if(istype(the_target, /obj/structure/liquid_plasma_extraction_pipe))
+			var/obj/structure/liquid_plasma_extraction_pipe/extraction_pipe = the_target
+			if(extraction_pipe.pipe_state != PIPE_STATE_FINE) //Don't attack ones you've already broken.
+				return FALSE
+			return TRUE
 
 	if(isobj(the_target))
 		if(attack_all_objects || is_type_in_typecache(the_target, wanted_objects))

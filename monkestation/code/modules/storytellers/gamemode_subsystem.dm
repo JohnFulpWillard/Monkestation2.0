@@ -565,7 +565,7 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 			)
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
-	generate_station_goals()
+
 	handle_post_setup_roundstart_events()
 	handle_post_setup_points()
 	roundstart_event_view = FALSE
@@ -585,20 +585,6 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 		return TRUE
 	if(force_ending)
 		return TRUE
-
-/*
- * Generate a list of station goals available to purchase to report to the crew.
- *
- * Returns a formatted string all station goals that are available to the station.
- */
-/datum/controller/subsystem/gamemode/proc/generate_station_goal_report()
-	if(!GLOB.station_goals.len)
-		return
-	. = "<hr><b>Special Orders for [station_name()]:</b><BR>"
-	for(var/datum/station_goal/station_goal as anything in GLOB.station_goals)
-		station_goal.on_report()
-		. += station_goal.get_report()
-	return
 
 /*
  * Generate a list of active station traits to report to the crew.
@@ -691,14 +677,6 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 						continue //Ghosted while alive
 	for (var/C in GLOB.admins)
 		to_chat(C, msg.Join()) */
-
-/datum/controller/subsystem/gamemode/proc/generate_station_goals()
-	var/list/possible = subtypesof(/datum/station_goal)
-	var/goal_weights = 0
-	while(possible.len && goal_weights < 1) // station goal budget is 1
-		var/datum/station_goal/picked = pick_n_take(possible)
-		goal_weights += initial(picked.weight)
-		GLOB.station_goals += new picked
 
 //Set result and news report here
 /datum/controller/subsystem/gamemode/proc/set_round_result()

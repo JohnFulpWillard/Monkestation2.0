@@ -1358,6 +1358,16 @@
 	name = "\improper Departmental Techfab - Cargo"
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/rnd/production/techfab/department/cargo
+
+/obj/item/circuitboard/machine/weather_remover
+	name = "Weather Barrier"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	build_path = /obj/machinery/weather_remover
+	req_components = list(
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
+	)
+
 //Misc
 /obj/item/circuitboard/machine/sheetifier
 	name = "Sheet-meister 2000"

@@ -249,6 +249,17 @@
 	contains = list(/obj/item/weaponcrafting/giant_wrench)
 	crate_name = "unknown parts crate"
 
+/datum/supply_pack/imports/weather_remover
+	name = "Plasma-based Weather Manipulator Crate"
+	desc = "A circuit board to build your own plasma-fuelled machine allowing for the manipulation of Lavaland's atmosphere."
+	cost = CARGO_CRATE_VALUE * 3
+	contains = list(
+		/obj/item/circuitboard/machine/weather_remover = 1,
+	)
+	crate_name = "weather manipulator crate"
+	crate_type = /obj/structure/closet/crate
+	hidden = TRUE
+
 /datum/supply_pack/imports/sarcophagus
 	name = "Sarcophagus"
 	desc = "It's an empty sarcophagus, for the dearly departed who \

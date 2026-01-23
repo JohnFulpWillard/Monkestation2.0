@@ -608,11 +608,14 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		return ""
 
 /datum/controller/subsystem/ticker/proc/goal_report()
+	var/list/goals = SSstation.get_station_goals()
+	if(!length(goals))
+		return null
+
 	var/list/parts = list()
-	if(GLOB.station_goals.len)
-		for(var/datum/station_goal/goal as anything in GLOB.station_goals)
-			parts += goal.get_result()
-		return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
+	for(var/datum/station_goal/goal as anything in SSstation.get_station_goals())
+		parts += goal.get_result()
+	return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
 
 ///Generate a report for how much money is on station, as well as the richest crewmember on the station.
 /datum/controller/subsystem/ticker/proc/market_report()
@@ -1017,16 +1020,16 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	var/total_crew = length(joined_player_list)
 	if(total_crew < 10) // prevent wrecking the economy on like MRP2
 		return
-	var/completed = FALSE
-	for(var/datum/station_goal/station_goal as anything in GLOB.station_goals)
+	var/amount_completed = 0
+	for(var/datum/station_goal/station_goal as anything in SSstation.get_station_goals())
 		if(station_goal.check_completion())
-			completed = TRUE
+			amount_completed++
 			break
-	if(!completed)
+	if(!amount_completed)
 		return
 	// Note: The math for this is complicated, but if we have an average crew member size of like, 50, each crew member will get
 	// 1000. The 2nd paremter rounds up to that nearest number
-	var/amount = CEILING(50000 / total_crew, 50) // nice even number
+	var/amount = CEILING(50000 / total_crew, 50) * amount_completed // nice even number
 	for(var/ckey in joined_player_list)
 		LAZYINITLIST(rewards[ckey])
 		rewards[ckey] += list(list(amount, "Station Goal Completion Bonus"))

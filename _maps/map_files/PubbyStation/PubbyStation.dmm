@@ -46767,7 +46767,8 @@
 	name = "aux base zone";
 	roundstart_template = /datum/map_template/shuttle/aux_base/small;
 	shuttle_id = "aux_base_zone";
-	width = 9
+	width = 9;
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/station/construction/mining/aux_base)

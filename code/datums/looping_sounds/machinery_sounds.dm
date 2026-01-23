@@ -181,3 +181,7 @@
 	falloff_distance = 5
 	falloff_exponent = 1
 
+/datum/looping_sound/plasma_engine
+	mid_length = 2 SECONDS
+	mid_sounds = list('sound/machines/plasma_extractor/running_engine.ogg' = 1)
+	volume = 90

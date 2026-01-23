@@ -17,9 +17,23 @@
 	var/spawn_distance
 	/// Distance from the spawner to exclude mobs from spawning
 	var/spawn_distance_exclude
+	/// Boolean on whether we should delete ourselves when the conclusion signal is sent.
+	var/delete_on_conclusion
 	COOLDOWN_DECLARE(spawn_delay)
 
-/datum/component/spawner/Initialize(spawn_types = list(), spawn_time = 30 SECONDS, max_spawned = 5, max_spawn_per_attempt = 1 , faction = list(FACTION_MINING), spawn_text = null, spawn_distance = 1, spawn_distance_exclude = 0)
+/datum/component/spawner/Initialize(
+	spawn_types = list(),
+	spawn_time = 30 SECONDS,
+	max_spawned = 5,
+	max_spawn_per_attempt = 1,
+	faction = list(FACTION_MINING),
+	spawn_text = null,
+	datum/callback/spawn_callback = null,
+	spawn_distance = 1,
+	spawn_distance_exclude = 0,
+	initial_spawn_delay = 0 SECONDS,
+	delete_on_conclusion = FALSE,
+)
 	if (!islist(spawn_types))
 		CRASH("invalid spawn_types to spawn specified for spawner component!")
 	src.spawn_time = spawn_time
@@ -30,6 +44,7 @@
 	src.max_spawn_per_attempt = max_spawn_per_attempt
 	src.spawn_distance = spawn_distance
 	src.spawn_distance_exclude = spawn_distance_exclude
+	src.delete_on_conclusion = delete_on_conclusion
 
 	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(stop_spawning))
 	RegisterSignal(parent, COMSIG_SPAWNER_START_SPAWNING, PROC_REF(start_spawning))
@@ -45,6 +60,8 @@
 
 	STOP_PROCESSING(SSprocessing, src)
 	spawned_things = list()
+	if(delete_on_conclusion)
+		qdel(src)
 
 /datum/component/spawner/proc/start_spawning(force)
 	SIGNAL_HANDLER

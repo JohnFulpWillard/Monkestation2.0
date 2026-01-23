@@ -24,6 +24,15 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 	var/datum/supply_pack/engineering/bsa/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/bsa]
 	P.special_enabled = TRUE
 
+/datum/station_goal/bluespace_cannon/check_completion()
+	. = ..()
+	if(.)
+		return TRUE
+	for(var/obj/machinery/bsa/built_bsa as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/bsa))
+		if(!built_bsa.machine_stat)
+			return TRUE
+	return FALSE
+
 /obj/machinery/bsa
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	density = TRUE
@@ -239,13 +248,6 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 	else
 		message_admins("[ADMIN_LOOKUPFLW(user)] has launched a bluespace artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)] but it was blocked by [blocker] at [ADMIN_VERBOSEJMP(target)].")
 		user.log_message("has launched a bluespace artillery strike targeting [AREACOORD(bullseye)] but it was blocked by [blocker] at [AREACOORD(target)].", LOG_GAME)
-
-	complete_goal()
-
-/// Marks the BSA station goal as completed.
-/obj/machinery/bsa/full/proc/complete_goal()
-	var/datum/station_goal/bluespace_cannon/bsa_goal = locate() in GLOB.station_goals
-	bsa_goal?.completed = TRUE
 
 /obj/machinery/bsa/full/proc/reload()
 	ready = FALSE

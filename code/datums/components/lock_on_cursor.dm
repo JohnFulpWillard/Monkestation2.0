@@ -67,6 +67,7 @@
 	mouse_tracker.assign_to_mob(owner)
 	if(on_click_callback)
 		RegisterSignal(mouse_tracker, COMSIG_CLICK, PROC_REF(on_catcher_click))
+	mouse_tracker.default_click = catcher_default_click
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/component/lock_on_cursor/Destroy(force)

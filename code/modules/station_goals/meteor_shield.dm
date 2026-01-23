@@ -14,8 +14,8 @@
 // Satellites be actived to generate a shield that will block unorganic matter from passing it.
 /datum/station_goal/station_shield
 	name = "Hard-Kill Meteor Protection System" // monkestation edit
-	var/coverage_goal = 500
 	requires_space = TRUE
+	var/coverage_goal = 500
 
 /datum/station_goal/station_shield/get_report()
 	return list(

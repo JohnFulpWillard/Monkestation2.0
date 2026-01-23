@@ -1,4 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/camera/directional/south{
+	network = list("auxbase")
+	},
+/obj/structure/mining_shuttle_beacon,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/auxiliary_base)
 "b" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -34,11 +44,7 @@
 /turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
 "h" = (
-/obj/machinery/camera/directional/south{
-	network = list("auxbase")
-	},
-/obj/structure/mining_shuttle_beacon,
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/shuttle/auxiliary_base)
 "i" = (
 /obj/machinery/light/directional/east,
@@ -48,8 +54,7 @@
 /obj/docking_port/mobile/auxiliary_base{
 	dir = 2
 	},
-/obj/machinery/bluespace_beacon,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
 "k" = (
 /obj/machinery/light/directional/west,
@@ -71,6 +76,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/turf/open/floor/plating,
+/area/shuttle/auxiliary_base)
+"w" = (
+/obj/structure/plasma_extraction_hub/part/pipe/main,
+/turf/open/floor/plating,
+/area/shuttle/auxiliary_base)
+"z" = (
+/obj/machinery/bluespace_beacon,
 /turf/open/floor/plating,
 /area/shuttle/auxiliary_base)
 "O" = (
@@ -98,27 +111,27 @@ m
 "}
 (3,1,1) = {"
 c
-f
-f
 i
+f
+f
 f
 f
 m
 "}
 (4,1,1) = {"
-c
-f
+a
 h
-j
 O
-f
+j
+w
+z
 m
 "}
 (5,1,1) = {"
 c
-f
-f
 k
+f
+f
 f
 f
 m

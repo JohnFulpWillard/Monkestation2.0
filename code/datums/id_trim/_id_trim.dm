@@ -30,3 +30,6 @@
 		return "job__[trimmed_hud_state]"
 	else
 		return "job__unknown"
+
+/datum/id_trim/proc/find_job()
+	return null

@@ -99,7 +99,9 @@
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
 		return
-	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_TELEGRAPH(type), src)
+	var/pre_telegraph_result = SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_TELEGRAPH(type), src)
+	if(pre_telegraph_result & CANCEL_WEATHER_TELEGRAPH)
+		return
 	stage = STARTUP_STAGE
 	var/list/affectareas = list()
 	for(var/V in get_areas(area_type))
