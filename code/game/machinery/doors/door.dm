@@ -320,7 +320,7 @@
 		if(density)
 			open()
 		else
-			close()
+			close(person_closing = user)
 		return . //monkestation edit
 	if(density)
 		do_animate("deny")
@@ -476,7 +476,7 @@
 
 /// Public proc that simply handles closing the door. Returns TRUE if the door was closed, FALSE otherwise.
 /// Use argument "forced" in conjuction with try_to_force_door_shut if you want/need additional checks depending on how sorely you need the door closed.
-/obj/machinery/door/proc/close(forced = DEFAULT_DOOR_CHECKS)
+/obj/machinery/door/proc/close(forced = DEFAULT_DOOR_CHECKS, force_crush = FALSE, mob/person_closing)
 	if(density)
 		return TRUE
 	if(operating || welded)
@@ -522,7 +522,7 @@
 	if(safe)
 		CheckForMobs()
 	else
-		crush()
+		crush(person_closing)
 	return TRUE
 
 /// Private proc that runs a series of checks to see if we should forcibly shut the door. Returns TRUE if we should shut the door, FALSE otherwise. Implemented in child types.
@@ -535,7 +535,9 @@
 		sleep(0.1 SECONDS)
 		open()
 
-/obj/machinery/door/proc/crush()
+/obj/machinery/door/proc/crush(crusher)
+	if(isnull(crusher))
+		crusher = src
 	for(var/turf/checked_turf in locs)
 		for(var/mob/living/future_pancake in checked_turf)
 			future_pancake.visible_message(span_warning("[src] closes on [future_pancake], crushing [future_pancake.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
@@ -555,10 +557,10 @@
 				var/turf/location = get_turf(src)
 				//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 				future_pancake.add_splatter_floor(location)
-				log_combat(src, future_pancake, "crushed")
+			log_combat(crusher, future_pancake, "crushed with [src]")
 		for(var/obj/vehicle/sealed/mecha/mech in get_turf(src)) // Your fancy metal won't save you here!
 			mech.take_damage(DOOR_CRUSH_DAMAGE)
-			log_combat(src, mech, "crushed")
+			log_combat(crusher, mech, "crushed with [src]")
 
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)

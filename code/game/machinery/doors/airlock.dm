@@ -1400,7 +1400,7 @@
 	// If we got here, shit's fucked, hope parent can help us out here
 	return ..()
 
-/obj/machinery/door/airlock/close(forced = DEFAULT_DOOR_CHECKS, force_crush = FALSE)
+/obj/machinery/door/airlock/close(forced = DEFAULT_DOOR_CHECKS, force_crush = FALSE, mob/person_closing)
 	if(operating || welded || locked || seal)
 		return FALSE
 	if(density)

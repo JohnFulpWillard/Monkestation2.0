@@ -235,7 +235,7 @@
 /datum/wires/proc/on_cut(wire, mend = FALSE, source = null)
 	return
 
-/datum/wires/proc/on_pulse(wire, user)
+/datum/wires/proc/on_pulse(wire, mob/user)
 	return
 // End Overridable Procs
 

@@ -97,7 +97,7 @@
 
 	return status
 
-/datum/wires/airlock/on_pulse(wire)
+/datum/wires/airlock/on_pulse(wire, mob/user)
 	set waitfor = FALSE
 	var/obj/machinery/door/airlock/A = holder
 	switch(wire)
@@ -112,7 +112,7 @@
 				if(A.density)
 					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open), 1)
 				else
-					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close), 1)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close), 1, null, user)
 		if(WIRE_BOLTS) // Pulse to toggle bolts (but only raises if power is on).
 			if(!A.locked)
 				A.bolt()
@@ -139,7 +139,7 @@
 		if(WIRE_SAFETY)
 			A.safe = !A.safe
 			if(!A.density)
-				A.close()
+				A.close(person_closing = user)
 		if(WIRE_TIMING)
 			A.normalspeed = !A.normalspeed
 		if(WIRE_BOLTLIGHT)
