@@ -10,10 +10,11 @@
 #define ETHEREAN 7
 #define BONE 8
 #define MOTH 9
-#define CAT 10
-#define ASH_TONGUE 11
-#define TORII 12
-#define UNCOMMON 13
+#define ASH_TONGUE 10
+#define TORII 11
+#define UNCOMMON 12
+#define GOBLIN 13
+#define SLIME 14
 
 ///Span classes that players are allowed to set in a radio transmission.
 GLOBAL_LIST_INIT(allowed_custom_spans, list(
@@ -149,10 +150,11 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 			"etherean" = ETHEREAN,
 			"bonespeak" = BONE,
 			"mothian" = MOTH,
-			"cat" = CAT,
 			"ash" = ASH_TONGUE,
 			"torii" = TORII,
 			"uncommon" = UNCOMMON,
+			"goblin" = GOBLIN,
+			"slime" = SLIME,
 		))
 	)
 
@@ -196,14 +198,16 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 			oldlangbits = BONE
 		if(/datum/language/moffic)
 			oldlangbits = MOTH
-		if(/datum/language/nekomimetic)
-			oldlangbits = CAT
 		if(/datum/language/ashtongue)
 			oldlangbits = ASH_TONGUE
 		if(/datum/language/yangyu)
 			oldlangbits = TORII
 		if(/datum/language/uncommon)
 			oldlangbits = UNCOMMON
+		if(/datum/language/goblin)
+			oldlangbits = GOBLIN
+		if(/datum/language/slime)
+			oldlangbits = SLIME
 
 	// Signal data
 	var/datum/n_struct/signal/script_signal = new(list(
@@ -308,6 +312,8 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 		S.properties["source"] = params[3]
 	if(length(params) >= 4)
 		S.properties["job"] = params[4]
+	if(length(params) >= 5)
+		S.properties["filters"] = params[5]
 	return S
 
 
@@ -339,14 +345,16 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 			return /datum/language/calcic
 		if(MOTH)
 			return /datum/language/moffic
-		if(CAT)
-			return /datum/language/nekomimetic
 		if(ASH_TONGUE)
 			return /datum/language/ashtongue
 		if(TORII)
 			return /datum/language/yangyu
 		if(UNCOMMON)
 			return /datum/language/uncommon
+		if(GOBLIN)
+			return /datum/language/goblin
+		if(SLIME)
+			return /datum/language/slime
 
 ///Stores data from the script to use between radio messages.
 /datum/n_function/default/mem
@@ -436,7 +444,7 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 	var/freq = script_signal.get_clean_property("freq")
 	var/source = script_signal.get_clean_property("source")
 	var/job = script_signal.get_clean_property("job")
-	var/spans = script_signal.get_clean_property("filters")
+	var/list/spans = script_signal.get_clean_property("filters")
 	var/say = script_signal.get_clean_property("say")
 	var/ask = script_signal.get_clean_property("ask")
 	var/yell = script_signal.get_clean_property("yell")
@@ -526,7 +534,8 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 #undef ETHEREAN
 #undef BONE
 #undef MOTH
-#undef CAT
 #undef ASH_TONGUE
 #undef TORII
 #undef UNCOMMON
+#undef GOBLIN
+#undef SLIME

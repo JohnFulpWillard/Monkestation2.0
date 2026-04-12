@@ -180,6 +180,7 @@
 	use_reverb = FALSE
 	falloff_distance = 5
 	falloff_exponent = 1
+	sound_channel = CHANNEL_DELTA_SIRENS
 
 /datum/looping_sound/plasma_engine
 	mid_length = 2 SECONDS
