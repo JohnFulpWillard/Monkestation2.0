@@ -137,6 +137,44 @@
 	ADD_TRAIT(src, TRAIT_NO_TELEPORT, AI_ANCHOR_TRAIT)
 	status_flags &= ~CANPUSH //AI starts anchored, so dont push it
 
+	switch(L)
+		if(1)
+			laws.associate(src)
+		if(2)
+			laws = L
+		if(3)
+			laws.associate(src)
+		if(4)
+			laws = L
+		if(5)
+			laws.associate(src)
+		if(6)
+			laws = L
+		if(7)
+			laws.associate(src)
+		if(8)
+			laws = L
+		if(9)
+			laws.associate(src)
+		if(10)
+			laws = L
+		if(11)
+			laws.associate(src)
+		if(12)
+			laws = L
+		if(13)
+			laws.associate(src)
+		if(14)
+			laws = L
+		if(15)
+			laws.associate(src)
+		if(16)
+			laws = L
+		if(17)
+			laws.associate(src)
+		if(18)
+			laws = L
+
 	if(L && istype(L, /datum/ai_laws))
 		laws = L
 		laws.associate(src)
